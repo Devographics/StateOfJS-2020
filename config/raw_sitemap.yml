@@ -244,109 +244,18 @@
             - id: shadow_dom
               template: featureExperienceTemplate
 
-#       - id: animations_transforms
-#         path: /animations-and-transforms
-#         blocks:
-#             - id: animations_transforms
-#               template: pageIntroductionTemplate
-#
-#             - id: transitions
-#               template: featureExperienceTemplate
-#
-#             - id: transforms
-#               template: featureExperienceTemplate
-#
-#             - id: sarasoueidan
-#               template: picksTemplate
-#
-#             - id: animations
-#               template: featureExperienceTemplate
-#
-#             - id: perspective
-#               template: featureExperienceTemplate
-#
-#       - id: media_queries
-#         path: /media-queries
-#         blocks:
-#             - id: media_queries
-#               template: pageIntroductionTemplate
-#
-#             - id: prefers_reduced_motion
-#               template: featureExperienceTemplate
-#
-#             - id: prefers_color_scheme
-#               template: featureExperienceTemplate
-#
-#             - id: color_gamut
-#               template: featureExperienceTemplate
-#
-#       - id: other_features
-#         path: /other-features
-#         blocks:
-#             - id: other_features
-#               template: pageIntroductionTemplate
-#
-#             - id: variables
-#               template: featureExperienceTemplate
-#
-#             - id: feature_support_queries
-#               template: featureExperienceTemplate
-#
-#             - id: containment
-#               template: featureExperienceTemplate
-#
-#             - id: argyleink
-#               template: picksTemplate
-#
-#             - id: will_change
-#               template: featureExperienceTemplate
-#
-#             - id: calc
-#               template: featureExperienceTemplate
-#
-#             - id: houdini
-#               template: featureExperienceTemplate
-#
-#             - id: comparison_functions
-#               template: featureExperienceTemplate
-#
-#             - items: [fm-layouts]
-#               template: recommendedResourcesTemplate
-#
-# - id: units_selectors
-#   path: /units-and-selectors
-#   i18nNamespace: features_others
-#   blocks:
-#       - id: units_selectors
-#         template: pageIntroductionTemplate
-#
-#       - id: units
-#         template: otherFeaturesTemplate
-#
-#       - id: pseudo_elements
-#         template: otherFeaturesTemplate
-#
-#       - id: combinators
-#         template: otherFeaturesTemplate
-#
-#       - id: tree_document_structure
-#         template: otherFeaturesTemplate
-#
-#       - id: kilianvalkhof
-#         template: picksTemplate
-#
-#       - id: attributes
-#         template: otherFeaturesTemplate
-#
-#       - id: links_urls
-#         template: otherFeaturesTemplate
-#
-#       - id: interaction
-#         template: otherFeaturesTemplate
-#
-#       - id: form_controls
-#         template: otherFeaturesTemplate
-#
+      - id: other_features
+        path: /other-features
+        blocks:
+            - id: other_features
+              template: pageIntroductionTemplate
+
+            - id: pwa
+              template: featureExperienceTemplate
+
+            - id: wasm
+              template: featureExperienceTemplate
+
 # - id: technologies
 #   path: /technologies
 #   blocks:
