@@ -160,36 +160,33 @@
             - items: [fm-gridsflexbox]
               template: recommendedResourcesTemplate
 
-#       - id: shapes_graphics
-#         path: /shapes-and-graphics
-#         blocks:
-#             - id: shapes_graphics
-#               template: pageIntroductionTemplate
-#
-#             - id: shapes
-#               template: featureExperienceTemplate
-#
-#             - id: object_fit
-#               template: featureExperienceTemplate
-#
-#             - id: clip_path
-#               template: featureExperienceTemplate
-#
-#             - id: masks
-#               template: featureExperienceTemplate
-#
-#             - id: blend_modes
-#               template: featureExperienceTemplate
-#
-#             - id: filter_effects
-#               template: featureExperienceTemplate
-#
-#             - id: backdrop_filter
-#               template: featureExperienceTemplate
-#
-#             - items: [fm-svg]
-#               template: recommendedResourcesTemplate
-#
+      - id: language
+        path: /language
+        blocks:
+            - id: language
+              template: pageIntroductionTemplate
+
+            - id: proxies
+              template: featureExperienceTemplate
+
+            - id: async_await
+              template: featureExperienceTemplate
+
+            - id: promises
+              template: featureExperienceTemplate
+
+            - id: decorators
+              template: featureExperienceTemplate
+
+            - id: promise_all_settled
+              template: featureExperienceTemplate
+
+            - id: dynamic_import
+              template: featureExperienceTemplate
+
+            - items: [fm-svg]
+              template: recommendedResourcesTemplate
+
 #       - id: interactions
 #         path: /interactions
 #         blocks:
