@@ -199,39 +199,51 @@
             - id: big_int
               template: featureExperienceTemplate
 
-#       - id: typography
-#         path: /typography
-#         blocks:
-#             - id: typography
-#               template: pageIntroductionTemplate
-#
-#             - id: web_fonts
-#               template: featureExperienceTemplate
-#
-#             - id: line_breaking
-#               template: featureExperienceTemplate
-#
-#             - id: font_variant
-#               template: featureExperienceTemplate
-#
-#             - id: piccalilli_
-#               template: picksTemplate
-#
-#             - id: initial_letter
-#               template: featureExperienceTemplate
-#
-#             - id: font_variant_numeric
-#               template: featureExperienceTemplate
-#
-#             - id: font_display
-#               template: featureExperienceTemplate
-#
-#             - id: line_clamp
-#               template: featureExperienceTemplate
-#
-#             - items: [fm-typography]
-#               template: recommendedResourcesTemplate
-#
+      - id: browser_apis
+        path: /browser-apis
+        blocks:
+            - id: browser_apis
+              template: pageIntroductionTemplate
+
+            - id: service_workers
+              template: featureExperienceTemplate
+
+            - id: local_storage
+              template: featureExperienceTemplate
+
+            - id: intl
+              template: featureExperienceTemplate
+
+            - id: web_audio
+              template: featureExperienceTemplate
+
+            - id: webgl
+              template: featureExperienceTemplate
+
+            - id: web_animations
+              template: featureExperienceTemplate
+
+            - id: webrtc
+              template: featureExperienceTemplate
+
+            - id: web_speech
+              template: featureExperienceTemplate
+
+            - id: webvr
+              template: featureExperienceTemplate
+
+            - id: websocket
+              template: featureExperienceTemplate
+
+            - id: fetch
+              template: featureExperienceTemplate
+
+            - id: custom_elements
+              template: featureExperienceTemplate
+
+            - id: shadow_dom
+              template: featureExperienceTemplate
+
 #       - id: animations_transforms
 #         path: /animations-and-transforms
 #         blocks:
