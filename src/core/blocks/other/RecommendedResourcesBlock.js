@@ -34,7 +34,11 @@ const RecommendedResourcesBlock = ({ block, data }) => {
     return (
         <div className="Block">
             <div className="resources">
-                <BlockTitle block={{ ...block, showDescription: false }} isExportable={false} isShareable={false} />
+                <BlockTitle
+                    block={{ ...block, showDescription: false }}
+                    isExportable={false}
+                    isShareable={false}
+                />
                 <List className="Resources__list">
                     {sectionResources.map((resource) => {
                         const url = resource.url.includes('utm_source')

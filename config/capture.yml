@@ -1,7 +1,7 @@
 #baseUrl: http://localhost:9000
 baseUrl: https://2020.stateofcss.com
 mosaic:
-  thumb_width: 500
-  thumb_height: 400
-  columns: 14
-  background: 0x232840FF
+    thumb_width: 500
+    thumb_height: 400
+    columns: 14
+    background: 0x232840FF

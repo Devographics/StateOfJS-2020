@@ -100,7 +100,7 @@
 
       - items: [fm-homepage]
         template: recommendedResourcesTemplate
-        
+
 #- id: overview
 #  path: /overview
 #  blocks:
