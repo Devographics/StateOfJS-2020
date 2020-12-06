@@ -256,47 +256,46 @@
             - id: wasm
               template: featureExperienceTemplate
 
-# - id: technologies
-#   path: /technologies
-#   blocks:
-#       - id: technologiesIntroduction
-#         template: pageIntroductionTemplate
-#
-#       - id: scatterplotOverview
-#         template: scatterplotOverviewTemplate
-#   children:
-#       - id: pre_post_processors
-#         path: /pre-post-processors
-#         variables:
-#             toolIds: ${toolsCategories.pre_post_processors}
-#         blocks:
-#             - template: pageIntroductionTemplate
-#
-#             - template: toolsExperienceRankingTemplate
-#
-#             - template: toolsSectionStreamsTemplate
-#
-#             - template: toolsExperienceMarimekkoTemplate
-#
-#             - template: toolsUsageVariationsTemplate
-#
-#             - id: sass
-#               template: toolExperienceTemplate
-#             - id: less
-#               template: toolExperienceTemplate
-#             - id: post_css
-#               template: toolExperienceTemplate
-#             - id: stylus
-#               template: toolExperienceTemplate
-#
-#             - template: sectionOtherToolsTemplate
-#
-#             - template: happinessTemplate
-#
-#             - items: [fm-sass]
-#               template: recommendedResourcesTemplate
-#
-#
+- id: technologies
+  path: /technologies
+  blocks:
+      - id: technologiesIntroduction
+        template: pageIntroductionTemplate
+
+      # - id: scatterplotOverview
+      #   template: scatterplotOverviewTemplate
+
+  children:
+      - id: javascript_flavors
+        path: /javascript-flavors
+        variables:
+            toolIds: ${toolsCategories.javascript_flavors}
+        blocks:
+            - template: pageIntroductionTemplate
+
+            - template: toolsExperienceRankingTemplate
+
+            - template: toolsSectionStreamsTemplate
+
+            - template: toolsExperienceMarimekkoTemplate
+
+            # - template: toolsUsageVariationsTemplate
+
+            - id: typescript
+              template: toolExperienceTemplate
+            - id: reason
+              template: toolExperienceTemplate
+            - id: elm
+              template: toolExperienceTemplate
+            - id: clojurescript
+              template: toolExperienceTemplate
+            - id: purescript
+              template: toolExperienceTemplate
+
+            - template: sectionOtherToolsTemplate
+
+            - template: happinessTemplate
+
 #       - id: css_frameworks
 #         path: /css-frameworks
 #         variables:

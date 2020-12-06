@@ -89,11 +89,12 @@ featuresCategories:
         - wasm
 
 allTools:
-    # pre_post_processors
-    - sass
-    - less
-    - post_css
-    - stylus
+    # javascript_flavors
+    - typescript
+    - reason
+    - elm
+    - clojurescript
+    - purescript
 
     # css_frameworks
     - bootstrap
@@ -133,6 +134,13 @@ allTools:
     - astroturf
 
 toolsCategories:
+    javascript_flavors:
+        - typescript
+        - reason
+        - elm
+        - clojurescript
+        - purescript
+
     pre_post_processors:
         - sass
         - less
