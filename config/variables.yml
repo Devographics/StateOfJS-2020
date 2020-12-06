@@ -3,109 +3,90 @@ surveyType: state_of_js
 currentYear: 2020
 
 allFeatures:
-    - grid
-    - subgrid
-    - flexbox
-    - multi_column
-    - writing_modes
-    - exclusions
-    - position_sticky
-    - logical_properties
-    - aspect_ratio
-    - content_visibility
+    # syntax
+    - destructuring
+    - spread_operator
+    - arrow_functions
+    - nullish_coalescing
+    - optional_chaining
+    - private_fields
 
-    - shapes
-    - object_fit
-    - clip_path
-    - masks
-    - blend_modes
-    - filter_effects
-    - backdrop_filter
+    # language
+    - proxies
+    - async_await
+    - promises
+    - decorators
+    - promise_all_settled
+    - dynamic_import
 
-    - scroll_snap
-    - overscroll_behavior
-    - overflow_anchor
-    - touch_action
-    - pointer_events
+    # data_structures
+    - maps
+    - sets
+    - typed_arrays
+    - array_prototype_flat
+    - big_int
 
-    - web_fonts
-    # - variables_fonts
-    - line_breaking
-    - font_variant
-    - initial_letter
-    - font_variant_numeric
-    - font_display
-    - line_clamp
+    # browser_apis
+    - service_workers
+    - local_storage
+    - intl
+    - web_audio
+    - webgl
+    - web_animations
+    - webrtc
+    - web_speech
+    - webvr
+    - websocket
+    - fetch
+    - custom_elements
+    - shadow_dom
 
-    - transitions
-    - transforms
-    - animations
-    - perspective
-
-    - prefers_reduced_motion
-    - prefers_color_scheme
-    - color_gamut
-
-    - variables
-    - feature_support_queries
-    - containment
-    - will_change
-    - calc
-    - houdini
-    - comparison_functions
+    # other_features
+    - pwa
+    - wasm
 
 featuresCategories:
-    layout:
-        - grid
-        - subgrid
-        - flexbox
-        - multi_column
-        - writing_modes
-        - exclusions
-        - position_sticky
-        - logical_properties
-        - aspect_ratio
-        - content_visibility
-    shapes_graphics:
-        - shapes
-        - object_fit
-        - clip_path
-        - masks
-        - blend_modes
-        - filter_effects
-        - backdrop_filter
-    interactions:
-        - scroll_snap
-        - overscroll_behavior
-        - overflow_anchor
-        - touch_action
-        - pointer_events
-    typography:
-        - web_fonts
-        # - variables_fonts
-        - line_breaking
-        - font_variant
-        - initial_letter
-        - font_variant_numeric
-        - font_display
-        - line_clamp
-    animations_transforms:
-        - transitions
-        - transforms
-        - animations
-        - perspective
-    media_queries:
-        - prefers_reduced_motion
-        - prefers_color_scheme
-        - color_gamut
+    syntax:
+        - destructuring
+        - spread_operator
+        - arrow_functions
+        - nullish_coalescing
+        - optional_chaining
+        - private_fields
+
+    language:
+        - proxies
+        - async_await
+        - promises
+        - decorators
+        - promise_all_settled
+        - dynamic_import
+
+    data_structures:
+        - maps
+        - sets
+        - typed_arrays
+        - array_prototype_flat
+        - big_int
+
+    browser_apis:
+        - service_workers
+        - local_storage
+        - intl
+        - web_audio
+        - webgl
+        - web_animations
+        - webrtc
+        - web_speech
+        - webvr
+        - websocket
+        - fetch
+        - custom_elements
+        - shadow_dom
+
     other_features:
-        - variables
-        - feature_support_queries
-        - containment
-        - will_change
-        - calc
-        - houdini
-        - comparison_functions
+        - pwa
+        - wasm
 
 allTools:
     # pre_post_processors

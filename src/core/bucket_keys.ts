@@ -20,12 +20,10 @@ export type SimplifiedFeatureExperienceId = 'know_it' | 'used_it'
 
 // should be updated depending on the survey
 export type FeaturesSectionId =
-    | 'layout'
-    | 'shapes_graphics'
-    | 'interactions'
-    | 'typography'
-    | 'animations_transforms'
-    | 'media_queries'
+    | 'syntax'
+    | 'language'
+    | 'data_structures'
+    | 'browser_apis'
     | 'other_features'
 
 export type GenderId = 'male' | 'female' | 'non_binary' | 'prefer_not_to_say'

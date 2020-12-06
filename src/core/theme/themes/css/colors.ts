@@ -42,13 +42,11 @@ const cssThemeColors: DefaultTheme['colors'] = {
             never_heard: colors.navyLighter,
         },
         featureSections: {
-            layout: colors.indigo,
-            shapes_graphics: colors.pink,
-            interactions: colors.red,
-            typography: colors.purple,
-            animations_transforms: colors.orange,
-            media_queries: colors.green,
-            other_features: colors.skyblue,
+            syntax: colors.indigo,
+            language: colors.pink,
+            data_structures: colors.red,
+            browser_apis: colors.purple,
+            other_features: colors.orange,
         },
         features_simplified: {
             know_it: '#ACFFC3',
