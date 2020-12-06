@@ -151,14 +151,8 @@
             - id: optional_chaining
               template: featureExperienceTemplate
 
-            - id: shadeed9
-              template: picksTemplate
-
             - id: private_fields
               template: featureExperienceTemplate
-
-            - items: [fm-gridsflexbox]
-              template: recommendedResourcesTemplate
 
       - id: language
         path: /language
@@ -184,33 +178,27 @@
             - id: dynamic_import
               template: featureExperienceTemplate
 
-            - items: [fm-svg]
-              template: recommendedResourcesTemplate
+      - id: data_structures
+        path: /data-structures
+        blocks:
+            - id: data_structures
+              template: pageIntroductionTemplate
 
-#       - id: interactions
-#         path: /interactions
-#         blocks:
-#             - id: interactions
-#               template: pageIntroductionTemplate
-#
-#             - id: scroll_snap
-#               template: featureExperienceTemplate
-#
-#             - id: overscroll_behavior
-#               template: featureExperienceTemplate
-#
-#             - id: walterstephanie
-#               template: picksTemplate
-#
-#             - id: overflow_anchor
-#               template: featureExperienceTemplate
-#
-#             - id: touch_action
-#               template: featureExperienceTemplate
-#
-#             - id: pointer_events
-#               template: featureExperienceTemplate
-#
+            - id: maps
+              template: featureExperienceTemplate
+
+            - id: sets
+              template: featureExperienceTemplate
+
+            - id: typed_arrays
+              template: featureExperienceTemplate
+
+            - id: array_prototype_flat
+              template: featureExperienceTemplate
+
+            - id: big_int
+              template: featureExperienceTemplate
+
 #       - id: typography
 #         path: /typography
 #         blocks:
