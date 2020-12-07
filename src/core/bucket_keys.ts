@@ -15,6 +15,7 @@ export type ToolsSectionId =
     | 'back_end_frameworks'
     | 'testing'
     | 'build_tools'
+    | 'mobile_desktop'
 
 export type FeatureExperienceId = 'used' | 'heard' | 'never_heard'
 

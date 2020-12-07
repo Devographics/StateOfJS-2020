@@ -152,6 +152,17 @@ allTools:
     - swc
     - esbuild
 
+    # mobile_desktop
+    - electron
+    - react_native
+    - native_apps
+    - cordova
+    - ionic
+    - capacitor
+    - nwjs
+    - expo
+    - quasar
+
 toolsCategories:
     javascript_flavors:
         - typescript
@@ -215,3 +226,14 @@ toolsCategories:
         - snowpack
         - swc
         - esbuild
+
+    mobile_desktop:
+        - electron
+        - react_native
+        - native_apps
+        - cordova
+        - ionic
+        - capacitor
+        - nwjs
+        - expo
+        - quasar

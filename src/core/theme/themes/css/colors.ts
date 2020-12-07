@@ -37,6 +37,7 @@ const cssThemeColors: DefaultTheme['colors'] = {
             back_end_frameworks: colors.purple,
             testing: colors.orange,
             build_tools: colors.yellow,
+            mobile_desktop: colors.green,
         },
         features: {
             used: colors.blue,

@@ -405,78 +405,114 @@
       - id: testing
         path: /testing
         variables:
-          toolIds: ${toolsCategories.testing}
+            toolIds: ${toolsCategories.testing}
         blocks:
-          - template: pageIntroductionTemplate
+            - template: pageIntroductionTemplate
 
-          - template: toolsExperienceRankingTemplate
+            - template: toolsExperienceRankingTemplate
 
-          - template: toolsSectionStreamsTemplate
+            - template: toolsSectionStreamsTemplate
 
-          - template: toolsExperienceMarimekkoTemplate
+            - template: toolsExperienceMarimekkoTemplate
 
-          - id: jest
-            template: toolExperienceTemplate
-          - id: mocha
-            template: toolExperienceTemplate
-          - id: storybook
-            template: toolExperienceTemplate
-          - id: cypress
-            template: toolExperienceTemplate
-          - id: ava
-            template: toolExperienceTemplate
-          - id: jasmine
-            template: toolExperienceTemplate
-          - id: puppeteer
-            template: toolExperienceTemplate
-          - id: testing_library
-            template: toolExperienceTemplate
-          - id: playwright
-            template: toolExperienceTemplate
-          - id: webdriverio
-            template: toolExperienceTemplate
+            - id: jest
+              template: toolExperienceTemplate
+            - id: mocha
+              template: toolExperienceTemplate
+            - id: storybook
+              template: toolExperienceTemplate
+            - id: cypress
+              template: toolExperienceTemplate
+            - id: ava
+              template: toolExperienceTemplate
+            - id: jasmine
+              template: toolExperienceTemplate
+            - id: puppeteer
+              template: toolExperienceTemplate
+            - id: testing_library
+              template: toolExperienceTemplate
+            - id: playwright
+              template: toolExperienceTemplate
+            - id: webdriverio
+              template: toolExperienceTemplate
 
-          - template: sectionOtherToolsTemplate
+            - template: sectionOtherToolsTemplate
 
-          - template: happinessTemplate
+            - template: happinessTemplate
 
       - id: build_tools
         path: /build-tools
         variables:
-          toolIds: ${toolsCategories.build_tools}
+            toolIds: ${toolsCategories.build_tools}
         blocks:
-          - template: pageIntroductionTemplate
+            - template: pageIntroductionTemplate
 
-          - template: toolsExperienceRankingTemplate
+            - template: toolsExperienceRankingTemplate
 
-          - template: toolsSectionStreamsTemplate
+            - template: toolsSectionStreamsTemplate
 
-          - template: toolsExperienceMarimekkoTemplate
+            - template: toolsExperienceMarimekkoTemplate
 
-          - id: webpack
-            template: toolExperienceTemplate
-          - id: parcel
-            template: toolExperienceTemplate
-          - id: gulp
-            template: toolExperienceTemplate
-          - id: rollup
-            template: toolExperienceTemplate
-          - id: browserify
-            template: toolExperienceTemplate
-          - id: tsc
-            template: toolExperienceTemplate
-          - id: rome
-            template: toolExperienceTemplate
-          - id: snowpack
-            template: toolExperienceTemplate
-          - id: swc
-            template: toolExperienceTemplate
-          - id: esbuild
-            template: toolExperienceTemplate
+            - id: webpack
+              template: toolExperienceTemplate
+            - id: parcel
+              template: toolExperienceTemplate
+            - id: gulp
+              template: toolExperienceTemplate
+            - id: rollup
+              template: toolExperienceTemplate
+            - id: browserify
+              template: toolExperienceTemplate
+            - id: tsc
+              template: toolExperienceTemplate
+            - id: rome
+              template: toolExperienceTemplate
+            - id: snowpack
+              template: toolExperienceTemplate
+            - id: swc
+              template: toolExperienceTemplate
+            - id: esbuild
+              template: toolExperienceTemplate
 
-          - template: sectionOtherToolsTemplate
+            - template: sectionOtherToolsTemplate
 
-          - template: happinessTemplate
+            - template: happinessTemplate
+
+      - id: mobile_desktop
+        path: /mobile-desktop
+        variables:
+            toolIds: ${toolsCategories.mobile_desktop}
+        blocks:
+            - template: pageIntroductionTemplate
+
+            - template: toolsExperienceRankingTemplate
+
+            - template: toolsSectionStreamsTemplate
+
+            - template: toolsExperienceMarimekkoTemplate
+
+            - id: electron
+              template: toolExperienceTemplate
+            - id: react_native
+              template: toolExperienceTemplate
+            - id: native_apps
+              template: toolExperienceTemplate
+            - id: cordova
+              template: toolExperienceTemplate
+            - id: ionic
+              template: toolExperienceTemplate
+            - id: capacitor
+              template: toolExperienceTemplate
+            - id: nwjs
+              template: toolExperienceTemplate
+            - id: expo
+              template: toolExperienceTemplate
+            - id: quasar
+              template: toolExperienceTemplate
+
+            - template: sectionOtherToolsTemplate
+
+            - template: happinessTemplate
 
 #   path: /other-tools
 #   blocks:
