@@ -55,6 +55,11 @@ const TickItem = (tick) => {
             label = name
         }
         link = homepage || (github && github.url)
+
+        // @todo: remove this once all entities have been added
+        if (!label) {
+            label = value
+        }
     } else {
         label = value
     }
