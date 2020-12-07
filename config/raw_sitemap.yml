@@ -368,58 +368,42 @@
 
             - template: happinessTemplate
 
-#       - id: css_in_js
-#         path: /css-in-js
-#         variables:
-#             toolIds: ${toolsCategories.css_in_js}
-#         blocks:
-#             - template: pageIntroductionTemplate
-#
-#             - template: toolsExperienceRankingTemplate
-#
-#             - template: toolsSectionStreamsTemplate
-#
-#             - template: toolsExperienceMarimekkoTemplate
-#
-#             - template: toolsUsageVariationsTemplate
-#
-#             - id: styled_components
-#               template: toolExperienceTemplate
-#             - id: jss
-#               template: toolExperienceTemplate
-#             - id: styled_jsx
-#               template: toolExperienceTemplate
-#             - id: radium
-#               template: toolExperienceTemplate
-#             - id: emotion
-#               template: toolExperienceTemplate
-#             - id: css_modules
-#               template: toolExperienceTemplate
-#             - id: styled_system
-#               template: toolExperienceTemplate
-#
-#             - id: hugogiraudel
-#               template: picksTemplate
-#
-#             - id: stitches
-#               template: toolExperienceTemplate
-#             - id: styletron
-#               template: toolExperienceTemplate
-#             - id: fela
-#               template: toolExperienceTemplate
-#             - id: linaria
-#               template: toolExperienceTemplate
-#             - id: astroturf
-#               template: toolExperienceTemplate
-#
-#             - template: sectionOtherToolsTemplate
-#
-#             - template: happinessTemplate
-#
-#             - items: [fm-react]
-#               template: recommendedResourcesTemplate
-#
-# - id: tools_others
+      - id: back_end_frameworks
+        path: /back-end-frameworks
+        variables:
+            toolIds: ${toolsCategories.back_end_frameworks}
+        blocks:
+            - template: pageIntroductionTemplate
+
+            - template: toolsExperienceRankingTemplate
+
+            - template: toolsSectionStreamsTemplate
+
+            - template: toolsExperienceMarimekkoTemplate
+
+            # - template: toolsUsageVariationsTemplate
+
+            - id: koa
+              template: toolExperienceTemplate
+            - id: meteor
+              template: toolExperienceTemplate
+            - id: nuxt
+              template: toolExperienceTemplate
+            - id: gatsby
+              template: toolExperienceTemplate
+            - id: nest
+              template: toolExperienceTemplate
+            - id: strapi
+              template: toolExperienceTemplate
+            - id: fastify
+              template: toolExperienceTemplate
+            - id: hapi
+              template: toolExperienceTemplate
+
+            - template: sectionOtherToolsTemplate
+
+            - template: happinessTemplate
+
 #   path: /other-tools
 #   blocks:
 #       - id: tools_others_intro

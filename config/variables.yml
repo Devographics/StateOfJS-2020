@@ -116,6 +116,18 @@ allTools:
     - xstate
     - vuex
 
+    # back_end_frameworks
+    - express
+    - nextjs
+    - koa
+    - meteor
+    - nuxt
+    - gatsby
+    - nest
+    - strapi
+    - fastify
+    - hapi
+
 toolsCategories:
     javascript_flavors:
         - typescript
@@ -143,3 +155,15 @@ toolsCategories:
         - relay
         - xstate
         - vuex
+
+    back_end_frameworks:
+        - express
+        - nextjs
+        - koa
+        - meteor
+        - nuxt
+        - gatsby
+        - nest
+        - strapi
+        - fastify
+        - hapi

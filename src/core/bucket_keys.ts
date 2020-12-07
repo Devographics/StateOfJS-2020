@@ -12,6 +12,7 @@ export type ToolsSectionId =
     | 'javascript_flavors'
     | 'front_end_frameworks'
     | 'datalayer'
+    | 'back_end_frameworks'
 
 export type FeatureExperienceId = 'used' | 'heard' | 'never_heard'
 
