@@ -10,9 +10,7 @@ export type ToolExperienceId =
 // should be updated depending on the survey
 export type ToolsSectionId =
     | 'javascript_flavors'
-    | 'css_frameworks'
-    | 'css_methodologies'
-    | 'css_in_js'
+    | 'front_end_frameworks'
 
 export type FeatureExperienceId = 'used' | 'heard' | 'never_heard'
 

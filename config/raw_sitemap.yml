@@ -296,56 +296,44 @@
 
             - template: happinessTemplate
 
-#       - id: css_frameworks
-#         path: /css-frameworks
-#         variables:
-#             toolIds: ${toolsCategories.css_frameworks}
-#         blocks:
-#             - template: pageIntroductionTemplate
-#
-#             - template: toolsExperienceRankingTemplate
-#
-#             - template: toolsSectionStreamsTemplate
-#
-#             - template: toolsExperienceMarimekkoTemplate
-#
-#             - template: toolsUsageVariationsTemplate
-#
-#             - id: bootstrap
-#               template: toolExperienceTemplate
-#             - id: materialize_css
-#               template: toolExperienceTemplate
-#             - id: ant_design
-#               template: toolExperienceTemplate
-#             - id: semantic_ui
-#               template: toolExperienceTemplate
-#             - id: bulma
-#               template: toolExperienceTemplate
-#             - id: foundation
-#               template: toolExperienceTemplate
-#             - id: ui_kit
-#               template: toolExperienceTemplate
-#
-#             - id: christianoliff
-#               template: picksTemplate
-#
-#             - id: tachyons
-#               template: toolExperienceTemplate
-#             - id: primer
-#               template: toolExperienceTemplate
-#             - id: tailwind_css
-#               template: toolExperienceTemplate
-#             - id: pure_css
-#               template: toolExperienceTemplate
-#             - id: skeleton
-#               template: toolExperienceTemplate
-#             - id: spectre_css
-#               template: toolExperienceTemplate
-#
-#             - template: sectionOtherToolsTemplate
-#
-#             - template: happinessTemplate
-#
+      - id: front_end_frameworks
+        path: /front-end-frameworks
+        variables:
+            toolIds: ${toolsCategories.front_end_frameworks}
+        blocks:
+            - template: pageIntroductionTemplate
+
+            - template: toolsExperienceRankingTemplate
+
+            - template: toolsSectionStreamsTemplate
+
+            - template: toolsExperienceMarimekkoTemplate
+
+            # - template: toolsUsageVariationsTemplate
+
+            - id: react
+              template: toolExperienceTemplate
+            - id: vue
+              template: toolExperienceTemplate
+            - id: angular
+              template: toolExperienceTemplate
+            - id: preact
+              template: toolExperienceTemplate
+            - id: ember
+              template: toolExperienceTemplate
+            - id: svelte
+              template: toolExperienceTemplate
+            - id: alpinejs
+              template: toolExperienceTemplate
+            - id: litelement
+              template: toolExperienceTemplate
+            - id: stimulus
+              template: toolExperienceTemplate
+
+            - template: sectionOtherToolsTemplate
+
+            - template: happinessTemplate
+
 #       - id: css_methodologies
 #         path: /methodologies
 #         variables:
