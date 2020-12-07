@@ -107,6 +107,15 @@ allTools:
     - litelement
     - stimulus
 
+    # datalayer
+    - redux
+    - apollo
+    - graphql
+    - mobx
+    - relay
+    - xstate
+    - vuex
+
 toolsCategories:
     javascript_flavors:
         - typescript
@@ -125,3 +134,12 @@ toolsCategories:
         - alpinejs
         - litelement
         - stimulus
+
+    datalayer:
+        - redux
+        - apollo
+        - graphql
+        - mobx
+        - relay
+        - xstate
+        - vuex

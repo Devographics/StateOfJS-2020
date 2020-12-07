@@ -334,45 +334,40 @@
 
             - template: happinessTemplate
 
-#       - id: css_methodologies
-#         path: /methodologies
-#         variables:
-#             toolIds: ${toolsCategories.css_methodologies}
-#         blocks:
-#             - template: pageIntroductionTemplate
-#
-#             - template: toolsExperienceRankingTemplate
-#
-#             - template: toolsSectionStreamsTemplate
-#
-#             - template: toolsExperienceMarimekkoTemplate
-#
-#             - template: toolsUsageVariationsTemplate
-#
-#             - id: bem
-#               template: toolExperienceTemplate
-#             - id: atomic_css
-#               template: toolExperienceTemplate
-#             - id: oocss
-#               template: toolExperienceTemplate
-#
-#             - id: sachagreif
-#               template: picksTemplate
-#
-#             - id: smacss
-#               template: toolExperienceTemplate
-#             - id: it_css
-#               template: toolExperienceTemplate
-#             - id: cube_css
-#               template: toolExperienceTemplate
-#
-#             - template: sectionOtherToolsTemplate
-#
-#             - template: happinessTemplate
-#
-#             - items: [fm-smacss]
-#               template: recommendedResourcesTemplate
-#
+      - id: datalayer
+        path: /datalayer
+        variables:
+            toolIds: ${toolsCategories.datalayer}
+        blocks:
+            - template: pageIntroductionTemplate
+
+            - template: toolsExperienceRankingTemplate
+
+            - template: toolsSectionStreamsTemplate
+
+            - template: toolsExperienceMarimekkoTemplate
+
+            # - template: toolsUsageVariationsTemplate
+
+            - id: redux
+              template: toolExperienceTemplate
+            - id: apollo
+              template: toolExperienceTemplate
+            - id: graphql
+              template: toolExperienceTemplate
+            - id: mobx
+              template: toolExperienceTemplate
+            - id: relay
+              template: toolExperienceTemplate
+            - id: xstate
+              template: toolExperienceTemplate
+            - id: vuex
+              template: toolExperienceTemplate
+
+            - template: sectionOtherToolsTemplate
+
+            - template: happinessTemplate
+
 #       - id: css_in_js
 #         path: /css-in-js
 #         variables:
