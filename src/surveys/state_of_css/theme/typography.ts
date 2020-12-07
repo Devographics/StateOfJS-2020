@@ -1,6 +1,6 @@
 import { DefaultTheme } from 'styled-components'
 
-const cssThemeTypography: DefaultTheme['typography'] = {
+const stateOfCSSThemeTypography: DefaultTheme['typography'] = {
     fontFamily: `'IBM Plex Mono', monospace`,
     rootSize: {
         mobile: '13px',
@@ -22,4 +22,4 @@ const cssThemeTypography: DefaultTheme['typography'] = {
     },
 }
 
-export default cssThemeTypography
+export default stateOfCSSThemeTypography

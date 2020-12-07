@@ -25,7 +25,7 @@ const ThemedLayout = ({
     closeSidebar,
     props,
 }) => {
-    const [themeId, setThemeId] = useState('css')
+    const [themeId, setThemeId] = useState('js')
 
     const switchTheme = useCallback(
         (event) => {

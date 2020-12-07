@@ -1,7 +1,7 @@
 import { DefaultTheme } from 'styled-components'
 import colors from 'core/theme/colors'
 
-const cssThemeColors: DefaultTheme['colors'] = {
+const stateOfCSSThemeColors: DefaultTheme['colors'] = {
     background: colors.navy,
     backgroundBackground: colors.navyDark,
     backgroundForeground: colors.navyLighter,
@@ -94,4 +94,4 @@ const cssThemeColors: DefaultTheme['colors'] = {
     ],
 }
 
-export default cssThemeColors
+export default stateOfCSSThemeColors

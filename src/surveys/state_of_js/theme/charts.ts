@@ -3,11 +3,9 @@ import defaultsDeep from 'lodash/defaultsDeep'
 import charts from 'core/theme/charts'
 import baseColors from 'core/theme/colors'
 import colors from './colors'
-import typography from './typography'
 
-const cssThemeCharts: DefaultTheme['charts'] = defaultsDeep(
+const stateOfJSThemeCharts: DefaultTheme['charts'] = defaultsDeep(
     {
-        fontFamily: typography.fontFamily,
         axis: {
             ticks: {
                 line: {
@@ -26,29 +24,41 @@ const cssThemeCharts: DefaultTheme['charts'] = defaultsDeep(
         streamTimelineAxis: {
             ticks: {
                 line: {
-                    stroke: colors.text,
+                    stroke: baseColors.greyLight,
                 },
                 text: {
-                    fill: colors.text,
+                    fill: baseColors.greyLight,
                 },
             },
         },
-        tooltip: {
-            container: {
-                fontSize: 14,
-                background: baseColors.greyLight,
-                color: baseColors.blueDark,
-                borderRadius: 0,
-                boxShadow: `9px 9px 0 rgba(0, 0, 0, 0.15)`,
+        grid: {
+            line: {
+                stroke: baseColors.greyMedium,
             },
         },
         legends: {
             text: {
-                fill: colors.text,
+                fill: baseColors.greyLight,
+            },
+        },
+        tooltip: {
+            container: {
+                background: baseColors.greyLight,
+                color: baseColors.blueDark,
+            },
+        },
+        labels: {
+            text: {
+                fill: baseColors.navyDark,
+            },
+        },
+        dots: {
+            text: {
+                fill: baseColors.greyDark,
             },
         },
     },
     charts
 )
 
-export default cssThemeCharts
+export default stateOfJSThemeCharts

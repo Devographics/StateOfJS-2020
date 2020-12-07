@@ -1,9 +1,10 @@
-import typography from './typography'
-import dimensions from './dimensions'
+import { DefaultTheme } from 'styled-components'
 import colors from './colors'
+import dimensions from './dimensions'
+import typography from './typography'
 import charts from './charts'
 
-export default {
+export const stateOfJSTheme: DefaultTheme = {
     typography,
     dimensions,
     colors,

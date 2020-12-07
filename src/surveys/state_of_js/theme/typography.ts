@@ -1,4 +1,7 @@
-export default {
+import { DefaultTheme } from 'styled-components'
+
+const stateOfJSThemeTypography: DefaultTheme['typography'] = {
+    fontFamily: `'IBM Plex Mono', monospace`,
     rootSize: {
         mobile: '13px',
         desktop: '17px',
@@ -18,3 +21,5 @@ export default {
         bold: 800,
     },
 }
+
+export default stateOfJSThemeTypography
