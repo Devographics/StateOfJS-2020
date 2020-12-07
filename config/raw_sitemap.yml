@@ -101,22 +101,6 @@
       - items: [fm-homepage]
         template: recommendedResourcesTemplate
 
-#- id: overview
-#  path: /overview
-#  blocks:
-#      - id: overviewIntroduction
-#        template: pageIntroductionTemplate
-#        variables:
-#            pageId: '${id}'
-#      - id: toolsArrow
-#        template: toolsArrowsTemplate
-#      - id: scatterplotOverview
-#        template: scatterplotOverviewTemplate
-#      - id: overview_recommended_resources
-#        template: recommendedResourcesTemplate
-#        sponsors:
-#            - fullstack-d3
-
 - id: features
   path: /features
   blocks:
@@ -570,40 +554,31 @@
       - id: podcasts_others
         template: resourcesFreeFormTemplate
 
-# - id: opinions
-#   path: /opinions
-#   blocks:
-#       - template: pageIntroductionTemplate
-#
-#       - id: css_easy_to_learn
-#         template: opinionTemplate
-#
-#       - id: css_evolving_slowly
-#         template: opinionTemplate
-#
-#       - id: utility_classes_to_be_avoided
-#         template: opinionTemplate
-#
-#       - id: selector_nesting_to_be_avoided
-#         template: opinionTemplate
-#
-#       - id: jina
-#         template: picksTemplate
-#
-#       - id: css_is_programming_language
-#         template: opinionTemplate
-#
-#       - id: enjoy_writing_css
-#         template: opinionTemplate
-#
-#       - id: state_of_the_web
-#         template: opinionHappinessTemplate
-#
-#       - id: state_of_css
-#         template: opinionHappinessTemplate
-#
-#       - id: currently_missing_from_css
-#         template: opinionsOthersTemplate
+- id: opinions
+  path: /opinions
+  blocks:
+      - template: pageIntroductionTemplate
+
+      - id: js_moving_in_right_direction
+        template: opinionTemplate
+      - id: building_js_apps_overly_complex
+        template: opinionTemplate
+      - id: js_over_used_online
+        template: opinionTemplate
+      - id: enjoy_building_js_apps
+        template: opinionTemplate
+      - id: would_like_js_to_be_main_lang
+        template: opinionTemplate
+      - id: js_ecosystem_changing_to_fast
+        template: opinionTemplate
+
+      - id: state_of_the_web
+        template: opinionHappinessTemplate
+      - id: state_of_js
+        template: opinionHappinessTemplate
+
+      - id: missing_from_js
+        template: opinionsOthersTemplate
 #
 # - id: awards
 #   path: /awards
