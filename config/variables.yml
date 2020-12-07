@@ -128,6 +128,30 @@ allTools:
     - fastify
     - hapi
 
+    # testing
+    - jest
+    - mocha
+    - storybook
+    - cypress
+    - ava
+    - jasmine
+    - puppeteer
+    - testing_library
+    - playwright
+    - webdriverio
+
+    # build_tools
+    - webpack
+    - parcel
+    - gulp
+    - rollup
+    - browserify
+    - tsc
+    - rome
+    - snowpack
+    - swc
+    - esbuild
+
 toolsCategories:
     javascript_flavors:
         - typescript
@@ -167,3 +191,27 @@ toolsCategories:
         - strapi
         - fastify
         - hapi
+
+    testing:
+        - jest
+        - mocha
+        - storybook
+        - cypress
+        - ava
+        - jasmine
+        - puppeteer
+        - testing_library
+        - playwright
+        - webdriverio
+
+    build_tools:
+        - webpack
+        - parcel
+        - gulp
+        - rollup
+        - browserify
+        - tsc
+        - rome
+        - snowpack
+        - swc
+        - esbuild

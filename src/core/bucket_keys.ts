@@ -13,6 +13,8 @@ export type ToolsSectionId =
     | 'front_end_frameworks'
     | 'datalayer'
     | 'back_end_frameworks'
+    | 'testing'
+    | 'build_tools'
 
 export type FeatureExperienceId = 'used' | 'heard' | 'never_heard'
 

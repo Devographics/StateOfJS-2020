@@ -31,10 +31,12 @@ const cssThemeColors: DefaultTheme['colors'] = {
             never_heard: '#59608a',
         },
         toolSections: {
-            pre_post_processors: colors.indigo,
-            css_frameworks: colors.pink,
-            css_methodologies: colors.red,
-            css_in_js: colors.purple,
+            javascript_flavors: colors.indigo,
+            front_end_frameworks: colors.pink,
+            datalayer: colors.red,
+            back_end_frameworks: colors.purple,
+            testing: colors.orange,
+            build_tools: colors.yellow,
         },
         features: {
             used: colors.blue,
