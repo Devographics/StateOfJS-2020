@@ -262,8 +262,8 @@
       - id: technologiesIntroduction
         template: pageIntroductionTemplate
 
-      # - id: scatterplotOverview
-      #   template: scatterplotOverviewTemplate
+      - id: scatterplotOverview
+        template: scatterplotOverviewTemplate
 
   children:
       - id: javascript_flavors

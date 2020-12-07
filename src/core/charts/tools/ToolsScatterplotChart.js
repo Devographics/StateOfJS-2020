@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components'
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
 import { useI18n } from 'core/i18n/i18nContext'
 
-const totalCountRounded = 9000
+const totalCountRounded = 3500
 
 const labelPositions = {
     satisfaction: {
