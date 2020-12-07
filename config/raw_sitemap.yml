@@ -514,79 +514,62 @@
 
             - template: happinessTemplate
 
-#   path: /other-tools
-#   blocks:
-#       - id: tools_others_intro
-#         template: pageIntroductionTemplate
-#
-#       - id: utilities
-#         template: otherToolsTemplate
-#
-#       - id: utilities_others
-#         template: otherToolsFreeFormTemplate
-#
-#       - id: text_editors
-#         template: otherToolsTemplate
-#
-#       - id: foolip
-#         template: picksTemplate
-#
-#       - id: text_editors_others
-#         template: otherToolsFreeFormTemplate
-#
-#       - id: browsers
-#         template: otherToolsTemplate
-#
-#       - id: browsers_others
-#         template: otherToolsFreeFormTemplate
-#
-#       - items: [fm-storybook]
-#         template: recommendedResourcesTemplate
-#
-# - id: environments
-#   path: /environments
-#   blocks:
-#       - template: pageIntroductionTemplate
-#
-#       - id: browsers
-#         template: environmentTemplate
-#
-#       - id: form_factors
-#         translateData: true
-#         template: environmentTemplate
-#
-#       - id: css_for_print
-#         template: environmentRatingTemplate
-#
-#       - id: css_for_email
-#         template: environmentRatingTemplate
-#
-# - id: resources
-#   path: /resources
-#   blocks:
-#       - template: pageIntroductionTemplate
-#
-#       - id: blogs_news_magazines
-#         template: resourcesTemplate
-#
-#       - id: blogs_news_magazines_others
-#         template: resourcesFreeFormTemplate
-#
-#       - id: sites_courses
-#         template: resourcesTemplate
-#
-#       - id: 5t3ph
-#         template: picksTemplate
-#
-#       - id: sites_courses_others
-#         template: resourcesFreeFormTemplate
-#
-#       - id: podcasts
-#         template: resourcesTemplate
-#
-#       - id: podcasts_others
-#         template: resourcesFreeFormTemplate
-#
+      - id: other_tools
+        path: /other-tools
+        blocks:
+            - id: tools_others_intro
+              template: pageIntroductionTemplate
+
+            - id: libraries
+              template: otherToolsTemplate
+            - id: libraries_others
+              template: otherToolsFreeFormTemplate
+
+            - id: utilities
+              template: otherToolsTemplate
+            - id: utilities_others
+              template: otherToolsFreeFormTemplate
+
+            - id: runtimes
+              template: otherToolsTemplate
+            - id: runtimes_others
+              template: otherToolsFreeFormTemplate
+
+            - id: text_editors
+              template: otherToolsTemplate
+            - id: text_editors_others
+              template: otherToolsFreeFormTemplate
+
+            - id: browsers
+              template: otherToolsTemplate
+            - id: browsers_others
+              template: otherToolsFreeFormTemplate
+
+            - id: non_js_languages
+              template: otherToolsTemplate
+            - id: non_js_languages_others
+              template: otherToolsFreeFormTemplate
+
+- id: resources
+  path: /resources
+  blocks:
+      - template: pageIntroductionTemplate
+
+      - id: blogs_news_magazines
+        template: resourcesTemplate
+      - id: blogs_news_magazines_others
+        template: resourcesFreeFormTemplate
+
+      - id: sites_courses
+        template: resourcesTemplate
+      - id: sites_courses_others
+        template: resourcesFreeFormTemplate
+
+      - id: podcasts
+        template: resourcesTemplate
+      - id: podcasts_others
+        template: resourcesFreeFormTemplate
+
 # - id: opinions
 #   path: /opinions
 #   blocks:
