@@ -24,10 +24,10 @@ const stateOfJSThemeColors: DefaultTheme['colors'] = {
     },
     ranges: {
         tools: {
-            would_use: colors.red,
-            would_not_use: colors.redLight,
-            interested: colors.teal,
-            not_interested: colors.tealLight,
+            would_use: colors.teal,
+            would_not_use: colors.red,
+            interested: colors.tealLight,
+            not_interested: colors.redLight,
             never_heard: colors.greyMedium,
         },
         toolSections: {
