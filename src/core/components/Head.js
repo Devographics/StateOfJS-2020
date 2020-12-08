@@ -42,7 +42,7 @@ const Head = () => {
                 <link rel="shortcut icon" href="/images/favicon.png" />
                 <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin />
                 <link
-                    href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:300,300i,600"
+                    href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:300,300i,500,600"
                     rel="stylesheet"
                 />
             </Helmet>

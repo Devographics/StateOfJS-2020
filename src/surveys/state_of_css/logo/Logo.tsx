@@ -1,6 +1,13 @@
 import React from 'react'
 
-const Logo = ({ className, animated = true, showText = true, size = 'l' }) => (
+interface LogoProps {
+    className?: string
+    animated?: boolean
+    size?: string
+    showText?: boolean
+}
+
+export const Logo = ({ className, animated = true, showText = true, size = 'l' }: LogoProps) => (
     <div aria-hidden="true" className={`Logo__Container Logo--${size} ${className || ''}`}>
         <div className={`Logo ${animated ? 'Logo--animated' : ''}`}>
             <SVGFilter />
@@ -68,5 +75,3 @@ const SVGFilter = () => (
         </defs>
     </svg>
 )
-
-export default Logo
