@@ -111,7 +111,10 @@ const Link = styled.a`
         flex-grow: 1;
         text-align: center;
         padding: ${spacing()} ${spacing(0.33)};
-        border-right: ${({ theme }) => theme.separationBorder};
+
+        &:not(:last-child) {
+            border-right: ${({ theme }) => theme.separationBorder};
+        }
 
         &:hover {
             background: ${({ theme }) => theme.colors.backgroundAlt};
