@@ -42,7 +42,7 @@ import { ToolsUsageVariationsBlock } from 'core/blocks/tools/ToolsUsageVariation
 import HappinessBlock from 'core/blocks/happiness/HappinessBlock'
 
 // opinions
-import OpinionBlock from 'core/blocks/opinions/OpinionBlock'
+import { OpinionBlock } from 'core/blocks/opinions/OpinionBlock'
 
 const blockRegistry = {
     // generic chart blocks

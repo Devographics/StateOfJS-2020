@@ -1,4 +1,9 @@
-export interface BlockContext<BlockTemplate, BlockType, PageVariables, BlockVariables> {
+export interface BlockContext<
+    BlockTemplate,
+    BlockType,
+    PageVariables = unknown,
+    BlockVariables = unknown
+> {
     // unique identifier of the block, should be unique
     // for the whole survey
     id: string
