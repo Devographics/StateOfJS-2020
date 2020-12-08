@@ -32,7 +32,7 @@ export const getBlockTitle = (block, page, translate) => {
 }
 
 export const getBlockDescription = (block, page, translate) => {
-    return block.description || translate(`${getBlockDescriptionKey(block, page)}.description`)
+    return block.description || translate(`${getBlockDescriptionKey(block, page)}`, {}, null)
 }
 
 export const getBlockImage = (block, context) => {
