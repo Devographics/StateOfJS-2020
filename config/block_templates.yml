@@ -882,7 +882,7 @@ opinionTemplate:
         }
 
 opinionsOthersTemplate:
-    titleId: 'opinions_other.${id}.others'
+    titleId: 'opinions_others.${id}.others'
     blockType: HorizontalBarBlock
     dataPath: 'surveyApi.survey.${id}.year'
     showDescription: true
