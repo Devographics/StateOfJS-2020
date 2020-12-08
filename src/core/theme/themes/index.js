@@ -3,7 +3,7 @@ import { stateOfCSSTheme } from 'surveys/state_of_css/theme'
 import test from './test'
 
 export default {
-    js: stateOfJSTheme,
-    css: stateOfCSSTheme,
+    state_of_js: stateOfJSTheme,
+    state_of_css: stateOfCSSTheme,
     test,
 }

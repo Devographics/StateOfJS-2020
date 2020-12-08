@@ -14,8 +14,9 @@ import { EntitiesContextProvider } from './entities/entitiesContext'
 // import PageMetaDebug from './pages/PageMetaDebug'
 import themes from './theme/themes'
 import { GlobalStyle, mq, spacing } from './theme'
+import variables from '../../config/variables.yml'
 
-const themeIds = ['js', 'css', 'test']
+const themeIds = ['state_of_js', 'state_of_css', 'test']
 
 const ThemedLayout = ({
     context,
@@ -25,7 +26,7 @@ const ThemedLayout = ({
     closeSidebar,
     props,
 }) => {
-    const [themeId, setThemeId] = useState('js')
+    const [themeId, setThemeId] = useState(variables.surveyType)
 
     const switchTheme = useCallback(
         (event) => {
