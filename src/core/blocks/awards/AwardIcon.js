@@ -16,7 +16,7 @@ export const AwardIcon2 = () => (
                 <path d="M349.396 193.071L476.72 320.395L349.396 447.72L222.071 320.395L349.396 193.071Z" />
             </g>
             <g className="fg">
-                <text x="50%" y="50%" textAnchor="middle" alignmentBaseline="middle">
+                <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
                     ?
                 </text>
             </g>
