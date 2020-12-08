@@ -4,8 +4,9 @@ import Link from 'core/components/LocaleLink'
 import ShareSite from 'core/share/ShareSite'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, color, screenReadersOnlyMixin } from 'core/theme'
-import { SidebarLogo } from './SidebarLogo'
 import { Nav } from './Nav'
+import variables from '../../../../config/variables.yml'
+const { SidebarLogo } = require(`surveys/${variables.surveyType}/logo/SidebarLogo`)
 
 const CloseIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -78,7 +79,7 @@ const SidebarHeader = styled.div`
     display: grid;
     grid-template-columns: 0 1fr 0;
     grid-template-areas: 'left logo right';
-    border-bottom: 1px dashed ${color('border')};
+    border-bottom: ${(props) => props.theme.separationBorder};
 
     @media ${mq.smallMedium} {
         grid-template-columns: 50px 1fr 50px;
@@ -93,10 +94,6 @@ const SidebarLogoLink = styled(Link)`
 
     svg {
         max-height: 76px;
-    }
-
-    @media ${mq.large} {
-        padding: 5px 48px;
     }
 
     &:hover {
