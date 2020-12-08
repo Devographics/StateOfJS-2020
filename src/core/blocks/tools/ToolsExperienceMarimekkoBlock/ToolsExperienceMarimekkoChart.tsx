@@ -105,12 +105,12 @@ export const ToolsExperienceMarimekkoChart = (props: ToolsExperienceMarimekkoCha
                 value: experienceKeys.would_not_use.id,
             },
             {
-                id: translate(experienceKeys.interested.label),
-                value: experienceKeys.interested.id,
-            },
-            {
                 id: translate(experienceKeys.would_use.label),
                 value: experienceKeys.would_use.id,
+            },
+            {
+                id: translate(experienceKeys.interested.label),
+                value: experienceKeys.interested.id,
             },
         ],
         [translate]

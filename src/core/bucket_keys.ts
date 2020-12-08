@@ -242,14 +242,14 @@ export const keys = {
                 shortLabel: 'options.tools.not_interested.short',
             },
             {
-                id: 'interested',
-                label: 'options.tools.interested.legend',
-                shortLabel: 'options.tools.interested.short',
-            },
-            {
                 id: 'would_use',
                 label: 'options.tools.would_use.legend',
                 shortLabel: 'options.tools.would_use.short',
+            },
+            {
+                id: 'interested',
+                label: 'options.tools.interested.legend',
+                shortLabel: 'options.tools.interested.short',
             },
             {
                 id: 'never_heard',

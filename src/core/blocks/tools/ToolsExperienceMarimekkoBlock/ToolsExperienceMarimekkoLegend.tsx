@@ -33,19 +33,19 @@ export const ToolsExperienceMarimekkoLegend = ({ colors }: ToolsExperienceMarime
             labelAnchor: 'end',
         },
         {
-            id: translate('options.tools.interested.short'),
-            x: 0,
-            width: ITEM_WIDTH,
-            fill: colors.interested,
-            label: [ITEM_WIDTH * 3.75, 30],
-            labelAnchor: 'start',
-        },
-        {
             id: translate('options.tools.would_use.short'),
             x: 0,
             width: ITEM_WIDTH,
             fill: colors.would_use,
             label: [ITEM_WIDTH * 3.75, 12],
+            labelAnchor: 'start',
+        },
+        {
+            id: translate('options.tools.interested.short'),
+            x: 0,
+            width: ITEM_WIDTH,
+            fill: colors.interested,
+            label: [ITEM_WIDTH * 3.75, 30],
             labelAnchor: 'start',
         },
     ]
