@@ -11,7 +11,6 @@ const Button = styled.div.attrs(({ className, size = 'medium', variant = 'defaul
     cursor: pointer;
     display: block;
     text-align: center;
-    white-space: nowrap;
     font-weight: ${fontWeight('bold')};
     border: 1px dashed;
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
