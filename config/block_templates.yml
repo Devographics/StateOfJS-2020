@@ -824,7 +824,7 @@ opinionHappinessTemplate:
     # blockType: HappinessBlock
     blockType: VerticalBarBlock
     dataPath: 'surveyApi.survey.${id}_happiness.year'
-    showDescription: true
+    showDescription: false
     i18nNamespace: happiness
     bucketKeysName: happiness
     blockName: happiness
