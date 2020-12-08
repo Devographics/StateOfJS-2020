@@ -63,11 +63,11 @@ const stateOfJSThemeColors: DefaultTheme['colors'] = {
             prefer_not_to_say: colors.greyMediumer,
         },
         opinions: {
-            4: colors.pink,
-            3: colors.pinkLight,
-            2: '#59608a',
-            1: colors.blueLight,
-            0: colors.blue,
+            4: colors.red,
+            3: colors.redLight,
+            2: colors.greyMedium,
+            1: colors.tealLight,
+            0: colors.teal,
         },
     },
     distinct: [
