@@ -20,27 +20,33 @@ const StyledPageLink = styled(PageLink)`
             : props.theme.typography.size.medium};
     font-weight: ${(props) => (props.depth === 0 ? 800 : 400)};
 
-    & > span {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        max-width: 100%;
+    /* & > span {
+
         display: inline-block;
+    } */
+
+    @media ${mq.smallMedium} {
+        margin-bottom: ${spacing(0.5)};
+        display: block;
     }
 
     @media ${mq.large} {
-        margin-left: ${(props) => (props.depth > 0 ? spacing() : 0)};
-    }
-
-    ${(props) => {
-        if (props.isHidden) {
-            return css`
-                @media ${mq.large} {
-                    display: none;
-                }
-            `
+        & > span {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 100%;
+            display: inline-block;
         }
-    }}
+        margin-left: ${(props) => (props.depth > 0 ? spacing() : 0)};
+        ${(props) => {
+            if (props.isHidden) {
+                return css`
+                    display: none;
+                `
+            }
+        }}
+    }
 
     &._is-active {
         span span::before {
@@ -122,5 +128,6 @@ const NavContainer = styled.div`
 
     @media ${mq.smallMedium} {
         align-items: center;
+        overflow-y: scroll;
     }
 `

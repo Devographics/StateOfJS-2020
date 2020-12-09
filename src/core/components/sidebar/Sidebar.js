@@ -4,9 +4,9 @@ import Link from 'core/components/LocaleLink'
 import ShareSite from 'core/share/ShareSite'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, color, screenReadersOnlyMixin } from 'core/theme'
-import { Nav } from './Nav'
 import variables from '../../../../config/variables.yml'
 const { SidebarLogo } = require(`surveys/${variables.surveyType}/logo/SidebarLogo`)
+import { Nav } from './Nav'
 
 const CloseIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -43,11 +43,11 @@ const SidebarContainer = styled.nav`
     border-right: ${(props) => props.theme.separationBorder};
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    position: fixed;
 
     @media ${mq.large} {
         width: ${({ theme }) => theme.dimensions.sidebar.width}px;
+        height: 100vh;
+        position: fixed;
     }
 
     @media ${mq.smallMedium} {
@@ -59,10 +59,9 @@ const SidebarContainer = styled.nav`
         background: ${color('background')};
         z-index: 1000;
         text-align: center;
-        overflow-x: hidden;
-        overflow-y: scroll;
+        /* overflow-x: hidden; */
+        /* overflow-y: scroll; */
         position: fixed;
-
         ${(props) => (props.show ? '' : screenReadersOnlyMixin)};
     }
 `
