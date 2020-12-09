@@ -297,7 +297,7 @@
 
             - id: react
               template: toolExperienceTemplate
-            - id: vue
+            - id: vuejs
               template: toolExperienceTemplate
             - id: angular
               template: toolExperienceTemplate
@@ -477,9 +477,9 @@
 
             - id: electron
               template: toolExperienceTemplate
-            - id: react_native
+            - id: reactnative
               template: toolExperienceTemplate
-            - id: native_apps
+            - id: nativeapps
               template: toolExperienceTemplate
             - id: cordova
               template: toolExperienceTemplate

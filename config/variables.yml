@@ -98,7 +98,7 @@ allTools:
 
     # front_end_frameworks
     - react
-    - vue
+    - vuejs
     - angular
     - preact
     - ember
@@ -154,8 +154,8 @@ allTools:
 
     # mobile_desktop
     - electron
-    - react_native
-    - native_apps
+    - reactnative
+    - nativeapps
     - cordova
     - ionic
     - capacitor
@@ -173,7 +173,7 @@ toolsCategories:
 
     front_end_frameworks:
         - react
-        - vue
+        - vuejs
         - angular
         - preact
         - ember
@@ -229,8 +229,8 @@ toolsCategories:
 
     mobile_desktop:
         - electron
-        - react_native
-        - native_apps
+        - reactnative
+        - nativeapps
         - cordova
         - ionic
         - capacitor

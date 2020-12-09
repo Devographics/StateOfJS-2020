@@ -10,6 +10,7 @@ import ChartContainer from 'core/charts/ChartContainer'
 import { BlockContext } from 'core/blocks/types'
 import { ToolsExperienceToolData, ToolsExperienceMarimekkoToolData } from './types'
 import { ToolsExperienceMarimekkoChart, MARGIN, ROW_HEIGHT } from './ToolsExperienceMarimekkoChart'
+import get from 'lodash/get'
 
 /**
  * Convert raw API data to be compatible with nivo Marimekko chart.
@@ -24,9 +25,9 @@ const useNormalizedData = (
 ): ToolsExperienceMarimekkoToolData[] =>
     useMemo(() => {
         let data: ToolsExperienceMarimekkoToolData[] = rawData.map((tool) => {
-            const keyedBuckets = keyBy(tool.experience.year.buckets, 'id')
+            const keyedBuckets = keyBy(get(tool, 'experience.year.buckets'), 'id')
 
-            const total = tool.experience.year.total
+            const total = get(tool, 'experience.year.total')
             const aware = total - keyedBuckets.never_heard.count
 
             return {
