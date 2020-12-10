@@ -28,7 +28,7 @@ import KnowledgeScoreBlock from 'core/blocks/features/KnowledgeScoreBlock'
 
 // tools
 import ToolHeaderBlock from 'core/blocks/tools/ToolHeaderBlock'
-import ToolExperienceBlock from 'core/blocks/tools/ToolExperienceBlock'
+import { ToolExperienceBlock } from 'core/blocks/tools/ToolExperienceBlock'
 // import ToolExperienceGraphBlock from 'core/blocks/tools/ToolExperienceGraphBlock'
 // import ToolsSectionOverviewBlock from 'core/blocks/tools/ToolsSectionOverviewBlock'
 import ToolsSectionStreamsBlock from 'core/blocks/tools/ToolsSectionStreamsBlock'

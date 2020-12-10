@@ -1,12 +1,11 @@
-// @ts-ignore
 import React, { useState } from 'react'
 import { useTheme } from 'styled-components'
 import { useEntities } from 'core/entities/entitiesContext'
 import styled from 'styled-components'
-import { mq, spacing, fontSize, color } from 'core/theme'
+import { mq, spacing, fontSize } from 'core/theme'
 import Button from 'core/components/Button'
 import Modal from 'react-modal'
-import ToolExperienceBlock from 'core/blocks/tools/ToolExperienceBlock'
+import { ToolExperienceBlock } from 'core/blocks/tools/ToolExperienceBlock'
 import { usePageContext } from 'core/helpers/pageContext'
 import get from 'lodash/get'
 
@@ -40,19 +39,6 @@ const ToolLabel = ({ id }) => {
     const closeModal = () => {
         setIsOpen(false)
     }
-
-    // const text = (
-    //     <text
-    //         style={{
-    //             fill: homepage ? theme.colors.link : theme.colors.text,
-    //             fontFamily: theme.typography.fontFamily,
-    //             fontSize: 14,
-    //         }}
-    //         dominantBaseline="central"
-    //     >
-    //         {id}
-    //     </text>
-    // )
 
     return (
         <>
