@@ -34,6 +34,10 @@ const ToolLabel = ({ id }) => {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             padding: 0,
+            width: 'calc(100% - 40px)',
+            maxWidth: 900,
+            maxHeight: 'calc(100vh - 40px)',
+            overscrollBehavior: 'contain',
         },
     }
 
@@ -72,10 +76,9 @@ const ToolLabel = ({ id }) => {
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
                 style={customStyles}
-                contentLabel="Example Modal"
+                contentLabel={name}
             >
                 <Content>
-                    <h2>{name}</h2>
                     <ToolExperienceBlock block={block} data={blockData} />
                 </Content>
             </Modal>
@@ -91,7 +94,12 @@ const LabelLink = styled(Button)`
 `
 
 const Content = styled.div`
-    padding: ${spacing()};
+    @media ${mq.small} {
+        padding: ${spacing()};
+    }
+    @media ${mq.mediumLarge} {
+        padding: ${spacing(2)};
+    }
     background: ${({ theme }) => theme.colors.background};
 `
 

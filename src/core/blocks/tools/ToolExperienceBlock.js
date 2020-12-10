@@ -9,6 +9,7 @@ import GaugeBarChart from 'core/charts/generic/GaugeBarChart'
 import { usePageContext } from 'core/helpers/pageContext'
 import styled from 'styled-components'
 import { spacing } from 'core/theme'
+import takeRight from 'lodash/takeRight'
 
 const ToolExperienceBlock = ({ block, data, units: defaultUnits = 'percentage' }) => {
     const context = usePageContext()
@@ -38,7 +39,7 @@ const ToolExperienceBlock = ({ block, data, units: defaultUnits = 'percentage' }
             block={{ ...block, title, titleLink, description, showDescription: !!description }}
             data={allYears}
         >
-            {allYears.map((year) => (
+            {takeRight(allYears, 2).map((year) => (
                 <Row key={year.year}>
                     <RowYear>{year.year}</RowYear>
                     <ChartContainer height={40} fit={true} className="ToolChart">
