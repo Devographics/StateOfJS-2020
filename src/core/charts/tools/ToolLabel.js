@@ -15,8 +15,12 @@ const ToolLabel = ({ id }) => {
     const { getEntity } = useEntities()
     const [modalIsOpen, setIsOpen] = useState(false)
 
-    const { name, homepage } = getEntity(id)
+    const entity = getEntity(id)
+    if (!entity) {
+        return <span title="Missing entity">{id}</span>
+    }
 
+    const { name, homepage } = entity
     const customStyles = {
         overlay: {
             backgroundColor: `${theme.colors.backgroundInverted}bb`,
@@ -91,7 +95,6 @@ const ToolLabelModal = ({ id }) => {
     const blockData = get(pageContext.pageData, block.dataPath)
     return <ToolExperienceBlock block={block} data={blockData} />
 }
-
 
 const LabelLink = styled(Button)`
     padding: 4px 12px;
