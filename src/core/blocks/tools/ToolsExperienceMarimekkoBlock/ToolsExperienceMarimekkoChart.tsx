@@ -55,7 +55,6 @@ const ShadowsLayer = ({ data }: CustomLayerProps<ToolsExperienceMarimekkoToolDat
  * Extra layer to add tool names.
  */
 const ToolsLabels = ({ data }: CustomLayerProps<ToolsExperienceMarimekkoToolData>) => {
-    console.log(data)
     return (
         <g>
             {data.map((datum) => (

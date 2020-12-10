@@ -14,12 +14,8 @@ const ToolLabel = ({ id }) => {
     const theme = useTheme()
     const { getEntity } = useEntities()
     const [modalIsOpen, setIsOpen] = useState(false)
-    const pageContext = usePageContext()
 
     const { name, homepage } = getEntity(id)
-
-    const block = pageContext.blocks.find((block) => block.id === id)
-    const blockData = get(pageContext.pageData, block.dataPath)
 
     const customStyles = {
         overlay: {
@@ -79,18 +75,30 @@ const ToolLabel = ({ id }) => {
                 contentLabel={name}
             >
                 <Content>
-                    <ToolExperienceBlock block={block} data={blockData} />
+                    <ToolLabelModal id={id} />
                 </Content>
             </Modal>
         </>
     )
 }
 
+const ToolLabelModal = ({ id }) => {
+    const pageContext = usePageContext()
+    const block = pageContext.blocks.find((block) => block.id === id)
+    console.log(pageContext)
+    console.log(id)
+    console.log(block)
+    const blockData = get(pageContext.pageData, block.dataPath)
+    return <ToolExperienceBlock block={block} data={blockData} />
+}
+
+
 const LabelLink = styled(Button)`
     padding: 4px 12px;
     border-radius: 500px;
     display: inline-block;
     font-size: ${fontSize('smaller')};
+    white-space: nowrap;
 `
 
 const Content = styled.div`

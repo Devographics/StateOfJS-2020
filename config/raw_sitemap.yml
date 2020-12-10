@@ -369,6 +369,10 @@
               template: toolExperienceTemplate
             - id: meteor
               template: toolExperienceTemplate
+            - id: express
+              template: toolExperienceTemplate
+            - id: nextjs
+              template: toolExperienceTemplate
             - id: nuxt
               template: toolExperienceTemplate
             - id: gatsby
