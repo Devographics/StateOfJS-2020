@@ -498,41 +498,41 @@
 
             - template: happinessTemplate
 
-      - id: other_tools
-        path: /other-tools
-        blocks:
-            - id: tools_others_intro
-              template: pageIntroductionTemplate
+- id: tools_others
+  path: /other-tools
+  blocks:
+      - id: tools_others_intro
+        template: pageIntroductionTemplate
 
-            - id: libraries
-              template: otherToolsTemplate
-            - id: libraries_others
-              template: otherToolsFreeFormTemplate
+      - id: libraries
+        template: otherToolsTemplate
+      - id: libraries_others
+        template: otherToolsFreeFormTemplate
 
-            - id: utilities
-              template: otherToolsTemplate
-            - id: utilities_others
-              template: otherToolsFreeFormTemplate
+      - id: utilities
+        template: otherToolsTemplate
+      - id: utilities_others
+        template: otherToolsFreeFormTemplate
 
-            - id: runtimes
-              template: otherToolsTemplate
-            - id: runtimes_others
-              template: otherToolsFreeFormTemplate
+      - id: runtimes
+        template: otherToolsTemplate
+      - id: runtimes_others
+        template: otherToolsFreeFormTemplate
 
-            - id: text_editors
-              template: otherToolsTemplate
-            - id: text_editors_others
-              template: otherToolsFreeFormTemplate
+      - id: text_editors
+        template: otherToolsTemplate
+      - id: text_editors_others
+        template: otherToolsFreeFormTemplate
 
-            - id: browsers
-              template: otherToolsTemplate
-            - id: browsers_others
-              template: otherToolsFreeFormTemplate
+      - id: browsers
+        template: otherToolsTemplate
+      - id: browsers_others
+        template: otherToolsFreeFormTemplate
 
-            - id: non_js_languages
-              template: otherToolsTemplate
-            - id: non_js_languages_others
-              template: otherToolsFreeFormTemplate
+      - id: non_js_languages
+        template: otherToolsTemplate
+      - id: non_js_languages_others
+        template: otherToolsFreeFormTemplate
 
 - id: resources
   path: /resources

@@ -1,3 +1,11 @@
+- name: Idera
+  id: idera
+  url: https://www.ideracorp.com/developertools
+  image: IderaInc-DevTools-Reversed_dark_v1.svg
+  description: >
+       Industry leader of high productivity developer tools for app development using 
+       powerful and scalable JavaScript framework and components.
+
 - name: Frontend Masters
   id: frontendmasters
   url: https://frontendmasters.com/

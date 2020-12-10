@@ -37,7 +37,7 @@ const SponsorsBlock = () => {
 
 const Container = styled.div`
     background: ${(props) => props.theme.colors.backgroundAlt};
-    padding: ${spacing(1.5)};
+    padding: ${spacing(2)};
     margin-top: ${spacing(2)};
 `
 
@@ -47,39 +47,28 @@ const Header = styled.h3`
 `
 
 const SponsorList = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-    @media ${mq.smallMedium} {
-        flex-direction: column;
+@media ${mq.large} {
+        display: grid;
+        grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+        column-gap: ${spacing(4)};
     }
 `
 
 const Sponsor = styled.div`
-    @media ${mq.smallMedium} {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-    }
-    @media ${mq.large} {
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr);
-        column-gap: ${spacing(2)};
-    }
 `
 
 const SponsorLogo = styled.div`
-    width: 150px;
+    height: 80px;
 
-    @media ${mq.smallMedium} {
-        margin-bottom: ${spacing()};
-    }
+    display: grid;
+    place-items: center;
 
-    @media ${mq.large} {
-        /* margin-right: ${spacing(3)}; */
-    }
+    margin-bottom: ${spacing()};
 
     &:last-child {
         margin: 0;
@@ -89,7 +78,7 @@ const SponsorLogo = styled.div`
     svg,
     img {
         display: block;
-        width: 100%;
+        width: 200px;
     }
     &--designcode {
         width: 50px;
