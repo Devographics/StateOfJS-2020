@@ -31,6 +31,7 @@ const useNormalizedData = (
             const aware = total - keyedBuckets.never_heard.count
 
             return {
+                id: tool.id,
                 tool: tool.entity,
                 awareness: aware,
                 would_not_use: (keyedBuckets.would_not_use.count / aware) * 100 * -1,

@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { mq, spacing, fontSize } from 'core/theme'
 import sortBy from 'lodash/sortBy'
 import range from 'lodash/range'
+import ToolLabel from 'core/charts/tools/ToolLabel'
 
 const ToolsSectionStreamsBlock = ({ block, data, units: defaultUnits = 'percentage' }) => {
     const [units, setUnits] = useState(defaultUnits)
@@ -74,7 +75,7 @@ const Stream = ({ toolData, current, units }) => {
                 height={160}
             />
             <StreamTitle>
-                <a href={toolData.entity.homepage}>{toolData.entity.name}</a>
+                <ToolLabel id={toolData.id}/>
             </StreamTitle>
         </StreamItem>
     )

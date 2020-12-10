@@ -5,9 +5,12 @@ import { keys } from 'core/bucket_keys'
 import isEmpty from 'lodash/isEmpty'
 import Block from 'core/blocks/block/Block'
 import get from 'lodash/get'
+import { usePageContext } from 'core/helpers/pageContext'
 
 const BlockSwitcher = ({ pageData, block, index }) => {
-    const { id, blockType } = block
+    const pageContext = usePageContext()
+
+    const { id, blockType, hidden } = block
     let blockData
     if (!blockRegistry[blockType]) {
         return (
@@ -29,7 +32,9 @@ const BlockSwitcher = ({ pageData, block, index }) => {
             )
         }
     }
-    return <BlockComponent block={block} data={blockData} index={index} />
+    return hidden && !pageContext.isCapturing ? null : (
+        <BlockComponent block={block} data={blockData} index={index} />
+    )
 }
 
 class ErrorBoundary extends React.Component {

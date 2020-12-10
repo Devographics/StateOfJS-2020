@@ -484,6 +484,7 @@ toolExperienceTemplate:
     bucketKeysName: tools
     showLegend: true
     enableExport: true
+    hidden: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {

@@ -9,6 +9,7 @@ import { keys } from 'core/bucket_keys'
 import { useI18n } from 'core/i18n/i18nContext'
 import { ToolsExperienceMarimekkoToolData } from './types'
 import { ToolsExperienceMarimekkoLegend } from './ToolsExperienceMarimekkoLegend'
+import ToolLabel from 'core/charts/tools/ToolLabel'
 
 export const MARGIN = {
     top: 30,
@@ -54,33 +55,16 @@ const ShadowsLayer = ({ data }: CustomLayerProps<ToolsExperienceMarimekkoToolDat
  * Extra layer to add tool names.
  */
 const ToolsLabels = ({ data }: CustomLayerProps<ToolsExperienceMarimekkoToolData>) => {
-    const theme = useTheme()
-
+    console.log(data)
     return (
         <g>
-            {data.map((datum) => {
-                const link = datum.data.tool.homepage
-
-                const text = (
-                    <text
-                        style={{
-                            fill: link ? theme.colors.link : theme.colors.text,
-                            fontFamily: theme.typography.fontFamily,
-                            fontSize: 14,
-                        }}
-                        dominantBaseline="central"
-                    >
-                        {datum.id}
-                    </text>
-                )
-
-                return (
-                    <g key={datum.id} transform={`translate(-160, ${datum.y + datum.height / 2})`}>
-                        {link && <a href={datum.data.tool.homepage}>{text}</a>}
-                        {!link && text}
-                    </g>
-                )
-            })}
+            {data.map((datum) => (
+                <g key={datum.id} transform={`translate(-160, ${datum.y})`}>
+                    <foreignObject style={{ overflow: 'visible' }}>
+                        <ToolLabel id={datum.id} data={datum} />
+                    </foreignObject>
+                </g>
+            ))}
         </g>
     )
 }
@@ -133,7 +117,7 @@ export const ToolsExperienceMarimekkoChart = (props: ToolsExperienceMarimekkoCha
             axisBottom={{
                 format: valueFormatter,
             }}
-            id="tool.name"
+            id="id"
             value="awareness"
             valueFormat={valueFormatter}
             data={props.data}
