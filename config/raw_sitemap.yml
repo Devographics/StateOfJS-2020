@@ -64,6 +64,9 @@
       - id: yearly_salary
         template: demographicsTemplate
 
+      - id: hint_hint
+        template: hintTemplate
+
       - id: years_of_experience
         template: demographicsTemplate
 
@@ -88,6 +91,9 @@
         template: demographicsTemplate
         blockType: HorizontalBarBlock
         translateData: true
+
+      - id: units_switcher_hint
+        template: hintTemplate
 
       - id: css_proficiency
         template: proficiencyTemplate
@@ -123,6 +129,9 @@
             - id: destructuring
               template: featureExperienceTemplate
 
+            - id: export_hint
+              template: hintTemplate
+              
             - id: spread_operator
               template: featureExperienceTemplate
 
@@ -146,6 +155,9 @@
 
             - id: proxies
               template: featureExperienceTemplate
+
+            - id: completion_hint
+              template: hintTemplate
 
             - id: async_await
               template: featureExperienceTemplate
@@ -259,6 +271,9 @@
 
             - template: toolsExperienceRankingTemplate
 
+            - id: tool_modal_hint
+              template: hintTemplate
+
             - template: toolsSectionStreamsTemplate
 
             - template: toolsExperienceMarimekkoTemplate
@@ -288,6 +303,9 @@
             - template: pageIntroductionTemplate
 
             - template: toolsExperienceRankingTemplate
+
+            - id: rankings_modes_hint
+              template: hintTemplate
 
             - template: toolsSectionStreamsTemplate
 
