@@ -21,7 +21,7 @@ const GenderBlock = ({ block, data }) => {
     )
 
     return (
-        <Block units={units} setUnits={setUnits} data={data} block={block}>
+        <Block units={units} setUnits={setUnits} data={data.buckets} block={block}>
             <ChartContainer height={200} fit={true}>
                 <GaugeBarChart
                     units={units}

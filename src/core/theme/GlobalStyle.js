@@ -131,4 +131,16 @@ export const GlobalStyle = createGlobalStyle`
             }
         }
     }
+    .hint-export-button{
+        display: inline-block;
+        font-weight: 800;
+        border: 1px dashed;
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+    .hint-completion-indicator{
+        display: inline-block;
+        color: ${color('link')};
+        font-size: 1.4rem;
+    }
 `

@@ -4,8 +4,7 @@ import ReactMarkdown from 'react-markdown/with-html'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, spacing, fontSize } from 'core/theme'
 import Button from 'core/components/Button'
-
-const images = ['stateofcss/tshirt5.jpg', 'stateofcss/tshirt6.jpg', 'stateofcss/tshirt4.png']
+import { tshirtImages } from 'config/config.yml'
 
 const TshirtBlock = () => {
     const { translate } = useI18n()
@@ -13,7 +12,7 @@ const TshirtBlock = () => {
     return (
         <Container>
             <ImagesContainer>
-                {images.map((image, i) => (
+                {tshirtImages.map((image, i) => (
                     <Image key={i}>
                         <a
                             href={`/images/tshirt/${image}`}

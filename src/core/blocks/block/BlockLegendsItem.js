@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { spacing } from 'core/theme'
+import { spacing, fontWeight } from 'core/theme'
 
 export default class LegendsItem extends Component {
     static propTypes = {
@@ -131,9 +131,11 @@ const KeyLabel = styled.th`
 
 const Label = styled.td`
     padding: ${spacing(0.25)} ${spacing(0.5)} ${spacing(0.25)} 0;
-    width: 100%;
+    white-space: nowrap;
 `
 
 const Value = styled.td`
+    font-weight: ${fontWeight('bold')};
     padding: ${spacing(0.25)} ${spacing(0.5)} ${spacing(0.25)} 0;
+    width: 100%;
 `
