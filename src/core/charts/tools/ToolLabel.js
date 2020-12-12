@@ -22,7 +22,8 @@ const ToolLabel = ({ id }) => {
     const { name, homepage } = entity
     const customStyles = {
         overlay: {
-            backgroundColor: `${theme.colors.backgroundInverted}bb`,
+            backgroundColor: `${theme.colors.background}99`,
+            backdropFilter: 'blur(5px)',
         },
         content: {
             borderWidth: 0,
@@ -37,6 +38,12 @@ const ToolLabel = ({ id }) => {
             maxWidth: 900,
             maxHeight: 'calc(100vh - 40px)',
             overscrollBehavior: 'contain',
+            borderRadius: '10px',
+            background: theme.colors.backgroundAlt,
+            boxShadow: `0px 8px 16px rgba(0,0,0,0.75)`,
+            // animation: css`
+            //     ${pop} 1100ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0ms 1 forwards
+            // `,
         },
     }
 
@@ -75,9 +82,6 @@ const ToolLabel = ({ id }) => {
 const ToolLabelModal = ({ id }) => {
     const pageContext = usePageContext()
     const block = pageContext.blocks.find((block) => block.id === id)
-    console.log(pageContext)
-    console.log(id)
-    console.log(block)
     const blockData = get(pageContext.pageData, block.dataPath)
     return <ToolExperienceBlock block={block} data={blockData} />
 }

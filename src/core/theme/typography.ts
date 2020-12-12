@@ -2,7 +2,7 @@ import { css } from 'styled-components'
 
 export const primaryFontMixin = css`
     font-family: ${({ theme }) => theme.typography.fontFamily};
-    font-weight: ${({ theme }) => theme.typography.weight.medium};
+    font-weight: ${({ theme }) => theme.typography.weight.light};
 `
 
 export const secondaryFontMixin = css`
