@@ -70,11 +70,14 @@ const ToolsLabels = ({ data }: CustomLayerProps<ToolsExperienceMarimekkoToolData
 
 interface ToolsExperienceMarimekkoChartProps {
     data: ToolsExperienceMarimekkoToolData[]
+    current: string | null
 }
 
 export const ToolsExperienceMarimekkoChart = (props: ToolsExperienceMarimekkoChartProps) => {
     const { translate } = useI18n()
 
+    const { current } = props
+    
     // `id` is the label while `value` is the accessor
     // for a given dimension.
     const dimensions = useMemo(
@@ -101,11 +104,19 @@ export const ToolsExperienceMarimekkoChart = (props: ToolsExperienceMarimekkoCha
 
     const theme = useTheme()
 
-    // colors should match the order defined in `dimensions`.
-    const colors = useMemo(
-        () => dimensions.map((dimension) => theme.colors.ranges.tools[dimension.value]),
-        [dimensions, theme]
-    )
+
+    const getLayerColor = (props: any) => {
+        const dimension = dimensions.find((d) => d.id === props.id)
+        if (dimension) {
+            const color = theme.colors.ranges.tools[dimension.value]
+            if (current !== null && current !== props.datum.id) {
+                return `${color}33`
+            }
+            return color
+        } else {
+            return 'blue'
+        }
+    }
 
     return (
         <ResponsiveMarimekko<ToolsExperienceMarimekkoToolData>
@@ -122,12 +133,13 @@ export const ToolsExperienceMarimekkoChart = (props: ToolsExperienceMarimekkoCha
             data={props.data}
             dimensions={dimensions}
             theme={theme.charts}
-            colors={colors}
+            colors={getLayerColor}
             enableGridX
             enableGridY={false}
             offset="diverging"
             layout="horizontal"
-            animate={false}
+            animate={true}
+            motionConfig="default"
             innerPadding={3}
             outerPadding={7}
             layers={[

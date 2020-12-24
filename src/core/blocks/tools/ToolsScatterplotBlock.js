@@ -10,7 +10,7 @@ import { useI18n } from 'core/i18n/i18nContext'
 import ChartContainer from 'core/charts/ChartContainer'
 import ButtonGroup from 'core/components/ButtonGroup'
 import Button from 'core/components/Button'
-import { toolsCategories } from '../../../../config/variables.yml'
+import { toolsCategories } from 'config/variables.yml'
 
 /*
 
@@ -20,7 +20,7 @@ Parse data and convert it into a format compatible with the Scatterplot chart
 const useChartData = (data, translate, metric = 'satisfaction') => {
     const theme = useTheme()
 
-    const allTools = Object.keys(toolsCategories).map((categoryId) => {
+    const allTools = Object.keys(toolsCategories).filter(c => !c.includes('abridged')).map((categoryId) => {
         const toolsIds = toolsCategories[categoryId]
 
         const categoryTools = data.filter((tool) => toolsIds.includes(tool.id))
@@ -60,6 +60,7 @@ const useChartData = (data, translate, metric = 'satisfaction') => {
 
                 const node = {
                     id,
+                    originalId: id,
                     x: totals[metric],
                     y: percentages[metric],
                     name,
@@ -106,7 +107,7 @@ const Switcher = ({ setMetric, metric }) => {
     )
 }
 
-const ToolsScatterplotBlock = ({ block, data }) => {
+const ToolsScatterplotBlock = ({ block, data, triggerId, titleProps }) => {
     const { translate } = useI18n()
     const theme = useTheme()
 
@@ -124,12 +125,16 @@ const ToolsScatterplotBlock = ({ block, data }) => {
         color: theme.colors.ranges.toolSections[keyId],
     }))
 
+    const controlledCurrent = triggerId || current
+
+    const chartClassName = controlledCurrent ? `ToolsScatterplotChart--${controlledCurrent}` : ''
+    
     return (
         <Block
             className="ToolsScatterplotBlock"
             data={chartData}
             block={{ ...block, title, description, showLegend: false, legends }}
-            titleProps={{ switcher: <Switcher setMetric={setMetric} metric={metric} /> }}
+            titleProps={{ switcher: <Switcher setMetric={setMetric} metric={metric} />, ...titleProps }}
             legendProps={{
                 legends,
                 onMouseEnter: ({ id }) => {
@@ -142,10 +147,12 @@ const ToolsScatterplotBlock = ({ block, data }) => {
         >
             <ChartContainer vscroll={false}>
                 <ToolsScatterplotChart
+                    className={`ToolsScatterplotChart ${chartClassName}`}
                     data={chartData}
                     metric={metric}
                     showQuadrants={metric === 'satisfaction'}
-                    current={current}
+                    current={controlledCurrent}
+                    setCurrent={setCurrent}
                 />
             </ChartContainer>
         </Block>

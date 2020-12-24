@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { spacing, fontWeight } from 'core/theme'
+import styled, { css } from 'styled-components'
+import { spacing } from 'core/theme'
 
 export default class LegendsItem extends Component {
     static propTypes = {
@@ -15,6 +15,7 @@ export default class LegendsItem extends Component {
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
         onClick: PropTypes.func,
+        isCurrent: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -42,6 +43,7 @@ export default class LegendsItem extends Component {
 
     render() {
         const {
+            id,
             color,
             label,
             shortLabel,
@@ -53,9 +55,12 @@ export default class LegendsItem extends Component {
             onMouseEnter,
             useShortLabels,
             layout,
+            current = null,
         } = this.props
 
         const isInteractive = typeof onMouseEnter !== 'undefined'
+
+        const state = current === null ? 'default' : current === id ? 'active' : 'inactive'
 
         return (
             <Container
@@ -65,6 +70,7 @@ export default class LegendsItem extends Component {
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
                 onClick={this.handleClick}
+                state={state}
             >
                 {color && (
                     <ChipWrapper layout={layout}>
@@ -107,13 +113,25 @@ const Container = styled.tr`
         margin-bottom: 0;
     }
 
-    ${(props) => {
-        if (props.isInteractive) {
-            return `
+    ${({ isInteractive, theme }) => {
+        if (isInteractive) {
+            return css`
                 cursor: pointer;
                 &:hover {
-                    background: ${props.theme.colors.backgroundAlt};
+                    background: ${theme.colors.backgroundAlt};
                 }
+            `
+        }
+    }}
+
+    ${({ state, theme }) => {
+        if (state === 'active') {
+            return css`
+                /* background: ${theme.colors.backgroundAlt}; */
+            `
+        } else if (state === 'inactive') {
+            return css`
+                opacity: 0.25;
             `
         }
     }}
@@ -131,11 +149,9 @@ const KeyLabel = styled.th`
 
 const Label = styled.td`
     padding: ${spacing(0.25)} ${spacing(0.5)} ${spacing(0.25)} 0;
-    white-space: nowrap;
+    width: 100%;
 `
 
 const Value = styled.td`
-    font-weight: ${fontWeight('bold')};
     padding: ${spacing(0.25)} ${spacing(0.5)} ${spacing(0.25)} 0;
-    width: 100%;
 `

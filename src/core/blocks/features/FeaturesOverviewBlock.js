@@ -6,7 +6,7 @@ import FeaturesOverviewCirclePackingChart from 'core/charts/features/FeaturesOve
 import { useI18n } from 'core/i18n/i18nContext'
 import { useEntities } from 'core/entities/entitiesContext'
 import ChartContainer from 'core/charts/ChartContainer'
-import variables from '../../../../config/variables.yml'
+import variables from 'config/variables.yml'
 
 const getChartData = (data, getName, translate) => {
     const categories = variables.featuresCategories
@@ -56,7 +56,7 @@ const getChartData = (data, getName, translate) => {
     }
 }
 
-const FeaturesOverviewBlock = ({ block, data }) => {
+const FeaturesOverviewBlock = ({ block, data, triggerId }) => {
     const { getName } = useEntities()
     const { translate } = useI18n()
 
@@ -66,6 +66,14 @@ const FeaturesOverviewBlock = ({ block, data }) => {
         translate,
     ])
 
+    const controlledCurrent = triggerId
+
+    const { height = '800px' } = block
+
+    const chartClassName = controlledCurrent
+        ? `FeaturesOverviewChart--${controlledCurrent.join('_')}`
+        : ''
+        
     return (
         <Block
             block={{
@@ -77,11 +85,12 @@ const FeaturesOverviewBlock = ({ block, data }) => {
             className="FeaturesOverviewBlock"
             showDescription={true}
         >
-            <ChartContainer vscroll={false}>
+            <ChartContainer vscroll={false} height={height}>
                 <FeaturesOverviewCirclePackingChart
-                    className="FeaturesOverviewChart"
+                    className={`FeaturesOverviewChart ${chartClassName}`}
                     data={chartData}
                     variant="allFeatures"
+                    current={controlledCurrent}
                 />
             </ChartContainer>
         </Block>

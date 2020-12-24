@@ -1,32 +1,23 @@
 import React, { PureComponent, useCallback, useEffect, useState } from 'react'
 import propTypes from 'prop-types'
-import classNames from 'classnames'
-import styled, { ThemeProvider, css } from 'styled-components'
-import '../stylesheets/screen.scss'
-import Pagination from './pages/Pagination'
-import { Sidebar } from './components/sidebar'
-import Head from './components/Head'
-import { PageContextProvider } from './helpers/pageContext'
-import { KeydownContextProvider } from './helpers/keydownContext'
-import { mergePageContext } from './helpers/pageHelpers'
-import { I18nContextProvider } from './i18n/i18nContext'
-import { EntitiesContextProvider } from './entities/entitiesContext'
+import { ThemeProvider } from 'styled-components'
+import '../../stylesheets/screen.scss'
+import Head from 'core/components/Head'
+import { PageContextProvider } from 'core/helpers/pageContext'
+import { KeydownContextProvider } from 'core/helpers/keydownContext'
+import { mergePageContext } from 'core/helpers/pageHelpers'
+import { I18nContextProvider } from 'core/i18n/i18nContext'
+import { EntitiesContextProvider } from 'core/entities/entitiesContext'
 // import PageMetaDebug from './pages/PageMetaDebug'
-import themes from './theme/themes'
-import { GlobalStyle, mq, spacing } from './theme'
-import variables from '../../config/variables.yml'
+import themes from '../theme/themes'
+import { GlobalStyle } from 'core/theme'
+import MainLayout from 'core/layout/MainLayout'
+import ReportLayout from 'core/report/ReportLayout'
 
-const themeIds = ['state_of_js', 'state_of_css', 'test']
+const themeIds = ['js', 'css', 'test']
 
-const ThemedLayout = ({
-    context,
-    showPagination,
-    showSidebar,
-    toggleSidebar,
-    closeSidebar,
-    props,
-}) => {
-    const [themeId, setThemeId] = useState(variables.surveyType)
+const ThemedLayout = (props) => {
+    const [themeId, setThemeId] = useState('css')
 
     const switchTheme = useCallback(
         (event) => {
@@ -57,68 +48,11 @@ const ThemedLayout = ({
             <EntitiesContextProvider>
                 <GlobalStyle />
                 <Head />
-                <Page
-                    showSidebar={showSidebar}
-                    className={classNames(`Page--${context.id}`, {
-                        capture: context.isCapturing,
-                        nocapture: !context.isCapturing,
-                    })}
-                >
-                    <Sidebar {...props} showSidebar={showSidebar} closeSidebar={closeSidebar} />
-                    <PageContent>
-                        {showPagination && (
-                            <Pagination toggleSidebar={toggleSidebar} position="top" />
-                        )}
-                        <PageMain>
-                            {/* <PageMetaDebug /> */}
-                            {props.children}
-                        </PageMain>
-                    </PageContent>
-                </Page>
+                {props.context.id === 'report' ? <ReportLayout {...props} />:<MainLayout {...props} />}
             </EntitiesContextProvider>
         </ThemeProvider>
     )
 }
-
-const PageContent = styled.main`
-    display: flex;
-    flex-direction: column;
-`
-
-const Page = styled.div`
-    min-height: 100vh;
-
-    ${PageContent} {
-        @media ${mq.large} {
-            margin-left: ${({ theme }) => theme.dimensions.sidebar.width}px;
-        }
-
-        @media ${mq.smallMedium} {
-            ${(props) => {
-                if (props.showSidebar) {
-                    return css`
-                        overflow: hidden;
-                        height: 100vh;
-                    `
-                }
-            }}
-        }
-    }
-`
-
-const PageMain = styled.main`
-    flex-grow: 1;
-    overflow-x: hidden;
-    overflow-y: visible;
-
-    @media ${mq.smallMedium} {
-        padding: ${spacing()};
-    }
-
-    @media ${mq.large} {
-        padding: ${spacing(3)};
-    }
-`
 
 export default class Layout extends PureComponent {
     static propTypes = {

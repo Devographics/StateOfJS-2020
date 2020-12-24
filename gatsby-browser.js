@@ -1,6 +1,6 @@
 import React from 'react'
 import * as ReactGA from 'react-ga'
-import Layout from 'core/Layout'
+import LayoutWrapper from 'core/layout/LayoutWrapper'
 
 ReactGA.initialize('UA-83022212-8')
 
@@ -19,8 +19,8 @@ export const wrapPageElement = ({ element, props }) => {
     const { pageContext, ...rest } = props
 
     return (
-        <Layout {...rest} pageContext={pageContext}>
+        <LayoutWrapper {...rest} pageContext={pageContext}>
             {element}
-        </Layout>
+        </LayoutWrapper>
     )
 }

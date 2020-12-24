@@ -32,6 +32,7 @@ declare module 'styled-components' {
                 large: string
                 larger: string
                 largest: string
+                huge: string
             }
             weight: {
                 light: number

@@ -63,12 +63,16 @@ interface ToolsExperienceRankingBlockProps {
         'ToolsExperienceRankingBlock',
         { toolIds: string },
         any
-    >
-    data: ToolData[]
+    >,
+    triggerId: MetricId,
+    data: ToolData[],
+    titleProps: any
 }
 
-export const ToolsExperienceRankingBlock = ({ block, data }: ToolsExperienceRankingBlockProps) => {
+export const ToolsExperienceRankingBlock = ({ block, data, triggerId }: ToolsExperienceRankingBlockProps) => {
     const [metric, setMetric] = useState<MetricId>('satisfaction')
+
+    const controlledMetric = triggerId || metric
 
     const chartData: RankingChartSerie[] = useMemo(
         () =>
@@ -76,7 +80,7 @@ export const ToolsExperienceRankingBlock = ({ block, data }: ToolsExperienceRank
                 return {
                     id: tool.id,
                     name: tool.entity.name,
-                    data: tool[metric].map((bucket) => {
+                    data: tool[controlledMetric].map((bucket) => {
                         return {
                             x: bucket.year,
                             y: bucket.rank,
@@ -85,13 +89,13 @@ export const ToolsExperienceRankingBlock = ({ block, data }: ToolsExperienceRank
                     }),
                 }
             }),
-        [data, metric]
+        [data, controlledMetric]
     )
 
     return (
         <Block
             block={block}
-            titleProps={{ switcher: <Switcher setMetric={setMetric} metric={metric} /> }}
+            titleProps={{ switcher: <Switcher setMetric={setMetric} metric={controlledMetric} /> }}
             data={data}
         >
             <ChartContainer height={data.length * 50 + 80}>

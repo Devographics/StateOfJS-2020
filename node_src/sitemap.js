@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { findIndex, findLastIndex, omit, template } = require('lodash')
 const yaml = require('js-yaml')
-
+const { getAllBlocks } = require('./helpers.js')
 const rawPageTemplates = fs.readFileSync('./config/page_templates.yml', 'utf8')
 const rawBlockTemplates = fs.readFileSync('./config/block_templates.yml', 'utf8')
 const globalVariables = yaml.safeLoad(fs.readFileSync('./config/variables.yml', 'utf8'))
@@ -35,14 +35,12 @@ const applyTemplate = (config, templateName, rawTemplates, parent) => {
     // defines all available variables to be injected
     // at build time in the GraphQL queries
     const variables = {
+        ...(parent ? { parentId: parent.id } : {}),
         ...(templateObject.defaultVariables || {}),
         ...globalVariables,
         id: config.id,
         ...(config.variables || {}),
         ...(config.pageVariables || {}),
-    }
-    if (parent) {
-        variables.parentId = parent.id
     }
 
     const populatedTemplate = injectVariables(templateObject, variables, templateName)
@@ -188,6 +186,10 @@ exports.computeSitemap = async (rawSitemap, locales) => {
             yaml.dump({ locales, contents: stack.hierarchy }, { noRefs: true }),
         ].join('\n')
         await fs.writeFileSync('./config/sitemap.yml', sitemapContent)
+        await fs.writeFileSync(
+            './config/blocks.yml',
+            yaml.dump(getAllBlocks({ contents: stack.hierarchy }), { noRefs: true })
+        )
 
         return stack
     } catch (error) {

@@ -1,5 +1,3 @@
-import removeMarkdown from 'remove-markdown'
-import { getTranslationValuesFromContext, getPageLabel } from '../helpers/pageHelpers'
 import get from 'lodash/get'
 import config from 'config/config.yml'
 
@@ -10,7 +8,7 @@ export const getBlockTitleKey = (block, page) => {
     } else if (blockName) {
         return `blocks.${blockName}.title`
     } else {
-        const pageId = page.i18nNamespace || page.id
+        const pageId = block.pageId || page.i18nNamespace || page.id
         const blockId = block.id.replace('_others', '.others')
         return `${pageId}.${blockId}`
     }
@@ -21,7 +19,7 @@ export const getBlockDescriptionKey = (block, page) => {
     if (blockName) {
         return `blocks.${blockName}.description`
     } else {
-        const pageId = page.i18nNamespace || page.id
+        const pageId = block.pageId || page.i18nNamespace || page.id
         const blockId = block.id.replace('_others', '.others')
         return `${pageId}.${blockId}.description`
     }
@@ -72,4 +70,17 @@ export const getBlockMeta = (block, context, translate, title) => {
         emailBody,
         imageUrl,
     }
+}
+
+export const getAllBlocks = (sitemap) => {
+    let allBlocks = []
+    sitemap.contents.forEach((page) => {
+        allBlocks = [...allBlocks, ...page.blocks]
+        if (page.children) {
+            page.children.forEach((page) => {
+                allBlocks = [...allBlocks, ...page.blocks]
+            })
+        }
+    })
+    return allBlocks
 }

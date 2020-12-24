@@ -16,18 +16,19 @@ Gauge Chart
 */
 
 .FeaturesOverviewChart {
-    @include xsmall {
-        height: 800px;
-    }
-    @include small {
-        height: 800px;
-    }
-    @include medium {
-        height: 800px;
-    }
-    @include large {
-        height: 800px;
-    }
+    height: 100%;
+    // @include xsmall {
+    //     height: 800px;
+    // }
+    // @include small {
+    //     height: 800px;
+    // }
+    // @include medium {
+    //     height: 800px;
+    // }
+    // @include large {
+    //     height: 800px;
+    // }
 }
 .FeaturesSectionOverviewChart {
     @include xsmall {
@@ -82,7 +83,8 @@ Quadrant/Scatterplot Chart
     font-size: $larger-font;
 }
 .Scatterplot__Node {
-    &:hover {
+    transition: all 500ms ease-out;
+    &--active {
         .Scatterplot__Node__Crosshairs {
             opacity: 1;
             transition: all 200ms ease-out;
@@ -102,6 +104,10 @@ Quadrant/Scatterplot Chart
         .Scatterplot__Node__Crosshair__Line {
             @include svgAnts;
         }
+    }
+    &--inactive{
+        opacity: 0.3;
+        transition: all 500ms ease-out;
     }
 }
 .Scatterplot__Node__Label {

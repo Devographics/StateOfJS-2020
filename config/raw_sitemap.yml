@@ -261,7 +261,7 @@
 - id: technologies
   path: /technologies
   blocks:
-      - id: technologiesIntroduction
+      - id: technologies_introduction
         template: pageIntroductionTemplate
 
       - id: scatterplot_overview

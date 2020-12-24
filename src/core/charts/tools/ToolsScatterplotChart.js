@@ -42,7 +42,7 @@ const labelPositions = {
 const margins = { top: 20, right: 90, bottom: 70, left: 90 }
 
 const Nodes = (props) => {
-    const { width, height, margin, nodes, current, metric } = props
+    const { width, height, margin, nodes, current, setCurrent, metric } = props
     return (
         <g>
             {nodes.map((node, i) => (
@@ -53,6 +53,7 @@ const Nodes = (props) => {
                     height={height}
                     margin={margin}
                     current={current}
+                    setCurrent={setCurrent}
                     metric={metric}
                 />
             ))}
@@ -101,16 +102,28 @@ const Crosshair = ({ x, y, label, cutoffX = 0, cutoffY = 0 }) => {
 const Node = (props) => {
     const theme = useTheme()
 
-    const { id, data, style, x, y, height, margin, current, metric } = props
-    const { name, formattedX, formattedY } = data
+    const { id, data, style, x, y, height, margin, metric, current, setCurrent } = props
+
+    const { name, formattedX, formattedY, originalId } = data
     const yInverted = height - margin.top - margin.bottom - y
     const cutoff = 12 // cut off the lines a little before the node
     const translateLabel = labelPositions[metric][name] || [0, 0]
-    const category = id.split('.')[0]
-    const opacity = current !== null && current !== category ? 0.3 : 1
+    // const category = id.split('.')[0]
+    const state = current === null ? 'default' : current === originalId ? 'active' : 'inactive'
+    // const opacity = current === null ? 1 : current === originalId ? 1 : 0.3
+    const opacity = 1
 
     return (
-        <g className="Scatterplot__Node" transform={`translate(${x},${y})`}>
+        <g
+            onMouseEnter={() => {
+                setCurrent(originalId)
+            }}
+            onMouseLeave={() => {
+                setCurrent(null)
+            }}
+            className={`Scatterplot__Node Scatterplot__Node--${state}`}
+            transform={`translate(${x},${y})`}
+        >
             <g className="Scatterplot__Node__Crosshairs">
                 <circle
                     className="Scatterplot__Node__PointHover"
@@ -218,7 +231,7 @@ const Quadrants = ({ width, height, margin, metric = 'satisfaction' }) => {
     )
 }
 
-const ToolsScatterplotChart = ({ data, metric = 'satisfaction', current }) => {
+const ToolsScatterplotChart = ({ data, metric = 'satisfaction', current, setCurrent, className }) => {
     const theme = useTheme()
     const { translate } = useI18n()
 
@@ -226,14 +239,14 @@ const ToolsScatterplotChart = ({ data, metric = 'satisfaction', current }) => {
         (props) => <Quadrants {...props} metric={metric} />,
         'grid',
         'axes',
-        (props) => <Nodes {...props} current={current} metric={metric} />,
+        (props) => <Nodes {...props} current={current} setCurrent={setCurrent} metric={metric} />,
         /*'nodes', */ 'markers',
         'mesh',
         'legends',
     ]
 
     return (
-        <div style={{ height: 600 }}>
+        <div style={{ height: 600 }} className={className}>
             <ResponsiveScatterPlot
                 data={data}
                 margin={margins}

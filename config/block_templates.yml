@@ -361,14 +361,14 @@ otherFeaturesTemplate:
 toolsSectionOverviewTemplate:
     id: '${parentId}_section_overview'
     blockType: ToolsSectionOverviewBlock
-    dataPath: 'surveyApi.survey.${parentId}_section_overview'
+    dataPath: 'surveyApi.survey.${parentId}_tools_overview'
     bucketKeysName: tools
     showLegend: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                ${parentId}_section_overview: tools(ids: [${toolsCategories[parentId]}]) {
+                ${parentId}_tools_overview: tools(ids: [${toolsCategories[parentId]}]) {
                     id
                     entity {
                         name

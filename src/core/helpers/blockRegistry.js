@@ -10,13 +10,13 @@ import PageIntroductionBlock from 'core/blocks/other/PageIntroductionBlock'
 import SurveyIntroBlock from 'core/blocks/other/SurveyIntroBlock'
 import NewsletterBlock from 'core/blocks/other/NewsletterBlock'
 import SponsorsBlock from 'core/blocks/other/SponsorsBlock'
-import HintBlock from 'core/blocks/other/HintBlock'
 import PicksBlock from 'core/blocks/other/PicksBlock'
 import TranslatorsBlock from 'core/blocks/other/TranslatorsBlock'
 import TshirtBlock from 'core/blocks/other/TshirtBlock'
 import AwardBlock from 'core/blocks/awards/AwardBlock'
 import ConclusionBlock from 'core/blocks/other/ConclusionBlock'
 import NotFoundBlock from 'core/blocks/other/NotFoundBlock'
+import ReportBlock from 'core/report/ReportBlock'
 
 // demographics
 import ParticipationByCountryBlock from 'core/blocks/demographics/ParticipationByCountryBlock'
@@ -29,7 +29,7 @@ import KnowledgeScoreBlock from 'core/blocks/features/KnowledgeScoreBlock'
 
 // tools
 import ToolHeaderBlock from 'core/blocks/tools/ToolHeaderBlock'
-import { ToolExperienceBlock } from 'core/blocks/tools/ToolExperienceBlock'
+import ToolExperienceBlock from 'core/blocks/tools/ToolExperienceBlock'
 // import ToolExperienceGraphBlock from 'core/blocks/tools/ToolExperienceGraphBlock'
 // import ToolsSectionOverviewBlock from 'core/blocks/tools/ToolsSectionOverviewBlock'
 import ToolsSectionStreamsBlock from 'core/blocks/tools/ToolsSectionStreamsBlock'
@@ -43,7 +43,7 @@ import { ToolsUsageVariationsBlock } from 'core/blocks/tools/ToolsUsageVariation
 import HappinessBlock from 'core/blocks/happiness/HappinessBlock'
 
 // opinions
-import { OpinionBlock } from 'core/blocks/opinions/OpinionBlock'
+import OpinionBlock from 'core/blocks/opinions/OpinionBlock'
 
 const blockRegistry = {
     // generic chart blocks
@@ -62,10 +62,10 @@ const blockRegistry = {
     NewsletterBlock,
     SponsorsBlock,
     PicksBlock,
-    HintBlock,
     TranslatorsBlock,
     NotFoundBlock,
-
+    ReportBlock,
+    
     // demographics
     ParticipationByCountryBlock,
     GenderBlock,

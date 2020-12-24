@@ -32,7 +32,7 @@ const ParticipationByCountryChart = ({ units, data }) => {
 
     const mergedTheme = {
         ...theme.charts,
-        background: theme.colors.backgroundAlt,
+        // background: theme.colors.backgroundAlt,
     }
 
     const colorRange = theme.colors.countries
@@ -50,7 +50,7 @@ const ParticipationByCountryChart = ({ units, data }) => {
             valueFormat={formatValue}
             domain={units === 'percentage' ? [0, 8] : [0, 1000]}
             colors={colorRange}
-            unknownColor={theme.colors.background}
+            unknownColor={theme.colors.backgroundAlt}
             projectionScale={118}
             projectionTranslation={[0.5, 0.7]}
             projectionRotation={[-11, 0, 0]}

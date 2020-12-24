@@ -134,3 +134,21 @@ exports.createBlockPages = (page, context, createPage, locales) => {
         })
     })
 }
+
+/*
+
+Flatten sitemap into array of all blocks
+
+*/
+exports.getAllBlocks = (sitemap) => {
+    let allBlocks = []
+    sitemap.contents.forEach((page) => {
+        allBlocks = [...allBlocks, ...page.blocks]
+        if (page.children) {
+            page.children.forEach((page) => {
+                allBlocks = [...allBlocks, ...page.blocks]
+            })
+        }
+    })
+    return allBlocks
+}

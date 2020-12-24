@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import PropTypes from 'prop-types'
 import { ResponsiveBubble } from '@nivo/circle-packing'
 import ChartLabel from 'core/components/ChartLabel'
@@ -22,7 +22,9 @@ const sectionLabelOffsets = {
     other_features: 135,
 }
 
-const Node = ({ node, handlers }) => {
+const Node = (props) => {
+    // note that `current` is an array of ids for this chart
+    const { node, handlers, current } = props
     const radius = node.r
     const theme = useTheme()
 
@@ -30,11 +32,18 @@ const Node = ({ node, handlers }) => {
         return null
     }
 
+
     if (node.depth === 1 && node.data.isSection) {
         const color = theme.colors.ranges.featureSections[node.data.id]
 
+        const categoryContainsIds = (categoryNode, itemIds) => {
+            return categoryNode.data.children.some(node => itemIds.includes(node.id))
+        }
+
+        const state = current === null ? 'default' : categoryContainsIds(node, current) ? 'active' : 'inactive'
+
         return (
-            <g transform={`translate(${node.x},${node.y})`}>
+            <CirclePackingNodeCategory state={state} transform={`translate(${node.x},${node.y})`}>
                 <defs>
                     <path
                         d={`M-${radius},0a${radius},${radius} 0 1,0 ${
@@ -66,29 +75,32 @@ const Node = ({ node, handlers }) => {
                     strokeLinecap="round"
                     strokeDasharray="2 3"
                 />
-            </g>
+            </CirclePackingNodeCategory>
+        )
+    } else {
+        const usageRadius = node.r * (node.data.usage / node.data.awareness)
+        const color = theme.colors.ranges.featureSections[node.data.sectionId]
+
+        const state = current === null ? 'default' : current.includes(node.data.id) ? 'active' : 'inactive'
+
+        return (
+            <CirclePackingNode
+                className="CirclePackingNode"
+                transform={`translate(${node.x},${node.y})`}
+                onMouseEnter={handlers.onMouseEnter}
+                onMouseMove={handlers.onMouseMove}
+                onMouseLeave={handlers.onMouseLeave}
+                state={state}
+            >
+                <circle r={node.r} fill={`${color}50`} />
+                <circle r={usageRadius} fill={color} />
+                <ChartLabel label={node.label} fontSize={fontSizeByRadius(node.r)} />
+            </CirclePackingNode>
         )
     }
-
-    const usageRadius = node.r * (node.data.usage / node.data.awareness)
-    const color = theme.colors.ranges.featureSections[node.data.sectionId]
-
-    return (
-        <CirclePackingNode
-            className="CirclePackingNode"
-            transform={`translate(${node.x},${node.y})`}
-            onMouseEnter={handlers.onMouseEnter}
-            onMouseMove={handlers.onMouseMove}
-            onMouseLeave={handlers.onMouseLeave}
-        >
-            <circle r={node.r} fill={`${color}50`} />
-            <circle r={usageRadius} fill={color} />
-            <ChartLabel label={node.label} fontSize={fontSizeByRadius(node.r)} />
-        </CirclePackingNode>
-    )
 }
 
-const FeaturesCirclePackingChart = ({ data, className }) => {
+const FeaturesCirclePackingChart = ({ data, className, current = null }) => {
     const theme = useTheme()
 
     return (
@@ -107,7 +119,7 @@ const FeaturesCirclePackingChart = ({ data, className }) => {
                 colors={['white', 'blue']}
                 root={data}
                 value="awareness"
-                nodeComponent={Node}
+                nodeComponent={(props) => <Node {...props} current={current} />}
                 animate={false}
                 tooltip={FeaturesCirclePackingChartTooltip}
             />
@@ -140,11 +152,21 @@ const Chart = styled.div`
         overflow: visible;
     }
 `
+const CirclePackingNodeCategory = styled.g`
+    ${({ state }) =>
+        css`
+            opacity: ${state === 'inactive' ? 0.15 : 1};
+        `}
+`
 
 const CirclePackingNode = styled.g`
     &.CirclePackingNode--inactive {
         opacity: 0.15;
     }
+    ${({ state }) =>
+        css`
+            opacity: ${state === 'inactive' ? 0.15 : 1};
+        `}
 `
 
 const CirclePackingNodeCategoryLabel = styled.text`
