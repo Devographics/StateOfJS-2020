@@ -361,14 +361,14 @@ otherFeaturesTemplate:
 toolsSectionOverviewTemplate:
     id: '${parentId}_section_overview'
     blockType: ToolsSectionOverviewBlock
-    dataPath: 'surveyApi.survey.${parentId}_tools'
+    dataPath: 'surveyApi.survey.${parentId}_section_overview'
     bucketKeysName: tools
     showLegend: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                ${parentId}_tools: tools(ids: [${toolIds}]) {
+                ${parentId}_section_overview: tools(ids: [${toolsCategories[parentId]}]) {
                     id
                     entity {
                         name
@@ -390,14 +390,14 @@ toolsExperienceMarimekkoTemplate:
     id: '${parentId}_experience_marimekko'
     blockType: ToolsExperienceMarimekkoBlock
     blockName: tools_experience_marimekko
-    dataPath: 'surveyApi.survey.${parentId}_tools'
+    dataPath: 'surveyApi.survey.${parentId}_marimekko'
     bucketKeysName: tools
     showLegend: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                ${parentId}_tools: tools(ids: [${toolIds}]) {
+                ${parentId}_marimekko: tools(ids: [${toolsCategories[parentId]}]) {
                     id
                     entity {
                         name
@@ -420,14 +420,14 @@ toolsSectionStreamsTemplate:
     id: '${parentId}_section_streams'
     blockName: tools_section_streams
     blockType: ToolsSectionStreamsBlock
-    dataPath: 'surveyApi.survey.${parentId}_tools'
+    dataPath: 'surveyApi.survey.${parentId}_streams'
     bucketKeysName: tools
     showLegend: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                ${parentId}_tools: tools(ids: [${toolIds}]) {
+                ${parentId}_streams: tools(ids: [${toolsCategories[parentId]}]) {
                     id
                     entity {
                         name
@@ -617,7 +617,7 @@ toolsUsageVariationsTemplate:
                             yearly_salary,
                             company_size,
                         ],
-                        ids: [${toolIds}]
+                        ids: [${toolsCategories[parentId]}]
                     ) {
                         experience
                         dimensions {
@@ -660,7 +660,7 @@ toolsMatricesTemplate:
         surveyApi {
             survey(survey: ${surveyType}) {
                 ${parentId}_matrices: matrices {
-                    tools(ids: [${toolIds}]) {
+                    tools(ids: [${toolsCategories[parentId]}]) {
                         years_of_experience(experience: would_use) {
                             year(year: ${currentYear}) {
                                 tools {
@@ -733,7 +733,7 @@ heatmapTemplate:
         surveyApi {
             survey(survey: ${surveyType}) {
                 ${parentId}_matrices: matrices {
-                    tools(ids: [${toolIds}]) {
+                    tools(ids: [${toolsCategories[parentId]}]) {
                         ${heatmapId}(experience: would_use) {
                             year(year: ${currentYear}) {
                                 year
@@ -764,7 +764,7 @@ scatterplotTemplate:
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                 tools(ids:[${toolIds}]) {
+                 tools(ids:[${toolsCategories[parentId]}]) {
                     id
                     entity {
                         homepage

@@ -138,6 +138,9 @@
             - id: arrow_functions
               template: featureExperienceTemplate
 
+            - id: joshwcomeau
+              template: picksTemplate
+
             - id: nullish_coalescing
               template: featureExperienceTemplate
 
@@ -222,6 +225,9 @@
             - id: webrtc
               template: featureExperienceTemplate
 
+            - id: swyx
+              template: picksTemplate
+
             - id: web_speech
               template: featureExperienceTemplate
 
@@ -258,14 +264,12 @@
       - id: technologiesIntroduction
         template: pageIntroductionTemplate
 
-      - id: scatterplotOverview
+      - id: scatterplot_overview
         template: scatterplotOverviewTemplate
 
   children:
       - id: javascript_flavors
         path: /javascript-flavors
-        variables:
-            toolIds: ${toolsCategories.javascript_flavors}
         blocks:
             - template: pageIntroductionTemplate
 
@@ -297,8 +301,6 @@
 
       - id: front_end_frameworks
         path: /front-end-frameworks
-        variables:
-            toolIds: ${toolsCategories.front_end_frameworks}
         blocks:
             - template: pageIntroductionTemplate
 
@@ -323,6 +325,10 @@
               template: toolExperienceTemplate
             - id: ember
               template: toolExperienceTemplate
+
+            - id: kentcdodds
+              template: picksTemplate
+
             - id: svelte
               template: toolExperienceTemplate
             - id: alpinejs
@@ -338,8 +344,6 @@
 
       - id: datalayer
         path: /datalayer
-        variables:
-            toolIds: ${toolsCategories.datalayer}
         blocks:
             - template: pageIntroductionTemplate
 
@@ -372,8 +376,6 @@
 
       - id: back_end_frameworks
         path: /back-end-frameworks
-        variables:
-            toolIds: ${toolsCategories.back_end_frameworks}
         blocks:
             - template: pageIntroductionTemplate
 
@@ -410,8 +412,6 @@
 
       - id: testing
         path: /testing
-        variables:
-            toolIds: ${toolsCategories.testing}
         blocks:
             - template: pageIntroductionTemplate
 
@@ -448,8 +448,6 @@
 
       - id: build_tools
         path: /build-tools
-        variables:
-            toolIds: ${toolsCategories.build_tools}
         blocks:
             - template: pageIntroductionTemplate
 
@@ -486,8 +484,6 @@
 
       - id: mobile_desktop
         path: /mobile-desktop
-        variables:
-            toolIds: ${toolsCategories.mobile_desktop}
         blocks:
             - template: pageIntroductionTemplate
 
@@ -601,87 +597,87 @@
 
       - id: missing_from_js
         template: opinionsOthersTemplate
-#
-# - id: awards
-#   path: /awards
-#   blocks:
-#       - template: pageIntroductionTemplate
-#
-#       - id: feature_adoption_delta_award
-#         blockType: AwardBlock
-#         enableExport: true
-#         awards:
-#             - id: grid
-#               value: '+18.6%'
-#             - id: object_fit
-#               value: '+17.8%'
-#             - id: variables
-#               value: '+15.2%'
-#
-#       - id: tool_usage_delta_award
-#         blockType: AwardBlock
-#         enableExport: true
-#         awards:
-#             - id: tailwind_css
-#               value: '+17.8%'
-#             - id: atomic_css
-#               value: '+10.8%'
-#             - id: css_modules
-#               value: '+10.1%'
-#
-#       - id: tool_satisfaction_award
-#         blockType: AwardBlock
-#         enableExport: true
-#         awards:
-#             - id: post_css
-#               value: '91.4%'
-#             - id: css_modules
-#               value: '86.8%'
-#             - id: tailwind_css
-#               value: '86.6%'
-#
-#       - id: tool_interest_award
-#         blockType: AwardBlock
-#         enableExport: true
-#         awards:
-#             - id: css_modules
-#               value: '75.1%'
-#             - id: tailwind_css
-#               value: '62%'
-#             - id: styled_components
-#               value: '60%'
-#
-#       - id: most_write_ins_award
-#         blockType: AwardBlock
-#         enableExport: true
-#         awards:
-#             - id: phpstorm
-#               value: '200'
-#             - id: udemy
-#               value: '159'
-#             - id: frontendmasters
-#               value: '112'
-#
-#       # - id: prediction_award
-#       #   blockType: AwardBlock
-#       #   awards:
-#       #       - id: svelte
-#       #       - id: nest
-#       #       - id: stencil
-#
-#       # - id: best_blog_award
-#       #   blockType: AwardBlock
-#       #   awards:
-#       #       - id: svelte
-#       #       - id: nest
-#       #       - id: stencil
-#
-#       # - id: best_article_award
-#       #   blockType: AwardBlock
-#       #   awards:
-#       #       - id: svelte
-#       #       - id: nest
-#       #       - id: stencil
+
+- id: awards
+  path: /awards
+  blocks:
+      - template: pageIntroductionTemplate
+
+      # - id: feature_adoption_delta_award
+      #   blockType: AwardBlock
+      #   enableExport: true
+      #   awards:
+      #       - id: grid
+      #         value: '+18.6%'
+      #       - id: object_fit
+      #         value: '+17.8%'
+      #       - id: variables
+      #         value: '+15.2%'
+
+      - id: tool_usage_delta_award
+        blockType: AwardBlock
+        enableExport: true
+        awards:
+            - id: typescript
+              value: '+14.7%'
+            - id: nextjs
+              value: '+11.5%'
+            - id: cypress
+              value: '+10.1%'
+
+      - id: tool_satisfaction_award
+        blockType: AwardBlock
+        enableExport: true
+        awards:
+            - id: testing_library
+              value: '97%'
+            - id: jest
+              value: '96%'
+            - id: graphql
+              value: '94%'
+
+      - id: tool_interest_award
+        blockType: AwardBlock
+        enableExport: true
+        awards:
+            - id: graphql
+              value: '86%'
+            - id: jest
+              value: '83%'
+            - id: snowpack
+              value: '81%'
+
+      - id: most_write_ins_award
+        blockType: AwardBlock
+        enableExport: true
+        awards:
+            - id: phpstorm
+              value: '200'
+            - id: udemy
+              value: '159'
+            - id: frontendmasters
+              value: '112'
+
+      # - id: prediction_award
+      #   blockType: AwardBlock
+      #   awards:
+      #       - id: svelte
+      #       - id: nest
+      #       - id: stencil
+
+      # - id: best_blog_award
+      #   blockType: AwardBlock
+      #   awards:
+      #       - id: svelte
+      #       - id: nest
+      #       - id: stencil
+
+      # - id: best_article_award
+      #   blockType: AwardBlock
+      #   awards:
+      #       - id: svelte
+      #       - id: nest
+      #       - id: stencil
 
 - id: conclusion
   path: /conclusion

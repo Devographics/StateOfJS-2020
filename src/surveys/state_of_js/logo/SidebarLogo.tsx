@@ -10,7 +10,7 @@ export const SidebarLogo = () => {
             <LogoCell text="St" color={theme.colors.text} index={0} />
             <LogoCell text="Js" color={theme.colors.text} index={1} />
             <LogoCell text="20" color={theme.colors.contrast} index={2} />
-            <LogoCell text="19" color={theme.colors.contrast} index={3} />
+            <LogoCell text="20" color={theme.colors.contrast} index={3} />
         </Container>
     )
 }

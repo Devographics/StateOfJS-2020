@@ -18,7 +18,7 @@ const HintBlock = ({ block, data }) => {
         const onScroll = () => {
             if (hintPosition === 999999) {
                 // if hint position hasn't been set yet, set it
-                setHintPosition(hintRef.current.getBoundingClientRect().top)
+                setHintPosition(hintRef.current.getBoundingClientRect().top + window.scrollY)
             }
             // trigger animation when element reaches viewport midpoint
             const scrollPos = window.scrollY + window.innerHeight * 0.5

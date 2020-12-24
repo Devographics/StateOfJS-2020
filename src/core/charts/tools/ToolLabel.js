@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useTheme } from 'styled-components'
 import { useEntities } from 'core/entities/entitiesContext'
 import styled from 'styled-components'
-import { mq, spacing, fontSize } from 'core/theme'
+import { mq, spacing, fontSize, color } from 'core/theme'
 import Button from 'core/components/Button'
 import Modal from 'react-modal'
 import { ToolExperienceBlock } from 'core/blocks/tools/ToolExperienceBlock'
@@ -101,7 +101,9 @@ const Content = styled.div`
     @media ${mq.mediumLarge} {
         padding: ${spacing(2)};
     }
-    background: ${({ theme }) => theme.colors.background};
+    /* background: ${({ theme }) => theme.colors.background}; */
+    margin: 10px;
+    /* border: 1px solid ${color('border')}; */
 `
 
 export default ToolLabel
