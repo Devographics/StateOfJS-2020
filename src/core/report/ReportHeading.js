@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { mq, spacing, fontSize, fontWeight } from 'core/theme'
-import { logoElements } from 'core/components/Logo'
+// import { logoElements } from 'core/components/Logo'
 import sample from 'lodash/sample'
 import random from 'lodash/random'
 
@@ -9,7 +9,7 @@ export default ({ children }) => {
     const [part1, part2] = children.split('|')
     return (
         <Heading className="Heading Logo__Container">
-            <LogoElements className="LogoElements">
+            {/* <LogoElements className="LogoElements">
                 {[1, 2, 3].map((i) => {
                     const Component = sample(logoElements)
                     return (
@@ -25,7 +25,7 @@ export default ({ children }) => {
                         </div>
                     )
                 })}
-            </LogoElements>
+            </LogoElements> */}
             <LogoContents className="LogoContents">
                 <Part1>{part1.trim()}</Part1> <Part2>{part2.trim()}</Part2>
             </LogoContents>

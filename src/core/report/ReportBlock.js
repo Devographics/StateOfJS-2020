@@ -2,13 +2,13 @@ import React from 'react'
 import ReportContents from 'config/report.mdx'
 import styled from 'styled-components'
 import { mq, color, spacing, fontSize, fontWeight } from 'core/theme'
-import Logo from 'core/components/Logo'
+// import Logo from 'core/components/Logo'
 
 const debug = false
 
 export default () => (
     <Essay className="Essay">
-        <Logo size="l" />
+        {/* <Logo size="l" /> */}
         <ReportContents />
         {debug && (
             <>

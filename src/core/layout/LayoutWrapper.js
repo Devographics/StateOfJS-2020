@@ -14,7 +14,7 @@ import { GlobalStyle } from 'core/theme'
 import MainLayout from 'core/layout/MainLayout'
 import ReportLayout from 'core/report/ReportLayout'
 
-const themeIds = ['js', 'css', 'test']
+const themeIds = ['state_of_js', 'state_of_css', 'test']
 
 const ThemedLayout = (props) => {
     const [themeId, setThemeId] = useState('css')
