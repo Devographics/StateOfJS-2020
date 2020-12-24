@@ -17,7 +17,7 @@ import ReportLayout from 'core/report/ReportLayout'
 const themeIds = ['state_of_js', 'state_of_css', 'test']
 
 const ThemedLayout = (props) => {
-    const [themeId, setThemeId] = useState('css')
+    const [themeId, setThemeId] = useState('state_of_js')
 
     const switchTheme = useCallback(
         (event) => {
