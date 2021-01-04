@@ -90,3 +90,5 @@ export const ToolExperienceBlock = ({
         </Block>
     )
 }
+
+export default ToolExperienceBlock

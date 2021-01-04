@@ -17,6 +17,7 @@ import AwardBlock from 'core/blocks/awards/AwardBlock'
 import ConclusionBlock from 'core/blocks/other/ConclusionBlock'
 import NotFoundBlock from 'core/blocks/other/NotFoundBlock'
 import ReportBlock from 'core/report/ReportBlock'
+import HintBlock from 'core/blocks/other/HintBlock'
 
 // demographics
 import ParticipationByCountryBlock from 'core/blocks/demographics/ParticipationByCountryBlock'
@@ -64,6 +65,7 @@ const blockRegistry = {
     PicksBlock,
     TranslatorsBlock,
     NotFoundBlock,
+    HintBlock,
     ReportBlock,
     
     // demographics

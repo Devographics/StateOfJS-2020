@@ -4,6 +4,7 @@ export default {
     background: '#e7ebf3',
     backgroundAlt: '#dae0ec',
     backgroundInverted: '#26272a',
+    backgroundInvertedAlt: '#FBFAE1',
     text: '#333333',
     textInverted: '#e7ebf3',
     textHighlight: '#000000',

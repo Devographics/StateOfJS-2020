@@ -92,3 +92,5 @@ export const OpinionBlock = ({
         </Block>
     )
 }
+
+export default OpinionBlock

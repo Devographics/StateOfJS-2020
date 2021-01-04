@@ -326,9 +326,6 @@
             - id: ember
               template: toolExperienceTemplate
 
-            - id: kentcdodds
-              template: picksTemplate
-
             - id: svelte
               template: toolExperienceTemplate
             - id: alpinejs
@@ -349,6 +346,9 @@
 
             - template: toolsExperienceRankingTemplate
 
+            - id: sarah_edo
+              template: picksTemplate
+
             - template: toolsSectionStreamsTemplate
 
             - template: toolsExperienceMarimekkoTemplate
@@ -361,6 +361,7 @@
               template: toolExperienceTemplate
             - id: graphql
               template: toolExperienceTemplate
+
             - id: mobx
               template: toolExperienceTemplate
             - id: relay
@@ -380,6 +381,9 @@
             - template: pageIntroductionTemplate
 
             - template: toolsExperienceRankingTemplate
+
+            - id: kentcdodds
+              template: picksTemplate
 
             - template: toolsSectionStreamsTemplate
 
@@ -416,6 +420,9 @@
             - template: pageIntroductionTemplate
 
             - template: toolsExperienceRankingTemplate
+
+            - id: ladyleet
+              template: picksTemplate
 
             - template: toolsSectionStreamsTemplate
 
@@ -532,6 +539,9 @@
       - id: utilities_others
         template: otherToolsFreeFormTemplate
 
+      - id: midudev
+        template: picksTemplate
+        
       - id: runtimes
         template: otherToolsTemplate
       - id: runtimes_others
@@ -583,6 +593,10 @@
         template: opinionTemplate
       - id: js_over_used_online
         template: opinionTemplate
+
+      - id: cassidoo
+        template: picksTemplate
+
       - id: enjoy_building_js_apps
         template: opinionTemplate
       - id: would_like_js_to_be_main_lang
@@ -681,6 +695,7 @@
 
 - id: conclusion
   path: /conclusion
+  showTitle: false
   blocks:
       - id: conclusion
         blockType: ConclusionBlock

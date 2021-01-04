@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 import { useI18n } from 'core/i18n/i18nContext'
-import { mq, spacing, fontSize } from 'core/theme'
+import { mq, spacing, fontSize, color } from 'core/theme'
 import picks from 'config/picks.yml'
 
 const PicksBlock = ({ block, data }) => {
@@ -43,7 +43,7 @@ const PicksBlock = ({ block, data }) => {
                                 <a
                                     href={`https://twitter.com/${twitterName}`}
                                     style={{
-                                        backgroundImage: `url(/images/picks/${avatarUrl})`,
+                                        backgroundImage: `url(/images/picks/${twitterName}.jpg)`,
                                     }}
                                     title={fullName}
                                 >
@@ -82,8 +82,8 @@ const PickContentWrapper = styled.div`
     position: relative;
 `
 const PickContent = styled.div`
-    background: ${({ theme }) => theme.colors.backgroundInvertedAlt};
-    color: ${({ theme }) => theme.colors.textInverted};
+    background: ${color('backgroundInvertedAlt')};
+    color: ${color('textInverted')};
     position: relative;
     margin-bottom: ${spacing(0.75)};
     @media ${mq.small} {
@@ -95,7 +95,7 @@ const PickContent = styled.div`
     &:after {
         content: ' ';
         clip-path: polygon(0 0, 100% 0, 50% 100%);
-        background: ${({ theme }) => theme.colors.backgroundInvertedAlt};
+        background: ${color('backgroundInvertedAlt')};
         position: absolute;
         width: ${spacing(triangleWidth)};
         height: ${spacing(triangleWidth / 2)};

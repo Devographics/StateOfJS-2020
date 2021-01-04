@@ -1,41 +1,28 @@
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css, keyframes } from 'styled-components'
 import { mq, spacing, fontSize, color } from 'core/theme'
 import T from 'core/i18n/T'
+import { useInView } from 'react-intersection-observer'
 
-// see https://dev.to/chriseickemeyergh/building-custom-scroll-animations-using-react-hooks-4h6f
+// From 0 (top) to 1(bottom), where in the viewport should the trigger happen
+const buffer = 0.2
+const bufferPercent = buffer * 100
+
 const HintBlock = ({ block, data }) => {
     const { id } = block
 
-    const hintRef = useRef()
-
-    const [animate, setAnimate] = useState(false)
-    // use a default position of 999999 so that animation never triggers
-    const [hintPosition, setHintPosition] = useState(999999)
-
-    useLayoutEffect(() => {
-        const onScroll = () => {
-            if (hintPosition === 999999) {
-                // if hint position hasn't been set yet, set it
-                setHintPosition(hintRef.current.getBoundingClientRect().top + window.scrollY)
-            }
-            // trigger animation when element reaches viewport midpoint
-            const scrollPos = window.scrollY + window.innerHeight * 0.5
-            if (scrollPos > hintPosition) {
-                setAnimate(true)
-                // once animation is triggered, remove event listener
-                window.removeEventListener('scroll', onScroll)
-            }
-        }
-        window.addEventListener('scroll', onScroll)
-        return () => window.removeEventListener('scroll', onScroll)
+    const { ref: hintRef, inView, entry } = useInView({
+        /* Optional options */
+        rootMargin: `-${bufferPercent}% 0% -${bufferPercent}% 0%`,
+        threshold: 0,
+        triggerOnce: true,
     })
 
     return (
-        <HintContainer className="Block" ref={hintRef} animate={animate}>
+        <HintContainer className="Block" ref={hintRef} animate={inView}>
             <HintBulb>
-                <HintBulbInner animate={animate}>
+                <HintBulbInner animate={inView}>
                     <span className="bulb" role="img" aria-label="Lightbulb Emoji">
                         💡
                     </span>

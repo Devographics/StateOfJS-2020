@@ -32,15 +32,19 @@ const Node = (props) => {
         return null
     }
 
-
     if (node.depth === 1 && node.data.isSection) {
         const color = theme.colors.ranges.featureSections[node.data.id]
 
         const categoryContainsIds = (categoryNode, itemIds) => {
-            return categoryNode.data.children.some(node => itemIds.includes(node.id))
+            return categoryNode.data.children.some((node) => itemIds.includes(node.id))
         }
 
-        const state = current === null ? 'default' : categoryContainsIds(node, current) ? 'active' : 'inactive'
+        const state =
+            current === null
+                ? 'default'
+                : categoryContainsIds(node, current)
+                ? 'active'
+                : 'inactive'
 
         return (
             <CirclePackingNodeCategory state={state} transform={`translate(${node.x},${node.y})`}>
@@ -81,7 +85,10 @@ const Node = (props) => {
         const usageRadius = node.r * (node.data.usage / node.data.awareness)
         const color = theme.colors.ranges.featureSections[node.data.sectionId]
 
-        const state = current === null ? 'default' : current.includes(node.data.id) ? 'active' : 'inactive'
+        const state =
+            current === null ? 'default' : current.includes(node.data.id) ? 'active' : 'inactive'
+
+        const offset = node.data.index % 2 === 0 ? -6 : 6
 
         return (
             <CirclePackingNode
@@ -94,7 +101,11 @@ const Node = (props) => {
             >
                 <circle r={node.r} fill={`${color}50`} />
                 <circle r={usageRadius} fill={color} />
-                <ChartLabel label={node.label} fontSize={fontSizeByRadius(node.r)} />
+                <ChartLabel
+                    transform={`translate(0,${offset})`}
+                    label={node.label}
+                    fontSize={fontSizeByRadius(node.r)}
+                />
             </CirclePackingNode>
         )
     }

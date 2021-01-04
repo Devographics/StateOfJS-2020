@@ -14,7 +14,7 @@ const getChartData = (data, getName, translate) => {
     const sections = sectionIds.map((sectionId) => {
         const sectionFeatures = categories[sectionId]
         let features = data.filter((f) => sectionFeatures.includes(f.id))
-        features = features.map((feature) => {
+        features = features.map((feature, index) => {
             const buckets = get(feature, 'experience.year.buckets')
             if (!buckets) {
                 throw new Error(`Feature “${feature.id}” does not have any data associated.`)
@@ -31,6 +31,7 @@ const getChartData = (data, getName, translate) => {
             }
 
             return {
+                index,
                 id: feature.id,
                 awareness: usageBucket.count + knowNotUsedBucket.count,
                 usage: usageBucket.count,

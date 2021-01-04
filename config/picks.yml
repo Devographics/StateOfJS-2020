@@ -12,3 +12,23 @@
   fullName: Kent C. Dodds
   url: https://remix.run/
   pickName: Remix
+
+- twitterName: sarah_edo
+  fullName: Sarah Drasner
+  url: https://insomnia.rest/
+  pickName: Insomnia
+
+- twitterName: ladyleet
+  fullName: Tracy Lee
+  url: https://redwoodjs.com/
+  pickName: RedwoodJS
+
+- twitterName: midudev
+  fullName: Miguel Ángel Durán
+  url: https://nodejs.org/api/esm.html#esm_modules_ecmascript_modules
+  pickName: ECMAScript Modules
+
+- twitterName: cassidoo
+  fullName: Cassidy Williams
+  url: https://twitter.com/bencodezen
+  pickName: Ben Hong
