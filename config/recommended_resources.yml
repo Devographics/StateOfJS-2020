@@ -1,3 +1,17 @@
+# Idera
+
+- name: WebTestIt - a Free Tool for Creating UI Tests for Web Applications
+  id: id-webtestit
+  description: WebTestIt lets developers build reliable and efficient UI web tests for Selenium and Protractor. Check it out.
+  url: https://www.sencha.com/products/webtestit/?utm_source=stateofjs2020&utm_medium=direct&utm_content=stateofjs2020-sponsor-201211
+  image: /images/resources/webtestit.png
+
+- name: Enhance your App with Rich Editing Capabilities from Froala 
+  id: id-froala
+  description: Add simple yet smart editing capabilities into your Apps using the WYSIWYG HTML Froala Editor. 
+  url: https://froala.com/?utm_source=stateofjs2020&utm_medium=direct&utm_content=stateofjs2020-sponsor-201211
+  image: /images/resources/froala.png
+
 # Front End Masters
 
 - name: Frontend Masters

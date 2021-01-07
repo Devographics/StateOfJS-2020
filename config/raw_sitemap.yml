@@ -453,6 +453,9 @@
 
             - template: happinessTemplate
 
+            - items: [id-webtestit]
+              template: recommendedResourcesTemplate
+              
       - id: build_tools
         path: /build-tools
         blocks:
@@ -561,6 +564,9 @@
         template: otherToolsTemplate
       - id: non_js_languages_others
         template: otherToolsFreeFormTemplate
+
+      - items: [id-froala]
+        template: recommendedResourcesTemplate
 
 - id: resources
   path: /resources
