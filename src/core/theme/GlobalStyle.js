@@ -97,10 +97,15 @@ export const GlobalStyle = createGlobalStyle`
         display: none;
     }
     
+    .ModalContent {
+        outline: none;
+    }
     .ReactModal__Overlay {
         z-index: ${zIndex('modal')};
     }
-    
+    .ReactModal__Body--open{
+        overflow: hidden;
+    }
     .Page--awards {
         .Page__Introduction{
             margin: 0;

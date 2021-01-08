@@ -6,6 +6,7 @@ const stateOfJSThemeColors: DefaultTheme['colors'] = {
     backgroundBackground: '#151618',
     backgroundForeground: colors.greyDarkish,
     backgroundAlt: colors.greyDarkish,
+    backgroundAlt2: colors.greyDark,
     backgroundInverted: colors.greyLight,
     backgroundInvertedAlt: '#FBFAE1',
     text: colors.greyLight,

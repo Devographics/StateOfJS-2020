@@ -9,6 +9,7 @@ import { keys } from 'core/bucket_keys'
 import { useI18n } from 'core/i18n/i18nContext'
 import { ToolsExperienceMarimekkoToolData } from './types'
 import { ToolsExperienceMarimekkoLegend } from './ToolsExperienceMarimekkoLegend'
+// @ts-ignore
 import ToolLabel from 'core/charts/tools/ToolLabel'
 
 export const MARGIN = {
@@ -59,7 +60,7 @@ const ToolsLabels = ({ data }: CustomLayerProps<ToolsExperienceMarimekkoToolData
         <g>
             {data.map((datum) => (
                 <g key={datum.id} transform={`translate(-160, ${datum.y})`}>
-                    <foreignObject style={{ overflow: 'visible' }}>
+                    <foreignObject style={{ overflow: 'visible' }} width="1" height="1">
                         <ToolLabel id={datum.id} data={datum} />
                     </foreignObject>
                 </g>

@@ -34,11 +34,11 @@ const ToolLabel = ({ id }) => {
     )
 }
 
-const ToolLabelModal = ({ id }) => {
+const ToolLabelModal = ({ id, closeComponent }) => {
     const pageContext = usePageContext()
     const block = pageContext.blocks.find((block) => block.id === id)
     const blockData = get(pageContext.pageData, block.dataPath)
-    return <ToolExperienceBlock block={block} data={blockData} />
+    return <ToolExperienceBlock block={block} data={blockData} closeComponent={closeComponent}/>
 }
 
 const LabelLink = styled(Button)`

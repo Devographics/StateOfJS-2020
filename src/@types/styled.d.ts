@@ -45,6 +45,7 @@ declare module 'styled-components' {
             backgroundBackground: string
             backgroundForeground: string
             backgroundAlt: string
+            backgroundAlt2: string
             backgroundInverted: string
             backgroundInvertedAlt: string
             text: string

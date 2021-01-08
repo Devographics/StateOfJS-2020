@@ -107,7 +107,7 @@ export const Nav = ({ closeSidebar }) => {
     return (
         <NavContainer>
             <LanguageSwitcherWrapper>
-            <LanguageSwitcher />
+                <LanguageSwitcher />
             </LanguageSwitcherWrapper>
             {filteredNav.map((page, i) => (
                 <NavItem
@@ -123,8 +123,8 @@ export const Nav = ({ closeSidebar }) => {
 
 const NavContainer = styled.div`
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
     padding: ${spacing(1.5)} ${spacing()};
     overflow-y: auto;
 

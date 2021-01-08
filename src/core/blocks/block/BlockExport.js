@@ -42,6 +42,25 @@ const ExportIcon = () => (
 )
 
 const BlockExport = ({ data, block, title }) => {
+    return (
+        <>
+            <ButtonWrapper className="BlockExport">
+                <ModalTrigger
+                    trigger={
+                        <ExportButton className="ExportButton" size="small">
+                            <T k="export.export" />
+                            {/* <ExportIcon /> */}
+                        </ExportButton>
+                    }
+                >
+                    <Export block={block} data={data} title={title} />
+                </ModalTrigger>
+            </ButtonWrapper>
+        </>
+    )
+}
+
+const Export = ({ closeComponent, block, data, title }) => {
     const { id, query } = block
 
     const isArray = Array.isArray(data)
@@ -62,41 +81,28 @@ const BlockExport = ({ data, block, title }) => {
     const graphQLExport = `query ${camelCase(id)}Query {
 ${trimmedQuery}
 }`
-
     return (
-        <>
-            <ButtonWrapper className="BlockExport">
-                <ModalTrigger
-                    trigger={
-                        <ExportButton className="ExportButton" size="small">
-                            <T k="export.export" />
-                            {/* <ExportIcon /> */}
-                        </ExportButton>
-                    }
-                >
-                    <ExportContents>
-                        <h3>
-                            <T k="export.title" values={{ title }} />
-                        </h3>
-                        <Tabs>
-                            <TabList>
-                                <Tab>JSON</Tab>
-                                <Tab>GraphQL</Tab>
-                            </TabList>
-                            <TabPanel>
-                                <Text value={jsonExport} />
-                            </TabPanel>
-                            <TabPanel>
-                                <Text value={graphQLExport} />
-                                <Message>
-                                    <T k={'export.graphql'} html={true} />
-                                </Message>
-                            </TabPanel>
-                        </Tabs>
-                    </ExportContents>
-                </ModalTrigger>
-            </ButtonWrapper>
-        </>
+        <ExportContents>
+            <ExportHeading>
+                <T k="export.title" values={{ title }} />
+                {closeComponent}
+            </ExportHeading>
+            <Tabs>
+                <TabList>
+                    <Tab>JSON</Tab>
+                    <Tab>GraphQL</Tab>
+                </TabList>
+                <TabPanel>
+                    <Text value={jsonExport} />
+                </TabPanel>
+                <TabPanel>
+                    <Text value={graphQLExport} />
+                    <Message>
+                        <T k={'export.graphql'} html={true} />
+                    </Message>
+                </TabPanel>
+            </Tabs>
+        </ExportContents>
     )
 }
 
@@ -163,6 +169,12 @@ const ExportContents = styled.div`
         padding: ${spacing(0.5)};
         margin: 0;
     }
+`
+
+const ExportHeading = styled.h3`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `
 
 const ButtonWrapper = styled.div`

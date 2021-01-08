@@ -5,6 +5,23 @@ import { mq, spacing, fontSize, color } from 'core/theme'
 import Button from 'core/components/Button'
 import Modal from 'react-modal'
 
+const ModalClose = ({ closeModal }) => <Close onClick={closeModal}>x</Close>
+
+const Close = styled.div`
+    display: block;
+    font-size: 1.2rem;
+    position: absolute;
+    cursor: pointer;
+    @media ${mq.small} {
+        top: -3px;
+        right: 6px;
+    }
+    @media ${mq.mediumLarge} {
+        top: 0px;
+        right: 10px;
+    }
+`
+
 const ModalTrigger = ({ label, trigger, children }) => {
     const theme = useTheme()
     const [modalIsOpen, setIsOpen] = useState(false)
@@ -26,6 +43,10 @@ const ModalTrigger = ({ label, trigger, children }) => {
             {label}
         </TriggerDefaultComponent>
     )
+
+    const childrenComponent = React.cloneElement(children, {
+        closeComponent: <ModalClose closeModal={closeModal} />,
+    })
 
     const customStyles = {
         overlay: {
@@ -66,7 +87,10 @@ const ModalTrigger = ({ label, trigger, children }) => {
                 className="ModalContent"
                 // overlayClassName="ModalOverlay"
             >
-                <Content>{children}</Content>
+                <Content>
+                    <ModalClose closeModal={closeModal} />
+                    {children}
+                </Content>
             </Modal>
         </>
     )
@@ -81,11 +105,11 @@ const Content = styled.div`
     /* padding: 0; */
     overscroll-behavior: contain;
     border-radius: 10px;
-    background: ${color('backgroundAlt')};
+    background: ${color('backgroundAlt2')};
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.75);
 
     @media ${mq.small} {
-        padding: ${spacing(0.75)};
+        padding: ${spacing()};
         width: calc(100% - 60px);
         height: calc(100% - 60px);
         top: ${spacing(1.5)};
@@ -100,7 +124,6 @@ const Content = styled.div`
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-
     }
 `
 

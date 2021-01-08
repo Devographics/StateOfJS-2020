@@ -86,6 +86,7 @@ const BlockTitle = ({
     data,
     block,
     switcher,
+    closeComponent
 }) => {
     const { id, showDescription = true } = block
     const completion =
@@ -136,6 +137,7 @@ const BlockTitle = ({
                 </LeftPart>
                 <BlockTitleSwitcherWrapper>
                     <BlockTitleSwitcher {...properties} />
+                    {closeComponent}
                 </BlockTitleSwitcherWrapper>
             </StyledBlockTitle>
             {showDescription && <BlockDescriptionContents block={block} context={context} />}
@@ -282,9 +284,9 @@ const BlockChartControls = styled.div`
 `
 
 const PopoverContents = styled.div`
-    .BlockExport,
-    .ShareBlock {
-        margin-bottom: ${spacing()};
+    .ShareBlock,
+    .BlockChartControls {
+        margin-top: ${spacing()};
     }
 `
 

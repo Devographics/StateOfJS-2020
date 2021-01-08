@@ -4,7 +4,7 @@ export default {
     greyMedium: '#cecdcc',
     greyMediumer: '#616868',
     greyMediumest: '#5c6069',
-    greyDark: '#4d4f4f',
+    greyDark: '#3F4141',
     greyDarkish: '#2a2d33',
     greyDarker: '#222429',
 

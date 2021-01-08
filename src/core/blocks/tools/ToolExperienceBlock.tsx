@@ -19,12 +19,14 @@ interface ToolExperienceBlockProps {
     block: BlockContext<'toolExperienceTemplate', 'ToolExperienceBlock', { toolIds: string }>
     data: ToolAllYearsExperience
     units?: 'percentage' | 'count'
+    closeComponent: any
 }
 
 export const ToolExperienceBlock = ({
     block,
     data,
     units: defaultUnits = 'percentage',
+    closeComponent
 }: ToolExperienceBlockProps) => {
     const context = usePageContext()
     const { locale } = context
@@ -34,8 +36,6 @@ export const ToolExperienceBlock = ({
     const title = data.entity.name
     const titleLink = data.entity.homepage
 
-    console.log(data.entity)
-    
     // as descriptions are extracted from best of js/github...
     // we only have english available.
     const description = locale.id === 'en-US' && data.entity.description!
@@ -81,6 +81,7 @@ export const ToolExperienceBlock = ({
             setUnits={setUnits}
             block={{ ...block, title, titleLink, description, showDescription: !!description }}
             data={allYears}
+            titleProps={{ closeComponent }}
         >
             <ChartContainer height={chartHeight} fit>
                 <ExperienceByYearBarChart
