@@ -106,7 +106,9 @@ export const Nav = ({ closeSidebar }) => {
 
     return (
         <NavContainer>
+            <LanguageSwitcherWrapper>
             <LanguageSwitcher />
+            </LanguageSwitcherWrapper>
             {filteredNav.map((page, i) => (
                 <NavItem
                     key={i}
@@ -130,4 +132,9 @@ const NavContainer = styled.div`
         align-items: center;
         overflow-y: scroll;
     }
+`
+
+const LanguageSwitcherWrapper = styled.div`
+    position: relative;
+    width: 100%;
 `

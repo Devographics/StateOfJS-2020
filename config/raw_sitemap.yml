@@ -677,12 +677,12 @@
         blockType: AwardBlock
         enableExport: true
         awards:
-            - id: phpstorm
-              value: '200'
-            - id: udemy
-              value: '159'
-            - id: frontendmasters
-              value: '112'
+            - id: intellij
+              value: '134'
+            - id: adonis
+              value: '117'
+            - id: vite
+              value: '85'
 
       # - id: prediction_award
       #   blockType: AwardBlock

@@ -9,6 +9,7 @@ import { useI18n } from 'core/i18n/i18nContext'
 import { mq, spacing, fontSize } from 'core/theme'
 import AwardIcon from './AwardIcon'
 import { useEntities } from 'core/entities/entitiesContext'
+import T from 'core/i18n/T'
 
 const AwardBlock = ({ block }) => {
     const { getEntity } = useEntities()
@@ -31,7 +32,7 @@ const AwardBlock = ({ block }) => {
         <Container className={`Award Award--${isRevealed ? 'show' : 'hide'}`} id={type}>
             <Heading className="Award__Heading">{translate(`award.${type}.title`)}</Heading>
             <Description className="Award__Description">
-                {translate(`award.${type}.description`)}
+                <T k={`award.${type}.description`} />
             </Description>
             <ElementContainer className="Award__Element__Container">
                 <Element className="Award__Element" onClick={handleClick}>
@@ -66,12 +67,7 @@ const AwardBlock = ({ block }) => {
                 </Element>
             </ElementContainer>
             <Comment className="Award__Comment">
-                <ReactMarkdown
-                    source={translate(`award.${type}.comment`, {
-                        value: 100,
-                        values: { value: winner.value },
-                    })}
-                />
+                <T k={`award.${type}.comment`} md={true} values={{ value: winner.value }} />
                 <ShareBlock
                     title={`${translate(`award.${type}.title`)}`}
                     block={block}
@@ -80,7 +76,7 @@ const AwardBlock = ({ block }) => {
             </Comment>
             <div className="Awards__RunnerUps">
                 <RunnerUpsHeading className="Awards__RunnerUps__Heading">
-                    {translate(`awards.runner_ups`)}
+                    <T k="awards.runner_ups" />
                 </RunnerUpsHeading>
                 {runnerUps.map((runnerUp, i) => (
                     <RunnerUpsItem key={runnerUp.id} className="Awards__RunnerUps__Item">
