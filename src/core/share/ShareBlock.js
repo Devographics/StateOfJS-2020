@@ -6,7 +6,7 @@ import ReactGA from 'react-ga'
 import { useI18n } from 'core/i18n/i18nContext'
 import { getBlockMeta } from 'core/helpers/blockHelpers'
 import { usePageContext } from 'core/helpers/pageContext'
-import mq from 'core/theme/mq'
+import { mq } from 'core/theme'
 import Button from 'core/components/Button'
 import ShareTwitter from './ShareTwitter'
 import ShareLinkedIn from './ShareLinkedIn'
@@ -70,10 +70,8 @@ const ShareBlock = ({ block, section, className, toggleClass, title }) => {
                         toggleOptions(e)
                     }}
                 >
-                    <span className="desktop">
-                        <T k="share.share" />
-                    </span>
-                    <ShareIcon />
+                    <T k="share.share" />
+                    {/* <ShareIcon /> */}
                 </ShareButton>
             </ButtonWrapper>
             <Popup className="ShareBlock__Popup">
@@ -105,13 +103,15 @@ const Container = styled.div`
 `
 
 const ButtonWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @media ${mq.mediumLarge} {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 `
 
 const ShareButton = styled(Button)`
-    @media ${mq.small} {
+    /* @media ${mq.small} {
         width: 30px;
         height: 30px;
         display: flex;
@@ -121,7 +121,7 @@ const ShareButton = styled(Button)`
         &.Button--small {
             padding: 0;
         }
-    }
+    } */
 `
 
 const Icon = styled.svg`

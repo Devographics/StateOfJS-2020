@@ -6,12 +6,12 @@ import Block from 'core/blocks/block/Block'
 import ChartContainer from 'core/charts/ChartContainer'
 import { RankingChart, RankingChartSerie } from 'core/charts/generic/RankingChart'
 // @ts-ignore
-import { useI18n } from 'core/i18n/i18nContext'
-// @ts-ignore
 import ButtonGroup from 'core/components/ButtonGroup'
 // @ts-ignore
 import Button from 'core/components/Button'
 import { Entity } from 'core/types'
+// @ts-ignore
+import T from 'core/i18n/T'
 
 type MetricId = 'satisfaction' | 'interest' | 'usage' | 'awareness'
 
@@ -23,8 +23,6 @@ interface SwitcherProps {
 }
 
 const Switcher = ({ setMetric, metric }: SwitcherProps) => {
-    const { translate } = useI18n()
-
     return (
         <ButtonGroup>
             {ALL_METRICS.map((key) => (
@@ -34,12 +32,7 @@ const Switcher = ({ setMetric, metric }: SwitcherProps) => {
                     className={`Button--${metric === key ? 'selected' : 'unselected'}`}
                     onClick={() => setMetric(key)}
                 >
-                    <span className="desktop">
-                        {translate(`options.experience_ranking.${key}`)}
-                    </span>
-                    <span className="mobile">
-                        {translate(`options.experience_ranking.${key}`)[0]}
-                    </span>
+                    <T k={`options.experience_ranking.${key}`} />
                 </Button>
             ))}
         </ButtonGroup>
@@ -63,13 +56,17 @@ interface ToolsExperienceRankingBlockProps {
         'ToolsExperienceRankingBlock',
         { toolIds: string },
         any
-    >,
-    triggerId: MetricId,
-    data: ToolData[],
+    >
+    triggerId: MetricId
+    data: ToolData[]
     titleProps: any
 }
 
-export const ToolsExperienceRankingBlock = ({ block, data, triggerId }: ToolsExperienceRankingBlockProps) => {
+export const ToolsExperienceRankingBlock = ({
+    block,
+    data,
+    triggerId,
+}: ToolsExperienceRankingBlockProps) => {
     const [metric, setMetric] = useState<MetricId>('satisfaction')
 
     const controlledMetric = triggerId || metric

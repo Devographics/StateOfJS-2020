@@ -189,6 +189,9 @@
             - id: sets
               template: featureExperienceTemplate
 
+            - id: lauragift_
+              template: picksTemplate
+
             - id: typed_arrays
               template: featureExperienceTemplate
 
@@ -463,6 +466,9 @@
 
             - template: toolsExperienceRankingTemplate
 
+            - id: tomdale
+              template: picksTemplate
+              
             - template: toolsSectionStreamsTemplate
 
             - template: toolsExperienceMarimekkoTemplate

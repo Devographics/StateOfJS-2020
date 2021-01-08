@@ -62,9 +62,9 @@ const StyledBlockTitle = styled.div`
     align-items: center;
     position: relative;
     z-index: 10;
-    .Block__Title__Share {
+    /* .Block__Title__Share {
         margin-left: ${spacing(0.5)};
-    }
+    } */
 
     &:hover {
         .SharePermalink {

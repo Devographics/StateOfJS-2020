@@ -96,18 +96,28 @@ HintBlock.propTypes = {
 }
 
 const HintContainer = styled.div`
-    padding: ${spacing(1.5)};
     margin-bottom: ${spacing(2)};
-    display: grid;
-    grid-template-columns: 60px auto;
-    column-gap: ${spacing()};
     background: ${color('backgroundAlt')};
+    display: grid;
+    column-gap: ${spacing()};
     ${animate(bgGlow)}
+    @media ${mq.small} {
+        padding: ${spacing()};
+        grid-template-columns: 30px auto;
+    }
+    @media ${mq.mediumLarge} {
+        padding: ${spacing(1.5)};
+        grid-template-columns: 60px auto;
+    }
 `
 
 const HintBulb = styled.div`
     display: grid;
     place-items: center;
+
+    @media ${mq.small} {
+        margin-bottom: ${spacing(0.5)};
+    }
 `
 
 const HintBulbInner = styled.div`

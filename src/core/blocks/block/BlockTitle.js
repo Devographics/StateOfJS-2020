@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import last from 'lodash/last'
-import { mq, spacing } from 'core/theme'
+import { mq, spacing, color } from 'core/theme'
 import ShareBlock from 'core/share/ShareBlock'
 import BlockExport from 'core/blocks/block/BlockExport'
 import { useI18n } from 'core/i18n/i18nContext'
@@ -13,7 +13,47 @@ import BlockUnitsSelector from 'core/blocks/block/BlockUnitsSelector'
 import BlockCompletionIndicator from 'core/blocks/block/BlockCompletionIndicator'
 import { getBlockTitleKey, getBlockDescriptionKey, getBlockTitle } from 'core/helpers/blockHelpers'
 import T from 'core/i18n/T'
+import Button from 'core/components/Button'
+import Popover from 'core/components/Popover'
 
+const MoreIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" x="0" y="0" viewBox="0 0 24 24">
+        <g>
+            <g
+                fill="none"
+                stroke="#000"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
+            >
+                <circle cx="3" cy="12" r="2.5"></circle>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <circle cx="21" cy="12" r="2.5"></circle>
+            </g>
+        </g>
+        <path fill="none" d="M0 0H24V24H0z"></path>
+    </svg>
+)
+
+const More = (props) => (
+    <MoreButton {...props}>
+        <MoreIcon />
+    </MoreButton>
+)
+
+const MoreButton = styled(Button)`
+    @media ${mq.mediumLarge} {
+        display: none;
+    }
+    padding: 0px 8px;
+    svg {
+        display: block;
+        width: 18px;
+    }
+    g {
+        stroke: ${color('text')};
+    }
+`
 const BlockTitleContents = ({ block, context }) => {
     const { title, titleLink } = block
     if (title) {
@@ -57,11 +97,25 @@ const BlockTitle = ({
     const blockTitle = getBlockTitle(block, context, translate)
     const blockMeta = getBlockMeta(block, context, translate)
 
+    const properties = {
+        context,
+        block,
+        isExportable,
+        isShareable,
+        values,
+        id,
+        data,
+        blockTitle,
+        setShowOptions,
+        showOptions,
+        switcher,
+        units,
+        setUnits,
+    }
+
     return (
         <>
-            <StyledBlockTitle
-                className={`Block__Title Block__Title--${showOptions ? 'open' : 'closed'}`}
-            >
+            <StyledBlockTitle className="Block__Title">
                 <LeftPart>
                     <BlockTitleText className="BlockTitleText">
                         <SharePermalink url={blockMeta.link} />
@@ -70,44 +124,75 @@ const BlockTitle = ({
                             <BlockCompletionIndicator completion={completion} />
                         )}
                     </BlockTitleText>
-                    {isExportable && block && !context.isCapturing && (
-                        <BlockExport
-                            id={id}
-                            data={data}
-                            block={block}
-                            title={blockTitle}
-                            className="Block__Title__Export"
-                        />
-                    )}
-                    {isShareable && !context.isCapturing && (
-                        <ShareBlock
-                            block={block}
-                            className="Block__Title__Share"
-                            values={values}
-                            title={blockTitle}
-                            toggleClass={() => {
-                                setShowOptions(!showOptions)
-                            }}
-                        />
-                    )}
+                    <Popover trigger={<More />}>
+                        <PopoverContents>
+                            <BlockTitleActions {...properties} />
+                            <BlockTitleSwitcher {...properties} />
+                        </PopoverContents>
+                    </Popover>
+                    <BlockTitleActionsWrapper>
+                        <BlockTitleActions {...properties} />
+                    </BlockTitleActionsWrapper>
                 </LeftPart>
-                {switcher ? (
-                    <BlockChartControls className="BlockChartControls">
-                        {switcher}
-                    </BlockChartControls>
-                ) : (
-                    units &&
-                    setUnits && (
-                        <BlockChartControls className="BlockChartControls">
-                            <BlockUnitsSelector units={units} onChange={setUnits} />
-                        </BlockChartControls>
-                    )
-                )}
+                <BlockTitleSwitcherWrapper>
+                    <BlockTitleSwitcher {...properties} />
+                </BlockTitleSwitcherWrapper>
             </StyledBlockTitle>
             {showDescription && <BlockDescriptionContents block={block} context={context} />}
         </>
     )
 }
+
+const BlockTitleActions = ({
+    isExportable,
+    isShareable,
+    values,
+    block,
+    context,
+    id,
+    data,
+    blockTitle,
+    setShowOptions,
+    showOptions,
+}) => (
+    <>
+        {isExportable && block && !context.isCapturing && (
+            <BlockExport
+                id={id}
+                data={data}
+                block={block}
+                title={blockTitle}
+                className="Block__Title__Export"
+            />
+        )}
+        {isShareable && !context.isCapturing && (
+            <ShareBlock
+                block={block}
+                className="Block__Title__Share"
+                values={values}
+                title={blockTitle}
+                toggleClass={() => {
+                    setShowOptions(!showOptions)
+                }}
+            />
+        )}
+    </>
+)
+
+const BlockTitleSwitcher = ({ switcher, units, setUnits }) => (
+    <>
+        {switcher ? (
+            <BlockChartControls className="BlockChartControls">{switcher}</BlockChartControls>
+        ) : (
+            units &&
+            setUnits && (
+                <BlockChartControls className="BlockChartControls">
+                    <BlockUnitsSelector units={units} onChange={setUnits} />
+                </BlockChartControls>
+            )
+        )}
+    </>
+)
 
 BlockTitle.propTypes = {
     block: PropTypes.shape({
@@ -133,13 +218,23 @@ const StyledBlockTitle = styled.div`
     display: flex;
     align-items: center;
 
-    .Block__Title__Share {
+    /* .Block__Title__Share {
         margin-left: ${spacing(0.5)};
-    }
+    } */
 
     &:hover {
         .SharePermalink {
             opacity: 1;
+        }
+    }
+    position: relative;
+    .PopoverInner {
+        position: static;
+    }
+    .PopoverPopup {
+        &:before {
+            left: auto;
+            right: 0;
         }
     }
 `
@@ -153,10 +248,6 @@ const BlockTitleText = styled.h3`
         opacity: 1;
         transition: all 300ms ease-in;
         flex: 1;
-
-        .Block__Title--open & {
-            opacity: 0.2;
-        }
     }
 `
 
@@ -178,14 +269,39 @@ const Description = styled.div`
 `
 
 const BlockChartControls = styled.div`
-    display: flex;
-    justify-content: flex-end;
-
     @media ${mq.small} {
-        margin-left: ${spacing(0.5)};
+    }
+    @media ${mq.mediumLarge} {
+        display: flex;
+        justify-content: flex-end;
     }
 
     .capture & {
+        display: none;
+    }
+`
+
+const PopoverContents = styled.div`
+    .BlockExport,
+    .ShareBlock {
+        margin-bottom: ${spacing()};
+    }
+`
+
+const BlockTitleActionsWrapper = styled.div`
+    @media ${mq.small} {
+        display: none;
+    }
+    @media ${mq.mediumLarge} {
+        display: flex;
+        .ShareBlock {
+            margin-left: ${spacing(0.5)};
+        }
+    }
+`
+
+const BlockTitleSwitcherWrapper = styled.div`
+    @media ${mq.small} {
         display: none;
     }
 `

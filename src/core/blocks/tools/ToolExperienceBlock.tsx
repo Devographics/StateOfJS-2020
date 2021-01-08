@@ -33,6 +33,9 @@ export const ToolExperienceBlock = ({
 
     const title = data.entity.name
     const titleLink = data.entity.homepage
+
+    console.log(data.entity)
+    
     // as descriptions are extracted from best of js/github...
     // we only have english available.
     const description = locale.id === 'en-US' && data.entity.description!

@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { color, spacing, fontWeight } from './util'
+import { color, spacing, fontWeight, zIndex } from './util'
 import { primaryFontMixin, secondaryFontMixin } from './typography'
 import { textShadowHighlightMixin } from './mixins'
 import mq from './mq'
@@ -98,7 +98,7 @@ export const GlobalStyle = createGlobalStyle`
     }
     
     .ReactModal__Overlay {
-        z-index: 1000;
+        z-index: ${zIndex('modal')};
     }
     
     .Page--awards {

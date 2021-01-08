@@ -14,7 +14,8 @@ const Link = styled.a`
     position: relative;
 
     @media ${mq.small} {
-        top: 3px;
+        /* top: 3px; */
+        display: none;
     }
     @media ${mq.mediumLarge} {
         top: 1px;

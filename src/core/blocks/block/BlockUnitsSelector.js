@@ -1,12 +1,10 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from 'core/i18n/i18nContext'
 import ButtonGroup from 'core/components/ButtonGroup'
 import Button from 'core/components/Button'
+import T from 'core/i18n/T'
 
 const BlockUnitsSelector = ({ units, onChange }) => {
-    const { translate } = useI18n()
-
     return (
         <ButtonGroup>
             <Button
@@ -14,16 +12,14 @@ const BlockUnitsSelector = ({ units, onChange }) => {
                 className={`Button--${units === 'percentage' ? 'selected' : 'unselected'}`}
                 onClick={() => onChange('percentage')}
             >
-                <span className="desktop">{translate('chart_units.percentage')}</span>
-                <span className="mobile">%</span>
+                <T k="chart_units.percentage" />
             </Button>
             <Button
                 size="small"
                 className={`Button--${units === 'count' ? 'selected' : 'unselected'}`}
                 onClick={() => onChange('count')}
             >
-                <span className="desktop">{translate('chart_units.count')}</span>
-                <span className="mobile">Σ</span>
+                <T k="chart_units.count" />
             </Button>
         </ButtonGroup>
     )

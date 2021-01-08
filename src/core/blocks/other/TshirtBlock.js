@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown/with-html'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, spacing, fontSize } from 'core/theme'
 import Button from 'core/components/Button'
-import { tshirtImages } from 'config/config.yml'
+import { tshirtImages, tshirtLink } from 'config/config.yml'
 
 const TshirtBlock = () => {
     const { translate } = useI18n()
@@ -35,7 +35,7 @@ const TshirtBlock = () => {
                 <TshirtButton
                     as="a"
                     className="TshirtButton gumroad-button"
-                    href="https://gumroad.com/l/stateofcss-tshirt"
+                    href={tshirtLink}
                     target="_blank"
                     rel="noopener noreferrer"
                 >

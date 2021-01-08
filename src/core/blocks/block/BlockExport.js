@@ -8,6 +8,7 @@ import 'react-tabs/style/react-tabs.css'
 import { mq, spacing, fontSize } from 'core/theme'
 import Button from 'core/components/Button'
 import T from 'core/i18n/T'
+import ModalTrigger from 'core/components/ModalTrigger'
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#___gatsby')
@@ -41,14 +42,7 @@ const ExportIcon = () => (
 )
 
 const BlockExport = ({ data, block, title }) => {
-    const [modalIsOpen, setIsOpen] = useState(false)
-    const theme = useTheme()
-
     const { id, query } = block
-
-    const closeModal = () => {
-        setIsOpen(false)
-    }
 
     const isArray = Array.isArray(data)
 
@@ -69,65 +63,39 @@ const BlockExport = ({ data, block, title }) => {
 ${trimmedQuery}
 }`
 
-    const customStyles = {
-        overlay: {
-            backgroundColor: `${theme.colors.backgroundInverted}bb`,
-        },
-        content: {
-            borderWidth: 0,
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            padding: 0,
-        },
-    }
-
     return (
         <>
-            <ButtonWrapper>
-                <ExportButton
-                    className="ExportButton"
-                    size="small"
-                    onClick={() => {
-                        setIsOpen(true)
-                    }}
+            <ButtonWrapper className="BlockExport">
+                <ModalTrigger
+                    trigger={
+                        <ExportButton className="ExportButton" size="small">
+                            <T k="export.export" />
+                            {/* <ExportIcon /> */}
+                        </ExportButton>
+                    }
                 >
-                    <span className="desktop">
-                        <T k="export.export" />
-                    </span>
-                    <ExportIcon />
-                </ExportButton>
+                    <ExportContents>
+                        <h3>
+                            <T k="export.title" values={{ title }} />
+                        </h3>
+                        <Tabs>
+                            <TabList>
+                                <Tab>JSON</Tab>
+                                <Tab>GraphQL</Tab>
+                            </TabList>
+                            <TabPanel>
+                                <Text value={jsonExport} />
+                            </TabPanel>
+                            <TabPanel>
+                                <Text value={graphQLExport} />
+                                <Message>
+                                    <T k={'export.graphql'} html={true} />
+                                </Message>
+                            </TabPanel>
+                        </Tabs>
+                    </ExportContents>
+                </ModalTrigger>
             </ButtonWrapper>
-            <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-            >
-                <Content>
-                    <h3>
-                        <T k="export.title" values={{ title }} />
-                    </h3>
-                    <Tabs>
-                        <TabList>
-                            <Tab>JSON</Tab>
-                            <Tab>GraphQL</Tab>
-                        </TabList>
-                        <TabPanel>
-                            <Text value={jsonExport} />
-                        </TabPanel>
-                        <TabPanel>
-                            <Text value={graphQLExport} />
-                            <Message>
-                                <T k={'export.graphql'} html={true} />
-                            </Message>
-                        </TabPanel>
-                    </Tabs>
-                </Content>
-            </Modal>
         </>
     )
 }
@@ -144,41 +112,28 @@ BlockExport.propTypes = {
     id: PropTypes.string.isRequired,
 }
 
-const ButtonWrapper = styled.div`
-    .capture & {
-        display: none;
-    }
-`
-
-const ExportButton = styled(Button)`
-    margin-left: ${spacing(0.5)};
-
-    @media ${mq.small} {
-        width: 30px;
-        height: 30px;
+const ExportContents = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    /* align-items: flex-start; */
+    .react-tabs {
+        flex: 1;
         display: flex;
-        justify-content: center;
-        align-items: center;
-
-        &.Button--small {
-            padding: 0;
-        }
+        flex-direction: column;
+        justify-content: flex-start;
     }
-`
-
-const Icon = styled.svg`
-    stroke: ${({ theme }) => theme.colors.link};
-    height: 16px;
-    width: 16px;
-
-    ${ExportButton}:hover & {
-        stroke: ${({ theme }) => theme.colors.contrast};
+    .react-tabs__tab-panel--selected {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
     }
-`
-
-const Content = styled.div`
-    padding: ${spacing()};
-    background: ${({ theme }) => theme.colors.background};
+    textarea {
+        flex: 1;
+        flex-basis: 350px;
+    }
 
     .react-tabs__tab {
         border: 0;
@@ -210,7 +165,30 @@ const Content = styled.div`
     }
 `
 
+const ButtonWrapper = styled.div`
+    .capture & {
+        display: none;
+    }
+`
+
+const ExportButton = styled(Button)`
+    @media ${mq.mediumLarge} {
+        margin-left: ${spacing(0.5)};
+    }
+`
+
+const Icon = styled.svg`
+    stroke: ${({ theme }) => theme.colors.link};
+    height: 16px;
+    width: 16px;
+
+    ${ExportButton}:hover & {
+        stroke: ${({ theme }) => theme.colors.contrast};
+    }
+`
+
 const Message = styled.div`
+    margin-top: ${spacing(0.5)};
     max-width: 600px;
     font-size: ${fontSize('small')};
 `
@@ -221,7 +199,7 @@ const TextArea = styled.textarea`
     padding: ${spacing(0.5)};
     border: 0;
     border-radius: 2px;
-    background: ${({ theme }) => theme.colors.backgroundAlt};
+    background: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
 
     &:focus {

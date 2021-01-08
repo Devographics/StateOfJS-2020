@@ -91,20 +91,43 @@ const Button = styled.div.attrs(({ className, size = 'medium', variant = 'defaul
     }
 
     ${ButtonGroup} & {
-        border-left-width: 0;
-        &:first-child {
-            border-left-width: 1px;
+        @media ${mq.small} {
+            width: 100%;
+            flex-basis: 100%;
+            border-top-width: 0;
+            &:first-child {
+                border-top-width: 1px;
+            }
+
+            &:hover {
+                border-top-color: ${color('border')};
+                border-bottom-color: ${color('border')};
+
+                &:first-child {
+                    border-top-color: ${color('hover')};
+                }
+                &:last-child {
+                    border-bottom-color: ${color('hover')};
+                }
+            }
         }
 
-        &:hover {
-            border-left-color: $border-color;
-            border-right-color: $border-color;
-
+        @media ${mq.mediumLarge} {
+            border-left-width: 0;
             &:first-child {
-                border-left-color: $hover-color;
+                border-left-width: 1px;
             }
-            &:last-child {
-                border-right-color: $hover-color;
+
+            &:hover {
+                border-left-color: ${color('border')};
+                border-right-color: ${color('border')};
+
+                &:first-child {
+                    border-left-color: ${color('hover')};
+                }
+                &:last-child {
+                    border-right-color: ${color('hover')};
+                }
             }
         }
     }
