@@ -116,9 +116,6 @@
 
       - template: knowledgeScoreTemplate
 
-      - items: [fm-learncss]
-        template: recommendedResourcesTemplate
-
   children:
       - id: syntax
         path: /syntax
