@@ -16,76 +16,103 @@
 
 - name: Frontend Masters
   id: fm-homepage
-  description: Advance Your Skills with In-Depth, Modern Front-End Engineering Courses
-  url: https://frontendmasters.com/?utm_source=stateofcss&utm_medium=website&utm_campaign=stateofcss2020
+  description: >
+      Advance Your Skills with In-Depth, Modern Front-End Engineering Courses
+  url: https://frontendmasters.com/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
   image: https://static.frontendmasters.com/assets/teachers/north/thumb@2x.jpg
 
-- name: Learn CSS, from Laying Out Websites to Performant Animations
-  id: fm-learncss
+- name: Master Writing Professional and Modern JavaScript
+  teacher: Bianca Gandolfo
+  id: fm-javascript
   description: >
-      CSS is rich in capabilities and is more than simply laying out pages! Replace costly JavaScript with CSS.
-  url: https://frontendmasters.com/learn/css/?utm_source=stateofcss&utm_medium=website&utm_campaign=stateofcss2020
-  image: https://static.frontendmasters.com/assets/teachers/north/thumb@2x.jpg
+      Take your JavaScript to the next level and find out what it's fully capable of.
+  url: https://frontendmasters.com/learn/javascript/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/gandolfo/thumb.png
 
-- name: CSS Grids and Flexbox for Responsive Web Design
-  id: fm-gridsflexbox
+- name: Creative Coding with Canvas & WebGL
+  teacher: Matt DesLauriers
+  id: fm-canvas
   description: >
-      Starting with a review of floats for context, but quickly moving into Flexbox and CSS grids, 
-      this essential course is for web developers that want to build responsive, beautiful web applications faster using less code and best practices.
-  url: https://frontendmasters.com/courses/css-grids-flexbox/?utm_source=stateofcss&utm_medium=website&utm_campaign=stateofcss2020
-  image: https://static.frontendmasters.com/assets/teachers/kramer/thumb.png
+      Learn to use Canvas and WebGL with ThreeJS in this JavaScript course on Creative Coding!
+  url: https://frontendmasters.com/courses/canvas-webgl/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/deslauriers/thumb@2x.jpg
 
-- name: SVG Essentials & Animation, v2
-  id: fm-svg
+- name: Exploring Service Workers
+  teacher: Kyle Simpson
+  id: fm-service-workers
   description: >
-      Learn to build and optimize SVG – the scalable graphics format for 
-      the web that can achieve impressively small filesizes for fast-loading websites. I
-  url: https://frontendmasters.com/courses/svg-essentials-animation/?utm_source=stateofcss&utm_medium=website&utm_campaign=stateofcss2020
-  image: https://static.frontendmasters.com/assets/teachers/drasner/thumb@2x.jpg
+      PWAs represent the dream of web apps getting all the same capabilities, and performance, of native apps.
+  url: https://frontendmasters.com/courses/service-workers/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/simpson/thumb@2x.jpg
 
-- name: Responsive Web Typography v2
-  id: fm-typography
-  description: >
-      In this course, Jason Pamental demonstrates 
-      type fundamentals to create better user experiences on mobile and desktop.
-  url: https://frontendmasters.com/courses/responsive-typography-v2/?utm_source=stateofcss&utm_medium=website&utm_campaign=stateofcss2020
-  image: https://static.frontendmasters.com/assets/teachers/pamental/thumb@2x.jpg
-
-- name: Sass Fundamentals
-  id: fm-sass
-  description: >
-      Leverage the Sass preprocessing to empower your CSS practices and 
-      master styling complex applications.
-  url: https://frontendmasters.com/courses/sass/?utm_source=stateofcss&utm_medium=website&utm_campaign=stateofcss2020
-  image: https://static.frontendmasters.com/assets/teachers/north/thumb@2x.jpg
-
-- name: Scalable Modular Architecture for CSS (SMACSS)
-  id: fm-smacss
-  description: >
-      CSS architecture expert Jonathan Snook shares his experience building large sites 
-      with large teams to make your CSS more maintainable using his SMACSS methodology.
-  url: https://frontendmasters.com/courses/smacss/?utm_source=stateofcss&utm_medium=website&utm_campaign=stateofcss2020
-  image: https://static.frontendmasters.com/assets/teachers/snook/thumb@2x.jpg
-
-- name: Intermediate React, v2
+- name: Complete Intro to React, v5
+  teacher: Brian Holt
   id: fm-react
   description: >
-      You’ll learn hooks in-depth, CSS-in-JS with emotion, 
-      increase performance with code splitting and server-side rendering, and more.
-  url: https://frontendmasters.com/courses/intermediate-react-v2/?utm_source=stateofcss&utm_medium=website&utm_campaign=stateofcss2020
+      Much more than an intro, you’ll start from the ground up, getting all the way to using the latest features in React, including hooks, effects, context, and portals. 
+  url: https://frontendmasters.com/courses/complete-react-v5/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
   image: https://static.frontendmasters.com/assets/teachers/holt/thumb@2x.jpg
 
-- name: Advanced CSS Layouts
-  id: fm-layouts
+- name: Introduction to Vue 3
+  teacher: Sarah Drasner
+  id: fm-vue
   description: >
-      For the first time in the history of the web, 
-      CSS is graced with tools for laying out web pages without hacks.
-  url: https://frontendmasters.com/courses/advanced-css-layouts/?utm_source=stateofcss&utm_medium=website&utm_campaign=stateofcss2020
-  image: https://static.frontendmasters.com/assets/teachers/kramer/thumb@2x.jpg
+      Get started quickly with the Vue.js JavaScript framework. You’ll learn how to build reusable components and make them flexible with props, lifecycles, and slots. 
+  url: https://frontendmasters.com/courses/vue-3/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/drasner/thumb@2x.jpg
 
-- name: Design Systems with React & Storybook
-  id: fm-storybook
+- name: Svelte
+  teacher: Rich Harris
+  id: fm-svelte
   description: >
-      Design systems increase the speed of development across teams, as well as make your applications look and feel consistent.
-  url: https://frontendmasters.com/courses/design-systems/
-  image: https://static.frontendmasters.com/assets/teachers/bostian/thumb@2x.jpg
+      This course is the definitive introduction to the Svelte framework. You’ll learn how Svelte works, write svelte components, and take a tour through the entire Svelte API. 
+  url: https://frontendmasters.com/courses/svelte/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/harris/thumb@2x.jpg
+
+- name: React Native, v2
+  teacher: Kadi Kraman
+  id: fm-react-native
+  description: >
+      Leverage your JavaScript and React skills for mobile iOS and Android platforms using React Native. 
+  url: https://frontendmasters.com/courses/react-native-v2/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/kraman/thumb@2x.jpg
+
+- name: JavaScript and TypeScript Monorepos
+  teacher: Mike North
+  id: fm-monorepos
+  description: >
+      You'll get hands-on experience with best-in-class tools designed to keep the workflows for even complex projects simple!
+  url: https://frontendmasters.com/courses/monorepos/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/north/thumb@2x.jpg
+
+- name: Learn Webpack
+  teacher: Sean Larkin
+  id: fm-webpack
+  description: >
+      Webpack enables you to integrate your favorite tools and take control of how you deliver your JavaScript, CSS, and more!​
+  url: https://frontendmasters.com/learn/webpack/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/larkin/thumb.png
+
+- name: Introduction to Next.js
+  teacher: Scott Moss
+  id: fm-next
+  description: >
+      In this course, you'll learn server-side rendering, static site generation, data fetching, build API endpoints, creating pages with the file system, add CSS modules inside of Next.js, and much more! 
+  url: https://frontendmasters.com/courses/next-js/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/moss/thumb@2x.jpg
+
+- name: State Management in Pure React, v2
+  teacher: Steve Kinney
+  id: fm-react-state
+  description: >
+      In this course, we’ll look at the core APIs in React to handle state, including both in the traditional component state, as well as in React hooks. 
+  url: https://frontendmasters.com/courses/pure-react-state/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/kinney/thumb@2x.jpg
+
+- name: Client-Side GraphQL in React
+  teacher: Scott Moss
+  id: fm-graphql
+  description: >
+      In this course, you'll use queries and mutations to fetch and update GraphQL API data. You'll go further with variables, inputs, aliases on fields.
+  url: https://frontendmasters.com/courses/client-graphql-react/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
+  image: https://static.frontendmasters.com/assets/teachers/moss/thumb@2x.jpg

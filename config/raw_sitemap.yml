@@ -150,6 +150,9 @@
             - id: private_fields
               template: featureExperienceTemplate
 
+            - items: [fm-javascript]
+              template: recommendedResourcesTemplate
+
       - id: language
         path: /language
         blocks:
@@ -165,6 +168,9 @@
             - id: async_await
               template: featureExperienceTemplate
 
+            - id: markdalgleish
+              template: picksTemplate
+
             - id: promises
               template: featureExperienceTemplate
 
@@ -176,6 +182,9 @@
 
             - id: dynamic_import
               template: featureExperienceTemplate
+
+            - items: [fm-javascript]
+              template: recommendedResourcesTemplate
 
       - id: data_structures
         path: /data-structures
@@ -249,6 +258,9 @@
             - id: shadow_dom
               template: featureExperienceTemplate
 
+            - items: [fm-canvas, fm-service-workers]
+              template: recommendedResourcesTemplate
+
       - id: other_features
         path: /other-features
         blocks:
@@ -260,6 +272,9 @@
 
             - id: wasm
               template: featureExperienceTemplate
+
+            - items: [fm-service-workers]
+              template: recommendedResourcesTemplate
 
 - id: technologies
   path: /technologies
@@ -302,6 +317,9 @@
 
             - template: happinessTemplate
 
+            - items: [fm-react]
+              template: recommendedResourcesTemplate
+
       - id: front_end_frameworks
         path: /front-end-frameworks
         blocks:
@@ -342,6 +360,9 @@
 
             - template: happinessTemplate
 
+            - items: [fm-vue, fm-svelte]
+              template: recommendedResourcesTemplate
+
       - id: datalayer
         path: /datalayer
         blocks:
@@ -377,6 +398,9 @@
             - template: sectionOtherToolsTemplate
 
             - template: happinessTemplate
+
+            - items: [fm-react-state, fm-graphql]
+              template: recommendedResourcesTemplate
 
       - id: back_end_frameworks
         path: /back-end-frameworks
@@ -417,6 +441,9 @@
 
             - template: happinessTemplate
 
+            - items: [fm-next]
+              template: recommendedResourcesTemplate
+
       - id: testing
         path: /testing
         blocks:
@@ -456,7 +483,7 @@
 
             - template: happinessTemplate
 
-            - items: [id-webtestit]
+            - items: [id-webtestit, fm-monorepos]
               template: recommendedResourcesTemplate
               
       - id: build_tools
@@ -498,12 +525,18 @@
 
             - template: happinessTemplate
 
+            - items: [fm-webpack, fm-monorepos]
+              template: recommendedResourcesTemplate
+
       - id: mobile_desktop
         path: /mobile-desktop
         blocks:
             - template: pageIntroductionTemplate
 
             - template: toolsExperienceRankingTemplate
+
+            - id: sachagreif
+              template: picksTemplate
 
             - template: toolsSectionStreamsTemplate
 
@@ -531,6 +564,9 @@
             - template: sectionOtherToolsTemplate
 
             - template: happinessTemplate
+
+            - items: [fm-react-native]
+              template: recommendedResourcesTemplate
 
 - id: tools_others
   path: /other-tools

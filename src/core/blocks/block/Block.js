@@ -45,9 +45,6 @@ const Block = ({
 
     const BlockTitle = overrides.BlockTitle || BlockTitleOriginal
 
-    console.log(id)
-    console.log(titleProps)
-    
     return (
         <Container
             id={id}

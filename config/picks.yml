@@ -42,3 +42,13 @@
   fullName: Tom Dale
   url: https://volta.sh/
   pickName: Volta
+
+- twitterName: markdalgleish
+  fullName: Mark Dalgleish
+  url: https://github.com/atlassian/changesets
+  pickName: Changesets
+
+- twitterName: sachagreif
+  fullName: Sacha Greif
+  url: https://bestofjs.org/
+  pickName: Best Of JS

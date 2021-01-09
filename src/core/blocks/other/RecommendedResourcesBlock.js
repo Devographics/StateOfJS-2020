@@ -48,7 +48,7 @@ const RecommendedResourcesBlock = ({ block, data }) => {
                         return (
                             <Resource key={resource.name} className="Resource">
                                 <ResourceImage className="Resource__image">
-                                    <div>
+                                    <ResourceImageInner>
                                         <a
                                             onClick={() => trackClick(id, resource, 'text')}
                                             href={`${url}&utm_content=textlink`}
@@ -59,7 +59,11 @@ const RecommendedResourcesBlock = ({ block, data }) => {
                                         >
                                             {resource.name}
                                         </a>
-                                    </div>
+                                    </ResourceImageInner>
+
+                                    {resource.teacher && (
+                                        <ResourceTeacher>{resource.teacher}</ResourceTeacher>
+                                    )}
                                 </ResourceImage>
                                 <ResourceContent className="Resource__content">
                                     <Title className="Resource__title">
@@ -123,15 +127,8 @@ const ResourceImage = styled.div`
     }
 
     @media ${mq.mediumLarge} {
-        width: 160px;
+        width: 130px;
         margin-right: ${spacing()};
-    }
-
-    div {
-        background: ${({ theme }) => theme.colors.text};
-        position: relative;
-        z-index: 10;
-        border: 2px solid ${({ theme }) => theme.colors.text};
     }
 
     a {
@@ -153,6 +150,12 @@ const ResourceImage = styled.div`
         border: 3px solid white;
     }
 `
+const ResourceImageInner = styled.div`
+    background: ${({ theme }) => theme.colors.text};
+    position: relative;
+    z-index: 10;
+    border: 2px solid ${({ theme }) => theme.colors.text};
+`
 
 const ResourceContent = styled.div`
     flex: 1;
@@ -162,6 +165,13 @@ const Sponsoring = styled.div`
     font-weight: ${fontWeight('bold')};
     font-size: ${fontSize('smaller')};
     text-align: center;
+    margin-top: ${spacing()};
+`
+
+const ResourceTeacher = styled.div`
+    text-align: center;
+    margin-top: ${spacing(0.5)};
+    font-size: ${fontSize('small')};
 `
 
 export default RecommendedResourcesBlock

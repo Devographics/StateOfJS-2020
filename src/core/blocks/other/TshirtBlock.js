@@ -4,7 +4,8 @@ import ReactMarkdown from 'react-markdown/with-html'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, spacing, fontSize } from 'core/theme'
 import Button from 'core/components/Button'
-import { tshirtImages, tshirtLink } from 'config/config.yml'
+import { tshirtImages, tshirtLink, tshirtPrice } from 'config/config.yml'
+import T from 'core/i18n/T'
 
 const TshirtBlock = () => {
     const { translate } = useI18n()
@@ -28,9 +29,11 @@ const TshirtBlock = () => {
                 ))}
             </ImagesContainer>
             <Description>
-                <h2>{translate('tshirt.about')}</h2>
+                <h2>
+                    <T k="tshirt.about" />
+                </h2>
                 <div>
-                    <ReactMarkdown source={translate('tshirt.description')} escapeHtml={false} />
+                    <T k="tshirt.description" md={true} escapeHtml={false} />
                 </div>
                 <TshirtButton
                     as="a"
@@ -39,8 +42,7 @@ const TshirtBlock = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {translate('tshirt.getit')} –{' '}
-                    {translate('tshirt.price', { values: { price: 24 } })}
+                    <T k="tshirt.getit" /> – <T k="tshirt.price" values={{ price: tshirtPrice }} />
                 </TshirtButton>
             </Description>
         </Container>
