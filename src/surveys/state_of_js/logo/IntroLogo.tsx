@@ -15,6 +15,8 @@ interface CellProps {
     delay?: number
 }
 
+const GLOBAL_INITIAL_DELAY = 0
+
 const Cell = ({
     size,
     children,
@@ -34,7 +36,7 @@ const Cell = ({
     const style = useSpring({
         from: { opacity: 0, transform: `translate(${x0 * size},${y0 * size})` },
         to: { opacity: 1, transform: `translate(${x1 * size},${y1 * size})` },
-        delay: 400 + delay * 60,
+        delay: GLOBAL_INITIAL_DELAY + delay * 60,
         config: config.wobbly,
     })
 
