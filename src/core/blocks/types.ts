@@ -24,4 +24,6 @@ export interface BlockContext<
     pageVariables: PageVariables
     // Injected variables for the block
     variables: BlockVariables
+    enableExport: boolean
+    showLegend: boolean
 }

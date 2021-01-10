@@ -649,6 +649,48 @@ toolsUsageVariationsTemplate:
             }
         }
 
+allSectionsToolsCardinalityByUserTemplate:
+    id: 'all_sections_tools_cardinality_by_user'
+    blockType: AllSectionsToolsCardinalityByUserBlock
+    dataPath: 'surveyApi.survey.tools_cardinality'
+    bucketKeysName: tools
+    enableExport: true
+    query: >
+        surveyApi {
+            survey(survey: ${surveyType}) {
+                tools_cardinality: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${allTools}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+            }
+        }
+
+sectionToolsCardinalityByUserTemplate:
+    id: '${parentId}_tools_cardinality_by_user'
+    blockType: SectionToolsCardinalityByUserBlock
+    dataPath: 'surveyApi.survey.tools_cardinality'
+    bucketKeysName: tools
+    enableExport: true
+    query: >
+        surveyApi {
+            survey(survey: ${surveyType}) {
+                tools_cardinality: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${toolsCategories[parentId]}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+            }
+        }
+
 # QUERY NEEDS TO BE ADJUSTED IF WE ENABLE THIS BLOCK!
 toolsMatricesTemplate:
     id: ${parentId}_matrices

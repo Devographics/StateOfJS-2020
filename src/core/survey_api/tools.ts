@@ -19,3 +19,10 @@ export interface ToolAllYearsExperience {
         all_years: ToolYearExperience[]
     }
 }
+
+// For `tools_cardinality_by_user`
+export interface ToolsCardinalityByUserBucket {
+    cardinality: number
+    count: number
+    percentage: number
+}
