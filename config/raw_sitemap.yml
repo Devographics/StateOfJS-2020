@@ -92,6 +92,11 @@
         blockType: HorizontalBarBlock
         translateData: true
 
+      - id: industry_sector
+        template: demographicsTemplate
+        blockType: HorizontalBarBlock
+        translateData: true
+
       - id: units_switcher_hint
         template: hintTemplate
 

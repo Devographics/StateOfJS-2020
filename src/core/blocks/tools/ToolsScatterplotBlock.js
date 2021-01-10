@@ -58,10 +58,11 @@ const useChartData = (data, translate, metric = 'satisfaction') => {
                     awareness: 100 - getPercentage('never_heard'),
                 }
 
+                // note: we use the same x for all metrics to stay consistent
                 const node = {
                     id,
                     originalId: id,
-                    x: totals[metric],
+                    x: totals['satisfaction'],
                     y: percentages[metric],
                     name,
                 }
