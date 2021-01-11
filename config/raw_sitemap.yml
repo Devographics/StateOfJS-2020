@@ -324,7 +324,7 @@
 
             - template: sectionOtherToolsTemplate
 
-            - template: happinessTemplate
+            - template: happinessHistoryTemplate
 
             - items: [fm-react]
               template: recommendedResourcesTemplate
@@ -369,7 +369,7 @@
 
             - template: sectionOtherToolsTemplate
 
-            - template: happinessTemplate
+            - template: happinessHistoryTemplate
 
             - items: [fm-vue, fm-svelte]
               template: recommendedResourcesTemplate
@@ -410,7 +410,7 @@
 
             - template: sectionOtherToolsTemplate
 
-            - template: happinessTemplate
+            - template: happinessHistoryTemplate
 
             - items: [fm-react-state, fm-graphql]
               template: recommendedResourcesTemplate
@@ -454,7 +454,7 @@
 
             - template: sectionOtherToolsTemplate
 
-            - template: happinessTemplate
+            - template: happinessHistoryTemplate
 
             - items: [fm-next]
               template: recommendedResourcesTemplate
@@ -498,7 +498,7 @@
 
             - template: sectionOtherToolsTemplate
 
-            - template: happinessTemplate
+            - template: happinessHistoryTemplate
 
             - items: [id-webtestit, fm-monorepos]
               template: recommendedResourcesTemplate
@@ -542,7 +542,7 @@
 
             - template: sectionOtherToolsTemplate
 
-            - template: happinessTemplate
+            - template: happinessHistoryTemplate
 
             - items: [fm-webpack, fm-monorepos]
               template: recommendedResourcesTemplate
@@ -584,7 +584,7 @@
 
             - template: sectionOtherToolsTemplate
 
-            - template: happinessTemplate
+            - template: happinessHistoryTemplate
 
             - items: [fm-react-native]
               template: recommendedResourcesTemplate
