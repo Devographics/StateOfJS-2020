@@ -287,10 +287,10 @@
       - id: technologies_introduction
         template: pageIntroductionTemplate
 
-      - template: allSectionsToolsCardinalityByUserTemplate
-
       - id: scatterplot_overview
         template: scatterplotOverviewTemplate
+
+      - template: allSectionsToolsCardinalityByUserTemplate
 
   children:
       - id: javascript_flavors
@@ -298,7 +298,7 @@
         blocks:
             - template: pageIntroductionTemplate
 
-            - template: sectionToolsCardinalityByUserTemplate
+            # - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -334,7 +334,7 @@
         blocks:
             - template: pageIntroductionTemplate
 
-            - template: sectionToolsCardinalityByUserTemplate
+            # - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -379,7 +379,7 @@
         blocks:
             - template: pageIntroductionTemplate
 
-            - template: sectionToolsCardinalityByUserTemplate
+            # - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -420,7 +420,7 @@
         blocks:
             - template: pageIntroductionTemplate
 
-            - template: sectionToolsCardinalityByUserTemplate
+            # - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -464,7 +464,7 @@
         blocks:
             - template: pageIntroductionTemplate
 
-            - template: sectionToolsCardinalityByUserTemplate
+            # - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -508,7 +508,7 @@
         blocks:
             - template: pageIntroductionTemplate
 
-            - template: sectionToolsCardinalityByUserTemplate
+            # - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -552,7 +552,7 @@
         blocks:
             - template: pageIntroductionTemplate
 
-            - template: sectionToolsCardinalityByUserTemplate
+            # - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 

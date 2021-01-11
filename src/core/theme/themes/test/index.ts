@@ -5,12 +5,12 @@ import typography from './typography'
 import charts from './charts'
 import zIndexes from './zIndexes'
 
-export const stateOfCSSTheme: DefaultTheme = {
+export const testTheme: DefaultTheme = {
     dimensions,
     typography,
     colors,
     charts,
     zIndexes,
     separationBorder: `1px dashed ${colors.border}`,
-    blockShadow: `0px 16px 24px rgba(0, 0, 0, 0.4), 0px 2px 6px rgba(0, 0, 0, 0.3)`,
+    blockShadow: `0px 12px 16px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.05)`,
 }

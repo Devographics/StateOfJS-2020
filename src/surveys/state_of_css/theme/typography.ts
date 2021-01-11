@@ -14,6 +14,7 @@ const stateOfCSSThemeTypography: DefaultTheme['typography'] = {
         large: '1.1rem',
         larger: '1.3rem',
         largest: '2rem',
+        huge: '4rem',
     },
     weight: {
         light: 300,

@@ -1,6 +1,7 @@
+import { DefaultTheme } from 'styled-components'
 import colors from '../../colors'
 
-export default {
+const testThemeColors: DefaultTheme['colors'] = {
     background: '#e7ebf3',
     backgroundAlt: '#dae0ec',
     backgroundInverted: '#26272a',
@@ -27,9 +28,9 @@ export default {
             never_heard: '#dae0ec',
         },
         features: {
-            used_it: '#1952b8',
-            know_not_used: '#4c84ff',
-            never_heard_not_sure: '#dae0ec',
+            used: '#1952b8',
+            heard: '#4c84ff',
+            never_heard: '#dae0ec',
         },
         features_simplified: {
             know_it: '#4c84ff',
@@ -56,3 +57,5 @@ export default {
         colors.purple,
     ],
 }
+
+export default testThemeColors

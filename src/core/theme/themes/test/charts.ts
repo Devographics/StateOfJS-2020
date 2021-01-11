@@ -1,8 +1,9 @@
+import { DefaultTheme } from 'styled-components'
 import defaultsDeep from 'lodash/defaultsDeep'
 import charts from '../../charts'
 import colors from './colors'
 
-export default defaultsDeep(
+const testThemeCharts: DefaultTheme['charts'] = defaultsDeep(
     {
         axis: {
             ticks: {
@@ -47,3 +48,5 @@ export default defaultsDeep(
     },
     charts
 )
+
+export default testThemeCharts

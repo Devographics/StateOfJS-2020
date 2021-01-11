@@ -6,7 +6,7 @@ import {
     SimplifiedFeatureExperienceId,
     FeaturesSectionId,
     GenderId,
-} from '../core/bucket_keys'
+} from 'core/bucket_keys'
 
 declare module 'styled-components' {
     export interface DefaultTheme {
@@ -121,6 +121,10 @@ declare module 'styled-components' {
                     fill: string
                 }
             }
+        }
+        zIndexes: {
+            popover: number
+            modal: number
         }
     }
 }
