@@ -1,4 +1,5 @@
 import React, { Fragment, useMemo, memo } from 'react'
+import { maxBy } from 'lodash'
 import styled from 'styled-components'
 // @ts-ignore
 import { format } from 'd3-format'
@@ -29,23 +30,33 @@ export const SectionItem = memo(
             }
         }, [units])
 
+        let maxCount = 0
+        const maxBucket = maxBy(data, 'count')
+        if (maxBucket) {
+            maxCount = maxBucket.count
+        }
+
         return (
             <SectionContainer>
                 <SectionTitle>{translate(`sections.${sectionId}.title`)}</SectionTitle>
                 <Grid>
-                    {data.map((bucket) => (
-                        <Fragment key={bucket.cardinality}>
-                            <Metric>x{bucket.cardinality}</Metric>
-                            <Bar>
-                                <InnerBar
-                                    style={{
-                                        width: `${bucket.percentage}%`,
-                                    }}
-                                />
-                            </Bar>
-                            <Metric>{getValue(bucket)}</Metric>
-                        </Fragment>
-                    ))}
+                    {data.map((bucket) => {
+                        const isMax = maxCount > 0 && maxCount === bucket.count
+
+                        return (
+                            <Fragment key={bucket.cardinality}>
+                                <Metric isMax={isMax}>x{bucket.cardinality}</Metric>
+                                <Bar isMax={isMax}>
+                                    <InnerBar
+                                        style={{
+                                            width: `${bucket.percentage}%`,
+                                        }}
+                                    />
+                                </Bar>
+                                <Metric isMax={isMax}>{getValue(bucket)}</Metric>
+                            </Fragment>
+                        )
+                    })}
                 </Grid>
             </SectionContainer>
         )
@@ -71,11 +82,13 @@ const Grid = styled.div`
     align-items: center;
 `
 
-const Bar = styled.div`
+const Bar = styled.div<{
+    isMax: boolean
+}>`
     display: flex;
     background: ${(props) => props.theme.colors.backgroundBackground};
     justify-content: center;
-    height: 18px;
+    opacity: ${(props) => (props.isMax ? 1 : 0.7)};
 `
 
 const InnerBar = styled.div`
@@ -83,11 +96,15 @@ const InnerBar = styled.div`
     height: 100%;
 `
 
-const Metric = styled.span`
+const Metric = styled.span<{
+    isMax: boolean
+}>`
     display: flex;
     justify-content: flex-end;
     align-items: center;
     font-size: ${fontSize('smaller')};
+    font-weight: ${(props) =>
+        props.isMax ? props.theme.typography.weight.bold : props.theme.typography.weight.light};
 `
 
 const SectionContainer = styled.div`
