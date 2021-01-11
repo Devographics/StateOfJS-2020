@@ -212,6 +212,9 @@
             - id: big_int
               template: featureExperienceTemplate
 
+            - items: [wb-es6]
+              template: recommendedResourcesTemplate
+
       - id: browser_apis
         path: /browser-apis
         blocks:
@@ -632,6 +635,9 @@
       - id: podcasts_others
         template: resourcesFreeFormTemplate
 
+      - items: [wb-gatsby, wb-node]
+        template: recommendedResourcesTemplate
+
 - id: opinions
   path: /opinions
   blocks:
@@ -661,6 +667,9 @@
 
       - id: missing_from_js
         template: opinionsOthersTemplate
+
+      - items: [wb-react, wb-graphql]
+        template: recommendedResourcesTemplate
 
 - id: awards
   path: /awards

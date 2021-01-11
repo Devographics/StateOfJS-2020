@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import ReactGA from 'react-ga'
 import Link from 'core/components/LocaleLink'
 import resources from 'config/recommended_resources.yml'
@@ -47,7 +47,10 @@ const RecommendedResourcesBlock = ({ block, data }) => {
 
                         return (
                             <Resource key={resource.name} className="Resource">
-                                <ResourceImage className="Resource__image">
+                                <ResourceImage
+                                    className="Resource__image"
+                                    isWide={resource.imageRatio === 'wide'}
+                                >
                                     <ResourceImageInner>
                                         <a
                                             onClick={() => trackClick(id, resource, 'text')}
@@ -129,12 +132,20 @@ const ResourceImage = styled.div`
     @media ${mq.mediumLarge} {
         width: 130px;
         margin-right: ${spacing()};
+        ${({ isWide }) => isWide && css`
+            width: 150px;
+        `}
     }
 
     a {
         display: block;
         width: 100%;
+
         padding-bottom: 90%;
+        ${({ isWide }) => isWide && css`
+            padding-bottom: 50%;
+        `}
+
         height: 0;
         background-position: center center;
         background-size: cover;
