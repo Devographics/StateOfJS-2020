@@ -1,6 +1,6 @@
 import React, { Fragment, useMemo, memo } from 'react'
 import { maxBy } from 'lodash'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 // @ts-ignore
 import { format } from 'd3-format'
 import { ToolsCardinalityByUserBucket } from 'core/survey_api/tools'
@@ -85,10 +85,40 @@ const Grid = styled.div`
 const Bar = styled.div<{
     isMax: boolean
 }>`
+    position: relative;
+    overflow: hidden;
     display: flex;
     background: ${(props) => props.theme.colors.backgroundBackground};
     justify-content: center;
     opacity: ${(props) => (props.isMax ? 1 : 0.7)};
+
+    ${(props) =>
+        props.isMax
+            ? css`
+                  &:before,
+                  &:after {
+                      top: 50%;
+                      content: '';
+                      position: absolute;
+                      display: block;
+                      width: 8px;
+                      height: 8px;
+                      z-index: 10;
+                      background-color: ${(props) => props.theme.colors.ranges.tools.would_use};
+                      transform-origin: center center;
+                  }
+
+                  &:before {
+                      left: 0;
+                      transform: translate(-50%, -50%) rotate(45deg);
+                  }
+
+                  &:after {
+                      right: 0;
+                      transform: translate(50%, -50%) rotate(45deg);
+                  }
+              `
+            : ''}
 `
 
 const InnerBar = styled.div`
