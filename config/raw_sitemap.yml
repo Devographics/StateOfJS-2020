@@ -281,10 +281,10 @@
 - id: technologies
   path: /technologies
   blocks:
-      - template: allSectionsToolsCardinalityByUserTemplate
-
       - id: technologies_introduction
         template: pageIntroductionTemplate
+
+      - template: allSectionsToolsCardinalityByUserTemplate
 
       - id: scatterplot_overview
         template: scatterplotOverviewTemplate
@@ -293,9 +293,9 @@
       - id: javascript_flavors
         path: /javascript-flavors
         blocks:
-            - template: sectionToolsCardinalityByUserTemplate
-
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -329,9 +329,9 @@
       - id: front_end_frameworks
         path: /front-end-frameworks
         blocks:
-            - template: sectionToolsCardinalityByUserTemplate
-
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -374,9 +374,9 @@
       - id: datalayer
         path: /datalayer
         blocks:
-            - template: sectionToolsCardinalityByUserTemplate
-
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -415,9 +415,9 @@
       - id: back_end_frameworks
         path: /back-end-frameworks
         blocks:
-            - template: sectionToolsCardinalityByUserTemplate
-
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -459,9 +459,9 @@
       - id: testing
         path: /testing
         blocks:
-            - template: sectionToolsCardinalityByUserTemplate
-
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -503,9 +503,9 @@
       - id: build_tools
         path: /build-tools
         blocks:
-            - template: sectionToolsCardinalityByUserTemplate
-
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -547,9 +547,9 @@
       - id: mobile_desktop
         path: /mobile-desktop
         blocks:
-            - template: sectionToolsCardinalityByUserTemplate
-
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
