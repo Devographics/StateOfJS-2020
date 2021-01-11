@@ -29,6 +29,7 @@
     "@nivo/heatmap": "0.65.1",
     "@nivo/line": "0.65.1",
     "@nivo/marimekko": "0.65.1",
+    "@nivo/pie": "0.65.1",
     "@nivo/sankey": "0.65.1",
     "@nivo/scatterplot": "0.65.1",
     "@nivo/stream": "0.65.1",

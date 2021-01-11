@@ -1754,6 +1754,17 @@
     lodash "^4.17.11"
     react-spring "9.0.0-rc.3"
 
+"@nivo/pie@0.65.1":
+  version "0.65.1"
+  resolved "https://registry.yarnpkg.com/@nivo/pie/-/pie-0.65.1.tgz#642b928ff7631c2d5e3a5fb361ad4834615ad06e"
+  integrity sha512-BqRPZth2xbnWMoKRPyWmm39OCFMBCx3OVfJfoqUd+sS4FhgD96xds/3bRmH7WTtdkGB2IT6TYYvMBNwjbLUkTQ==
+  dependencies:
+    "@nivo/colors" "0.65.1"
+    "@nivo/legends" "0.65.1"
+    "@nivo/tooltip" "0.65.1"
+    d3-shape "^1.3.5"
+    lodash "^4.17.11"
+
 "@nivo/sankey@0.65.1":
   version "0.65.1"
   resolved "https://registry.yarnpkg.com/@nivo/sankey/-/sankey-0.65.1.tgz#ba3e1ac7d870c1e6cdccf92085455d642f3f5f8d"

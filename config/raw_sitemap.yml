@@ -287,6 +287,8 @@
       - id: technologies_introduction
         template: pageIntroductionTemplate
 
+      - template: allSectionsToolsCardinalityByUserTemplate
+
       - id: scatterplot_overview
         template: scatterplotOverviewTemplate
 
@@ -295,6 +297,8 @@
         path: /javascript-flavors
         blocks:
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -329,6 +333,8 @@
         path: /front-end-frameworks
         blocks:
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -373,6 +379,8 @@
         blocks:
             - template: pageIntroductionTemplate
 
+            - template: sectionToolsCardinalityByUserTemplate
+
             - template: toolsExperienceRankingTemplate
 
             - id: sarah_edo
@@ -411,6 +419,8 @@
         path: /back-end-frameworks
         blocks:
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 
@@ -454,6 +464,8 @@
         blocks:
             - template: pageIntroductionTemplate
 
+            - template: sectionToolsCardinalityByUserTemplate
+
             - template: toolsExperienceRankingTemplate
 
             - id: ladyleet
@@ -496,6 +508,8 @@
         blocks:
             - template: pageIntroductionTemplate
 
+            - template: sectionToolsCardinalityByUserTemplate
+
             - template: toolsExperienceRankingTemplate
 
             - id: tomdale
@@ -537,6 +551,8 @@
         path: /mobile-desktop
         blocks:
             - template: pageIntroductionTemplate
+
+            - template: sectionToolsCardinalityByUserTemplate
 
             - template: toolsExperienceRankingTemplate
 

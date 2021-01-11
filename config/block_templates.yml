@@ -649,6 +649,105 @@ toolsUsageVariationsTemplate:
             }
         }
 
+allSectionsToolsCardinalityByUserTemplate:
+    id: 'all_sections_tools_cardinality_by_user'
+    blockType: AllSectionsToolsCardinalityByUserBlock
+    dataPath: surveyApi.survey
+    bucketKeysName: tools
+    enableExport: true
+    # this query is quite repetitive, in order to be able
+    # to generate it in a more dynamic way, we would have
+    # to support loops.
+    query: >
+        surveyApi {
+            survey(survey: ${surveyType}) {
+                javascript_flavors: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${toolsCategories.javascript_flavors}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+                front_end_frameworks: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${toolsCategories.front_end_frameworks}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+                datalayer: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${toolsCategories.datalayer}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+                back_end_frameworks: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${toolsCategories.back_end_frameworks}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+                testing: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${toolsCategories.testing}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+                build_tools: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${toolsCategories.build_tools}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+                mobile_desktop: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${toolsCategories.mobile_desktop}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+            }
+        }
+
+sectionToolsCardinalityByUserTemplate:
+    id: '${parentId}_tools_cardinality_by_user'
+    blockType: SectionToolsCardinalityByUserBlock
+    dataPath: 'surveyApi.survey.${parentId}_tools_cardinality_by_user'
+    bucketKeysName: tools
+    enableExport: true
+    query: >
+        surveyApi {
+            survey(survey: ${surveyType}) {
+                ${parentId}_tools_cardinality_by_user: tools_cardinality_by_user(
+                    year: ${currentYear},
+                    ids: [${toolsCategories[parentId]}],
+                    experienceId: would_use
+                ) {
+                    cardinality
+                    count
+                    percentage
+                }
+            }
+        }
+
 # QUERY NEEDS TO BE ADJUSTED IF WE ENABLE THIS BLOCK!
 toolsMatricesTemplate:
     id: ${parentId}_matrices

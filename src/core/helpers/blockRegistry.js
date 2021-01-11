@@ -31,14 +31,16 @@ import KnowledgeScoreBlock from 'core/blocks/features/KnowledgeScoreBlock'
 // tools
 import ToolHeaderBlock from 'core/blocks/tools/ToolHeaderBlock'
 import ToolExperienceBlock from 'core/blocks/tools/ToolExperienceBlock'
-// import ToolExperienceGraphBlock from 'core/blocks/tools/ToolExperienceGraphBlock'
-// import ToolsSectionOverviewBlock from 'core/blocks/tools/ToolsSectionOverviewBlock'
 import ToolsSectionStreamsBlock from 'core/blocks/tools/ToolsSectionStreamsBlock'
 import { ToolsExperienceRankingBlock } from 'core/blocks/tools/ToolsExperienceRankingBlock'
 import ToolsScatterplotBlock from 'core/blocks/tools/ToolsScatterplotBlock'
-// import ToolsMatricesBlock from 'core/blocks/tools/ToolsMatricesBlock'
 import { ToolsExperienceMarimekkoBlock } from 'core/blocks/tools/ToolsExperienceMarimekkoBlock'
-import { ToolsUsageVariationsBlock } from 'core/blocks/tools/ToolsUsageVariationsBlock'
+import { SectionToolsCardinalityByUserBlock } from 'core/blocks/tools/SectionToolsCardinalityByUserBlock'
+import { AllSectionsToolsCardinalityByUserBlock } from 'core/blocks/tools/AllSectionsToolsCardinalityByUserBlock'
+// import ToolExperienceGraphBlock from 'core/blocks/tools/ToolExperienceGraphBlock'
+// import ToolsSectionOverviewBlock from 'core/blocks/tools/ToolsSectionOverviewBlock'
+// import ToolsMatricesBlock from 'core/blocks/tools/ToolsMatricesBlock'
+// import { ToolsUsageVariationsBlock } from 'core/blocks/tools/ToolsUsageVariationsBlock'
 
 // happiness
 import HappinessBlock from 'core/blocks/happiness/HappinessBlock'
@@ -46,6 +48,10 @@ import HappinessBlock from 'core/blocks/happiness/HappinessBlock'
 // opinions
 import OpinionBlock from 'core/blocks/opinions/OpinionBlock'
 
+/**
+ * Please make sure to comment out unused blocks,
+ * this is gonna help regarding bundle size.
+ */
 const blockRegistry = {
     // generic chart blocks
     HorizontalBarBlock,
@@ -80,14 +86,16 @@ const blockRegistry = {
     // tools
     ToolHeaderBlock,
     ToolExperienceBlock,
-    // ToolExperienceGraphBlock,
-    // ToolsSectionOverviewBlock,
     ToolsSectionStreamsBlock,
     ToolsExperienceRankingBlock,
     ToolsScatterplotBlock,
-    // ToolsMatricesBlock,
     ToolsExperienceMarimekkoBlock,
-    ToolsUsageVariationsBlock,
+    SectionToolsCardinalityByUserBlock,
+    AllSectionsToolsCardinalityByUserBlock,
+    // ToolExperienceGraphBlock,
+    // ToolsSectionOverviewBlock,
+    // ToolsMatricesBlock,
+    // ToolsUsageVariationsBlock,
 
     // happiness
     HappinessBlock,
