@@ -190,13 +190,13 @@ scatterplotOverviewTemplate:
 
 toolsArrowsTemplate:
     blockType: ToolsArrowsBlock
-    dataPath: 'surveyApi.survey.tools'
+    dataPath: 'surveyApi.survey.arrows_tools'
     showDescription: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                tools {
+                arrows_tools: tools {
                     id
                     entity {
                         name

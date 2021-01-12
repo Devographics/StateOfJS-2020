@@ -34,6 +34,7 @@ import ToolExperienceBlock from 'core/blocks/tools/ToolExperienceBlock'
 import ToolsSectionStreamsBlock from 'core/blocks/tools/ToolsSectionStreamsBlock'
 import { ToolsExperienceRankingBlock } from 'core/blocks/tools/ToolsExperienceRankingBlock'
 import ToolsScatterplotBlock from 'core/blocks/tools/ToolsScatterplotBlock'
+import { ToolsArrowsBlock } from 'core/blocks/tools/ToolsArrowsBlock'
 import { ToolsExperienceMarimekkoBlock } from 'core/blocks/tools/ToolsExperienceMarimekkoBlock'
 import { SectionToolsCardinalityByUserBlock } from 'core/blocks/tools/SectionToolsCardinalityByUserBlock'
 import { AllSectionsToolsCardinalityByUserBlock } from 'core/blocks/tools/AllSectionsToolsCardinalityByUserBlock'
@@ -92,6 +93,7 @@ const blockRegistry = {
     ToolsExperienceMarimekkoBlock,
     SectionToolsCardinalityByUserBlock,
     AllSectionsToolsCardinalityByUserBlock,
+    ToolsArrowsBlock,
     // ToolExperienceGraphBlock,
     // ToolsSectionOverviewBlock,
     // ToolsMatricesBlock,
