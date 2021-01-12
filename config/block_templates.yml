@@ -892,9 +892,8 @@ scatterplotTemplate:
 #
 ###############################################################################
 
-happinessTemplate:
+happinessSingleYearTemplate:
     id: '${parentId}_happiness'
-    # blockType: HappinessBlock
     blockType: VerticalBarBlock
     dataPath: 'surveyApi.survey.${parentId}_happiness.year'
     showDescription: true
@@ -914,6 +913,27 @@ happinessTemplate:
                             id
                             percentage
                         }
+                    }
+                }
+            }
+        }
+
+happinessHistoryTemplate:
+    id: '${parentId}_happiness'
+    blockType: HappinessHistoryBlock
+    dataPath: 'surveyApi.survey.${parentId}_happiness.all_years'
+    showDescription: true
+    i18nNamespace: happiness
+    bucketKeysName: happiness
+    blockName: happiness
+    enableExport: true
+    query: >
+        surveyApi {
+            survey(survey: ${surveyType}) {
+                ${parentId}_happiness: happiness(id: ${parentId}) {
+                    all_years {
+                        year
+                        mean
                     }
                 }
             }

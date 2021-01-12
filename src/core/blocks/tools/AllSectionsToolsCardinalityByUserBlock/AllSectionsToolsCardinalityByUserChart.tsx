@@ -29,7 +29,7 @@ export const AllSectionsToolsCardinalityByUserChart = ({
 
 const GridContainer = styled.div`
     display: grid;
-    column-gap: ${spacing(0.5)};
+    column-gap: ${spacing(1)};
 
     @media ${mq.small} {
         grid-template-columns: repeat(2, minmax(120px, 1fr));

@@ -1,4 +1,5 @@
 import React, { Fragment, useMemo, memo } from 'react'
+import { maxBy } from 'lodash'
 import styled, { css } from 'styled-components'
 // @ts-ignore
 import { format } from 'd3-format'
@@ -30,27 +31,38 @@ export const SectionItem = memo(
             }
         }, [units])
 
+        let maxCount = 0
+        const maxBucket = maxBy(data, 'count')
+        if (maxBucket) {
+            maxCount = maxBucket.count
+        }
+
         return (
             <SectionContainer>
                 <Grid>
                     {range(1, 11).map((i) => {
                         const bucket = data.find((b) => b.cardinality === i)
+                        const isMax = bucket && maxCount > 0 && maxCount === bucket.count
+
                         return bucket ? (
                             <Row key={bucket.cardinality}>
-                                <Metric>x{bucket.cardinality}</Metric>
-                                <Bar>
+                                <Metric isMax={isMax}>{bucket.cardinality}</Metric>
+                                <Bar isMax={isMax}>
+                                    <CellsWrapper />
                                     <InnerBar
                                         style={{
                                             width: `${bucket.percentage}%`,
                                         }}
                                     />
                                 </Bar>
-                                <Metric>{getValue(bucket)}</Metric>
+                                <Metric isMax={isMax}>{getValue(bucket)}</Metric>
                             </Row>
                         ) : (
                             <Row isPlaceholder={true} key={i}>
                                 <div />
-                                <Bar isPlaceholder={true} />
+                                <Bar isPlaceholder={true}>
+                                    <CellsWrapper />
+                                </Bar>
                                 <div />
                             </Row>
                         )
@@ -60,6 +72,14 @@ export const SectionItem = memo(
             </SectionContainer>
         )
     }
+)
+
+const CellsWrapper = () => (
+    <Cells>
+        {range(0, 10).map((i) => (
+            <Cell key={i} />
+        ))}
+    </Cells>
 )
 
 const SectionTitle = styled.div`
@@ -81,30 +101,82 @@ const Grid = styled.div`
 
 const Row = styled.div`
     display: grid;
-    grid-template-columns: 36px auto 36px;
+    grid-template-columns: 20px auto 36px;
     column-gap: 6px;
     align-items: center;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
+    position: relative;
 `
 
-const Bar = styled.div`
-    display: flex;
+const Cells = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    column-gap: 2px;
+`
+const Cell = styled.div`
     background: ${(props) => props.theme.colors.backgroundAlt};
+`
+
+const Bar = styled.div<{
+    isMax: boolean
+}>`
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    // background: ${(props) => props.theme.colors.backgroundAlt};
     justify-content: center;
-    height: 18px;
+    opacity: ${(props) => (props.isMax ? 1 : 0.7)};
+
+    ${(props) =>
+        props.isMax
+            ? css`
+                  &:before,
+                  &:after {
+                      top: 50%;
+                      content: '';
+                      position: absolute;
+                      display: block;
+                      width: 8px;
+                      height: 8px;
+                      z-index: 10;
+                      background-color: ${(props) => props.theme.colors.barChart.primary};
+                      transform-origin: center center;
+                  }
+
+                  &:before {
+                      left: 0;
+                      transform: translate(-50%, -50%) rotate(45deg);
+                  }
+
+                  &:after {
+                      right: 0;
+                      transform: translate(50%, -50%) rotate(45deg);
+                  }
+              `
+            : ''}
 `
 
 const InnerBar = styled.div`
     /* background-color: ${(props) => props.theme.colors.ranges.tools.would_use}; */
     background-color: ${(props) => props.theme.colors.barChart.primary};
     height: 100%;
+    z-index: 1;
 `
 
-const Metric = styled.span`
+const Metric = styled.span<{
+    isMax: boolean
+}>`
     display: flex;
     justify-content: flex-end;
     align-items: center;
     font-size: ${fontSize('smaller')};
+    font-weight: ${(props) =>
+        props.isMax ? props.theme.typography.weight.bold : props.theme.typography.weight.light};
 `
 
 const SectionContainer = styled.div`

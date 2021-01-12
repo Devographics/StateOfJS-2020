@@ -43,7 +43,7 @@ import { AllSectionsToolsCardinalityByUserBlock } from 'core/blocks/tools/AllSec
 // import { ToolsUsageVariationsBlock } from 'core/blocks/tools/ToolsUsageVariationsBlock'
 
 // happiness
-import HappinessBlock from 'core/blocks/happiness/HappinessBlock'
+import { HappinessHistoryBlock } from 'core/blocks/happiness/HappinessHistoryBlock'
 
 // opinions
 import OpinionBlock from 'core/blocks/opinions/OpinionBlock'
@@ -98,7 +98,7 @@ const blockRegistry = {
     // ToolsUsageVariationsBlock,
 
     // happiness
-    HappinessBlock,
+    HappinessHistoryBlock,
 
     // opinions
     OpinionBlock,
