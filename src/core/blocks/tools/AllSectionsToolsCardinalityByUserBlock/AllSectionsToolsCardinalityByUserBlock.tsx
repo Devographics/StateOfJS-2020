@@ -66,8 +66,8 @@ export const AllSectionsToolsCardinalityByUserBlock = ({
     const { translate } = useI18n()
     const [units, setUnits] = useState(defaultUnits)
 
-    const title = translate(`block.title.all_sections_tools_cardinality_by_user`)
-    const description = translate(`block.description.all_sections_tools_cardinality_by_user`)
+    const title = translate(`blocks.all_sections_tools_cardinality_by_user.title`)
+    const description = translate(`blocks.all_sections_tools_cardinality_by_user.description`)
 
     const charData = useMemo(() => getChartData(data), [data])
 
