@@ -120,6 +120,8 @@ const Cells = styled.div`
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     column-gap: 2px;
+    height: 100%;
+
 `
 const Cell = styled.div`
     background: ${(props) => props.theme.colors.backgroundAlt};
