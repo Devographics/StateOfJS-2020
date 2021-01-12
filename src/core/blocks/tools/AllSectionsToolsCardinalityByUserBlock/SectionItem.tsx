@@ -15,10 +15,12 @@ export const SectionItem = memo(
         sectionId,
         data,
         units,
+        maxNumberOfTools,
     }: {
         sectionId: string
         data: ToolsCardinalityByUserBucket[]
         units: 'percentage' | 'count'
+        maxNumberOfTools: number
     }) => {
         const { translate } = useI18n()
         const getValue = useMemo(() => {
@@ -40,7 +42,7 @@ export const SectionItem = memo(
         return (
             <SectionContainer>
                 <Grid>
-                    {range(1, 11).map((i) => {
+                    {range(1, maxNumberOfTools + 1).map((i) => {
                         const bucket = data.find((b) => b.cardinality === i)
                         const isMax =
                             bucket !== undefined && maxCount > 0 && maxCount === bucket.count
@@ -100,9 +102,7 @@ const Grid = styled.div`
     flex-direction: column-reverse;
 `
 
-const Row = styled.div<{
-    isPlaceholder: boolean
-}>`
+const Row = styled.div`
     display: grid;
     grid-template-columns: 36px auto 36px;
     column-gap: 6px;
@@ -127,7 +127,6 @@ const Cell = styled.div`
 
 const Bar = styled.div<{
     isMax: boolean
-    isPlaceholder: boolean
 }>`
     position: relative;
     overflow: hidden;
