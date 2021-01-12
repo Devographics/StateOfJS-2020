@@ -29,21 +29,21 @@ export const AllSectionsToolsCardinalityByUserChart = ({
 
 const GridContainer = styled.div`
     display: grid;
-    column-gap: ${spacing(1)};
+    column-gap: ${spacing(1.5)};
 
     @media ${mq.small} {
-        grid-template-columns: repeat(2, minmax(120px, 1fr));
+        grid-template-columns: 1fr;
         row-gap: ${spacing(1)};
     }
 
     @media ${mq.mediumLarge} {
         grid-template-columns: repeat(3, minmax(120px, 1fr));
-        row-gap: ${spacing(1)};
+        row-gap: ${spacing(1.5)};
     }
 
     @media ${mq.large} {
         grid-template-columns: repeat(4, minmax(120px, 1fr));
         row-gap: ${spacing(1.5)};
-        column-gap: ${spacing(1)};
+        column-gap: ${spacing(1.5)};
     }
 `

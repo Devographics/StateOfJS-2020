@@ -101,7 +101,7 @@ const Grid = styled.div`
 
 const Row = styled.div`
     display: grid;
-    grid-template-columns: 20px auto 36px;
+    grid-template-columns: 36px auto 36px;
     column-gap: 6px;
     align-items: center;
     margin-bottom: 2px;
