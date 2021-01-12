@@ -259,7 +259,13 @@ const ToolsScatterplotChart = ({
     ]
 
     return (
-        <div style={{ height: 600 }} className={className}>
+        <div
+            style={{ height: 600 }}
+            className={className}
+            onMouseLeave={() => {
+                setCurrent(null)
+            }}
+        >
             <ResponsiveScatterPlot
                 data={data}
                 margin={margins}
