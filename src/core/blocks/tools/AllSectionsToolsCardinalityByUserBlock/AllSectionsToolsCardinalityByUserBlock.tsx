@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { range } from 'lodash'
+import { range, maxBy } from 'lodash'
 // @ts-ignore
 import Block from 'core/blocks/block/Block'
 import { BlockContext } from 'core/blocks/types'
@@ -65,6 +65,8 @@ export const AllSectionsToolsCardinalityByUserBlock = ({
 
     const charData = useMemo(() => getChartData(data), [data])
 
+    const maxNumberOfTools = maxBy<string[]>(Object.values(toolsCategories), 'length')!.length
+
     return (
         <Block
             units={units}
@@ -78,7 +80,11 @@ export const AllSectionsToolsCardinalityByUserBlock = ({
             }}
             data={data}
         >
-            <AllSectionsToolsCardinalityByUserChart data={charData} units={units} />
+            <AllSectionsToolsCardinalityByUserChart
+                data={charData}
+                units={units}
+                maxNumberOfTools={maxNumberOfTools}
+            />
         </Block>
     )
 }

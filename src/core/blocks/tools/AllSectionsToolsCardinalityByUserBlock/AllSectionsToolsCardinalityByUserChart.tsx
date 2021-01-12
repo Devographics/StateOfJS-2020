@@ -8,12 +8,14 @@ import { SectionItem } from './SectionItem'
 export const AllSectionsToolsCardinalityByUserChart = ({
     data,
     units,
+    maxNumberOfTools,
 }: {
     data: {
         sectionId: string
         data: ToolsCardinalityByUserBucket[]
     }[]
     units: 'percentage' | 'count'
+    maxNumberOfTools: number
 }) => (
     <GridContainer>
         {data.map((section) => (
@@ -22,6 +24,7 @@ export const AllSectionsToolsCardinalityByUserChart = ({
                 sectionId={section.sectionId}
                 data={section.data}
                 units={units}
+                maxNumberOfTools={maxNumberOfTools}
             />
         ))}
     </GridContainer>
