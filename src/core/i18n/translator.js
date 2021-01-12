@@ -45,7 +45,7 @@ export const getTranslator = (locale = {}) => (key, { values } = {}, fallback) =
     if (values === undefined) return translation.t
 
     try {
-        return template(translation.t)(values)
+        return template(translation.t, { interpolate: /{([\s\S]+?)}/g })(values)
     } catch (error) {
         // console.error(error)
         return `[${id}][ERR] ${key}`

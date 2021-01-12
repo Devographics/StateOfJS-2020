@@ -106,7 +106,7 @@ const HintContainer = styled.div`
         grid-template-columns: 30px auto;
     }
     @media ${mq.mediumLarge} {
-        padding: ${spacing(1.5)};
+        padding: ${spacing()};
         grid-template-columns: 60px auto;
     }
 `
@@ -162,6 +162,7 @@ const HintBulbInner = styled.div`
 `
 
 const HintContent = styled.div`
+    font-size: ${fontSize('smallish')};
     p:last-child {
         margin: 0;
     }
