@@ -23,7 +23,6 @@ export const getVelocityColor = (v, theme) => {
   const scale = theme.colors.velocity
   const scaleSteps = scale.length - 1
   const stepValue = Math.round(((v + 100) * (scaleSteps )) / 200)
-  console.log(stepValue)
   // add a floor and ceiling to make sure the step stays "inside" the array
   const stepIndex = Math.max(0, Math.min(stepValue, scaleSteps))
   return scale[stepIndex]
