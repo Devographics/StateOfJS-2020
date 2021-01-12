@@ -99,7 +99,9 @@ const Grid = styled.div`
     flex-direction: column-reverse;
 `
 
-const Row = styled.div`
+const Row = styled.div<{
+    isPlaceholder: boolean
+}>`
     display: grid;
     grid-template-columns: 36px auto 36px;
     column-gap: 6px;
@@ -124,6 +126,7 @@ const Cell = styled.div`
 
 const Bar = styled.div<{
     isMax: boolean
+    isPlaceholder: boolean
 }>`
     position: relative;
     overflow: hidden;
