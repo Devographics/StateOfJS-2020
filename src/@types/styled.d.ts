@@ -78,6 +78,7 @@ declare module 'styled-components' {
                 }
             }
             distinct: string[]
+            velocity: string[]
             countries: string[]
         }
         charts: {

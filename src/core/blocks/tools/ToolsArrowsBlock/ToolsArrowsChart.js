@@ -11,8 +11,12 @@ import './ToolsArrowsChart.scss'
 import get from 'lodash/get'
 import { useTheme } from 'styled-components'
 import labelOffsets from './toolsArrowsLabelOffsets.js'
+import { getVelocity, getVelocityColor, getVelocityColorScale} from './helpers.js'
 
-const gradientLineWidthScale = scaleLinear().domain([0, 30]).range([11, 9]).clamp(true)
+// hide any item with less than n years of data
+const minimumYearCount = 2
+
+const gradientLineWidthScale = scaleLinear().domain([0, 30]).range([11, 7]).clamp(true)
 
 export const ToolsArrowsChart = ({ data, activeCategory }) => {
     const theme = useTheme()
@@ -68,27 +72,27 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
         toolNames[tool.id] = tool.entity.name
     })
 
-    const points = useMemo(
+    const items = useMemo(
         () =>
             data.map((tool) =>
-                get(tool, 'experience.all_years', []).map(({ buckets }) => {
+                get(tool, 'experience.all_years', []).map(({ year, buckets }) => {
                     const points = buckets.map(({ id, percentage }) =>
                         conditionDiffs[id].map((d) => d * percentage)
                     )
-                    return [sum(points.map((d) => d[0])), sum(points.map((d) => d[1]))]
+                    return [sum(points.map((d) => d[0])), sum(points.map((d) => d[1])), year]
                 })
             ),
         [data]
     )
 
     const scales = useMemo(() => {
-        const xExtent = extent(flatten(points).map((d) => d[0]))
+        const xExtent = extent(flatten(items).map((d) => d[0]))
         const maxAbsX = max(xExtent.map(Math.abs))
         const xScale = scaleLinear()
             .domain([-maxAbsX, maxAbsX])
             .range([20, dms.width - 20])
 
-        const yExtent = extent(flatten(points).map((d) => d[1]))
+        const yExtent = extent(flatten(items).map((d) => d[1]))
         const maxAbsY = max(yExtent.map(Math.abs))
         const yScale = scaleLinear()
             .domain([-maxAbsY, maxAbsY])
@@ -98,7 +102,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
             x: xScale,
             y: yScale,
         }
-    }, [points, dms])
+    }, [items, dms])
 
     // // label positioning on drag
 
@@ -152,7 +156,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                     y2={dms.height}
                 />
                 <text className="ToolsArrowsChart__axis__label" y={dms.height / 2 - 10}>
-                    {translate('toolExperience.negative_opinion.extrashort')}
+                    {translate('charts.tools_arrows.negative_opinion')}
                 </text>
                 <text
                     className="ToolsArrowsChart__axis__label"
@@ -162,7 +166,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                         textAnchor: 'end',
                     }}
                 >
-                    {translate('toolExperience.positive_opinion.extrashort')}
+                    {translate('charts.tools_arrows.positive_opinion')}
                 </text>
                 <text
                     className="ToolsArrowsChart__axis__label"
@@ -172,7 +176,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                         textAnchor: 'middle',
                     }}
                 >
-                    {translate('toolExperience.have_used.extrashort')}
+                    {translate('charts.tools_arrows.have_used')}
                 </text>
                 <text
                     className="ToolsArrowsChart__axis__label"
@@ -182,10 +186,14 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                         textAnchor: 'middle',
                     }}
                 >
-                    {translate('toolExperience.have_not_used.extrashort')}
+                    {translate('charts.tools_arrows.have_not_used')}
                 </text>
 
-                {points.map((points, i) => {
+                {/* lines loop */}
+
+                {items.map((points, i) => {
+                    if (!points.length || points.length < minimumYearCount) return null
+
                     const tool = tools[i]
                     const category = toolToCategoryMap[tool]
 
@@ -220,8 +228,12 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
 
                     const x = scales.x(thisYearPoint[0])
                     const y = scales.y(thisYearPoint[1])
-                    const color = categoryColorMap[category]
-                    const colorScale = categoryColorScales[category]
+                    // const color = categoryColorMap[category]
+                    // const colorScale = categoryColorScales[category]
+
+                    const velocity = getVelocity(points)
+                    const color = getVelocityColor(velocity, theme)
+                    const colorScale = getVelocityColorScale(velocity, theme)
 
                     return (
                         <g
@@ -268,19 +280,24 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                     )
                 })}
 
-                {points.map((points, i) => {
+                {/* dots loop */}
+
+                {items.map((points, i) => {
                     const tool = tools[i]
                     const toolName = toolNames[tool]
                     const category = toolToCategoryMap[tool]
-                    if (!points.length) return null
+                    if (!points.length || points.length < minimumYearCount) return null
 
                     const thisYearPoint = points.slice(-1)[0]
 
                     const x = scales.x(thisYearPoint[0])
                     const y = scales.y(thisYearPoint[1])
-                    const color = categoryColorMap[category]
+                    // const color = categoryColorMap[category]
 
-                    if (y > dms.height - 200 && Math.abs(x - dms.width / 2) < 100) return null
+                    const velocity = getVelocity(points)
+                    const color = getVelocityColor(velocity, theme)
+
+                    // if (y > dms.height - 200 && Math.abs(x - dms.width / 2) < 100) return null
 
                     return (
                         <g
@@ -333,12 +350,13 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                                     {toolName}
                                 </text>
                             </g> */}
-                            {points.map(([x, y], i) => {
+                            {points.map(([x, y, year], i) => {
                                 const isFirstLabelToTheRight =
                                     scales.x(x) > dms.width * 0.9 ||
                                     labelsToTheRight.indexOf(tool) !== -1
 
-                                const showLabel = i === 0 || i === points.length - 1
+                                // const showLabel = i === 0 || i === points.length - 1
+                                const showLabel = true
 
                                 return (
                                     <Fragment key={i}>
@@ -356,7 +374,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                                                         : 'start',
                                                 }}
                                             >
-                                                {2020 - (points.length - 1 - i)}
+                                                {year}
                                             </text>
                                         )}
                                         <circle

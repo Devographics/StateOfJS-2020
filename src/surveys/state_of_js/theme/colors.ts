@@ -93,6 +93,17 @@ const stateOfJSThemeColors: DefaultTheme['colors'] = {
         colors.redDark,
         colors.redDarker,
     ],
+    velocity: [
+        colors.tealDarker,
+        colors.tealDark,
+        colors.teal,
+        colors.tealLight,
+        colors.greyMedium,
+        colors.redLighter,
+        colors.redLight,
+        colors.red,
+        colors.redDark,
+    ],
 }
 
 export default stateOfJSThemeColors
