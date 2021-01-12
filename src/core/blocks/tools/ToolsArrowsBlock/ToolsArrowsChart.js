@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { scaleLinear } from 'd3-scale'
 import map from 'lodash/map'
 import range from 'lodash/range'
@@ -9,30 +9,34 @@ import offsets from './toolsArrowsLabelOffsets.js'
 import { useI18n } from 'core/i18n/i18nContext'
 import './ToolsArrowsChart.scss'
 import get from 'lodash/get'
-
-const getColor = () => '#990099'
-
-let toolToCategoryMap = {}
-map(toolsCategories, (tools, category) => {
-    tools.forEach((tool) => {
-        toolToCategoryMap[tool] = category
-    })
-})
-
-let categoryColorMap = {}
-let categoryColorScales = {}
-map(toolsCategories, (tools, category) => {
-    const color = getColor(category)
-    categoryColorMap[category] = color
-    categoryColorScales[category] = scaleLinear()
-        .domain([0, 30])
-        .range([color, '#303652'])
-        .clamp(true)
-})
+import { useTheme } from 'styled-components'
+import labelOffsets from './toolsArrowsLabelOffsets.js'
 
 const gradientLineWidthScale = scaleLinear().domain([0, 30]).range([11, 9]).clamp(true)
 
 export const ToolsArrowsChart = ({ data, activeCategory }) => {
+    const theme = useTheme()
+
+    const getColor = (id) => theme.colors.ranges.toolSections[id]
+
+    let toolToCategoryMap = {}
+    map(toolsCategories, (tools, category) => {
+        tools.forEach((tool) => {
+            toolToCategoryMap[tool] = category
+        })
+    })
+
+    let categoryColorMap = {}
+    let categoryColorScales = {}
+    map(toolsCategories, (tools, category) => {
+        const color = getColor(category)
+        categoryColorMap[category] = color
+        categoryColorScales[category] = scaleLinear()
+            .domain([0, 30])
+            .range([color, '#303652'])
+            .clamp(true)
+    })
+
     const { translate } = useI18n()
 
     const [hoveredTool, setHoveredTool] = useState(null)
@@ -95,6 +99,42 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
             y: yScale,
         }
     }, [points, dms])
+
+    // // label positioning on drag
+
+    // const labelBeingDragged = useRef(null)
+    // const dragStartPosition = useRef({})
+    // const offsets = useRef(labelOffsets)
+    // const [iteration, setIteration] = useState(0)
+    // const iterationRef = useRef(0)
+    // iterationRef.current = iteration
+
+    // function onDrag(e) {
+    //     if (!offsets.current) return
+    //     offsets.current[labelBeingDragged.current] = {
+    //         x: e.clientX - dragStartPosition.current.x,
+    //         y: e.clientY - dragStartPosition.current.y,
+    //     }
+    //     setIteration(iterationRef.current + 1)
+    // }
+
+    // const onDragEnd = () => {
+    //     labelBeingDragged.current = null
+    //     window.removeEventListener('pointerup', onDragEnd)
+    //     window.removeEventListener('pointermove', onDrag)
+    //     setIteration(iteration + 1)
+    //     console.log('%coffsets', 'color: #7083EC', offsets.current)
+    // }
+
+    // const onDragStartLocal = (label) => (e) => {
+    //     labelBeingDragged.current = label
+    //     dragStartPosition.current = {
+    //         x: e.clientX,
+    //         y: e.clientY,
+    //     }
+    //     window.addEventListener('pointerup', onDragEnd)
+    //     window.addEventListener('pointermove', onDrag)
+    // }
 
     return (
         <div className="ToolsArrowsChart">
@@ -240,6 +280,8 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                     const y = scales.y(thisYearPoint[1])
                     const color = categoryColorMap[category]
 
+                    if (y > dms.height - 200 && Math.abs(x - dms.width / 2) < 100) return null
+
                     return (
                         <g
                             key={i}
@@ -272,6 +314,25 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                             >
                                 {toolName}
                             </text>
+
+                            {/* <g
+                                className="ToolsArrowsChart__label__box"
+                                transform={`translate(${
+                                    x + ((offsets.current[tools[i]] || {}).x || 0)
+                                }, ${y + ((offsets.current[tools[i]] || {}).y || 0)})`}
+                                onMouseDown={onDragStartLocal(tools[i])}
+                            >
+                                <rect
+                                    y="-10"
+                                    width="50"
+                                    height="10"
+                                    fill="white"
+                                    fillOpacity="0.01"
+                                />
+                                <text className="ToolsArrowsChart__label" fill={color}>
+                                    {toolName}
+                                </text>
+                            </g> */}
                             {points.map(([x, y], i) => {
                                 const isFirstLabelToTheRight =
                                     scales.x(x) > dms.width * 0.9 ||
