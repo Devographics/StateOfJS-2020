@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, memo } from 'react'
+import React, { useMemo, memo } from 'react'
 import { maxBy } from 'lodash'
 import styled, { css } from 'styled-components'
 // @ts-ignore
@@ -42,10 +42,11 @@ export const SectionItem = memo(
                 <Grid>
                     {range(1, 11).map((i) => {
                         const bucket = data.find((b) => b.cardinality === i)
-                        const isMax = bucket && maxCount > 0 && maxCount === bucket.count
+                        const isMax =
+                            bucket !== undefined && maxCount > 0 && maxCount === bucket.count
 
                         return bucket ? (
-                            <Row key={bucket.cardinality}>
+                            <Row key={i}>
                                 <Metric isMax={isMax}>{bucket.cardinality}</Metric>
                                 <Bar isMax={isMax}>
                                     <CellsWrapper />
@@ -58,9 +59,9 @@ export const SectionItem = memo(
                                 <Metric isMax={isMax}>{getValue(bucket)}</Metric>
                             </Row>
                         ) : (
-                            <Row isPlaceholder={true} key={i}>
+                            <Row key={i}>
                                 <div />
-                                <Bar isPlaceholder={true}>
+                                <Bar isMax={false}>
                                     <CellsWrapper />
                                 </Bar>
                                 <div />
@@ -131,7 +132,6 @@ const Bar = styled.div<{
     position: relative;
     overflow: hidden;
     display: flex;
-    // background: ${(props) => props.theme.colors.backgroundAlt};
     justify-content: center;
     opacity: ${(props) => (props.isMax ? 1 : 0.7)};
 
@@ -165,7 +165,6 @@ const Bar = styled.div<{
 `
 
 const InnerBar = styled.div`
-    /* background-color: ${(props) => props.theme.colors.ranges.tools.would_use}; */
     background-color: ${(props) => props.theme.colors.barChart.primary};
     height: 100%;
     z-index: 1;
