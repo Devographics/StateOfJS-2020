@@ -11,6 +11,7 @@ import ChartContainer from 'core/charts/ChartContainer'
 import ButtonGroup from 'core/components/ButtonGroup'
 import Button from 'core/components/Button'
 import { toolsCategories } from 'config/variables.yml'
+import T from 'core/i18n/T'
 
 /*
 
@@ -20,73 +21,73 @@ Parse data and convert it into a format compatible with the Scatterplot chart
 const useChartData = (data, translate, metric = 'satisfaction') => {
     const theme = useTheme()
 
-    const allTools = Object.keys(toolsCategories).filter(c => !c.includes('abridged')).map((categoryId) => {
-        const toolsIds = toolsCategories[categoryId]
+    const allTools = Object.keys(toolsCategories)
+        .filter((c) => !c.includes('abridged'))
+        .map((categoryId) => {
+            const toolsIds = toolsCategories[categoryId]
 
-        const categoryTools = data.filter((tool) => toolsIds.includes(tool.id))
-        const categoryData =
-            categoryTools &&
-            categoryTools.map((tool) => {
-                const { id, entity, experience } = tool
-                const name = entity.name
-                const buckets = get(experience, 'year.buckets')
-                const total = get(experience, 'year.total')
+            const categoryTools = data.filter((tool) => toolsIds.includes(tool.id))
+            const categoryData =
+                categoryTools &&
+                categoryTools.map((tool) => {
+                    const { id, entity, experience } = tool
+                    const name = entity.name
+                    const buckets = get(experience, 'year.buckets')
+                    const total = get(experience, 'year.total')
 
-                // if tool doesn't have experience data, abort
-                if (!buckets) {
-                    return null
-                }
+                    // if tool doesn't have experience data, abort
+                    if (!buckets) {
+                        return null
+                    }
 
-                // get count for a given bucket
-                const getCount = (id) => {
-                    return buckets && buckets.find((b) => b.id === id).count
-                }
+                    // get count for a given bucket
+                    const getCount = (id) => {
+                        return buckets && buckets.find((b) => b.id === id).count
+                    }
 
-                const totals = {
-                    satisfaction: getCount('would_use') + getCount('would_not_use'),
-                    interest: getCount('interested') + getCount('not_interested'),
-                    awareness: total,
-                }
+                    const totals = {
+                        satisfaction: getCount('would_use') + getCount('would_not_use'),
+                        interest: getCount('interested') + getCount('not_interested'),
+                        awareness: total,
+                    }
 
-                const getPercentage = (id) => {
-                    return round((getCount(id) / totals[metric]) * 100, 2)
-                }
+                    const getPercentage = (id) => {
+                        return round((getCount(id) / totals[metric]) * 100, 2)
+                    }
 
-                const percentages = {
-                    satisfaction: getPercentage('would_use'),
-                    interest: getPercentage('interested'),
-                    awareness: 100 - getPercentage('never_heard'),
-                }
+                    const percentages = {
+                        satisfaction: getPercentage('would_use'),
+                        interest: getPercentage('interested'),
+                        awareness: 100 - getPercentage('never_heard'),
+                    }
 
-                // note: we use the same x for all metrics to stay consistent
-                const node = {
-                    id,
-                    originalId: id,
-                    x: totals['satisfaction'],
-                    y: percentages[metric],
-                    name,
-                }
+                    // note: we use the same x for all metrics to stay consistent
+                    const node = {
+                        id,
+                        originalId: id,
+                        x: totals['satisfaction'],
+                        y: percentages[metric],
+                        name,
+                    }
 
-                return node
-            })
+                    return node
+                })
 
-        const color = theme.colors.ranges.toolSections[categoryId]
+            const color = theme.colors.ranges.toolSections[categoryId]
 
-        return categoryData.length > 0
-            ? {
-                  id: categoryId,
-                  name: translate(`page.${categoryId}`),
-                  color,
-                  data: compact(categoryData),
-              }
-            : null
-    })
+            return categoryData.length > 0
+                ? {
+                      id: categoryId,
+                      name: translate(`page.${categoryId}`),
+                      color,
+                      data: compact(categoryData),
+                  }
+                : null
+        })
     return compact(allTools)
 }
 
 const Switcher = ({ setMetric, metric }) => {
-    const { translate } = useI18n()
-
     return (
         <ButtonGroup>
             {['satisfaction', 'interest'].map((key) => (
@@ -96,12 +97,7 @@ const Switcher = ({ setMetric, metric }) => {
                     className={`Button--${metric === key ? 'selected' : 'unselected'}`}
                     onClick={() => setMetric(key)}
                 >
-                    <span className="desktop">
-                        {translate(`options.experience_ranking.${key}`)}
-                    </span>
-                    <span className="mobile">
-                        {translate(`opinions.experience_ranking.${key}`)[0]}
-                    </span>
+                    <T k={`options.experience_ranking.${key}`} />
                 </Button>
             ))}
         </ButtonGroup>
@@ -116,9 +112,6 @@ const ToolsScatterplotBlock = ({ block, data, triggerId, titleProps }) => {
     const chartData = useChartData(data, translate, metric)
     const [current, setCurrent] = useState(null)
 
-    const title = translate(`blocks.tools_quadrant.title`)
-    const description = translate(`blocks.tools_quadrant.${metric}.description`)
-
     const legends = keys.toolSections.keys.map(({ id: keyId, color }) => ({
         id: `toolCategories.${keyId}`,
         label: translate(`page.${keyId}.short`),
@@ -129,13 +122,16 @@ const ToolsScatterplotBlock = ({ block, data, triggerId, titleProps }) => {
     const controlledCurrent = triggerId || current
 
     const chartClassName = controlledCurrent ? `ToolsScatterplotChart--${controlledCurrent}` : ''
-    
+
     return (
         <Block
             className="ToolsScatterplotBlock"
             data={chartData}
-            block={{ ...block, title, description, showLegend: false, legends }}
-            titleProps={{ switcher: <Switcher setMetric={setMetric} metric={metric} />, ...titleProps }}
+            block={{ ...block, blockName: 'tools_quadrant', showLegend: false, legends }}
+            titleProps={{
+                switcher: <Switcher setMetric={setMetric} metric={metric} />,
+                ...titleProps,
+            }}
             legendProps={{
                 legends,
                 onMouseEnter: ({ id }) => {

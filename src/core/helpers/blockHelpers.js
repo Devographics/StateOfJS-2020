@@ -15,8 +15,10 @@ export const getBlockTitleKey = (block, page) => {
 }
 
 export const getBlockDescriptionKey = (block, page) => {
-    const { blockName } = block
-    if (blockName) {
+    const { blockName, descriptionId } = block
+    if (descriptionId) {
+        return descriptionId
+    } else if (blockName) {
         return `blocks.${blockName}.description`
     } else {
         const pageId = block.pageId || page.i18nNamespace || page.id

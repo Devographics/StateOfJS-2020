@@ -5,9 +5,9 @@ import ReactGA from 'react-ga'
 import Link from 'core/components/LocaleLink'
 import resources from 'config/recommended_resources.yml'
 import BlockTitle from 'core/blocks/block/BlockTitle'
-import { useI18n } from 'core/i18n/i18nContext'
 import { mq, spacing, fontSize, fontWeight } from 'core/theme'
 import config from 'config/config.yml'
+import T from 'core/i18n/T'
 
 const trackClick = (id, resource, label) => {
     ReactGA.event({
@@ -18,7 +18,6 @@ const trackClick = (id, resource, label) => {
 }
 
 const RecommendedResourcesBlock = ({ block, data }) => {
-    const { translate } = useI18n()
     const { items: sponsors } = block
 
     if (!sponsors) {
@@ -86,8 +85,10 @@ const RecommendedResourcesBlock = ({ block, data }) => {
                     })}
                 </List>
                 <Sponsoring className="Resources__sponsoring">
-                    <span>{translate('partners.thanks')}</span>{' '}
-                    <Link to="/support">{translate('partners.learn_more')}</Link>
+                    <T k="partners.thanks" />{' '}
+                    <Link to="/support">
+                        <T k="partners.learn_more" />
+                    </Link>
                 </Sponsoring>
             </div>
         </div>
@@ -132,9 +133,11 @@ const ResourceImage = styled.div`
     @media ${mq.mediumLarge} {
         width: 130px;
         margin-right: ${spacing()};
-        ${({ isWide }) => isWide && css`
-            width: 150px;
-        `}
+        ${({ isWide }) =>
+            isWide &&
+            css`
+                width: 150px;
+            `}
     }
 
     a {
@@ -142,9 +145,11 @@ const ResourceImage = styled.div`
         width: 100%;
 
         padding-bottom: 90%;
-        ${({ isWide }) => isWide && css`
-            padding-bottom: 50%;
-        `}
+        ${({ isWide }) =>
+            isWide &&
+            css`
+                padding-bottom: 50%;
+            `}
 
         height: 0;
         background-position: center center;

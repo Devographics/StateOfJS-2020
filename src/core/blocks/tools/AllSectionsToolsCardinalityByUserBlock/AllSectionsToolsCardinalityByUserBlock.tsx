@@ -3,8 +3,6 @@ import { range } from 'lodash'
 // @ts-ignore
 import Block from 'core/blocks/block/Block'
 import { BlockContext } from 'core/blocks/types'
-// @ts-ignore
-import { useI18n } from 'core/i18n/i18nContext'
 import { ToolsCardinalityByUserBucket } from 'core/survey_api/tools'
 // @ts-ignore
 import { toolsCategories } from 'config/variables.yml'
@@ -63,11 +61,7 @@ export const AllSectionsToolsCardinalityByUserBlock = ({
     data,
     units: defaultUnits = 'percentage',
 }: AllSectionsToolsCardinalityByUserBlockProps) => {
-    const { translate } = useI18n()
     const [units, setUnits] = useState(defaultUnits)
-
-    const title = translate(`blocks.all_sections_tools_cardinality_by_user.title`)
-    const description = translate(`blocks.all_sections_tools_cardinality_by_user.description`)
 
     const charData = useMemo(() => getChartData(data), [data])
 
@@ -77,8 +71,9 @@ export const AllSectionsToolsCardinalityByUserBlock = ({
             setUnits={setUnits}
             block={{
                 ...block,
-                title,
-                description,
+                blockName: 'all_sections_tools_cardinality_by_user',
+                // title,
+                // description,
                 showLegend: false,
             }}
             data={data}
