@@ -196,7 +196,7 @@ toolsArrowsTemplate:
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                arrows_tools: tools {
+                arrows_tools: tools(ids: [${allTools}]) {
                     id
                     entity {
                         name
@@ -205,6 +205,7 @@ toolsArrowsTemplate:
                     }
                     experience {
                         all_years {
+                            year
                             buckets {
                                 percentage
                                 id

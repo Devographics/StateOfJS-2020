@@ -9,7 +9,7 @@ import Block from 'core/blocks/block/Block'
 import ChartContainer from 'core/charts/ChartContainer'
 import { BlockContext } from 'core/blocks/types'
 import { ToolsExperienceToolData, ToolsArrowsToolData } from './types'
-import { ToolsArrowsChart } from './ToolsArrowsChart'
+import { ToolsArrowsChart } from './ToolsArrowsChart.js'
 import get from 'lodash/get'
 
 /**
@@ -37,9 +37,9 @@ interface ToolsArrowsBlockProps {
 }
 
 export const ToolsArrowsBlock = ({ block, data, triggerId = null }: ToolsArrowsBlockProps) => {
-    const normalizedData = useNormalizedData(data)
+    // const normalizedData = useNormalizedData(data)
     const controlledCurrent = triggerId
-
+    
     return (
         <Block
             block={{
@@ -50,7 +50,7 @@ export const ToolsArrowsBlock = ({ block, data, triggerId = null }: ToolsArrowsB
             data={data}
         >
             <ChartContainer fit>
-                <ToolsArrowsChart data={normalizedData} current={controlledCurrent} />
+                <ToolsArrowsChart data={data} current={controlledCurrent} activeCategory="all"/>
             </ChartContainer>
         </Block>
     )
