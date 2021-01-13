@@ -263,7 +263,7 @@
             - id: shadow_dom
               template: featureExperienceTemplate
 
-            - items: [fm-canvas, fm-service-workers]
+            - items: [fm-canvas]
               template: recommendedResourcesTemplate
 
       - id: other_features
@@ -329,7 +329,7 @@
 
             - template: happinessHistoryTemplate
 
-            - items: [fm-react]
+            - items: [fm-react, wb-react]
               template: recommendedResourcesTemplate
 
       - id: front_end_frameworks
@@ -459,7 +459,7 @@
 
             - template: happinessHistoryTemplate
 
-            - items: [fm-next]
+            - items: [fm-next, wb-gatsby]
               template: recommendedResourcesTemplate
 
       - id: testing
@@ -654,7 +654,7 @@
       - id: podcasts_others
         template: resourcesFreeFormTemplate
 
-      - items: [wb-gatsby, wb-node]
+      - items: [wb-graphql, wb-node]
         template: recommendedResourcesTemplate
 
 - id: opinions
@@ -687,7 +687,7 @@
       - id: missing_from_js
         template: opinionsOthersTemplate
 
-      - items: [wb-react, wb-graphql]
+      - items: [wb-react, fm-typescript]
         template: recommendedResourcesTemplate
 
 - id: awards
