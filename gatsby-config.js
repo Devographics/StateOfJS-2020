@@ -2,7 +2,7 @@ require('dotenv').config()
 
 module.exports = {
     siteMetadata: {
-        title: `The State Of JS`,
+        title: `State Of JS 2020`,
     },
     plugins: [
         'gatsby-transformer-yaml',
