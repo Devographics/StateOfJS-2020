@@ -49,7 +49,7 @@ export const ToolsArrowsBlock = ({ block, data, triggerId = null }: ToolsArrowsB
             }}
             data={data}
         >
-            <ChartContainer fit>
+            <ChartContainer vscroll={false}>
                 <ToolsArrowsChart data={data} current={controlledCurrent} activeCategory="all"/>
             </ChartContainer>
         </Block>
