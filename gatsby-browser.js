@@ -1,15 +1,9 @@
 import React from 'react'
 import * as ReactGA from 'react-ga'
 import LayoutWrapper from 'core/layout/LayoutWrapper'
+import { gaUAid } from 'config/config.yml'
 
-ReactGA.initialize('UA-83022212-8')
-
-// eslint-disable-next-line no-unused-vars
-const ascii = `STATE OF JS`
-
-export const onClientEntry = () => {
-    // console.log(ascii)
-}
+ReactGA.initialize(gaUAid)
 
 export const onRouteUpdate = ({ location }) => {
     ReactGA.pageview(location.pathname)

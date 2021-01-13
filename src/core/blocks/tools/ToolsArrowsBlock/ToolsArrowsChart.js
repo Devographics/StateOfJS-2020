@@ -266,7 +266,13 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
 
     return (
         <div className="ToolsArrowsChart">
-            <svg className="ToolsArrowsChart__svg" height={dms.height} width={dms.width}>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                className="ToolsArrowsChart__svg"
+                height={dms.height}
+                width={dms.width}
+            >
                 <line
                     className="ToolsArrowsChart__axis"
                     x2={dms.width}

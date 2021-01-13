@@ -1,5 +1,5 @@
 import get from 'lodash/get'
-import config from 'config/config.yml'
+import { siteTitle, capturesUrl, hashtag, year } from 'config/config.yml'
 
 export const getBlockTitleKey = (block, page) => {
     const { blockName, titleId } = block
@@ -36,7 +36,7 @@ export const getBlockDescription = (block, page, translate) => {
 }
 
 export const getBlockImage = (block, context) => {
-    return `${config.capturesUrl}${get(context, 'locale.path')}/${block.id}.png`
+    return `${capturesUrl}${get(context, 'locale.path')}/${block.id}.png`
 }
 
 export const getBlockMeta = (block, context, translate, title) => {
@@ -48,19 +48,22 @@ export const getBlockMeta = (block, context, translate, title) => {
 
     const imageUrl = getBlockImage(block, context, translate)
 
-    const twitterText = translate('share.block.twitter_text', {
-        values: {
-            title,
-            link,
-        },
-    })
+    const values = {
+        title,
+        link,
+        hashtag,
+        year,
+        siteTitle,
+    }
 
-    const emailSubject = translate('share.block.subject')
+    const twitterText = translate('share.block.twitter_text', {
+        values,
+    })
+    const emailSubject = translate('share.block.subject', {
+        values,
+    })
     const emailBody = translate('share.block.body', {
-        values: {
-            title,
-            link,
-        },
+        values,
     })
 
     return {
