@@ -49,7 +49,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
     const canvasElement = useRef()
 
     const dms = useMemo(() => {
-        const width = windowWidth > 900 ? windowWidth - 480 : 800
+        const width = windowWidth > 900 ? windowWidth - 480 : 600
 
         // const width = windowHeight > 1000 ? 1200 : windowHeight > 800 ? 1000 : 950
 
@@ -133,7 +133,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                 [items]
             )
             .filter((d) => d)
-    })
+    }, [dms, items])
 
     const delaunay = useMemo(
         () =>
@@ -239,7 +239,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
             })
         })
     }
-    draw()
+    useEffect(draw, [hoveredTool, labels, dms])
 
     const onMouseMove = (e) => {
         if (!canvasElement.current) {
