@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { scaleLinear } from 'd3-scale'
 import map from 'lodash/map'
-import range from 'lodash/range'
 import flatten from 'lodash/flatten'
 import { extent, max, sum } from 'd3-array'
 import { toolsCategories } from 'config/variables.yml'
@@ -11,12 +10,13 @@ import './ToolsArrowsChart.scss'
 import get from 'lodash/get'
 import { useTheme } from 'styled-components'
 import labelOffsets from './toolsArrowsLabelOffsets.js'
-import { getVelocity, getVelocityColor, getVelocityColorScale} from './helpers.js'
+import { getVelocity, getVelocityColor, getVelocityColorScale } from './helpers.js'
+import { Delaunay } from 'd3-delaunay'
 
 // hide any item with less than n years of data
 const minimumYearCount = 2
 
-const gradientLineWidthScale = scaleLinear().domain([0, 30]).range([11, 7]).clamp(true)
+const gradientLineWidthScale = scaleLinear().domain([1, 0]).range([11, 7]).clamp(true)
 
 export const ToolsArrowsChart = ({ data, activeCategory }) => {
     const theme = useTheme()
@@ -44,15 +44,15 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
     const { translate } = useI18n()
 
     const [hoveredTool, setHoveredTool] = useState(null)
-    // const windowWidth = useWindowWidth()
+    const windowWidth = useWindowWidth()
     const windowHeight = useWindowHeight()
+    const canvasElement = useRef()
 
     const dms = useMemo(() => {
-        // const width = windowWidth > 1300 ? 900 :
-        //     windowWidth > 900 ? 700 :
-        //     600
+        const width = windowWidth > 900 ? windowWidth - 480 : 600
+        console.log(windowWidth, width)
 
-        const width = windowHeight > 1000 ? 1200 : windowHeight > 800 ? 1000 : 950
+        // const width = windowHeight > 1000 ? 1200 : windowHeight > 800 ? 1000 : 950
 
         const height = windowHeight > 1000 ? 850 : windowHeight > 800 ? 750 : 650
 
@@ -60,7 +60,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
             width,
             height,
         }
-    }, [/* windowWidth, */ windowHeight])
+    }, [windowWidth, windowHeight])
 
     var isFirefox =
         typeof navigator !== 'undefined' &&
@@ -104,6 +104,47 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
         }
     }, [items, dms])
 
+    const labels = useMemo(() => {
+        return items
+            .map(
+                (points, i) => {
+                    const tool = tools[i]
+                    const toolName = toolNames[tool]
+                    const category = toolToCategoryMap[tool]
+                    if (!points.length || points.length < minimumYearCount) return null
+
+                    const thisYearPoint = points.slice(-1)[0]
+
+                    const x = scales.x(thisYearPoint[0]) + ((offsets[tools[i]] || {}).x || 0)
+                    const y = scales.y(thisYearPoint[1]) + ((offsets[tools[i]] || {}).y || 0)
+
+                    const velocity = getVelocity(points)
+                    const color = getVelocityColor(velocity, theme)
+
+                    return {
+                        tool,
+                        toolName,
+                        category,
+                        x,
+                        y,
+                        color,
+                        points,
+                    }
+                },
+                [items]
+            )
+            .filter((d) => d)
+    })
+
+    const delaunay = useMemo(
+        () =>
+            new Delaunay.from(
+                labels || [],
+                ({ x }) => x,
+                ({ y }) => y
+            )
+    )
+
     // // label positioning on drag
 
     // const labelBeingDragged = useRef(null)
@@ -139,6 +180,89 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
     //     window.addEventListener('pointerup', onDragEnd)
     //     window.addEventListener('pointermove', onDrag)
     // }
+
+    const draw = () => {
+        if (!canvasElement.current) return
+        const ctx = canvasElement.current.getContext('2d')
+
+        ctx.globalCompositeOperation = 'source-over'
+        ctx.globalAlpha = 1
+
+        ctx.clearRect(0, 0, dms.width, dms.height)
+
+        const drawLine = (p1, p2) => {
+            ctx.beginPath()
+            ctx.moveTo(p1[0], p1[1])
+            ctx.lineTo(p2[0], p2[1])
+            ctx.stroke()
+        }
+
+        ctx.globalCompositeOperation = 'lighten'
+        ctx.lineCap = 'round'
+
+        // draw lines
+        items.forEach((points, i) => {
+            const tool = tools[i]
+            const toolName = toolNames[tool]
+            const category = toolToCategoryMap[tool]
+            if (!points.length) return null
+            if (activeCategory !== 'all' && activeCategory !== category) return null
+
+            const thisYearPoint = points.slice(-1)[0]
+
+            points.forEach(([x, y], i) => {
+                const nextPoint = points[i + 1]
+                if (!nextPoint) return
+
+                let alpha = !hoveredTool ? 1 : hoveredTool.tool === tool ? 1 : 0.2
+                ctx.globalAlpha = alpha
+
+                const r = gradientLineWidthScale(i / points.length)
+
+                const velocity = getVelocity(points)
+                const color = getVelocityColor(velocity, theme)
+                const colorScale = getVelocityColorScale(velocity, theme)
+
+                // const colorStart = colorScale(i / points.length)
+                const colorStart = colorScale(i / points.length)
+                const colorEnd = colorScale((i + 1) / points.length)
+                const start = [scales.x(x), scales.y(y)]
+                const end = [scales.x(nextPoint[0]), scales.y(nextPoint[1])]
+
+                var gradient = ctx.createLinearGradient(...start, ...end)
+                gradient.addColorStop(0, colorStart)
+                gradient.addColorStop(1, colorEnd)
+                ctx.strokeStyle = gradient
+                // ctx.strokeStyle = 'green'
+                ctx.lineWidth = r * 2
+
+                drawLine(start, end)
+            })
+        })
+    }
+    draw()
+
+    const onMouseMove = (e) => {
+        if (!canvasElement.current) {
+            setHoveredTool(null)
+            return
+        }
+        const bounds = canvasElement.current.getBoundingClientRect()
+        const x = e.clientX - bounds.left
+        const y = e.clientY - bounds.top
+        const labelIndex = delaunay.find(x, y)
+        const label = labels[labelIndex]
+        if (!label) {
+            setHoveredTool(null)
+            return
+        }
+        const diff = Math.sqrt((label.x - x) ** 2 + (label.y - y) ** 2)
+        if (diff > 50) {
+            setHoveredTool(null)
+            return
+        }
+        setHoveredTool(label)
+    }
 
     return (
         <div className="ToolsArrowsChart">
@@ -188,53 +312,17 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                 >
                     {translate('charts.tools_arrows.have_not_used')}
                 </text>
+            </svg>
 
-                {/* lines loop */}
+            <canvas
+                className="ToolsArrowsChart__canvas"
+                height={dms.height}
+                width={dms.width}
+                ref={canvasElement}
+            />
 
-                {items.map((points, i) => {
-                    if (!points.length || points.length < minimumYearCount) return null
-
-                    const tool = tools[i]
-                    const category = toolToCategoryMap[tool]
-
-                    if (!points.length) return null
-
-                    const thisYearPoint = points.slice(-1)[0]
-
-                    // firefox has issues with too many line segments
-                    const numberOfPointsPerSegment = isFirefox ? 1 : 12
-
-                    const circles = flatten(
-                        points.map(([x, y], i) => {
-                            const nextPoint = points[i + 1]
-                            if (!nextPoint) return []
-                            const xScale = scaleLinear()
-                                .domain([0, numberOfPointsPerSegment])
-                                .range([x, nextPoint[0]])
-                            const yScale = scaleLinear()
-                                .domain([0, numberOfPointsPerSegment])
-                                .range([y, nextPoint[1]])
-                            return range(0, numberOfPointsPerSegment + 1).map((i) => [
-                                scales.x(xScale(i)),
-                                scales.y(yScale(i)),
-                            ])
-                        })
-                    )
-
-                    // const backgroundPath = [
-                    //     'M',
-                    //     points.map(([x, y]) => [scales.x(x), scales.y(y)].join(',')).join('L ')
-                    // ].join(' ')
-
-                    const x = scales.x(thisYearPoint[0])
-                    const y = scales.y(thisYearPoint[1])
-                    // const color = categoryColorMap[category]
-                    // const colorScale = categoryColorScales[category]
-
-                    const velocity = getVelocity(points)
-                    const color = getVelocityColor(velocity, theme)
-                    const colorScale = getVelocityColorScale(velocity, theme)
-
+            <svg className="ToolsArrowsChart__svg" height={dms.height} width={dms.width}>
+                {labels.map(({ tool, toolName, category, x, y, color, points }, i) => {
                     return (
                         <g
                             key={i}
@@ -250,106 +338,38 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                                     : 'hovering-other'
                             }`}
                         >
-                            {circles.slice(0, -1).map(([x, y], i) => (
-                                <line
-                                    key={i}
-                                    className={`ToolsArrowsChart__gradient-line ToolsArrowsChart__gradient-line--nth-${i}`}
-                                    x1={x}
-                                    y1={y}
-                                    x2={(circles[i + 1] || [])[0]}
-                                    y2={(circles[i + 1] || [])[1]}
-                                    stroke={colorScale((circles.length - i) * (isFirefox ? 5 : 1))}
-                                    style={{
-                                        strokeWidth: gradientLineWidthScale(
-                                            (circles.length - i) * (isFirefox ? 5 : 1)
-                                        ),
-                                    }}
-                                />
-                            ))}
-                            <circle
-                                className="ToolsArrowsChart__now"
-                                cx={x}
-                                cy={y}
-                                fill={color}
-                                r="6"
-                                style={{
-                                    fillOpacity: points.length < 2 ? 1 : 0.2,
-                                }}
-                            />
-                        </g>
-                    )
-                })}
-
-                {/* dots loop */}
-
-                {items.map((points, i) => {
-                    const tool = tools[i]
-                    const toolName = toolNames[tool]
-                    const category = toolToCategoryMap[tool]
-                    if (!points.length || points.length < minimumYearCount) return null
-
-                    const thisYearPoint = points.slice(-1)[0]
-
-                    const x = scales.x(thisYearPoint[0])
-                    const y = scales.y(thisYearPoint[1])
-                    // const color = categoryColorMap[category]
-
-                    const velocity = getVelocity(points)
-                    const color = getVelocityColor(velocity, theme)
-
-                    // if (y > dms.height - 200 && Math.abs(x - dms.width / 2) < 100) return null
-
-                    return (
-                        <g
-                            key={i}
-                            className={`ToolsArrowsChart__tool ToolsArrowsChart__tool--is-${
-                                activeCategory !== 'all' && activeCategory !== category
-                                    ? 'hidden'
-                                    : activeCategory === category
-                                    ? 'active'
-                                    : !hoveredTool
-                                    ? 'normal'
-                                    : hoveredTool.tool === tool
-                                    ? 'hovering'
-                                    : 'hovering-other'
-                            }`}
-                        >
-                            <text
-                                className="ToolsArrowsChart__label-background"
-                                x={x + ((offsets[tools[i]] || {}).x || 0)}
-                                y={y + ((offsets[tools[i]] || {}).y || 0)}
-                            >
+                            <text className="ToolsArrowsChart__label-background" x={x} y={y}>
                                 {toolName}
                             </text>
                             <text
                                 className="ToolsArrowsChart__label"
                                 fill={color}
-                                x={x + ((offsets[tools[i]] || {}).x || 0)}
-                                y={y + ((offsets[tools[i]] || {}).y || 0)}
-                                onMouseEnter={() => setHoveredTool({ tool, points })}
-                                onMouseLeave={() => setHoveredTool(null)}
+                                x={x}
+                                y={y}
+                                // onMouseEnter={() => setHoveredTool({ tool, points })}
+                                // onMouseLeave={() => setHoveredTool(null)}
                             >
                                 {toolName}
                             </text>
 
                             {/* <g
-                                className="ToolsArrowsChart__label__box"
-                                transform={`translate(${
-                                    x + ((offsets.current[tools[i]] || {}).x || 0)
-                                }, ${y + ((offsets.current[tools[i]] || {}).y || 0)})`}
-                                onMouseDown={onDragStartLocal(tools[i])}
-                            >
-                                <rect
-                                    y="-10"
-                                    width="50"
-                                    height="10"
-                                    fill="white"
-                                    fillOpacity="0.01"
-                                />
-                                <text className="ToolsArrowsChart__label" fill={color}>
-                                    {toolName}
-                                </text>
-                            </g> */}
+                className="ToolsArrowsChart__label__box"
+                transform={`translate(${
+                    x + ((offsets.current[tools[i]] || {}).x || 0)
+                }, ${y + ((offsets.current[tools[i]] || {}).y || 0)})`}
+                onMouseDown={onDragStartLocal(tools[i])}
+            >
+                <rect
+                    y="-10"
+                    width="50"
+                    height="10"
+                    fill="white"
+                    fillOpacity="0.01"
+                />
+                <text className="ToolsArrowsChart__label" fill={color}>
+                    {toolName}
+                </text>
+            </g> */}
                             {points.map(([x, y, year], i) => {
                                 const isFirstLabelToTheRight =
                                     scales.x(x) > dms.width * 0.9 ||
@@ -390,6 +410,12 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                         </g>
                     )
                 })}
+                <rect
+                    className="ToolsArrowsChart__listener"
+                    width={dms.width}
+                    height={dms.height}
+                    onMouseMove={onMouseMove}
+                />
             </svg>
         </div>
     )
@@ -410,7 +436,6 @@ const conditionDiffs = {
     would_use: [1, 1],
 }
 
-/*
 function useWindowWidth() {
     const [windowWidth, setWindowWidth] = useState(
         (typeof window !== 'undefined' && window.innerWidth) || 1000
@@ -430,7 +455,6 @@ function useWindowWidth() {
 
     return windowWidth
 }
-*/
 
 function useWindowHeight() {
     const [windowHeight, setWindowHeight] = useState(
