@@ -16,7 +16,7 @@ import { Delaunay } from 'd3-delaunay'
 // hide any item with less than n years of data
 const minimumYearCount = 2
 
-const gradientLineWidthScale = scaleLinear().domain([1, 0]).range([11, 7]).clamp(true)
+const gradientLineWidthScale = scaleLinear().domain([1, 0]).range([7, 3]).clamp(true)
 
 export const ToolsArrowsChart = ({ data, activeCategory }) => {
     const theme = useTheme()
@@ -49,8 +49,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
     const canvasElement = useRef()
 
     const dms = useMemo(() => {
-        const width = windowWidth > 900 ? windowWidth - 480 : 600
-        console.log(windowWidth, width)
+        const width = windowWidth > 900 ? windowWidth - 480 : 800
 
         // const width = windowHeight > 1000 ? 1200 : windowHeight > 800 ? 1000 : 950
 
