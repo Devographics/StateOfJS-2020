@@ -67,7 +67,7 @@ const ChartContainer = ({ children, height, fit = false, className = '', vscroll
 )
 
 ChartContainer.propTypes = {
-    height: PropTypes.number,
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     fit: PropTypes.bool,
     className: PropTypes.string,
     vscroll: PropTypes.bool,
