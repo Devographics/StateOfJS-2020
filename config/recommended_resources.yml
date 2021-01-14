@@ -21,11 +21,11 @@
   url: https://frontendmasters.com/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
   image: /images/resources/m-black-highres.png
 
-- name: Master Writing Professional and Modern JavaScript
+- name: Professional JavaScript Learning Path
   teacher: Will Sentance
   id: fm-javascript
   description: >
-      Take your JavaScript to the next level and find out what it's fully capable of.
+      From JavaScript foundations, all the way to Hardcore Functional JavaScript, find out how far you can go with your JavaScript abilities in this comprehensive learning path.
   url: https://frontendmasters.com/learn/javascript/?utm_source=stateofjs&utm_medium=website&utm_campaign=stateofjs2020
   image: https://static.frontendmasters.com/assets/teachers/sentance/thumb@2x.jpg
 
