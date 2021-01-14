@@ -453,6 +453,8 @@ function useWindowWidth() {
     useEffect(() => {
         if (typeof window === 'undefined') return
         window.addEventListener('resize', handleResize)
+        handleResize()
+
         return () => {
             window.removeEventListener('resize', handleResize)
         }
