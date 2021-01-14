@@ -65,12 +65,12 @@ const BlockTitleContents = ({ block, context }) => {
 
 const BlockDescriptionContents = ({ block, context }) => {
     const { translate } = useI18n()
-    const { description } = block
+    const { description, enableDescriptionMarkdown = true } = block
     const key = `${getBlockDescriptionKey(block, context)}`
     if (description || translate(key, {}, null)) {
         return (
             <Description className="Block__Description">
-                <T t={description} k={key} md={true} fallback={null} />
+                <T t={description} k={key} md={enableDescriptionMarkdown} fallback={null} />
             </Description>
         )
     }
