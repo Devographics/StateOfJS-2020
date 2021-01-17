@@ -128,7 +128,10 @@ exports.onCreateWebpackConfig = ({ stage, actions, plugins }) => {
         },
         plugins: [
             plugins.define({
-                ENV: stage === `develop` || stage === `develop-html` ? 'development' : 'production',
+                ENV:
+                    stage === `develop` || stage === `develop-html`
+                        ? `'development'`
+                        : `'production'`,
             }),
         ],
     })
