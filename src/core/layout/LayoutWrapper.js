@@ -36,7 +36,9 @@ const ThemedLayout = (props) => {
     )
 
     useEffect(() => {
-        document.addEventListener('keypress', switchTheme)
+        if (ENV === 'development') {
+            document.addEventListener('keypress', switchTheme)
+        }
 
         return () => {
             document.removeEventListener('keypress', switchTheme)
