@@ -8,9 +8,10 @@ import Block from 'core/blocks/block/Block'
 // @ts-ignore
 import ChartContainer from 'core/charts/ChartContainer'
 import { BlockContext } from 'core/blocks/types'
-import { ToolsExperienceToolData, ToolsArrowsToolData } from './types'
+import { ToolsArrowsToolData } from './types'
 import { ToolsArrowsChart } from './ToolsArrowsChart.js'
 import get from 'lodash/get'
+import { ToolsExperienceToolData } from 'core/survey_api/tools'
 
 /**
  * Convert raw API data to be compatible with tools arrows chart.

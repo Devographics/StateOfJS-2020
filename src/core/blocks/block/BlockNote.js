@@ -8,7 +8,7 @@ import T from 'core/i18n/T'
 const BlockNote = ({ block }) => {
     const { translate } = useI18n()
     // for "_others" blocks (freeform answers), replace suffix with ".others"
-    const blockId = block.id.replace('_others', '.others')
+    const blockId = block.id && block.id.replace('_others', '.others')
     const key = `blocks.${block.blockName || blockId}.note`
     const blockNote = translate(key, {}, null)
     if (blockNote) {

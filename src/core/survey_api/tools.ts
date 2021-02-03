@@ -6,6 +6,17 @@ export interface ToolExperienceBucket {
     percentage: number
 }
 
+export interface ToolsExperienceToolData {
+    id: string
+    entity: Entity
+    experience: {
+        year: {
+            total: number
+            buckets: ToolExperienceBucket[]
+        }
+    }
+}
+
 export interface ToolYearExperience {
     year: number
     total: number

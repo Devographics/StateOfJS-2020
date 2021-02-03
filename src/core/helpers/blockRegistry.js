@@ -38,6 +38,7 @@ import { ToolsArrowsBlock } from 'core/blocks/tools/ToolsArrowsBlock'
 import { ToolsExperienceMarimekkoBlock } from 'core/blocks/tools/ToolsExperienceMarimekkoBlock'
 import { SectionToolsCardinalityByUserBlock } from 'core/blocks/tools/SectionToolsCardinalityByUserBlock'
 import { AllSectionsToolsCardinalityByUserBlock } from 'core/blocks/tools/AllSectionsToolsCardinalityByUserBlock'
+import { ToolsCityscapeBlock } from 'core/blocks/tools/ToolsCityscapeBlock'
 // import ToolExperienceGraphBlock from 'core/blocks/tools/ToolExperienceGraphBlock'
 // import ToolsSectionOverviewBlock from 'core/blocks/tools/ToolsSectionOverviewBlock'
 // import ToolsMatricesBlock from 'core/blocks/tools/ToolsMatricesBlock'
@@ -94,6 +95,7 @@ const blockRegistry = {
     SectionToolsCardinalityByUserBlock,
     AllSectionsToolsCardinalityByUserBlock,
     ToolsArrowsBlock,
+    ToolsCityscapeBlock,
     // ToolExperienceGraphBlock,
     // ToolsSectionOverviewBlock,
     // ToolsMatricesBlock,

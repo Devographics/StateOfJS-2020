@@ -287,13 +287,13 @@
       - id: technologies_introduction
         template: pageIntroductionTemplate
 
-      - id: arrows_overview
-        template: toolsArrowsTemplate
+      - template: toolsArrowsTemplate
 
-      - id: scatterplot_overview
-        template: scatterplotOverviewTemplate
+      - template: scatterplotOverviewTemplate
 
       - template: allSectionsToolsCardinalityByUserTemplate
+
+      - template: cityscapeOverviewTemplate
 
   children:
       - id: javascript_flavors

@@ -158,14 +158,48 @@ sourceTemplate:
 ###############################################################################
 
 scatterplotOverviewTemplate:
+    id: scatterplot_overview
     blockType: ToolsScatterplotBlock
-    dataPath: 'surveyApi.survey.tools'
+    dataPath: 'surveyApi.survey.scatterplot_tools'
     showDescription: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                 tools(ids: [${allTools}]) {
+                 scatterplot_tools: tools(ids: [${allTools}]) {
+                    id
+                    entity {
+                        homepage
+                        name
+                        github {
+                            url
+                        }
+                    }
+                    experience {
+                        year(year:${currentYear}) {
+                            total
+                            buckets{
+                                id
+                                count
+                                percentage
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+cityscapeOverviewTemplate:
+    id: cityscape_overview
+    blockType: ToolsCityscapeBlock
+    dataPath: 'surveyApi.survey.cityscape_tools'
+    showDescription: true
+    enableExport: true
+    query: >
+        surveyApi {
+            survey(survey: ${surveyType}) {
+                 cityscape_tools: tools(ids: [${allTools}]) {
                     id
                     entity {
                         homepage
@@ -189,6 +223,7 @@ scatterplotOverviewTemplate:
         }
 
 toolsArrowsTemplate:
+    id: arrows_overview
     blockType: ToolsArrowsBlock
     dataPath: 'surveyApi.survey.arrows_tools'
     showDescription: true
@@ -857,6 +892,7 @@ heatmapTemplate:
         }
 
 scatterplotTemplate:
+    id: scatterplot
     blockType: ToolsScatterplotBlock
     dataPath: 'surveyApi.survey.tools'
     showDescription: true
