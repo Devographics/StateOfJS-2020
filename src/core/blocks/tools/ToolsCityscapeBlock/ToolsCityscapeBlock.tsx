@@ -11,9 +11,10 @@ import { Entity } from 'core/types'
 import sortBy from 'lodash/sortBy'
 import groupBy from 'lodash/groupBy'
 import shuffle from 'lodash/shuffle'
-import { range } from 'lodash'
+import sum from 'lodash/sum'
+import range from 'lodash/range'
 
-export const layerCount = 5
+export const layerCount = 6
 
 interface ToolsCityscapeBlockProps {
     block: BlockContext<
@@ -56,24 +57,65 @@ const getChartData = (data: ToolsExperienceToolData[], theme: any): ToolsCitysca
     })
 }
 
-const addPositions = (data: ToolsCityscapeToolData[]) => {
-    const sortedData = sortBy(data, 'usage')
-    const totalCount = sortedData.length
-    // subtract 1 here because index will be zero-based
-    const itemsInLayer = Math.round(totalCount / (layerCount - 1))
-    return sortedData.map((tool, index) => {
-        const layer = Math.round(index / itemsInLayer)
-        return {
-            ...tool,
-            layer,
+/*
+
+Get a staggered layer distribution
+
+x x x
+ x x
+x x x
+
+Returns an array of the form [12, 11, 12, 11, 12, 2]
+
+*/
+const getLayerDistribution = (totalCount: number): number[] => {
+    let distribution = []
+    let i = 0,
+        j = 0
+    // remove 1 to account for staggering
+    const baseItemsInLayer = Math.floor(totalCount / (layerCount-1))
+
+    while (i < totalCount && j < 100) {
+        j++
+        const itemsInLayer: number =
+            distribution.length % 2 === 0 ? baseItemsInLayer : baseItemsInLayer - 1
+        const remainingItems = totalCount - sum(distribution)
+        if (itemsInLayer < remainingItems) {
+            // if we haven't added all items, keep going
+            distribution.push(itemsInLayer)
+            i += itemsInLayer
+        } else {
+            // else add remaining difference to last layer and break
+            distribution.push(remainingItems)
+            break
         }
-    })
+    }
+
+    return distribution
 }
 
-const groupByZ = (data: ToolsCityscapeToolData[]) => {
-    return range(layerCount).map((i) => ({
+/*
+
+Return the items in a layer according to a distribution
+
+*/
+const getLayerItems = (
+    data: ToolsCityscapeToolData[],
+    distribution: number[],
+    index: number
+): ToolsCityscapeToolData[] => {
+    const lowerBound = sum(distribution.slice(0, index))
+    const higherBound = sum(distribution.slice(0, index + 1))
+    return shuffle(data.slice(lowerBound, higherBound))
+}
+
+const computeLayer = (data: ToolsCityscapeToolData[]) => {
+    const sortedData = sortBy(data, 'usage')
+    const totalCount = sortedData.length
+    let layerDistribution = getLayerDistribution(totalCount)
+    return range(layerDistribution.length).map((i) => ({
         layer: i,
-        items: shuffle(data.filter((tool) => tool.layer === i)),
+        items: getLayerItems(sortedData, layerDistribution, i),
     }))
 }
 
@@ -85,12 +127,8 @@ export const ToolsCityscapeBlock = ({
     const theme = useTheme()
 
     const [units, setUnits] = useState(defaultUnits)
-    console.log(data)
 
-    const chartData = useMemo(() => groupByZ(addPositions(getChartData(data, theme))), [
-        data,
-        theme,
-    ])
+    const chartData = useMemo(() => computeLayer(getChartData(data, theme)), [data, theme])
 
     console.log(chartData)
 

@@ -5,6 +5,7 @@ import { layerCount, ToolsCityscapeToolData } from './ToolsCityscapeBlock'
 import { spacing, mq, fontSize } from 'core/theme'
 import random from 'lodash/random'
 // import { SectionItem } from './SectionItem'
+import { darken } from 'polished'
 
 export interface ToolsCityscapeLayerData {
     layer: number
@@ -51,7 +52,14 @@ const ToolGroup = styled.div`
     justify-content: center;
     align-items: flex-end;
     overflow: hidden;
+    ${({ layer }) => css`
+        z-index: ${layerCount - layer};
+        opacity: ${1 - layer/20};
+    `}
 `
+
+const minBuildingWidth = 50
+const minBuildingHeight = 100
 
 const ToolBar = styled.div`
     ${({ x, layer = 0, color, usage }: ToolsCityscapeToolData) => css`
@@ -59,22 +67,25 @@ const ToolBar = styled.div`
         /* left: ${random(0, 10) + x * 70}px; */
         /* bottom: 0px; */
         margin-right: 15px;
-        z-index: ${layerCount - layer};
-        height: ${Math.round(usage / 50)}px;
-        width: ${40 + random(0, 20)}px;
+        height: ${minBuildingHeight + Math.round(usage / 50)}px;
+        width: ${minBuildingWidth + random(0, 20)}px;
         transform: translateX(${10 - random(0, 20)}px);
-        background: linear-gradient(${color}, ${color}33);
+        background: linear-gradient(${color}dd, ${darken(0.3,color)}aa);
     `}
     box-shadow: 3px 3px 2px rgba(0,0,0,0.4);
     overflow: hidden;
+    position: relative;
 `
 
 const ToolLabel = styled.div`
-    transform: translateY(30px) rotateZ(90deg);
+    transform-origin: center left;
+    transform: rotate(90deg);
     text-align: right;
     font-size: ${fontSize('small')};
     text-shadow: 1px 1px 2px #000000aa;
     font-weight: bold;
     /* background: #00000066;
     padding: 5px; */
+    position: absolute;
+    left: 50%;
 `
