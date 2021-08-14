@@ -22,7 +22,7 @@ export const Sidebar = ({ showSidebar, closeSidebar, rest }) => {
     const { translate } = useI18n()
 
     return (
-        <SidebarContainer show={showSidebar} className="Sidebar">
+        <SidebarContainer id="sidebar" show={showSidebar} className="Sidebar">
             <SidebarScreenReadersTitle>{siteTitle}</SidebarScreenReadersTitle>
             <SidebarHeader>
                 <SidebarLogoLink to="/">
@@ -63,7 +63,7 @@ const SidebarContainer = styled.nav`
         /* overflow-x: hidden; */
         /* overflow-y: scroll; */
         position: fixed;
-        ${(props) => (props.show ? '' : screenReadersOnlyMixin)};
+        display: ${(props) => (props.show ? 'flex' : 'none')};
     }
 `
 

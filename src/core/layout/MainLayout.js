@@ -4,6 +4,7 @@ import Pagination from 'core/pages/Pagination'
 import { Sidebar } from 'core/components/sidebar'
 import { mq, spacing } from 'core/theme'
 import classNames from 'classnames'
+import Hamburger from 'core/components/Hamburger'
 
 const MainLayout = ({
     context,
@@ -14,49 +15,113 @@ const MainLayout = ({
     props,
 }) => {
     return (
-        <Page
-            showSidebar={showSidebar}
-            className={classNames(`Page--${context.id}`, {
-                capture: context.isCapturing,
-                nocapture: !context.isCapturing,
-            })}
-        >
-            <Sidebar {...props} showSidebar={showSidebar} closeSidebar={closeSidebar} />
-            <PageContent className="PageContent">
-                {showPagination && <Pagination toggleSidebar={toggleSidebar} position="top" />}
-                <PageMain>
-                    {/* <PageMetaDebug /> */}
-                    {props.children}
-                </PageMain>
-            </PageContent>
-        </Page>
+        <>
+            <Skip href="#page-main">Skip to content</Skip>
+            <Page
+                showSidebar={showSidebar}
+                className={classNames(`Page--${context.id}`, {
+                    capture: context.isCapturing,
+                    nocapture: !context.isCapturing,
+                })}
+            >
+                <div>
+                  <MenuToggle 
+                    onClick={toggleSidebar} 
+                    aria-label="Open Menu"
+                    aria-haspopup="sidebar"
+                    aria-controls="sidebar"
+                    aria-expanded={showSidebar}
+                  >
+                    <Hamburger />
+                  </MenuToggle>
+                  <Sidebar {...props} showSidebar={showSidebar} closeSidebar={closeSidebar} />
+                </div>
+                <PageContent className="PageContent">
+                    <PaginationWrapper>
+                        {showPagination && <Pagination position="top" />}   
+                    </PaginationWrapper>
+                    <PageMain id="page-main">
+                        {/* <PageMetaDebug /> */}
+                        {props.children}
+                    </PageMain>
+                </PageContent>
+            </Page>
+        </>
     )
 }
 
-const PageContent = styled.main`
+const Skip = styled.a`
+    display: block;
+    padding: 1rem 1rem;
+
+    position: absolute;
+    top: -900px;
+    left: -900px;
+
+    &:focus {
+      display: inline-block;
+      position: static !important;
+      top: 0 !important;
+      left: 0 !important;
+      border: 2px solid white;
+    }
+`;
+
+const PaginationWrapper = styled.div`
+    @media ${mq.smallMedium} {
+        width: calc(100% - 5rem);
+        margin-left: 5rem;
+        border-left: ${({theme}) => theme.separationBorder};
+    }
+`;
+
+const MenuToggle = styled.button`
+    display: block;
+    background-color: transparent;
+    outline: none;
+    border: none;
+
+    position: absolute;
+    top: 0.1rem;
+    left: 0.45rem;
+
+    cursor: pointer;
+
+    padding: 1rem 1rem 0.5rem 1rem;
+
+    svg {
+      width: 2rem;
+      height: auto;
+    }
+
+    @media ${mq.large} {
+      display: none;
+    }
+
+    &:focus {
+      border: 2px solid white;
+      outline: 5px auto -webkit-focus-ring-color;;
+      
+    }
+`;
+
+const PageContent = styled.div`
     display: flex;
     flex-direction: column;
 `
 
 const Page = styled.div`
-    min-height: 100vh;
-
-    ${PageContent} {
-        @media ${mq.large} {
-            margin-left: ${({ theme }) => theme.dimensions.sidebar.width}px;
-        }
-
-        @media ${mq.smallMedium} {
-            ${(props) => {
-                if (props.showSidebar) {
-                    return css`
-                        overflow: hidden;
-                        height: 100vh;
-                    `
-                }
-            }}
-        }
+    @media ${mq.large} {
+      display: grid;
+      grid-template-columns: ${({ theme }) => theme.dimensions.sidebar.width}px calc(100% - ${({ theme }) => theme.dimensions.sidebar.width}px);  
     }
+
+    @media ${mq.smallMedium} {
+      grid-template-columns: 5rem auto;
+    }
+
+    min-height: 100vh;
+    position: relative;
 `
 
 const PageMain = styled.main`
