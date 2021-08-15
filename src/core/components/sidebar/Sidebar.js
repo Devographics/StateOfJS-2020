@@ -23,16 +23,21 @@ export const Sidebar = ({ showSidebar, closeSidebar, rest }) => {
 
     return (
         <SidebarContainer id="sidebar" show={showSidebar} className="Sidebar">
+            <SidebarCloseButton 
+                onClick={closeSidebar}
+                aria-haspopup="sidebar"
+                aria-controls="sidebar"
+                aria-expanded={showSidebar}> 
+                    <CloseIcon />
+                    <ScreenReadersHint>{translate('general.close_nav')}</ScreenReadersHint>
+            </SidebarCloseButton>
+                
             <SidebarScreenReadersTitle>{siteTitle}</SidebarScreenReadersTitle>
             <SidebarHeader>
                 <SidebarLogoLink to="/">
                     <SidebarLogo />
                     <ScreenReadersHint>{translate('general.back_to_intro')}</ScreenReadersHint>
                 </SidebarLogoLink>
-                <SidebarCloseButton onClick={closeSidebar}>
-                    <CloseIcon />
-                    <ScreenReadersHint>{translate('general.close_nav')}</ScreenReadersHint>
-                </SidebarCloseButton>
             </SidebarHeader>
             <Nav {...rest} closeSidebar={closeSidebar} />
             <ShareSite />
@@ -111,10 +116,12 @@ const SidebarCloseButton = styled.button`
     background: none;
     cursor: pointer;
     border: none;
+    position: absolute;
 
-    &:focus {
-        outline: 0;
-    }
+
+    box-sizing: border-box;
+    width: calc(calc(100vw - 270px) / 2);
+    height: 68px;
 
     svg {
         stroke: ${color('link')};
@@ -122,5 +129,9 @@ const SidebarCloseButton = styled.button`
 
     @media ${mq.large} {
         display: none;
+    }
+
+    &:hover, &:focus {
+      background-color: rgba(255,255,255,0.1);
     }
 `
