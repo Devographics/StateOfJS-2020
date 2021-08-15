@@ -34,7 +34,14 @@ const Popover = ({ position = 'bottom', positionOpen = 'top', trigger, label, ch
     const triggerComponent = trigger ? (
         React.cloneElement(trigger, { onClick: toggle })
     ) : (
-        <PopoverToggle className="PopoverToggle" onClick={toggle}>
+        <PopoverToggle 
+            className="PopoverToggle" 
+            onClick={toggle}
+            aria-label={`${label}. Change Language.`}
+            aria-haspopup="PopoverPopup"
+            aria-controls="PopoverPopup"
+            aria-expanded={isOpened}
+        >
             <span>{label}</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50">
                 {isOpened ? svgs[positionOpen] : svgs[position]}
@@ -48,7 +55,7 @@ const Popover = ({ position = 'bottom', positionOpen = 'top', trigger, label, ch
         >
             <PopoverInner className="PopoverInner">
                 {triggerComponent}
-                <PopoverPopup ref={wrapperRef} className="PopoverPopup" position={position}>
+                <PopoverPopup ref={wrapperRef} className="PopoverPopup" id="PopoverPopup" position={position}>
                     {children}
                 </PopoverPopup>
             </PopoverInner>
@@ -81,12 +88,18 @@ const PopoverInner = styled.div`
     }
 `
 
-const PopoverToggle = styled.div`
+const PopoverToggle = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+    background: transparent;
+    color: ${({ theme }) => theme.colors.text};
     font-size: ${fontSize('medium')};
     cursor: pointer;
+    outline: none;
+    border: none;
+
+    box-sizing: border-box;
 
     span {
         display: block;
@@ -108,6 +121,10 @@ const PopoverToggle = styled.div`
 
     @media ${mq.smallMedium} {
         font-size: ${fontSize('small')};
+    }
+
+    &:focus {
+      outline: 5px auto -webkit-focus-ring-color;
     }
 `
 

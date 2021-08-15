@@ -104,7 +104,7 @@ const MenuToggle = styled.button`
 
     &:focus {
       border: 2px solid white;
-      outline: 5px auto -webkit-focus-ring-color;;
+      outline: 5px auto -webkit-focus-ring-color;
     }
 
     &:hover {
