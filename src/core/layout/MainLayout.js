@@ -69,9 +69,8 @@ const Skip = styled.a`
 
 const PaginationWrapper = styled.div`
     @media ${mq.smallMedium} {
-        width: calc(100% - 5rem);
-        margin-left: 5rem;
-        border-left: ${({theme}) => theme.separationBorder};
+        padding-left: 5rem;
+        border-bottom: ${({theme}) => theme.separationBorder};
     }
 `;
 
@@ -82,12 +81,17 @@ const MenuToggle = styled.button`
     border: none;
 
     position: absolute;
-    top: 0.1rem;
-    left: 0.45rem;
+    top: 0;
+    left: 0;
 
     cursor: pointer;
 
-    padding: 1rem 1rem 0.5rem 1rem;
+    padding: 0.825rem 1rem 0.5rem 1rem;
+
+    width: 5rem;
+    height: 3.72rem;
+
+    box-sizing: border-box;
 
     svg {
       width: 2rem;
@@ -101,7 +105,10 @@ const MenuToggle = styled.button`
     &:focus {
       border: 2px solid white;
       outline: 5px auto -webkit-focus-ring-color;;
-      
+    }
+
+    &:hover {
+      background-color: rgba(255,255,255,0.075);
     }
 `;
 

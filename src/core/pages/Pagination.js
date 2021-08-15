@@ -51,7 +51,13 @@ const Container = styled.div`
     grid-template-columns: 1fr auto 1fr;
 
     @media ${mq.smallMedium} {
+        border-bottom: none;
         grid-template-columns: 1fr 0px 1fr;
+
+        > *:first-child {
+            border-left: ${(props) => props.theme.separationBorder};
+            border-right: ${(props) => props.theme.separationBorder};
+        }
     }
 `
 
@@ -64,6 +70,7 @@ const MiddleContent = styled.div`
 
     @media ${mq.smallMedium} {
       border-left: none;
+      border-right: none;
     }
 `
 
