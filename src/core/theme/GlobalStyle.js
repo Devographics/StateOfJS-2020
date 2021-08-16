@@ -56,7 +56,7 @@ export const GlobalStyle = createGlobalStyle`
             color: ${color('link')};
         }
         
-        &:hover {
+        &:hover, &:focus {
             text-decoration: underline;
             color: ${color('linkHover')};
         }

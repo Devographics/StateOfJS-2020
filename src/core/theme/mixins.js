@@ -64,7 +64,7 @@ export const fancyLinkMixin = ({ color, activeClassName = '_is-active', activeCo
         }
     }
 
-    &:hover {
+    &:hover, &:focus {
         text-decoration: none;
         ${textShadowHighlightMixin(color)}
 

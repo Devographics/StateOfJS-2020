@@ -35,7 +35,7 @@ const Link = styled.a`
         }
     }
 
-    &:hover {
+    &:hover, &:focus {
         svg path,
         svg circle {
             fill: ${({ theme }) => theme.colors.link};
@@ -112,7 +112,7 @@ const Link = styled.a`
             border-right: ${({ theme }) => theme.separationBorder};
         }
 
-        &:hover {
+        &:hover, &:focus {
             background: ${({ theme }) => theme.colors.backgroundAlt};
         }
 
