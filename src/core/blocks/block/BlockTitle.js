@@ -35,12 +35,16 @@ const MoreIcon = () => (
     </svg>
 )
 
-const More = (props) => (
-    <MoreButton {...props}>
-        <ScreenReadersHint>More actions</ScreenReadersHint>
-        <MoreIcon />
-    </MoreButton>
-)
+const More = (props) => {
+    const { translate } = useI18n()
+  
+    return (
+      <MoreButton {...props}>
+          <ScreenReadersHint>{translate('general.more_actions')}</ScreenReadersHint>
+          <MoreIcon />
+      </MoreButton>
+    );
+}
 
 const ScreenReadersHint = styled.span`
     ${screenReadersOnlyMixin}

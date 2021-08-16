@@ -2,9 +2,10 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import Pagination from 'core/pages/Pagination'
 import { Sidebar } from 'core/components/sidebar'
-import { mq, spacing } from 'core/theme'
+import { mq, spacing, screenReadersOnlyMixin } from 'core/theme'
 import classNames from 'classnames'
 import Hamburger from 'core/components/Hamburger'
+import { useI18n } from 'core/i18n/i18nContext'
 
 const MainLayout = ({
     context,
@@ -14,9 +15,10 @@ const MainLayout = ({
     closeSidebar,
     props,
 }) => {
+    const { translate } = useI18n()
     return (
         <>
-            <Skip href="#page-main">Skip to content</Skip>
+            <Skip href="#page-main">{translate('general.skip_to_content')}</Skip>
             <Page
                 showSidebar={showSidebar}
                 className={classNames(`Page--${context.id}`, {
@@ -27,11 +29,11 @@ const MainLayout = ({
                 <div>
                   <MenuToggle 
                     onClick={toggleSidebar} 
-                    aria-label="Open Menu"
                     aria-haspopup="sidebar"
                     aria-controls="sidebar"
                     aria-expanded={showSidebar}
                   >
+                    <ScreenReadersHint>{translate('general.open_nav')}</ScreenReadersHint>
                     <Hamburger />
                   </MenuToggle>
                   <Sidebar {...props} showSidebar={showSidebar} closeSidebar={closeSidebar} />
@@ -49,6 +51,10 @@ const MainLayout = ({
         </>
     )
 }
+
+const ScreenReadersHint = styled.span`
+    ${screenReadersOnlyMixin}
+`
 
 const Skip = styled.a`
     display: block;
