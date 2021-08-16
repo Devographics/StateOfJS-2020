@@ -45,6 +45,7 @@ const ShareBlock = ({ block, section, className, toggleClass, title }) => {
 
     const toggleOptions = (e) => {
         e.preventDefault()
+
         // toggle parent component's class
         toggleClass && toggleClass()
         setShowOptions(!showOptions)
@@ -69,6 +70,7 @@ const ShareBlock = ({ block, section, className, toggleClass, title }) => {
                     onClick={(e) => {
                         toggleOptions(e)
                     }}
+                    aria-expanded={showOptions}
                 >
                     <T k="share.share" />
                     {/* <ShareIcon /> */}
