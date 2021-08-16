@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 import { mq, fontSize, fontWeight, spacing, color } from 'core/theme'
 import ButtonGroup from './ButtonGroup'
 
-const Button = styled.div.attrs(({ className, size = 'medium', variant = 'default', ...props }) => {
+const Button = styled.button.attrs(({ className, size = 'medium', variant = 'default', ...props }) => {
     return {
         className: `Button${className ? ` ${className}` : ''}`,
     }
@@ -69,7 +69,7 @@ const Button = styled.div.attrs(({ className, size = 'medium', variant = 'defaul
                 color: ${color('text')};
             }
 
-            &:hover {
+            &:hover, &:focus {
                 border-style: solid;
                 border-color: ${color('link')};
                 color: ${color('link')};
@@ -77,7 +77,7 @@ const Button = styled.div.attrs(({ className, size = 'medium', variant = 'defaul
         `
     }}
 
-    &:hover {
+    &:hover, &:focus {
         text-decoration: none;
         box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
         background: ${color('backgroundAlt')};
@@ -99,7 +99,7 @@ const Button = styled.div.attrs(({ className, size = 'medium', variant = 'defaul
                 border-top-width: 1px;
             }
 
-            &:hover {
+            &:hover, &:focus {
                 border-top-color: ${color('border')};
                 border-bottom-color: ${color('border')};
 
@@ -118,7 +118,7 @@ const Button = styled.div.attrs(({ className, size = 'medium', variant = 'defaul
                 border-left-width: 1px;
             }
 
-            &:hover {
+            &:hover, &:focus {
                 border-left-color: ${color('border')};
                 border-right-color: ${color('border')};
 
