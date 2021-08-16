@@ -32,14 +32,14 @@ const Popover = ({ position = 'bottom', positionOpen = 'top', trigger, label, ch
     }, [handleClickOutside])
 
     const triggerComponent = trigger ? (
-        React.cloneElement(trigger, { onClick: toggle })
+        React.cloneElement(trigger, { onClick: toggle, 'aria-expanded': isOpened, 'aria-haspopup': wrapperRef, 'aria-controls': wrapperRef })
     ) : (
         <PopoverToggle 
             className="PopoverToggle" 
             onClick={toggle}
-            aria-label={`${label}. Change Language.`}
-            aria-haspopup="PopoverPopup"
-            aria-controls="PopoverPopup"
+            aria-label={`${label}`}
+            aria-haspopup={wrapperRef}
+            aria-controls={wrapperRef}
             aria-expanded={isOpened}
         >
             <span>{label}</span>
