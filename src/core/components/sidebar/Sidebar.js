@@ -4,6 +4,7 @@ import Link from 'core/components/LocaleLink'
 import ShareSite from 'core/share/ShareSite'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, color, screenReadersOnlyMixin } from 'core/theme'
+import colors from 'core/theme/colors'
 import variables from '../../../../config/variables.yml'
 import { Nav } from './Nav'
 import { siteTitle } from 'config/config.yml'
@@ -132,6 +133,6 @@ const SidebarCloseButton = styled.button`
     }
 
     &:hover, &:focus {
-      background-color: rgba(255,255,255,0.1);
+      background-color: ${colors.greyDarkish}
     }
 `

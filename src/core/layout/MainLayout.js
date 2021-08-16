@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import Pagination from 'core/pages/Pagination'
 import { Sidebar } from 'core/components/sidebar'
 import { mq, spacing, screenReadersOnlyMixin } from 'core/theme'
+import colors from 'core/theme/colors'
 import classNames from 'classnames'
 import Hamburger from 'core/components/Hamburger'
 import { useI18n } from 'core/i18n/i18nContext'
@@ -95,7 +96,7 @@ const MenuToggle = styled.button`
     padding: 0.825rem 1rem 0.5rem 1rem;
 
     width: 5rem;
-    height: 3.72rem;
+    height: 3.71rem;
 
     box-sizing: border-box;
 
@@ -109,12 +110,12 @@ const MenuToggle = styled.button`
     }
 
     &:focus {
-      border: 2px solid white;
+      border: 2px solid ${colors.greenLight};
       outline: 5px auto -webkit-focus-ring-color;
     }
 
-    &:hover {
-      background-color: rgba(255,255,255,0.075);
+    &:hover, &:focus {
+      background: ${({theme})=>theme.colors.backgroundAlt}
     }
 `;
 
