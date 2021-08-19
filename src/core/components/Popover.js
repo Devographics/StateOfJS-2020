@@ -38,8 +38,7 @@ const Popover = ({ position = 'bottom', positionOpen = 'top', trigger, label, ch
             className="PopoverToggle" 
             onClick={toggle}
             aria-label={`${label}`}
-            aria-haspopup={wrapperRef}
-            aria-controls={wrapperRef}
+            aria-haspopup="menu"
             aria-expanded={isOpened}
         >
             <span>{label}</span>

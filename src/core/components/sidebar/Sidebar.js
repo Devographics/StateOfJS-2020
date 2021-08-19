@@ -26,8 +26,7 @@ export const Sidebar = ({ showSidebar, closeSidebar, rest }) => {
         <SidebarContainer id="sidebar" show={showSidebar} className="Sidebar">
             <SidebarCloseButton 
                 onClick={closeSidebar}
-                aria-haspopup="sidebar"
-                aria-controls="sidebar"
+                aria-haspopup="menu"
                 aria-expanded={showSidebar}> 
                     <CloseIcon />
                     <ScreenReadersHint>{translate('general.close_nav')}</ScreenReadersHint>

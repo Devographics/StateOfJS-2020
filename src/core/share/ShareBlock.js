@@ -70,6 +70,7 @@ const ShareBlock = ({ block, section, className, toggleClass, title }) => {
                     onClick={(e) => {
                         toggleOptions(e)
                     }}
+                    aria-haspopup="menu"
                     aria-expanded={showOptions}
                 >
                     <T k="share.share" />

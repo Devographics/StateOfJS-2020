@@ -30,8 +30,7 @@ const MainLayout = ({
                 <div>
                   <MenuToggle 
                     onClick={toggleSidebar} 
-                    aria-haspopup="sidebar"
-                    aria-controls="sidebar"
+                    aria-haspopup="menu"
                     aria-expanded={showSidebar}
                   >
                     <ScreenReadersHint>{translate('general.open_nav')}</ScreenReadersHint>
