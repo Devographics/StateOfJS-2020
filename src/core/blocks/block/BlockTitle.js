@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import last from 'lodash/last'
-import { mq, spacing, color } from 'core/theme'
+import { mq, spacing, color, screenReadersOnlyMixin } from 'core/theme'
 import ShareBlock from 'core/share/ShareBlock'
 import BlockExport from 'core/blocks/block/BlockExport'
 import { useI18n } from 'core/i18n/i18nContext'
@@ -35,11 +35,20 @@ const MoreIcon = () => (
     </svg>
 )
 
-const More = (props) => (
-    <MoreButton {...props}>
-        <MoreIcon />
-    </MoreButton>
-)
+const More = (props) => {
+    const { translate } = useI18n()
+  
+    return (
+      <MoreButton {...props}>
+          <ScreenReadersHint>{translate('general.more_actions')}</ScreenReadersHint>
+          <MoreIcon />
+      </MoreButton>
+    );
+}
+
+const ScreenReadersHint = styled.span`
+    ${screenReadersOnlyMixin}
+`
 
 const MoreButton = styled(Button)`
     @media ${mq.mediumLarge} {

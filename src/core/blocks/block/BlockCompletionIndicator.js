@@ -9,7 +9,7 @@ const BlockCompletionIndicator = ({ completion, variant = 'pink' }) => {
     const colorName1 = variant === 'pink' ? 'link' : 'text'
     const colorName2 = variant === 'pink' ? 'link' : 'textAlt'
     return (
-        <Container className="CompletionIndicator">
+        <Container className="CompletionIndicator" tabIndex={0}>
             <Tooltip className="CompletionIndicator__Tooltip" colorName={colorName1}>
                 {translate('general.completion_percentage')}{' '}
                 <strong>{completion.percentage}%</strong>{' '}
@@ -77,7 +77,11 @@ const Container = styled.div`
     position: relative;
     padding: 2px;
 
-    &:hover ${Tooltip} {
+    &:focus {
+     outline: 5px auto -webkit-focus-ring-color;
+    }
+
+    &:hover ${Tooltip}, &:focus ${Tooltip} {
         opacity: 1;
         transform: translate(-50%, -140%);
         transition: all 200ms ease-in;

@@ -29,7 +29,7 @@ const StyledLink = styled(PageLink)`
         font-size: ${fontSize('medium')};
     }
 
-    &:hover {
+    &:hover, &:focus {
         background: ${(props) => props.theme.colors.backgroundAlt};
     }
 `
