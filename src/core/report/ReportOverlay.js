@@ -1,7 +1,8 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { mq, spacing, color, fontSize } from 'core/theme'
-import ReactMarkdown from 'react-markdown/with-html'
+import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 import { useInView } from 'react-intersection-observer'
 
 // From 0 (top) to 1(bottom), where in the viewport should the trigger happen
@@ -12,7 +13,6 @@ const bottomViewportTriggerPoint = buffer
 
 // version 1 using IntersectionObserver
 export const OverlayInterObs = ({ id, triggerId, setTriggerId, isFirst, isLast, children }) => {
-
     const { ref, inView, entry } = useInView({
         /* Optional options */
         rootMargin: `-${bufferPercent}% 0% -${bufferPercent}% 0%`,
@@ -96,7 +96,7 @@ export const OverlayOnScroll = ({ id, triggerId, setTriggerId, isFirst, isLast, 
     return (
         <OverlayContainer className="OverlayContainer">
             <OverlayContents className="OverlayContents" ref={overlayRef} isTriggered={isTriggered}>
-                <ReactMarkdown source={children} escapeHtml={false} />
+                <ReactMarkdown rehypePlugins={[rehypeRaw]}>{children}</ReactMarkdown>
             </OverlayContents>
             <OverlaySpacer className="OverlaySpacer" />
         </OverlayContainer>

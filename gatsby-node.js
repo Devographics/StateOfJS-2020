@@ -131,6 +131,8 @@ exports.onCreateWebpackConfig = ({ stage, actions, plugins }) => {
             modules: [path.resolve(__dirname, 'src'), 'node_modules'],
             fallback: {
                 path: require.resolve('path-browserify'),
+                assert: require.resolve('assert-polyfill'),
+                util: require.resolve('util/')
             },
         },
         plugins: [

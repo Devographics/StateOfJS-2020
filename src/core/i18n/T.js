@@ -1,6 +1,7 @@
 import React from 'react'
 import { useI18n } from 'core/i18n/i18nContext'
-import ReactMarkdown from 'react-markdown/with-html'
+import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
 import { useKeydownContext } from 'core/helpers/keydownContext'
 
 const getGitHubSearchUrl = (k, localeId) =>
@@ -53,7 +54,7 @@ const T = ({ t: override, k, values, md = false, html = false, fallback }) => {
 
     return md ? (
         <div {...props}>
-            <ReactMarkdown source={t} escapeHtml={false} />
+            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{t}</ReactMarkdown>
         </div>
     ) : html ? (
         <span {...props} dangerouslySetInnerHTML={{ __html: t }} />

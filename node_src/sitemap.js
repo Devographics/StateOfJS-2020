@@ -5,7 +5,7 @@ const { getAllBlocks } = require('./helpers.js')
 
 const rawPageTemplates = fs.readFileSync(`./surveys/${process.env.SURVEY}/config/page_templates.yml`, 'utf8')
 const rawBlockTemplates = fs.readFileSync(`./surveys/${process.env.SURVEY}/config/block_templates.yml`, 'utf8')
-const globalVariables = yaml.safeLoad(fs.readFileSync(`./surveys/${process.env.SURVEY}/config/variables.yml`, 'utf8'))
+const globalVariables = yaml.load(fs.readFileSync(`./surveys/${process.env.SURVEY}/config/variables.yml`, 'utf8'))
 
 const injectVariables = (yamlObject, variables, templateName) => {
     try {
@@ -14,7 +14,7 @@ const injectVariables = (yamlObject, variables, templateName) => {
         // Inject variables in raw yaml templates
         const interpolatedTemplate = template(templateString)(variables)
         // convert raw populated template to object
-        const populatedTemplate = yaml.safeLoad(interpolatedTemplate)
+        const populatedTemplate = yaml.load(interpolatedTemplate)
 
         return populatedTemplate
     } catch (error) {
@@ -25,7 +25,7 @@ const injectVariables = (yamlObject, variables, templateName) => {
 
 const applyTemplate = (config, templateName, rawTemplates, parent) => {
     // load raw templates
-    const templates = yaml.safeLoad(rawTemplates)
+    const templates = yaml.load(rawTemplates)
 
     // pick the corresponding template
     const templateObject = templates[templateName]

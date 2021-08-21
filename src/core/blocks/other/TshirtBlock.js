@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import ReactMarkdown from 'react-markdown/with-html'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, spacing, fontSize } from 'core/theme'
 import Button from 'core/components/Button'
