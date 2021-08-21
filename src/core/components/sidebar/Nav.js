@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import sitemap from 'config/sitemap.yml'
+import sitemap from 'Config/sitemap.yml'
 import { mq, fancyLinkMixin, spacing } from 'core/theme'
 import { usePageContext } from 'core/helpers/pageContext'
 import PageLink from 'core/pages/PageLink'

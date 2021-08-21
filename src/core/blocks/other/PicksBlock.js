@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, spacing, fontSize, color } from 'core/theme'
-import picks from 'config/picks.yml'
+import picks from 'Config/picks.yml'
 
 const PicksBlock = ({ block, data }) => {
     const { translate } = useI18n()

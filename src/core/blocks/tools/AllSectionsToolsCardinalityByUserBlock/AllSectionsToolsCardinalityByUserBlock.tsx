@@ -5,8 +5,10 @@ import Block from 'core/blocks/block/Block'
 import { BlockContext } from 'core/blocks/types'
 import { ToolsCardinalityByUserBucket } from 'core/survey_api/tools'
 // @ts-ignore
-import { toolsCategories } from 'config/variables.yml'
+import variables from 'Config/variables.yml'
 import { AllSectionsToolsCardinalityByUserChart } from './AllSectionsToolsCardinalityByUserChart'
+
+const { toolsCategories } = variables
 
 interface AllSectionsToolsCardinalityByUserBlockProps {
     block: BlockContext<

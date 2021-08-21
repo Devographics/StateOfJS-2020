@@ -5,7 +5,9 @@ import ShareEmail from './ShareEmail'
 import ShareFacebook from './ShareFacebook'
 import ShareLinkedIn from './ShareLinkedIn'
 import { useI18n } from 'core/i18n/i18nContext'
-import { hashtag, year, siteTitle, siteUrl } from 'config/config.yml'
+import config from 'Config/config.yml'
+
+const { hashtag, year, siteTitle, siteUrl } = config
 
 const ShareSite = () => {
     const { translate } = useI18n()

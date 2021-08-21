@@ -3,7 +3,7 @@ import { scaleLinear } from 'd3-scale'
 import map from 'lodash/map'
 import flatten from 'lodash/flatten'
 import { extent, max, sum } from 'd3-array'
-import { toolsCategories } from 'config/variables.yml'
+import variables from 'Config/variables.yml'
 import offsets from './toolsArrowsLabelOffsets.js'
 import { useI18n } from 'core/i18n/i18nContext'
 import './ToolsArrowsChart.scss'
@@ -12,6 +12,8 @@ import { useTheme } from 'styled-components'
 import labelOffsets from './toolsArrowsLabelOffsets.js'
 import { getVelocity, getVelocityColor, getVelocityColorScale } from './helpers.js'
 import { Delaunay } from 'd3-delaunay'
+
+const { toolsCategories } = variables
 
 // hide any item with less than n years of data
 const minimumYearCount = 2

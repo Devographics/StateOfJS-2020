@@ -4,7 +4,7 @@ import { getBlockTitle, getBlockDescription } from 'core/helpers/blockHelpers'
 import { mergePageContext } from '../helpers/pageHelpers'
 import PageMeta from '../pages/PageMeta'
 import PageMetaDebug from '../pages/PageMetaDebug'
-import config from 'config/config.yml'
+import config from 'Config/config.yml'
 import { useI18n } from 'core/i18n/i18nContext'
 import { usePageContext } from 'core/helpers/pageContext'
 

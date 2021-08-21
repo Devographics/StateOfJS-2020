@@ -31,8 +31,8 @@ esdata
 
 .env
 
-config/sitemap.yml
-config/blocks.yml
+sitemap.yml
+blocks.yml
 
 .logs
 .logs/*

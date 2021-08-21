@@ -53,3 +53,5 @@ const Container = styled.svg`
         margin: 5px 48px;
     }
 `
+
+export default SidebarLogo

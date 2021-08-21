@@ -3,7 +3,7 @@ import React, { useMemo, useState } from 'react'
 import Block from 'core/blocks/block/Block'
 import { BlockContext } from 'core/blocks/types'
 // @ts-ignore
-import { toolsCategories } from 'config/variables.yml'
+import variables from 'Config/variables.yml'
 import { ToolsCityscapeChart } from './ToolsCityscapeChart'
 import { ToolsExperienceToolData, ToolExperienceBucket } from 'core/survey_api/tools'
 import { useTheme } from 'styled-components'
@@ -13,6 +13,8 @@ import groupBy from 'lodash/groupBy'
 import shuffle from 'lodash/shuffle'
 import sum from 'lodash/sum'
 import range from 'lodash/range'
+
+const { toolsCategories } = variables
 
 export const layerCount = 3
 

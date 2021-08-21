@@ -1,6 +1,6 @@
 import { getToolName } from 'core/helpers/tools'
 import get from 'lodash/get'
-import config from 'config/config.yml'
+import config from 'Config/config.yml'
 import { getBlockImage } from './blockHelpers'
 
 export const getTranslationValuesFromContext = (context, translate) => {

@@ -1,4 +1,4 @@
-import React, { PureComponent, useCallback, useEffect, useState } from 'react'
+import React, { PureComponent } from 'react'
 import propTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
 import '../../stylesheets/screen.scss'
@@ -9,44 +9,14 @@ import { mergePageContext } from 'core/helpers/pageHelpers'
 import { I18nContextProvider } from 'core/i18n/i18nContext'
 import { EntitiesContextProvider } from 'core/entities/entitiesContext'
 // import PageMetaDebug from './pages/PageMetaDebug'
-import themes from '../theme/themes'
 import { GlobalStyle } from 'core/theme'
 import MainLayout from 'core/layout/MainLayout'
 import ReportLayout from 'core/report/ReportLayout'
-
-const themeIds = ['state_of_js', 'state_of_css', 'test']
+import theme from 'Theme/index.ts'
 
 const ThemedLayout = (props) => {
-    const [themeId, setThemeId] = useState('state_of_js')
-
-    const switchTheme = useCallback(
-        (event) => {
-            if (event.code === 'KeyX') {
-                setThemeId((current) => {
-                    const currentIndex = themeIds.findIndex((id) => id === current)
-                    if (currentIndex < themeIds.length - 1) {
-                        return themeIds[currentIndex + 1]
-                    }
-
-                    return themeIds[0]
-                })
-            }
-        },
-        [setThemeId]
-    )
-
-    useEffect(() => {
-        if (ENV === 'development') {
-            document.addEventListener('keypress', switchTheme)
-        }
-
-        return () => {
-            document.removeEventListener('keypress', switchTheme)
-        }
-    }, [switchTheme])
-
     return (
-        <ThemeProvider theme={themes[themeId]}>
+        <ThemeProvider theme={theme}>
             <EntitiesContextProvider>
                 <GlobalStyle />
                 <Head />

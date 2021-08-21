@@ -3,8 +3,7 @@ import IntroductionFooter from 'core/pages/IntroductionFooter'
 import T from 'core/i18n/T'
 import styled from 'styled-components'
 import { mq } from 'core/theme'
-import variables from 'config/variables.yml'
-const { IntroLogo } = require(`surveys/${variables.surveyType}/logo/IntroLogo`)
+import IntroLogo from 'Logo/IntroLogo'
 
 const SurveyIntroBlock = () => (
     <>

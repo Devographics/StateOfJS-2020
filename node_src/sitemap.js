@@ -2,9 +2,10 @@ const fs = require('fs')
 const { findIndex, findLastIndex, omit, template } = require('lodash')
 const yaml = require('js-yaml')
 const { getAllBlocks } = require('./helpers.js')
-const rawPageTemplates = fs.readFileSync('./config/page_templates.yml', 'utf8')
-const rawBlockTemplates = fs.readFileSync('./config/block_templates.yml', 'utf8')
-const globalVariables = yaml.safeLoad(fs.readFileSync('./config/variables.yml', 'utf8'))
+
+const rawPageTemplates = fs.readFileSync(`./surveys/${process.env.SURVEY}/config/page_templates.yml`, 'utf8')
+const rawBlockTemplates = fs.readFileSync(`./surveys/${process.env.SURVEY}/config/block_templates.yml`, 'utf8')
+const globalVariables = yaml.safeLoad(fs.readFileSync(`./surveys/${process.env.SURVEY}/config/variables.yml`, 'utf8'))
 
 const injectVariables = (yamlObject, variables, templateName) => {
     try {
@@ -185,9 +186,9 @@ exports.computeSitemap = async (rawSitemap, locales) => {
             `###################################################################`,
             yaml.dump({ locales, contents: stack.hierarchy }, { noRefs: true }),
         ].join('\n')
-        await fs.writeFileSync('./config/sitemap.yml', sitemapContent)
+        await fs.writeFileSync(`./surveys/${process.env.SURVEY}/config/sitemap.yml`, sitemapContent)
         await fs.writeFileSync(
-            './config/blocks.yml',
+            `./surveys/${process.env.SURVEY}/config/blocks.yml`,
             yaml.dump(getAllBlocks({ contents: stack.hierarchy }), { noRefs: true })
         )
 

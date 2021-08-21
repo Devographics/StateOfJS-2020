@@ -177,3 +177,5 @@ const Container = styled.div`
     justify-content: center;
     margin: 40px 0;
 `
+
+export default IntroLogo

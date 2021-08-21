@@ -1,5 +1,7 @@
 import get from 'lodash/get'
-import { siteTitle, capturesUrl, hashtag, year } from 'config/config.yml'
+import config from 'Config/config.yml'
+
+const { siteTitle, capturesUrl, hashtag, year } = config
 
 export const getBlockTitleKey = (block, page) => {
     const { blockName, titleId } = block

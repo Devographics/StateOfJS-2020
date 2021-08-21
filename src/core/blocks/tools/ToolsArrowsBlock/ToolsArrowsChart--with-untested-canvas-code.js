@@ -4,13 +4,15 @@ import map from 'lodash/map'
 import range from 'lodash/range'
 import flatten from 'lodash/flatten'
 import { extent, max, sum } from 'd3-array'
-import { toolsCategories } from 'config/variables.yml'
+import variables from 'Config/variables.yml'
 import offsets from './toolsArrowsLabelOffsets.js'
 import { useI18n } from 'core/i18n/i18nContext'
 import './ToolsArrowsChart.scss'
 import get from 'lodash/get'
 import { useTheme } from 'styled-components'
 import labelOffsets from './toolsArrowsLabelOffsets.js'
+
+const { toolsCategories } = variables
 
 const gradientLineWidthScale = scaleLinear().domain([0, 30]).range([11, 9]).clamp(true)
 

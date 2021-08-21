@@ -6,7 +6,7 @@ import FeaturesOverviewCirclePackingChart from 'core/charts/features/FeaturesOve
 import { useI18n } from 'core/i18n/i18nContext'
 import { useEntities } from 'core/entities/entitiesContext'
 import ChartContainer from 'core/charts/ChartContainer'
-import variables from 'config/variables.yml'
+import variables from 'Config/variables.yml'
 
 const getChartData = (data, getName, translate) => {
     const categories = variables.featuresCategories

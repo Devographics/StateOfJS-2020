@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Link from 'core/components/LocaleLink'
-import sponsors from 'config/sponsors.yml'
+import sponsors from 'Config/sponsors.yml'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, spacing, fontSize } from 'core/theme'
 import TextBlock from 'core/blocks/other/TextBlock'

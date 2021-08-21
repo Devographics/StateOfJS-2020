@@ -19,3 +19,5 @@ const Container = styled.span`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 `
+
+export default SidebarLogo

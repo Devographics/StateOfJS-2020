@@ -55,3 +55,5 @@ const Index = styled.span`
     opacity: 0.35;
     font-weight: 300;
 `
+
+export default LogoCell

@@ -75,3 +75,5 @@ const SVGFilter = () => (
         </defs>
     </svg>
 )
+
+export default Logo

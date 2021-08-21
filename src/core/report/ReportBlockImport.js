@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import BlockSwitcher from 'core/blocks/block/BlockSwitcher'
 import { usePageContext } from 'core/helpers/pageContext'
-import allBlocks from 'config/blocks.yml'
+import allBlocks from 'Config/blocks.yml'
 import styled, { css } from 'styled-components'
 import { mq, spacing, color } from 'core/theme'
 import ReportBlockTitle from 'core/report/ReportBlockTitle'

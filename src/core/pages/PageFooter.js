@@ -6,7 +6,7 @@ import { usePageContext } from 'core/helpers/pageContext'
 import Link from 'core/components/LocaleLink'
 import Button from 'core/components/Button'
 import PageLabel from './PageLabel'
-import config from 'config/config.yml'
+import config from 'Config/config.yml'
 import T from 'core/i18n/T'
 
 const PageFooter = () => {

@@ -4,10 +4,11 @@ import Link from 'core/components/LocaleLink'
 import ShareSite from 'core/share/ShareSite'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, color, screenReadersOnlyMixin } from 'core/theme'
-import variables from '../../../../config/variables.yml'
 import { Nav } from './Nav'
-import { siteTitle } from 'config/config.yml'
-const { SidebarLogo } = require(`surveys/${variables.surveyType}/logo/SidebarLogo`)
+import config from 'Config/config.yml'
+import SidebarLogo from 'Logo/SidebarLogo'
+
+const { siteTitle } = config
 
 const CloseIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

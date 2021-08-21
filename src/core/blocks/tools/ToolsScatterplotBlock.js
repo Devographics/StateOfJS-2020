@@ -10,8 +10,10 @@ import { useI18n } from 'core/i18n/i18nContext'
 import ChartContainer from 'core/charts/ChartContainer'
 import ButtonGroup from 'core/components/ButtonGroup'
 import Button from 'core/components/Button'
-import { toolsCategories } from 'config/variables.yml'
+import variables from 'Config/variables.yml'
 import T from 'core/i18n/T'
+
+const { toolsCategories } = variables
 
 /*
 

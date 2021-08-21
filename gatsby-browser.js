@@ -1,7 +1,9 @@
 import React from 'react'
 import * as ReactGA from 'react-ga'
 import LayoutWrapper from 'core/layout/LayoutWrapper'
-import { gaUAid } from 'config/config.yml'
+import config from 'Config/config.yml'
+
+const { gaUAid } = config
 
 ReactGA.initialize(gaUAid)
 

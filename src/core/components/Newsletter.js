@@ -3,10 +3,13 @@ import PropTypes from 'prop-types'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import Trans from 'core/i18n/Trans'
-import { emailOctopusUrl, emailOctopusCode, emailOctopusSiteKey } from 'config/config.yml'
+import config from 'Config/config.yml'
 import { mq, spacing } from 'core/theme'
 import Button from 'core/components/Button'
+
+const { emailOctopusUrl, emailOctopusCode, emailOctopusSiteKey } = config
 const postUrl = emailOctopusUrl
+
 
 export default class Newsletter extends Component {
     static propTypes = {

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import ReactGA from 'react-ga'
 import Link from 'core/components/LocaleLink'
-import resources from 'config/recommended_resources.yml'
+import resources from 'Config/recommended_resources.yml'
 import BlockTitle from 'core/blocks/block/BlockTitle'
 import { mq, spacing, fontSize, fontWeight } from 'core/theme'
-import config from 'config/config.yml'
+import config from 'Config/config.yml'
 import T from 'core/i18n/T'
 
 const trackClick = (id, resource, label) => {
