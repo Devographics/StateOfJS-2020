@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import PropTypes from 'prop-types'
-import { ResponsiveCirclePacking } from '@nivo/circle-packing'
+import { ResponsiveCirclePacking, useNodeMouseHandlers } from '@nivo/circle-packing'
 import ChartLabel from 'core/components/ChartLabel'
 import { FeaturesCirclePackingChartTooltip } from './FeaturesCirclePackingChartTooltip'
 
@@ -24,9 +24,15 @@ const sectionLabelOffsets = {
 
 const Node = (props) => {
     // note that `current` is an array of ids for this chart
-    const { node, handlers, current } = props
-    const radius = node.r
+    const { node, current } = props
+    const radius = node.radius
     const theme = useTheme()
+
+    const handlers = useNodeMouseHandlers(node, {
+        onMouseEnter: props.onMouseEnter,
+        onMouseMove: props.onMouseMove,
+        onMouseLeave: props.onMouseLeave,
+    })
 
     if (node.depth === 0) {
         return null
@@ -67,11 +73,11 @@ const Node = (props) => {
                         }}
                         startOffset={sectionLabelOffsets[node.data.id]}
                     >
-                        {node.id}
+                        {node.data.name}
                     </textPath>
                 </CirclePackingNodeCategoryLabel>
                 <circle
-                    r={node.r}
+                    r={radius}
                     fill={theme.colors.backgroundAlt}
                     fillOpacity={0.4}
                     stroke={color}
@@ -82,7 +88,7 @@ const Node = (props) => {
             </CirclePackingNodeCategory>
         )
     } else {
-        const usageRadius = node.r * (node.data.usage / node.data.awareness)
+        const usageRadius = radius * (node.data.usage / node.data.awareness)
         const color = theme.colors.ranges.featureSections[node.data.sectionId]
 
         const state =
@@ -99,12 +105,12 @@ const Node = (props) => {
                 onMouseLeave={handlers.onMouseLeave}
                 state={state}
             >
-                <circle r={node.r} fill={`${color}50`} />
+                <circle r={radius} fill={`${color}50`} />
                 <circle r={usageRadius} fill={color} />
                 <ChartLabel
                     transform={`translate(0,${offset})`}
-                    label={node.label}
-                    fontSize={fontSizeByRadius(node.r)}
+                    label={node.data.name}
+                    fontSize={fontSizeByRadius(radius)}
                 />
             </CirclePackingNode>
         )
@@ -130,7 +136,7 @@ const FeaturesCirclePackingChart = ({ data, className, current = null }) => {
                 colors={['white', 'blue']}
                 data={data}
                 value="awareness"
-                nodeComponent={(props) => <Node {...props} current={current} />}
+                circleComponent={(props) => <Node {...props} current={current} />}
                 animate={false}
                 tooltip={FeaturesCirclePackingChartTooltip}
             />
