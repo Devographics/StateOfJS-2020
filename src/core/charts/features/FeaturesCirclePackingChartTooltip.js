@@ -21,7 +21,7 @@ export const FeaturesCirclePackingChartTooltip = (props) => {
     const color = theme.colors.ranges.featureSections[data.sectionId]
 
     return (
-        <div style={nivoTheme.tooltip.basic}>
+        <div style={nivoTheme.tooltip.container}>
             <div>
                 <Heading>{name}</Heading>
                 <Grid>
