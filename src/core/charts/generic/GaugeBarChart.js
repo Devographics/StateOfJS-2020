@@ -46,13 +46,15 @@ const Tooltip = memo(({ translate, i18nNamespace, bar, units }) => {
     const theme = useNivoTheme()
 
     return (
-        <div style={theme.tooltip.basic}>
-            <Chip color={bar.color} style={{ marginRight: 7 }} />
-            {translate(`${i18nNamespace}.${bar.id}`)}:{' '}
-            <strong>
-                {bar.data[`${bar.id}_${units}`]}
-                {units === 'percentage' && '%'}
-            </strong>
+        <div style={theme.tooltip.container}>
+            <div style={theme.tooltip.basic}>
+                <Chip color={bar.color} style={{ marginRight: 7 }} />
+                {translate(`${i18nNamespace}.${bar.id}`)}:{' '}
+                <strong>
+                    {bar.data[`${bar.id}_${units}`]}
+                    {units === 'percentage' && '%'}
+                </strong>
+            </div>
         </div>
     )
 })
