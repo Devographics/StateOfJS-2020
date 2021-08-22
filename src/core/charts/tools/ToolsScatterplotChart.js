@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import { useTheme } from 'styled-components'
 import { ResponsiveScatterPlot } from '@nivo/scatterplot'
 import { useI18n } from 'core/i18n/i18nContext'
+import variables from 'Config/variables.yml'
 
-const totalCountRounded = 20000
+const { totalCountRounded } = variables
 
 const labelPositions = {
     satisfaction: {

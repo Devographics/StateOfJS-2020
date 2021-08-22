@@ -1,5 +1,8 @@
 surveyType: state_of_js
 
+# used for scatterplot chart
+totalCountRounded: 20000
+
 currentYear: 2020
 
 allFeatures:

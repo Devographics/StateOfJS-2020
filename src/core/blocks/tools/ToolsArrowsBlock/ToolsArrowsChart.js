@@ -139,7 +139,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
 
     const delaunay = useMemo(
         () =>
-            new Delaunay.from(
+            Delaunay.from(
                 labels || [],
                 ({ x }) => x,
                 ({ y }) => y

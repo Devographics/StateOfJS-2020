@@ -10,7 +10,7 @@ export const getBlockTitleKey = (block, page) => {
     } else if (blockName) {
         return `blocks.${blockName}.title`
     } else {
-        const pageId = block.pageId || page.i18nNamespace || page.id
+        const pageId = page.i18nNamespace || block.pageId || page.id
         const blockId = block.id.replace('_others', '.others')
         return `${pageId}.${blockId}`
     }
@@ -23,7 +23,7 @@ export const getBlockDescriptionKey = (block, page) => {
     } else if (blockName) {
         return `blocks.${blockName}.description`
     } else {
-        const pageId = block.pageId || page.i18nNamespace || page.id
+        const pageId = page.i18nNamespace || block.pageId || page.id
         const blockId = block.id.replace('_others', '.others')
         return `${pageId}.${blockId}.description`
     }

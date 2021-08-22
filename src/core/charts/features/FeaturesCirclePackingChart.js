@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import PropTypes from 'prop-types'
-import { ResponsiveBubble } from '@nivo/circle-packing'
+import { ResponsiveCirclePacking } from '@nivo/circle-packing'
 import ChartLabel from 'core/components/ChartLabel'
 import { FeaturesCirclePackingChartTooltip } from './FeaturesCirclePackingChartTooltip'
 
@@ -116,7 +116,7 @@ const FeaturesCirclePackingChart = ({ data, className, current = null }) => {
 
     return (
         <Chart className={`CirclePackingChart ${className}`}>
-            <ResponsiveBubble
+            <ResponsiveCirclePacking
                 theme={theme.charts}
                 margin={{
                     top: 2,
@@ -128,7 +128,7 @@ const FeaturesCirclePackingChart = ({ data, className, current = null }) => {
                 leavesOnly={false}
                 padding={5}
                 colors={['white', 'blue']}
-                root={data}
+                data={data}
                 value="awareness"
                 nodeComponent={(props) => <Node {...props} current={current} />}
                 animate={false}
