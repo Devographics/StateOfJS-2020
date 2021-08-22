@@ -1,5 +1,6 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { useTheme } from '@nivo/core'
 import { useI18n } from 'core/i18n/i18nContext'
 import { useEntities } from 'core/entities/entitiesContext'
 
@@ -14,9 +15,10 @@ const BarTooltip = ({ indexValue, data, i18nNamespace, shouldTranslate }) => {
     const label = shouldTranslate
         ? translate(`options.${i18nNamespace}.${indexValue}`)
         : getName(indexValue)
+    const nivoTheme = useTheme()
 
     return (
-        <div style={{ maxWidth: 300 }}>
+        <div style={{ ...nivoTheme.tooltip.container, maxWidth: 300 }}>
             {label}:&nbsp;
             <strong>{data.percentage}%</strong>
             &nbsp;({data.count})
