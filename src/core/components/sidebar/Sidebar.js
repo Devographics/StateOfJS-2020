@@ -4,6 +4,7 @@ import Link from 'core/components/LocaleLink'
 import ShareSite from 'core/share/ShareSite'
 import { useI18n } from 'core/i18n/i18nContext'
 import { mq, color, screenReadersOnlyMixin } from 'core/theme'
+import colors from 'core/theme/colors'
 import { Nav } from './Nav'
 import config from 'Config/config.yml'
 import SidebarLogo from 'Logo/SidebarLogo'
@@ -23,17 +24,21 @@ export const Sidebar = ({ showSidebar, closeSidebar, rest }) => {
     const { translate } = useI18n()
 
     return (
-        <SidebarContainer show={showSidebar} className="Sidebar">
+        <SidebarContainer id="sidebar" show={showSidebar} className="Sidebar">
+            <SidebarCloseButton 
+                onClick={closeSidebar}
+                aria-haspopup="menu"
+                aria-expanded={showSidebar}> 
+                    <CloseIcon />
+                    <ScreenReadersHint>{translate('general.close_nav')}</ScreenReadersHint>
+            </SidebarCloseButton>
+                
             <SidebarScreenReadersTitle>{siteTitle}</SidebarScreenReadersTitle>
             <SidebarHeader>
                 <SidebarLogoLink to="/">
                     <SidebarLogo />
                     <ScreenReadersHint>{translate('general.back_to_intro')}</ScreenReadersHint>
                 </SidebarLogoLink>
-                <SidebarCloseButton onClick={closeSidebar}>
-                    <CloseIcon />
-                    <ScreenReadersHint>{translate('general.close_nav')}</ScreenReadersHint>
-                </SidebarCloseButton>
             </SidebarHeader>
             <Nav {...rest} closeSidebar={closeSidebar} />
             <ShareSite />
@@ -64,7 +69,7 @@ const SidebarContainer = styled.nav`
         /* overflow-x: hidden; */
         /* overflow-y: scroll; */
         position: fixed;
-        ${(props) => (props.show ? '' : screenReadersOnlyMixin)};
+        display: ${(props) => (props.show ? 'flex' : 'none')};
     }
 `
 
@@ -112,10 +117,12 @@ const SidebarCloseButton = styled.button`
     background: none;
     cursor: pointer;
     border: none;
+    position: absolute;
 
-    &:focus {
-        outline: 0;
-    }
+
+    box-sizing: border-box;
+    width: calc(calc(100vw - 270px) / 2);
+    height: 68px;
 
     svg {
         stroke: ${color('link')};
@@ -123,5 +130,9 @@ const SidebarCloseButton = styled.button`
 
     @media ${mq.large} {
         display: none;
+    }
+
+    &:hover, &:focus {
+      background-color: ${colors.greyDarkish}
     }
 `

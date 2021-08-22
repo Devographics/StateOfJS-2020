@@ -1,6 +1,20 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { mq, spacing } from 'core/theme'
+
+const transform = (size, translate) => keyframes`
+    0% {
+        opacity: 0;
+        transform: ${size === "small" ? "translate(-50%, -50%)" : "translate(0, 0)"};
+    }
+    100% {
+        opacity: 1;
+        ${
+            size === "small"
+            ? `transform: translateX(${translate.x}) translateY(${translate.y});`
+            : `transform: translateX(${translate.x});`
+        }
+`;
 
 const Link = styled.a`
     display: block;
@@ -21,7 +35,7 @@ const Link = styled.a`
         }
     }
 
-    &:hover {
+    &:hover, &:focus {
         svg path,
         svg circle {
             fill: ${({ theme }) => theme.colors.link};
@@ -35,73 +49,55 @@ const Link = styled.a`
     }
 
     .ShareBlock & {
-        transition: all 500ms cubic-bezier(0.87, -0.41, 0.19, 1.44);
-        opacity: 0;
         height: 24px;
         width: 24px;
 
-        @media ${mq.small} {
-            transform: translate(-50%, -50%);
-        }
+        opacity: 0;
 
-        &.ShareLink--twitter {
-            transition-delay: 0ms;
-        }
-        &.ShareLink--facebook {
-            transition-delay: 100ms;
-        }
-        &.ShareLink--linkedin {
-            transition-delay: 200ms;
-        }
-        &.ShareLink--email {
-            transition-delay: 300ms;
-        }
-        &.ShareLink--image {
-            transition-delay: 400ms;
-        }
+        display: none;
     }
     .ShareBlock._is-visible & {
-        opacity: 1;
         pointer-events: auto;
+        display block;
 
         &.ShareLink--twitter {
             @media ${mq.small} {
-                transform: translateX(-50%) translateY(-275%);
+                animation: ${transform("small", {x: "-50%", y: "-275%"})} 500ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
             @media ${mq.mediumLarge} {
-                transform: translateX(20%);
+                animation: ${transform("mediumLarge", {x: "20%"})} 500ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
         }
         &.ShareLink--facebook {
             @media ${mq.small} {
-                transform: translateX(-200%) translateY(-200%);
+                animation: ${transform("small", {x: "-200%", y: "-200%"})} 500ms 100ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
             @media ${mq.mediumLarge} {
-                transform: translateX(60%);
+                animation: ${transform("mediumLarge", {x: "60%"})} 500ms 100ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
         }
         &.ShareLink--linkedin {
             @media ${mq.small} {
-                transform: translateX(-275%) translateY(-50%);
+                animation: ${transform("small", {x: "-275%", y: "-50%"})} 500ms 200ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
             @media ${mq.mediumLarge} {
-                transform: translateX(130%);
+                animation: ${transform("mediumLarge", {x: "130%"})} 500ms 200ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
         }
         &.ShareLink--email {
             @media ${mq.small} {
-                transform: translateX(-200%) translateY(100%);
+                animation: ${transform("small", {x: "-200%", y: "100%"})} 500ms 300ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
             @media ${mq.mediumLarge} {
-                transform: translateX(200%);
+                animation: ${transform("mediumLarge", {x: "200%"})} 500ms 300ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
         }
         &.ShareLink--image {
             @media ${mq.small} {
-                transform: translateX(-50%) translateY(175%);
+                animation: ${transform("small", {x: "-50%", y: "175%"})} 500ms 300ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
             @media ${mq.mediumLarge} {
-                transform: translateX(270%);
+                animation: ${transform("mediumLarge", {x: "270%"})} 500ms 300ms cubic-bezier(0.87, -0.41, 0.19, 1.44) forwards;
             }
         }
     }
@@ -116,7 +112,7 @@ const Link = styled.a`
             border-right: ${({ theme }) => theme.separationBorder};
         }
 
-        &:hover {
+        &:hover, &:focus {
             background: ${({ theme }) => theme.colors.backgroundAlt};
         }
 

@@ -6,10 +6,8 @@ const EssayLayout = ({ props }) => {
     return (
         <Page>
             <PageContent className="PageContent">
-                <PageMain>
-                    {/* <PageMetaDebug /> */}
-                    {props.children}
-                </PageMain>
+                {/* <PageMetaDebug /> */}
+                {props.children}
             </PageContent>
         </Page>
     )

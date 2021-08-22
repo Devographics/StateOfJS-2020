@@ -7,8 +7,9 @@ import Hamburger from 'core/components/Hamburger'
 import { usePageContext } from 'core/helpers/pageContext'
 import LanguageSwitcher from 'core/i18n/LanguageSwitcher'
 import PaginationLink from './PaginationLink'
+import { Sidebar } from 'core/components/sidebar'
 
-const Pagination = ({ toggleSidebar }) => {
+const Pagination = ({ toggleSidebar, showSidebar, closeSidebar, pagination }) => {
     const context = usePageContext()
 
     let previous = <span />
@@ -31,9 +32,6 @@ const Pagination = ({ toggleSidebar }) => {
         <Container className="Pagination">
             {previous}
             <MiddleContent>
-                <SidebarToggle className="SidebarToggle" onClick={toggleSidebar}>
-                    <Hamburger />
-                </SidebarToggle>
                 <LanguageSwitcher />
             </MiddleContent>
             {next}
@@ -53,7 +51,13 @@ const Container = styled.div`
     grid-template-columns: 1fr auto 1fr;
 
     @media ${mq.smallMedium} {
-        grid-template-columns: 1fr 50px 1fr;
+        border-bottom: none;
+        grid-template-columns: 1fr 0px 1fr;
+
+        > *:first-child {
+            border-left: ${(props) => props.theme.separationBorder};
+            border-right: ${(props) => props.theme.separationBorder};
+        }
     }
 `
 
@@ -63,6 +67,11 @@ const MiddleContent = styled.div`
     align-items: center;
     border-left: ${(props) => props.theme.separationBorder};
     border-right: ${(props) => props.theme.separationBorder};
+
+    @media ${mq.smallMedium} {
+      border-left: none;
+      border-right: none;
+    }
 `
 
 const SidebarToggle = styled.button`
