@@ -6,6 +6,7 @@ import BlockTitleOriginal from 'core/blocks/block/BlockTitle'
 import BlockNote from 'core/blocks/block/BlockNote'
 import ShareBlockDebug from 'core/share/ShareBlockDebug'
 import BlockLegends from 'core/blocks/block/BlockLegends'
+import T from 'core/i18n/T'
 
 const Container = styled.div`
     @media ${mq.small} {
@@ -72,6 +73,25 @@ const Block = ({
             )}
             <div className="Block__Contents">
                 {error ? <div className="error">{error}</div> : children}
+                <button>Table</button> <button>Graph</button>
+                <p>{data?.year}. {data?.completion?.percentage}% answered ({data?.completion?.count})</p>
+                <table>
+                  {console.log(data)}
+                  <thead>
+                    <tr>
+                      <th>Label</th>
+                      <th>Count</th>
+                      <th>Percentage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data?.buckets?.map((bucket) => bucket && <tr>
+                      <td>{bucket.id && <T k={bucket?.id} />}</td>
+                      <td>{bucket?.count}</td>
+                      <td>{bucket?.percentage}%</td>
+                    </tr>)}
+                  </tbody>
+                </table>
             </div>
             {showLegend && legendPosition === 'bottom' && (
                 <BlockLegends
