@@ -1,7 +1,7 @@
 import React from 'react'
 import { useI18n } from 'core/i18n/i18nContext'
-import ReactMarkdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
+// import ReactMarkdown from 'react-markdown'
+// import rehypeRaw from 'rehype-raw'
 import { useKeydownContext } from 'core/helpers/keydownContext'
 
 const getGitHubSearchUrl = (k, localeId) =>
@@ -46,16 +46,16 @@ const T = ({ t: override, k, values, md = false, html = false, fallback }) => {
                 classNames.push('t-fallback')
             }
         } else {
-            t = tString.t
+            t = md ? tString.tHtml : tString.t
         }
     }
 
     props.className = classNames.join(' ')
+    
+    //<ReactMarkdown rehypePlugins={[rehypeRaw]}>{t}</ReactMarkdown>
 
     return md ? (
-        <div {...props}>
-            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{t}</ReactMarkdown>
-        </div>
+        <div {...props} dangerouslySetInnerHTML={{ __html: t }} />
     ) : html ? (
         <span {...props} dangerouslySetInnerHTML={{ __html: t }} />
     ) : (

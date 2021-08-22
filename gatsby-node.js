@@ -1,6 +1,6 @@
 const path = require('path')
 const { createPagesSingleLoop, createPagesTwoLoops } = require('./node_src/create_pages')
-
+const webpack = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
 
 require('dotenv').config({
@@ -127,20 +127,25 @@ exports.onCreateWebpackConfig = ({ stage, actions, plugins }) => {
                 Config: path.resolve(__dirname, `surveys/${process.env.SURVEY}/config`),
                 Theme: path.resolve(__dirname, `surveys/${process.env.SURVEY}/theme`),
                 Logo: path.resolve(__dirname, `surveys/${process.env.SURVEY}/logo`),
+                Images: path.resolve(__dirname, `surveys/${process.env.SURVEY}/imagess`),
             },
             modules: [path.resolve(__dirname, 'src'), 'node_modules'],
             fallback: {
                 path: require.resolve('path-browserify'),
                 assert: require.resolve('assert-polyfill'),
-                util: require.resolve('util/')
+                util: require.resolve('util/'),
+                buffer: false,
             },
         },
         plugins: [
+            // new webpack.ProvidePlugin({
+            //     Buffer: ['buffer', 'Buffer'],
+            // }),
             new CopyPlugin({
                 patterns: [
                     {
                         from: path.resolve(__dirname, `surveys/${process.env.SURVEY}/images`),
-                        to: 'static/images',
+                        to: path.resolve(__dirname, `static/images`),
                     },
                 ],
             }),

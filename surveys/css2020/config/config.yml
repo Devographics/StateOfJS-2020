@@ -11,3 +11,8 @@ translationLink: https://github.com/StateOfJS/state-of-js-graphql-results-api/is
 capturesUrl: https://stateofx-images.netlify.app/captures/css2020
 discordUrl: https://discord.gg/zRDb35jfrt
 issuesUrl: https://github.com/StateOfJS/StateOfCSS-2020
+
+tshirtImages: ['tshirt5.jpg', 'tshirt6.jpg', 'tshirt4.png']
+tshirtLink: https://gumroad.com/l/stateofcss-tshirt
+tshirtPrice: 24
+

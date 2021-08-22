@@ -7,6 +7,8 @@ logs
 
 # Builds
 public
+# images are survey-dependent and copied over from surveys/foo/images by webpack
+static/images
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git

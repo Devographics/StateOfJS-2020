@@ -1,7 +1,6 @@
 import React, { memo, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled, { useTheme, keyframes } from 'styled-components'
-import ReactMarkdown from 'react-markdown'
 import Confetti from 'react-confetti'
 import tinycolor from 'tinycolor2'
 import ShareBlock from 'core/share/ShareBlock'

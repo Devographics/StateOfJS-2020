@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import ReactMarkdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
+// import ReactMarkdown from 'react-markdown'
+// import rehypeRaw from 'rehype-raw'
 
 import { spacing } from 'core/theme'
 
@@ -21,7 +21,8 @@ const TextBlock = ({ className, text, title, children }) => {
                 {title && <h3 className="Block__Title block__title">{title}</h3>}
                 {text && (
                     <Content className="block__content">
-                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{text}</ReactMarkdown>
+                        {/* <ReactMarkdown rehypePlugins={[rehypeRaw]}>{text}</ReactMarkdown> */}
+                        {text}
                     </Content>
                 )}
             </div>

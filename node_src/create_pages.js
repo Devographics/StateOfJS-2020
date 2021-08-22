@@ -31,6 +31,7 @@ query {
             strings {
                 key
                 t
+                tHtml
                 context
                 fallback
             }

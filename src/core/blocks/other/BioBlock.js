@@ -1,6 +1,6 @@
 import React from 'react'
-import ReactMarkdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
+// import ReactMarkdown from 'react-markdown'
+// import rehypeRaw from 'rehype-raw'
 import styled from 'styled-components'
 import { mq, spacing, fontSize } from 'core/theme'
 
@@ -17,8 +17,8 @@ const BioBlock = ({ subheading, heading, photo, bio }) => {
                         className="BioHeading"
                         dangerouslySetInnerHTML={{ __html: heading }}
                     />
-
-                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>{bio}</ReactMarkdown>
+                    {/* <ReactMarkdown rehypePlugins={[rehypeRaw]}>{bio}</ReactMarkdown> */}
+                    {bio}
                 </BioBio>
             </BioContent>
         </Bio>
