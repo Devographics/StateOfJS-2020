@@ -25,6 +25,7 @@ export const OpinionBlock = ({
 }: OpinionBlockProps) => {
     const { id } = block
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
     const [current, setCurrent] = useState<OpinionBucket['id'] | null>(null)
     const bucketKeys: {
         id: OpinionBucket['id']
@@ -54,6 +55,8 @@ export const OpinionBlock = ({
 
     return (
         <Block
+            view={view}
+            setView={setView}
             units={units}
             setUnits={setUnits}
             block={{

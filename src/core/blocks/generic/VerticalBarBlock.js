@@ -27,6 +27,7 @@ const VerticalBarBlock = ({ block, data }) => {
     const { width } = context
 
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
 
     const bucketKeys = useBucketKeys(bucketKeysName)
     const { buckets, total, completion } = data
@@ -46,6 +47,8 @@ const VerticalBarBlock = ({ block, data }) => {
 
     return (
         <Block
+            view={view}
+            setView={setView}
             units={units}
             setUnits={setUnits}
             completion={completion}

@@ -20,12 +20,15 @@ export const SectionToolsCardinalityByUserBlock = ({
     units: defaultUnits = 'percentage',
 }: SectionToolsCardinalityByUserBlockProps) => {
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
 
     // exclude datums with a percentage lower than 1
     const filteredData = useMemo(() => data.filter(datum => datum.percentage >= 1).reverse(), [data])
 
     return (
         <Block
+            view={view}
+            setView={setView} 
             units={units}
             setUnits={setUnits}
             block={{

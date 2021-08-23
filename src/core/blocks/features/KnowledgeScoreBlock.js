@@ -22,6 +22,7 @@ const KnowledgeScoreBlock = ({ block, data }) => {
     const { width } = context
 
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
 
     const { buckets, total, completion } = data
 
@@ -44,7 +45,7 @@ const KnowledgeScoreBlock = ({ block, data }) => {
     })
 
     return (
-        <Block units={units} setUnits={setUnits} completion={completion} data={data} block={block}>
+        <Block view={view} setView={setView} units={units} setUnits={setUnits} completion={completion} data={data} block={block}>
             <ChartContainer fit={true}>
                 <VerticalBarChart
                     bucketKeys={bucketKeys}

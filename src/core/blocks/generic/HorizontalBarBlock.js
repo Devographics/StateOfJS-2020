@@ -15,11 +15,12 @@ const HorizontalBarBlock = ({ block, data }) => {
     } = block
 
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
 
     const { total, buckets } = data
 
     return (
-        <Block units={units} setUnits={setUnits} data={data} block={block}>
+        <Block view={view} setView={setView} units={units} setUnits={setUnits} data={data} block={block}>
             <ChartContainer fit={true}>
                 <HorizontalBarChart
                     total={total}

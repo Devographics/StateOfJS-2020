@@ -9,6 +9,7 @@ import ChartContainer from 'core/charts/ChartContainer'
 const GenderBlock = ({ block, data }) => {
     const { units: defaultUnits = 'percentage' } = block
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
     const theme = useTheme()
 
     const colorMapping = useMemo(
@@ -21,7 +22,7 @@ const GenderBlock = ({ block, data }) => {
     )
 
     return (
-        <Block units={units} setUnits={setUnits} data={data.buckets} block={block}>
+        <Block view={view} setView={setView} units={units} setUnits={setUnits} data={data.buckets} block={block}>
             <ChartContainer height={200} fit={true}>
                 <GaugeBarChart
                     units={units}

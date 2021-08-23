@@ -64,6 +64,7 @@ export const AllSectionsToolsCardinalityByUserBlock = ({
     units: defaultUnits = 'percentage',
 }: AllSectionsToolsCardinalityByUserBlockProps) => {
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
 
     const charData = useMemo(() => getChartData(data), [data])
 
@@ -71,6 +72,8 @@ export const AllSectionsToolsCardinalityByUserBlock = ({
 
     return (
         <Block
+            view={view}
+            setView={setView}
             units={units}
             setUnits={setUnits}
             block={{

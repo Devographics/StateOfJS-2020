@@ -11,6 +11,7 @@ import ToolLabel from 'core/charts/tools/ToolLabel'
 
 const ToolsSectionStreamsBlock = ({ block, data, triggerId, units: defaultUnits = 'percentage' }) => {
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
     const [current, setCurrent] = useState(null)
 
     const filteredData = data.filter((toolData) => toolData.experience.all_years.length > 1)
@@ -19,6 +20,8 @@ const ToolsSectionStreamsBlock = ({ block, data, triggerId, units: defaultUnits 
 
     return (
         <Block
+            view={view}
+            setView={setView}
             units={units}
             setUnits={setUnits}
             block={{

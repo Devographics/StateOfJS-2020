@@ -9,12 +9,12 @@ import { useI18n } from 'core/i18n/i18nContext'
 import { usePageContext } from 'core/helpers/pageContext'
 import { getBlockMeta } from 'core/helpers/blockHelpers'
 import SharePermalink from 'core/share/SharePermalink'
-import BlockUnitsSelector from 'core/blocks/block/BlockUnitsSelector'
 import BlockCompletionIndicator from 'core/blocks/block/BlockCompletionIndicator'
 import { getBlockTitleKey, getBlockDescriptionKey, getBlockTitle } from 'core/helpers/blockHelpers'
 import T from 'core/i18n/T'
 import Button from 'core/components/Button'
 import Popover from 'core/components/Popover'
+import BlockViewSelector from './BlockViewSelector'
 
 const MoreIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" x="0" y="0" viewBox="0 0 24 24">
@@ -90,12 +90,12 @@ const BlockTitle = ({
     isShareable,
     isExportable = true,
     values,
-    units,
-    setUnits,
     data,
     block,
     switcher,
-    closeComponent
+    closeComponent,
+    view,
+    setView,
 }) => {
     const { id, showDescription = true } = block
     const completion =
@@ -119,8 +119,8 @@ const BlockTitle = ({
         setShowOptions,
         showOptions,
         switcher,
-        units,
-        setUnits,
+        view,
+        setView,
     }
 
     return (
@@ -190,15 +190,15 @@ const BlockTitleActions = ({
     </>
 )
 
-const BlockTitleSwitcher = ({ switcher, units, setUnits }) => (
+const BlockTitleSwitcher = ({ switcher, view, setView }) => (
     <>
         {switcher ? (
             <BlockChartControls className="BlockChartControls">{switcher}</BlockChartControls>
         ) : (
-            units &&
-            setUnits && (
+            view &&
+            setView && (
                 <BlockChartControls className="BlockChartControls">
-                    <BlockUnitsSelector units={units} onChange={setUnits} />
+                    <BlockViewSelector view={view} setView={(clickedView)=>{setView(clickedView)}} />
                 </BlockChartControls>
             )
         )}
