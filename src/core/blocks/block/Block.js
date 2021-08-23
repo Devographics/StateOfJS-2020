@@ -73,25 +73,6 @@ const Block = ({
             )}
             <div className="Block__Contents">
                 {error ? <div className="error">{error}</div> : children}
-                <button>Table</button> <button>Graph</button>
-                <p>{data?.year}. {data?.completion?.percentage}% answered ({data?.completion?.count})</p>
-                <table>
-                  {console.log(data)}
-                  <thead>
-                    <tr>
-                      <th>Label</th>
-                      <th>Count</th>
-                      <th>Percentage</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data?.buckets?.map((bucket) => bucket && <tr>
-                      <td>{bucket.id && <T k={bucket?.id} />}</td>
-                      <td>{bucket?.count}</td>
-                      <td>{bucket?.percentage}%</td>
-                    </tr>)}
-                  </tbody>
-                </table>
             </div>
             {showLegend && legendPosition === 'bottom' && (
                 <BlockLegends
@@ -104,9 +85,42 @@ const Block = ({
             )}
             {showNote && <BlockNote block={block} />}
             {blockFooter}
+            <button>Table</button> <button>Graph</button>
+            <p>{data?.year}. {data?.completion?.percentage}% answered ({data?.completion?.count})</p>
+            <DataTable>
+              <thead>
+                <tr>
+                  <th>Label</th>
+                  <th>Count</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data?.buckets?.sort((a, b) => b?.percentage - a?.percentage).map((bucket) => bucket && <tr>
+                  <td>{bucket.id && <T k={bucket?.id} />}</td>
+                  <td>{bucket?.count}</td>
+                  <td>{bucket?.percentage}%</td>
+                </tr>)}
+              </tbody>
+            </DataTable>
         </Container>
     )
 }
+
+const DataTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+  }
+
+  td, th {
+    padding: 0.75rem 0.45rem;
+    border: 1px solid white;
+    margin: 0;
+  }
+`;
 
 Block.propTypes = {
     block: PropTypes.shape({
