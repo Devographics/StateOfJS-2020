@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonGroup from 'core/components/ButtonGroup'
 import Button from 'core/components/Button'
+import T from 'core/i18n/T'
 
 const BlockViewSelector = ({ view, setView }) => {
   return (
@@ -10,14 +11,14 @@ const BlockViewSelector = ({ view, setView }) => {
         size="small"
         className={`Button--${view === 'viz' ? 'selected' : 'unselected'}`} 
         onClick={() => setView('viz')}>
-        Viz
+          <T k="views.viz" />
       </Button>
 
       <Button 
         size="small"
         className={`Button--${view === 'data' ? 'selected' : 'unselected'}`} 
         onClick={() => setView('data')}>
-        Data
+          <T k="views.table" />
       </Button>
     </ButtonGroup>
   );

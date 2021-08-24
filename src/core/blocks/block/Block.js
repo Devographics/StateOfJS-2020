@@ -99,7 +99,7 @@ const Block = ({
                 <UnitSelector>
                   <BlockUnitsSelector units={units} onChange={setUnits} />
                 </UnitSelector>
-              </> : <BlockData data={data} />}
+              </> : <BlockData data={data} id={id} />}
             {blockFooter}
         </Container>
     )
