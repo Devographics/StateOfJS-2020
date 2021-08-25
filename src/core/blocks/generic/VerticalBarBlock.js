@@ -6,6 +6,7 @@ import ChartContainer from 'core/charts/ChartContainer'
 import VerticalBarChart from 'core/charts/generic/VerticalBarChart'
 import { usePageContext } from 'core/helpers/pageContext'
 import { useBucketKeys } from 'core/helpers/useBucketKeys'
+import BlockData from '../block/BlockData'
 
 const VerticalBarBlock = ({ block, data }) => {
     if (!data) {
@@ -49,6 +50,10 @@ const VerticalBarBlock = ({ block, data }) => {
         <Block
             view={view}
             setView={setView}
+            labelledData={sortedBuckets.map((bucket) => {
+              bucket.label = bucketKeys.find(key => key.id === bucket.id).shortLabel
+              return bucket;
+            })}
             units={units}
             setUnits={setUnits}
             completion={completion}
@@ -81,6 +86,7 @@ VerticalBarBlock.propTypes = {
         showDescription: PropTypes.bool,
         mode: PropTypes.oneOf(['absolute', 'relative']),
         units: PropTypes.oneOf(['percentage', 'count']),
+        view: PropTypes.oneOf(['data', 'viz']),
         colorVariant: PropTypes.oneOf(['primary', 'secondary']),
     }).isRequired,
     data: PropTypes.shape({

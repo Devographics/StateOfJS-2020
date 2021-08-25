@@ -24,7 +24,7 @@ const Container = styled.div`
 `
 
 const UnitSelector = styled.div`
-    text-align: center;
+    text-align: right;
     margin-top: 2rem;
 `;
 
@@ -42,6 +42,7 @@ const Block = ({
     blockFooter = null,
     view,
     setView,
+    labelledData,
 }) => {
     const {
         id,
@@ -72,8 +73,12 @@ const Block = ({
                 />
             )}
             {isShareable && <ShareBlockDebug block={block} />}
-            {view !== 'data' 
-              ? <>
+            {view === 'data' 
+              ? <BlockData data={data} id={id} labelledData={labelledData} /> 
+              : <>
+                <UnitSelector>
+                  <BlockUnitsSelector units={units} onChange={setUnits} />
+                </UnitSelector>
                 {showLegend && legendPosition === 'top' && (
                     <BlockLegends
                         block={block}
@@ -96,10 +101,8 @@ const Block = ({
                     />
                 )}
                 {showNote && <BlockNote block={block} />}
-                <UnitSelector>
-                  <BlockUnitsSelector units={units} onChange={setUnits} />
-                </UnitSelector>
-              </> : <BlockData data={data} id={id} />}
+              </>
+            }
             {blockFooter}
         </Container>
     )
@@ -121,3 +124,19 @@ Block.defaultProps = {
 }
 
 export default memo(Block)
+
+/* Note to self: use this for deciding between units or switcher */
+// const BlockTitleSwitcher = ({ switcher, view, setView }) => (
+//   <>
+//       {switcher ? (
+//           <BlockChartControls className="BlockChartControls">{switcher}</BlockChartControls>
+//       ) : (
+//           view &&
+//           setView && (
+//               <BlockChartControls className="BlockChartControls">
+//                   <BlockViewSelector view={view} setView={(clickedView)=>{setView(clickedView)}} />
+//               </BlockChartControls>
+//           )
+//       )}
+//   </>
+// )

@@ -27,7 +27,7 @@ const Table = ({data, id}) => {
       <tbody>
         {data?.buckets?.sort((a, b) => b?.percentage - a?.percentage).map((bucket, index) => bucket && <tr key={bucket?.id}>
           {/* <td>{bucket.id && getBucketLabel(bucket?.id)}</td> */}
-          <td>{bucket?.id}</td>
+          <td>{bucket?.label || bucket?.id}</td>
           <td>{bucket?.percentage}%</td>
           <td>{bucket?.count}</td>
         </tr>)}
