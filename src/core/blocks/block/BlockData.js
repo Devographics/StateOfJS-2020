@@ -5,7 +5,7 @@ import Table from '../../charts/table/Table';
 const BlockData = ({ data, id, labelledData }) => {
   return (
     <>
-      <Table data={labelledData} id={id} />
+      <Table data={labelledData || data} id={id} />
     </>
   );
 }

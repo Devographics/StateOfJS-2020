@@ -5,6 +5,7 @@ import { keys } from 'core/bucket_keys'
 import Block from 'core/blocks/block/Block'
 import GaugeBarChart from 'core/charts/generic/GaugeBarChart'
 import ChartContainer from 'core/charts/ChartContainer'
+import { useI18n } from 'core/i18n/i18nContext'
 
 const GenderBlock = ({ block, data }) => {
     const { units: defaultUnits = 'percentage' } = block
@@ -21,8 +22,21 @@ const GenderBlock = ({ block, data }) => {
         [theme]
     )
 
+    const { translate } = useI18n()
+
     return (
-        <Block view={view} setView={setView} units={units} setUnits={setUnits} data={data.buckets} block={block}>
+        <Block 
+          view={view}
+          setView={setView}
+          units={units}
+          setUnits={setUnits}
+          data={data.buckets}
+          block={block}
+          labelledData={data.buckets.map((bucket) => {
+            bucket.label = translate(keys.gender.keys.find((key) => key.id === bucket.id).label);
+            return bucket;
+          })}
+        >
             <ChartContainer height={200} fit={true}>
                 <GaugeBarChart
                     units={units}
