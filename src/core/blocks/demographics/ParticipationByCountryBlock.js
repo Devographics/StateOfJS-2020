@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Block from 'core/blocks/block/Block'
 import ChartContainer from 'core/charts/ChartContainer'
 import ParticipationByCountryChart from 'core/charts/demographics/ParticipationByCountryChart'
+import countries from 'data/geo/world_countries'
 
 const ParticipationByCountryBlock = ({
     block,
@@ -17,8 +18,13 @@ const ParticipationByCountryBlock = ({
 
     const { height = 500 } = block
 
+    const labelledData = data?.buckets?.map((row) => {
+      row.label = countries.features.find((country) => country.id === row.id)?.properties.name;
+      return row;
+    });
+
     return (
-        <Block view={view} setView={setView} units={units} setUnits={setUnits} data={data} block={block}>
+        <Block labelledData={labelledData} view={view} setView={setView} units={units} setUnits={setUnits} data={data} block={block}>
             <ChartContainer height={600}>
                 <div
                     style={{ height: '100%' }}

@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components'
 
 const Table = ({data, id}) => {
   const theme = useTheme();
-
+  
   return (
     <DataTable>
       <thead>
