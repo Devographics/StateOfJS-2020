@@ -31,9 +31,23 @@ const FeatureExperienceBlock = ({ block, data, units: defaultUnits = 'percentage
 
     const isLastYear = (year) =>
         allYears.findIndex((y) => y.year === year.year) === allYears.length - 1
+  
+    const table = allYears.map((year) => {
+      year.label = year.year;
+      year.buckets.forEach(bucket => year[bucket.id] = `${bucket.percentage}% (${bucket.count})`);
+      return year;
+    });
+
+    let headings = [{id: 'label', label: 'Year', value: 'year'}];
+    headings = headings.concat(bucketKeys.map((key) => {
+      key.value = key.id;
+      return key;
+    }));
 
     return (
         <Block
+            labelledData={table}
+            headings={headings}
             view={view}
             setView={setView}
             title={name}

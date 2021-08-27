@@ -45,7 +45,7 @@ const KnowledgeScoreBlock = ({ block, data }) => {
     })
 
     return (
-        <Block view={view} setView={setView} units={units} setUnits={setUnits} completion={completion} data={data} block={block}>
+        <Block labelledData={groupedBuckets} view={view} setView={setView} units={units} setUnits={setUnits} completion={completion} data={data} block={block}>
             <ChartContainer fit={true}>
                 <VerticalBarChart
                     bucketKeys={bucketKeys}

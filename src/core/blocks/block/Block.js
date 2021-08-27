@@ -43,6 +43,7 @@ const Block = ({
     view,
     setView,
     labelledData,
+    headings
 }) => {
     const {
         id,
@@ -74,7 +75,7 @@ const Block = ({
             )}
             {isShareable && <ShareBlockDebug block={block} />}
             {view === 'data' 
-              ? <BlockData data={data} id={id} labelledData={labelledData} /> 
+              ? <BlockData data={data} id={id} labelledData={labelledData} headings={headings} /> 
               : <>
                 <UnitSelector>
                   <BlockUnitsSelector units={units} onChange={setUnits} />
