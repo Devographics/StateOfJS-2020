@@ -7,6 +7,7 @@ import VerticalBarChart from 'core/charts/generic/VerticalBarChart'
 import { usePageContext } from 'core/helpers/pageContext'
 import range from 'lodash/range'
 import sumBy from 'lodash/sumBy'
+import T from 'core/i18n/T'
 
 const groupBy = 10
 
@@ -44,8 +45,22 @@ const KnowledgeScoreBlock = ({ block, data }) => {
         }
     })
 
+    const tables = [{
+      headings: [{id: 'label', label: <T k='table.label' />}, {id: 'percentage', label: <T k='table.percentage' />}, {id: 'count', label: <T k='table.count' />}],
+      rows: groupedBuckets.map((bucket) => ([{
+        id: 'label',
+        label: bucket.id,
+      }, {
+        id: 'percentage',
+        label: `${bucket.percentage}%`,
+      }, {
+        id: 'count',
+        label: bucket.count,
+      }]))
+    }];
+    
     return (
-        <Block labelledData={groupedBuckets} view={view} setView={setView} units={units} setUnits={setUnits} completion={completion} data={data} block={block}>
+        <Block tables={tables} view={view} setView={setView} units={units} setUnits={setUnits} completion={completion} data={data} block={block}>
             <ChartContainer fit={true}>
                 <VerticalBarChart
                     bucketKeys={bucketKeys}

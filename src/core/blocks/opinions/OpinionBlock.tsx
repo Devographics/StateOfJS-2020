@@ -52,7 +52,7 @@ export const OpinionBlock = ({
             })),
         [data, bucketKeys]
     )
-
+    
     return (
         <Block
             view={view}

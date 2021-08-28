@@ -4,6 +4,7 @@ import Block from 'core/blocks/block/Block'
 import ChartContainer from 'core/charts/ChartContainer'
 import HorizontalBarChart from 'core/charts/generic/HorizontalBarChart'
 import { useI18n } from 'core/i18n/i18nContext'
+import T from 'core/i18n/T'
 
 const HorizontalBarBlock = ({ block, data }) => {
     const {
@@ -29,10 +30,19 @@ const HorizontalBarBlock = ({ block, data }) => {
           units={units}
           setUnits={setUnits}
           data={data}
-          labelledData={buckets.map((bucket) => {
-            bucket.label = bucket.entity ? bucket.entity.name : translate(`options.${i18nNamespace || id}.${bucket.id}`);
-            return bucket;
-          })}
+          tables={[{
+            headings: [{id: 'label', label: <T k='table.label' />}, {id: 'percentage', label: <T k='table.percentage' />}, {id: 'count', label: <T k='table.count' />}],
+            rows: data.buckets.map((bucket) => ([{
+              id: 'label',
+              label: bucket.entity ? bucket.entity.name : translate(`options.${i18nNamespace || id}.${bucket.id}`),
+            }, {
+              id: 'percentage',
+              label: `${bucket.percentage}%`,
+            }, {
+              id: 'count',
+              label: bucket.count,
+            }]))
+          }]}
           block={block}
         >
             <ChartContainer fit={true}>

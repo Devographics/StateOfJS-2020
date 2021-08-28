@@ -145,6 +145,9 @@ const BlockTitle = ({
                     </BlockTitleActionsWrapper>
                 </LeftPart>
                 <BlockTitleSwitcherWrapper>
+                    {view && <BlockChartControls className="BlockChartControls">
+                        <BlockViewSelector view={view} setView={(clickedView)=>{setView(clickedView)}} />
+                    </BlockChartControls>}
                     <BlockTitleSwitcher {...properties} />
                     {closeComponent}
                 </BlockTitleSwitcherWrapper>
@@ -190,15 +193,15 @@ const BlockTitleActions = ({
     </>
 )
 
-const BlockTitleSwitcher = ({ switcher, view, setView }) => (
+const BlockTitleSwitcher = ({ switcher, units, setUnits }) => (
     <>
         {switcher ? (
             <BlockChartControls className="BlockChartControls">{switcher}</BlockChartControls>
         ) : (
-            view &&
-            setView && (
+            units &&
+            setUnits && (
                 <BlockChartControls className="BlockChartControls">
-                    <BlockViewSelector view={view} setView={(clickedView)=>{setView(clickedView)}} />
+                    <BlockUnitsSelector units={units} onChange={setUnits} />
                 </BlockChartControls>
             )
         )}

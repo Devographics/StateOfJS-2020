@@ -21,36 +21,44 @@ const defaultHeadings = [
   },
 ];
 
-const Table = ({data, id, headings = defaultHeadings, subheadings}) => {
+const Table = ({data, id, headings = defaultHeadings, tables}) => {
   const theme = useTheme();
   
   return (
-    <DataTable>
-      <thead>
-        <tr>
-          {headings.map((heading) => <th span='col' key={heading.id}>{heading.label}</th>)}
-        </tr>
-        { subheadings 
-          && <tr>
-            <th></th>
-            {subheadings.map((heading) => <th key={heading.id}>{heading.label}</th>)}
-          </tr>
-        }
-      </thead>
-      <tbody>
-        {data?.sort((a, b) => b?.percentage - a?.percentage).map((bucket, index) => bucket && <tr key={bucket?.id || index}>
-          {headings.map((heading, index) => {
-            return index > 0 ? <td>{bucket[heading.value]}</td> : <th span='row'>{bucket?.label || bucket?.id}</th>
-          })}
-        </tr>)}
-      </tbody>
-    </DataTable>
+    <>
+      {
+        tables.map((table) => {
+          return <>
+          {table.title && <Title>{table.title}</Title>}
+          <DataTable>
+            <thead>
+              <tr>
+                {table.headings.map((heading) => <th scope='col' key={heading.id} id={heading.id}>{heading.label}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {table.rows.map((row) => {
+                return <tr key={row.id}>
+                  {table.headings.map((cell, index) => {
+                    return index > 0 
+                      ? <td key={cell.id}>{row.find(r => r.id === cell.id)?.label}</td> 
+                      : <th key={cell.id} scope='row'>{row.find(r => r.id === cell.id).label}</th>
+                  })}
+                </tr>
+              })}
+            </tbody>
+          </DataTable>
+          </>
+        })
+      }
+    </>
   )
 };
 
 const DataTable = styled.table`
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 2rem;
 
   th {
     text-align: left;
@@ -61,6 +69,10 @@ const DataTable = styled.table`
     border: 1px solid ${({ theme }) => theme.colors.border};
     margin: 0;
   }
+`;
+
+const Title = styled.h4`
+  margin-bottom: 0.25rem;
 `;
 
 export default Table;

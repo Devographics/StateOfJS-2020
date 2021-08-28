@@ -42,8 +42,8 @@ const Block = ({
     blockFooter = null,
     view,
     setView,
-    labelledData,
-    headings
+    headings,
+    tables,
 }) => {
     const {
         id,
@@ -55,7 +55,7 @@ const Block = ({
     } = block
 
     const BlockTitle = overrides.BlockTitle || BlockTitleOriginal
-
+    
     return (
         <Container
             id={id}
@@ -75,7 +75,7 @@ const Block = ({
             )}
             {isShareable && <ShareBlockDebug block={block} />}
             {view === 'data' 
-              ? <BlockData data={data} id={id} labelledData={labelledData} headings={headings} /> 
+              ? <BlockData data={data} id={id} headings={headings} tables={tables} /> 
               : <>
                 <UnitSelector>
                   <BlockUnitsSelector units={units} onChange={setUnits} />
@@ -125,19 +125,3 @@ Block.defaultProps = {
 }
 
 export default memo(Block)
-
-/* Note to self: use this for deciding between units or switcher */
-// const BlockTitleSwitcher = ({ switcher, view, setView }) => (
-//   <>
-//       {switcher ? (
-//           <BlockChartControls className="BlockChartControls">{switcher}</BlockChartControls>
-//       ) : (
-//           view &&
-//           setView && (
-//               <BlockChartControls className="BlockChartControls">
-//                   <BlockViewSelector view={view} setView={(clickedView)=>{setView(clickedView)}} />
-//               </BlockChartControls>
-//           )
-//       )}
-//   </>
-// )

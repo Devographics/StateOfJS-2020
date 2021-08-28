@@ -14,6 +14,7 @@ import { Entity } from 'core/types'
 import T from 'core/i18n/T'
 
 type MetricId = 'satisfaction' | 'interest' | 'usage' | 'awareness'
+type ViewId = 'viz' | 'data'
 
 const ALL_METRICS: MetricId[] = ['satisfaction', 'interest', 'usage', 'awareness']
 
@@ -89,11 +90,50 @@ export const ToolsExperienceRankingBlock = ({
         [data, controlledMetric]
     )
 
+    const [view, setView] = useState<ViewId>('viz');
+
+    const sections = [
+      {id: 'satisfaction', label: 'satisfaction'},
+      {id: 'interest', label: 'interest'},
+      {id: 'usage', label: 'usage'},
+      {id: 'awareness', label: 'awareness'},
+    ]
+
+    const getRows = (data, section) => {
+      const rows = [];
+      data.forEach((row) => {
+        const newRow = [{ id: 'label', label: row.entity.name }];
+        row[section].forEach((cell) => {
+          newRow.push({
+            id: `y_${cell.year}`,
+            label: cell.percentage ? `${cell.percentage}% (#${cell.rank})` : '-'
+          })
+        });
+        rows.push(newRow);
+      });
+      return rows;
+    };
+
+    let headings = [{id: 'label', label: 'label'}];
+    headings = headings.concat(data[0].awareness.map(row => ({id: `y_${row.year}`, label: row.year})));
+    const tables = [];
+    sections.forEach((section) => {
+      tables.push({
+        id: section.id,
+        title: section.label,
+        headings: headings,
+        rows: getRows(data, section.id),
+      })
+    });
+    
     return (
         <Block
+            view={view}
+            setView={setView}
             block={block}
             titleProps={{ switcher: <Switcher setMetric={setMetric} metric={controlledMetric} /> }}
             data={data}
+            tables={tables}
         >
             <ChartContainer height={data.length * 50 + 80}>
                 <RankingChart data={chartData} />

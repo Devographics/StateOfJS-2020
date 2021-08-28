@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // @ts-ignore
 import Block from 'core/blocks/block/Block'
 import { BlockContext } from 'core/blocks/types'
@@ -10,8 +10,18 @@ interface HappinessHistoryBlockProps {
     data: HappinessYearMean[]
 }
 
-export const HappinessHistoryBlock = ({ block, data }: HappinessHistoryBlockProps) => (
-    <Block data={data} block={block}>
+export const HappinessHistoryBlock = ({ block, data }: HappinessHistoryBlockProps) => {
+  const [view, setView] = useState('viz');
+
+  const headings = [{id: 'year', label: 'year'}, {id: 'mean', label: 'mean'}];
+  const rows = [];
+  data.forEach((row) => {
+    rows.push([{id: 'year', label: row.year}, {id: 'mean', label: `${row.mean}/5`}]);
+  });
+
+  const tables = [{headings: headings, rows: rows}];
+
+  return  <Block data={data} block={block} view={view} setView={setView} tables={tables}>
         <HappinessHistoryChart data={data} />
     </Block>
-)
+}

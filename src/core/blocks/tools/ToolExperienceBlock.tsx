@@ -76,6 +76,30 @@ export const ToolExperienceBlock = ({
 
     const chartHeight = (allYears.length - 1) * (BAR_THICKNESS + BAR_SPACING) + BAR_THICKNESS * 2
 
+
+    let headings = [{id: 'label', label: 'Year', value: 'year'}];
+    headings = headings.concat(bucketKeys.map((key) => {
+      key.value = key.id;
+      return key;
+    }));
+
+    const generateRows = (data) => {
+      const rows = [];
+      data.forEach((row) => {
+        const newRow = [];
+        newRow.push({id: 'label', label: row.year});
+        row.buckets.forEach((bucket) => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
+        rows.push(newRow);
+      });
+
+      return rows;
+    }
+
+    const tables = [{
+      headings: headings,
+      rows: generateRows(allYears),
+    }];
+    
     return (
         <Block
             units={units}
@@ -85,6 +109,7 @@ export const ToolExperienceBlock = ({
             titleProps={{ closeComponent }}
             view={view}
             setView={setView}
+            tables={tables}
         >
             <ChartContainer height={chartHeight} fit>
                 <ExperienceByYearBarChart

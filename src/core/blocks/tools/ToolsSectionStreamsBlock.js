@@ -18,8 +18,33 @@ const ToolsSectionStreamsBlock = ({ block, data, triggerId, units: defaultUnits 
 
     const controlledCurrent = triggerId || current
 
+    let headings = [{id: 'label', label: 'Year'}];
+    headings = headings.concat(data[0].experience.all_years[0].buckets.map((bucket) => ({
+      id: bucket.id,
+      label: bucket.id, // Needs to be translated
+    })));
+
+    const generateRows = (data) => {
+      const rows = [];
+      data.forEach(row => {
+        const newRow = [];
+        newRow.push({id: 'label', label: row.year});
+        row.buckets.forEach(bucket => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
+        rows.push(newRow);
+      });
+      return rows;
+    }
+
+    const tables = data.map((table) => ({
+      id: table.id,
+      title: table.entity.name,
+      headings: headings,
+      rows: generateRows(table.experience.all_years),
+    }));
+
     return (
         <Block
+            tables={tables}
             view={view}
             setView={setView}
             units={units}
@@ -59,7 +84,7 @@ const ToolsSectionStreamsBlock = ({ block, data, triggerId, units: defaultUnits 
 const Stream = ({ toolData, current, units }) => {
     const chartData = toolData.experience.all_years
     const bucketKeys = useBucketKeys('tools')
-
+    
     const colors = useMemo(() => bucketKeys.map((key) => key.color), [bucketKeys])
 
     return (
