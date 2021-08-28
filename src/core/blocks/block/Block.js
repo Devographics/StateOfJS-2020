@@ -7,7 +7,6 @@ import BlockNote from 'core/blocks/block/BlockNote'
 import ShareBlockDebug from 'core/share/ShareBlockDebug'
 import BlockLegends from 'core/blocks/block/BlockLegends'
 import BlockData from './BlockData'
-import BlockUnitsSelector from 'core/blocks/block/BlockUnitsSelector'
 
 const Container = styled.div`
     @media ${mq.small} {
@@ -22,12 +21,6 @@ const Container = styled.div`
         margin-bottom: 0;
     }
 `
-
-const UnitSelector = styled.div`
-    text-align: right;
-    margin-top: 2rem;
-`;
-
 const Block = ({
     isShareable,
     className,
@@ -77,9 +70,6 @@ const Block = ({
             {view === 'data' 
               ? <BlockData data={data} id={id} headings={headings} tables={tables} /> 
               : <>
-                <UnitSelector>
-                  <BlockUnitsSelector units={units} onChange={setUnits} />
-                </UnitSelector>
                 {showLegend && legendPosition === 'top' && (
                     <BlockLegends
                         block={block}
