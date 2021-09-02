@@ -4,11 +4,12 @@ import styled from 'styled-components'
 import { mq, spacing, fontSize, color } from 'core/theme'
 import Button from 'core/components/Button'
 import Modal from 'react-modal'
-
+import { useI18n } from 'core/i18n/i18nContext'
 
 const ModalTrigger = ({ label, trigger, children }) => {
     const theme = useTheme()
     const [modalIsOpen, setIsOpen] = useState(false)
+    const { translate } = useI18n()
 
     const openModal = (e) => {
         e.preventDefault()
@@ -37,7 +38,10 @@ const ModalTrigger = ({ label, trigger, children }) => {
         },
     }
 
-    const ModalClose = ({ closeModal }) => <Close onClick={closeModal}>x</Close>
+    const ModalClose = ({ closeModal }) => <Close onClick={closeModal}>
+      <span aria-hidden="true">x</span>
+      <span className="sr-only">{translate('share.close')}</span>
+    </Close>
 
     const Close = styled.button`
         display: block;
