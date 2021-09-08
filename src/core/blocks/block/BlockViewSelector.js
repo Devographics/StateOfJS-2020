@@ -22,7 +22,9 @@ const BlockViewSelector = ({ view, setView }) => {
       <Button 
         size="small"
         className={`Button--${view === 'viz' ? 'selected' : 'unselected'}`} 
-        onClick={() => setView('viz')}>
+        onClick={() => setView('viz')}
+        aria-pressed={view === 'viz'}
+      >
           <GoGraph />
           <VisuallyHidden>
             <T k="views.viz" />
@@ -32,7 +34,9 @@ const BlockViewSelector = ({ view, setView }) => {
       <Button 
         size="small"
         className={`Button--${view === 'data' ? 'selected' : 'unselected'}`} 
-        onClick={() => setView('data')}>
+        onClick={() => setView('data')}
+        aria-pressed={view === 'data'}
+      >
           <BsTable />
           <VisuallyHidden>
             <T k="views.table" />
