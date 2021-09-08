@@ -78,10 +78,11 @@ export const ToolsExperienceMarimekkoBlock = ({
     const controlledCurrent = triggerId
 
     const [view, setView] = useState('viz')
+    const { translate } = useI18n()
 
-    const headings = [{id: 'label', label: 'technology'}];
+    const headings = [{id: 'label', label: translate('tools.technology')}];
     data[0].experience.year.buckets.forEach((bucket) => {
-      headings.push({id: bucket.id, label: bucket.id});
+      headings.push({id: bucket.id, label: translate(`options.tools.${bucket.id}.short`)});
     })
     
     const getRows = (data) => {

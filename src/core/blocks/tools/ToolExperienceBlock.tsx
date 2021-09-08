@@ -11,6 +11,8 @@ import { useBucketKeys } from 'core/helpers/useBucketKeys'
 // @ts-ignore
 import { usePageContext } from 'core/helpers/pageContext'
 import { ExperienceByYearBarChart } from 'core/charts/generic/ExperienceByYearBarChart'
+// @ts-ignore
+import { useI18n } from 'core/i18n/i18nContext'
 
 const BAR_THICKNESS = 28
 const BAR_SPACING = 16
@@ -30,6 +32,7 @@ export const ToolExperienceBlock = ({
 }: ToolExperienceBlockProps) => {
     const context = usePageContext()
     const { locale } = context
+    const { translate } = useI18n()
 
     const [units, setUnits] = useState(defaultUnits)
     const [view, setView] = useState('viz')
@@ -77,11 +80,8 @@ export const ToolExperienceBlock = ({
     const chartHeight = (allYears.length - 1) * (BAR_THICKNESS + BAR_SPACING) + BAR_THICKNESS * 2
 
 
-    let headings = [{id: 'label', label: 'Year', value: 'year'}];
-    headings = headings.concat(bucketKeys.map((key) => {
-      key.value = key.id;
-      return key;
-    }));
+    let headings = [{id: 'label', label: translate('table.year')}];
+    headings = headings.concat(bucketKeys);
 
     const generateRows = (data) => {
       const rows = [];

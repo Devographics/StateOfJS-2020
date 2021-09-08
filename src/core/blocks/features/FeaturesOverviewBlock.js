@@ -102,7 +102,12 @@ const FeaturesOverviewBlock = ({ block, data, triggerId }) => {
       tables.push({
         id: feature.id,
         title: feature.name,
-        headings: [{id:'tech', label: 'tech'}, {id:'awareness', label: 'awareness'}, {id:'usage', label: 'usage'}, {id:'ratio', label: 'ratio'}],
+        headings: [
+          {id:'tech', label: translate('tools.technology')}, 
+          {id:'awareness', label: translate('options.experience_ranking.awareness')}, 
+          {id:'usage', label: translate('options.experience_ranking.usage')}, 
+          {id:'ratio', label: translate('options.features_simplified.usage_ratio')}
+        ],
         rows: generateRows(feature.children),
       })
     });

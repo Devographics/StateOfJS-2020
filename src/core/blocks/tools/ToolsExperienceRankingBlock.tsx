@@ -12,6 +12,8 @@ import Button from 'core/components/Button'
 import { Entity } from 'core/types'
 // @ts-ignore
 import T from 'core/i18n/T'
+// @ts-ignore
+import { useI18n } from 'core/i18n/i18nContext'
 
 type MetricId = 'satisfaction' | 'interest' | 'usage' | 'awareness'
 type ViewId = 'viz' | 'data'
@@ -69,6 +71,7 @@ export const ToolsExperienceRankingBlock = ({
     triggerId,
 }: ToolsExperienceRankingBlockProps) => {
     const [metric, setMetric] = useState<MetricId>('satisfaction')
+    const { translate } = useI18n()
 
     const controlledMetric = triggerId || metric
 
@@ -93,10 +96,10 @@ export const ToolsExperienceRankingBlock = ({
     const [view, setView] = useState<ViewId>('viz');
 
     const sections = [
-      {id: 'satisfaction', label: 'satisfaction'},
-      {id: 'interest', label: 'interest'},
-      {id: 'usage', label: 'usage'},
-      {id: 'awareness', label: 'awareness'},
+      {id: 'satisfaction', label: translate('options.experience_ranking.satisfaction')},
+      {id: 'interest', label: translate('options.experience_ranking.interest')},
+      {id: 'usage', label: translate('options.experience_ranking.usage')},
+      {id: 'awareness', label: translate('options.experience_ranking.awareness')},
     ]
 
     const getRows = (data, section) => {
@@ -114,7 +117,7 @@ export const ToolsExperienceRankingBlock = ({
       return rows;
     };
 
-    let headings = [{id: 'label', label: 'label'}];
+    let headings = [{id: 'label', label: translate('tools.technology')}];
     headings = headings.concat(data[0].awareness.map(row => ({id: `y_${row.year}`, label: row.year})));
     const tables = [];
     sections.forEach((section) => {

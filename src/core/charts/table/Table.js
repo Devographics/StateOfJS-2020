@@ -3,25 +3,7 @@ import T from 'core/i18n/T'
 import React from 'react'
 import { useTheme } from 'styled-components'
 
-const defaultHeadings = [
-  {
-    id: 'label',
-    label: <T k='table.label' />,
-    value: 'label',
-  },
-  {
-    id: 'percentage',
-    label: <T k='table.percentage' />,
-    value: 'percentage',
-  },
-  {
-    id: 'count',
-    label: <T k='table.count' />,
-    value: 'count',
-  },
-];
-
-const Table = ({data, id, headings = defaultHeadings, tables}) => {
+const Table = ({tables}) => {
   const theme = useTheme();
   
   return (
