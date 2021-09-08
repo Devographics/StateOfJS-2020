@@ -41,6 +41,7 @@ export const SectionItem = memo(
 
         return (
             <SectionContainer>
+                <SectionTitle>{translate(`sections.${sectionId}.title`)}</SectionTitle>
                 <Grid>
                     {range(1, maxNumberOfTools + 1).map((i) => {
                         const bucket = data.find((b) => b.cardinality === i)
@@ -57,6 +58,7 @@ export const SectionItem = memo(
                                             width: `${bucket.percentage}%`,
                                         }}
                                     />
+                                    {isMax && <span className="sr-only">{translate('blocks.cardinality.max')}</span>}
                                 </Bar>
                                 <Metric isMax={isMax}>{getValue(bucket)}</Metric>
                             </Row>
@@ -71,7 +73,6 @@ export const SectionItem = memo(
                         )
                     })}
                 </Grid>
-                <SectionTitle>{translate(`sections.${sectionId}.title`)}</SectionTitle>
             </SectionContainer>
         )
     }
@@ -85,7 +86,7 @@ const CellsWrapper = () => (
     </Cells>
 )
 
-const SectionTitle = styled.div`
+const SectionTitle = styled.h4`
     width: 100%;
     text-align: center;
     font-size: ${fontSize('small')};
@@ -184,7 +185,7 @@ const Metric = styled.span<{
 
 const SectionContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: space-between;
 
     ${Bar}, ${Metric} {
