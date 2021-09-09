@@ -9,6 +9,8 @@ import ChartContainer from 'core/charts/ChartContainer'
 import StreamChart from 'core/charts/generic/StreamChart'
 // @ts-ignore
 import { useBucketKeys } from 'core/helpers/useBucketKeys'
+// @ts-ignore
+import { useI18n } from 'core/i18n/i18nContext'
 
 const OPINION_BUCKET_KEYS_ID = 'opinions'
 
@@ -31,6 +33,7 @@ export const OpinionBlock = ({
         id: OpinionBucket['id']
         color: string
     }[] = useBucketKeys(OPINION_BUCKET_KEYS_ID)
+    const { translate } = useI18n()
 
     // fix potentially undefined buckets
     const normalizedData = useMemo(
@@ -52,6 +55,26 @@ export const OpinionBlock = ({
             })),
         [data, bucketKeys]
     )
+
+    let headings = [{id: 'label', label: translate('table.year'), shortLabel: translate('table.year'), color: ''}];
+    headings = headings.concat(bucketKeys);
+
+    const generateRows = (data) => {
+      const rows = [];
+      data.forEach((row) => {
+        const newRow = [];
+        newRow.push({id: 'label', label: row.year});
+        row.buckets.forEach((bucket) => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
+        rows.push(newRow);
+      });
+
+      return rows;
+    }
+
+    const tables = [{
+      headings: headings,
+      rows: generateRows(normalizedData),
+    }];
     
     return (
         <Block
@@ -73,6 +96,7 @@ export const OpinionBlock = ({
                     setCurrent(null)
                 },
             }}
+            tables={tables}
         >
             <ChartContainer height={300} fit={true}>
                 <StreamChart
