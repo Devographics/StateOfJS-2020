@@ -8,7 +8,7 @@ import offsets from './toolsArrowsLabelOffsets.js'
 import { useI18n } from 'core/i18n/i18nContext'
 import './ToolsArrowsChart.scss'
 import get from 'lodash/get'
-import { useTheme } from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import labelOffsets from './toolsArrowsLabelOffsets.js'
 import { getVelocity, getVelocityColor, getVelocityColorScale } from './helpers.js'
 import { Delaunay } from 'd3-delaunay'
@@ -122,6 +122,8 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                     const velocity = getVelocity(points)
                     const color = getVelocityColor(velocity, theme)
 
+                    // console.log(toolName, color, velocity, color, points);
+                    
                     return {
                         tool,
                         toolName,
@@ -130,6 +132,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                         y,
                         color,
                         points,
+                        velocity,
                     }
                 },
                 [items]
@@ -146,41 +149,6 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
             )
     )
 
-    // // label positioning on drag
-
-    // const labelBeingDragged = useRef(null)
-    // const dragStartPosition = useRef({})
-    // const offsets = useRef(labelOffsets)
-    // const [iteration, setIteration] = useState(0)
-    // const iterationRef = useRef(0)
-    // iterationRef.current = iteration
-
-    // function onDrag(e) {
-    //     if (!offsets.current) return
-    //     offsets.current[labelBeingDragged.current] = {
-    //         x: e.clientX - dragStartPosition.current.x,
-    //         y: e.clientY - dragStartPosition.current.y,
-    //     }
-    //     setIteration(iterationRef.current + 1)
-    // }
-
-    // const onDragEnd = () => {
-    //     labelBeingDragged.current = null
-    //     window.removeEventListener('pointerup', onDragEnd)
-    //     window.removeEventListener('pointermove', onDrag)
-    //     setIteration(iteration + 1)
-    //     console.log('%coffsets', 'color: #7083EC', offsets.current)
-    // }
-
-    // const onDragStartLocal = (label) => (e) => {
-    //     labelBeingDragged.current = label
-    //     dragStartPosition.current = {
-    //         x: e.clientX,
-    //         y: e.clientY,
-    //     }
-    //     window.addEventListener('pointerup', onDragEnd)
-    //     window.addEventListener('pointermove', onDrag)
-    // }
 
     const draw = () => {
         if (!canvasElement.current) return
@@ -329,7 +297,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
             />
 
             <svg className="ToolsArrowsChart__svg" height={dms.height} width={dms.width}>
-                {labels.map(({ tool, toolName, category, x, y, color, points }, i) => {
+                {labels.map(({ tool, toolName, category, x, y, color, points, velocity }, i) => {
                     return (
                         <g
                             key={i}
@@ -345,7 +313,12 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                                     : 'hovering-other'
                             }`}
                         >
-                            <text className="ToolsArrowsChart__label-background" x={x} y={y}>
+                            <text
+                              className="ToolsArrowsChart__label-background" // border around text
+                              x={x} 
+                              y={y}
+                              aria-hidden="true" // Avoid being read twice by screen readers
+                            >
                                 {toolName}
                             </text>
                             <text
@@ -353,42 +326,29 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                                 fill={color}
                                 x={x}
                                 y={y}
-                                // onMouseEnter={() => setHoveredTool({ tool, points })}
-                                // onMouseLeave={() => setHoveredTool(null)}
                             >
                                 {toolName}
                             </text>
+                            <text
+                              className="hide_visually"
+                              x={-9999999}
+                              y={-9999999}>
+                              { velocity < 0 ? 'More positive opinoions / Higher usage over time' : 'Less positive opinions / lower usage over time'}
+                              Velocity: {parseInt(velocity * 100) / 100}
+                            </text>
 
-                            {/* <g
-                className="ToolsArrowsChart__label__box"
-                transform={`translate(${
-                    x + ((offsets.current[tools[i]] || {}).x || 0)
-                }, ${y + ((offsets.current[tools[i]] || {}).y || 0)})`}
-                onMouseDown={onDragStartLocal(tools[i])}
-            >
-                <rect
-                    y="-10"
-                    width="50"
-                    height="10"
-                    fill="white"
-                    fillOpacity="0.01"
-                />
-                <text className="ToolsArrowsChart__label" fill={color}>
-                    {toolName}
-                </text>
-            </g> */}
                             {points.map(([x, y, year], i) => {
                                 const isFirstLabelToTheRight =
                                     scales.x(x) > dms.width * 0.9 ||
                                     labelsToTheRight.indexOf(tool) !== -1
 
-                                // const showLabel = i === 0 || i === points.length - 1
-                                const showLabel = true
+                                const showLabel = true //hoveredTool && hoveredTool.tool === tool
 
                                 return (
                                     <Fragment key={i}>
                                         {showLabel && (
-                                            <text
+                                            <g>
+                                              <text
                                                 className="ToolsArrowsChart__year"
                                                 x={
                                                     scales.x(x) +
@@ -400,17 +360,26 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                                                         ? 'end'
                                                         : 'start',
                                                 }}
-                                            >
-                                                {year}
-                                            </text>
+                                              >
+                                                  {year}
+                                              </text>
+                                              <text 
+                                                x={-99999999}
+                                                y={-99999999}
+                                                className="hide_visually">
+                                                {x < 0 ? 'mostly negative opinions' : 'mostly positive opinions'} ({parseInt(x * 100) / 100}%), 
+                                                {y < 0 ? 'less have used' : 'more have used'} ({parseInt(y * 100) / 100}%)
+                                              </text>
+                                            </g>
                                         )}
-                                        <circle
+                                        
+                                        {showLabel && <circle
                                             className="ToolsArrowsChart__year"
                                             cx={scales.x(x)}
                                             cy={scales.y(y)}
                                             r="4"
                                             fill="white"
-                                        />
+                                        />}
                                     </Fragment>
                                 )
                             })}
