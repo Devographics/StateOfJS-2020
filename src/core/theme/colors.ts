@@ -6,7 +6,7 @@ export default {
     greyMediumest: '#5c6069',
     greyDark: '#3F4141',
     greyDarkish: '#2a2d33',
-    greyDarker: '#222429',
+    greyDarker: '#212227',
 
     greyTeal: '#a3cacd',
     greyTealDark: '#789B9D',
