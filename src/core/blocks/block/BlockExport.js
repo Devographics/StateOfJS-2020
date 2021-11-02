@@ -124,11 +124,25 @@ const ExportContents = styled.div`
     justify-content: flex-start;
     height: 100%;
     /* align-items: flex-start; */
+
     .react-tabs {
         flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+
+        .react-tabs__tab{
+          &:not(.react-tabs__tab-panel--selected) {
+            &:hover,
+            &:focus {
+              text-decoration: underline;
+            }
+          }
+          &:focus {
+            border: 2px solid ${({theme}) => theme.colors.text};
+          }
+        }
+
     }
     .react-tabs__tab-panel--selected {
         flex: 1;
