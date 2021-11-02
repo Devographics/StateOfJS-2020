@@ -37,7 +37,7 @@ const GenderBlock = ({ block, data }) => {
             headings: [{id: 'label', label: <T k='table.label' />}, {id: 'percentage', label: <T k='table.percentage' />}, {id: 'count', label: <T k='table.count' />}],
             rows: data.buckets.map((bucket) => ([{
               id: 'label',
-              label: translate(keys.gender.keys.find((key) => key.id === bucket.id).label),
+              label: translate(keys.gender.keys.find((key) => key.id === bucket.id)?.label),
             }, {
               id: 'percentage',
               label: `${bucket.percentage}%`,

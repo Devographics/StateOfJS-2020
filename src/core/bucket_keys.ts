@@ -59,6 +59,18 @@ export type YearsOfExperienceRangeId =
     | 'range_10_20'
     | 'range_more_than_20'
 
+export type AgeRangeId =
+    | 'range_less_than_10'
+    | 'range_10_18'
+    | 'range_18_24'
+    | 'range_25_34'
+    | 'range_35_44'
+    | 'range_45_54'
+    | 'range_55_64'
+    | 'range_more_than_65'
+
+export type HigherEducationId = 'no_degree' | 'yes_related' | 'yes_unrelated'
+
 export type ProficiencyId = 'css_proficiency' | 'javascript_proficiency' | 'backend_proficiency'
 
 export type EnvironmentId = 'css_for_print' | 'css_for_email'
@@ -142,6 +154,29 @@ export const keys = {
             shortLabel: `options.years_of_experience.${id}.short`,
         })) as BucketKeyWithShortLabel<YearsOfExperienceRangeId>[],
     },
+    age: {
+        keys: [
+            'range_less_than_10',
+            'range_10_18',
+            'range_18_24',
+            'range_25_34',
+            'range_35_44',
+            'range_45_54',
+            'range_55_64',
+            'range_more_than_65',
+        ].map((id) => ({
+            id,
+            label: `options.age.${id}`,
+            shortLabel: `options.age.${id}.short`,
+        })) as BucketKeyWithShortLabel<YearsOfExperienceRangeId>[],
+    },
+    higher_education_degree: {
+        keys: ['no_degree', 'yes_related', 'yes_unrelated'].map((id) => ({
+            id,
+            label: `options.age.${id}`,
+            shortLabel: `options.age.${id}.short`,
+        })) as BucketKeyWithShortLabel<HigherEducationId>[],
+    },
     gender: {
         colorRange: 'gender',
         keys: [
@@ -165,7 +200,6 @@ export const keys = {
     },
     race_ethnicity: {
         keys: [
-            { id: 'biracial' },
             { id: 'black_african' },
             { id: 'east_asian' },
             { id: 'hispanic_latin' },
@@ -173,6 +207,7 @@ export const keys = {
             { id: 'multiracial' },
             { id: 'native_american_islander_australian' },
             { id: 'south_asian' },
+            { id: 'south_east_asian' },
             { id: 'white_european' },
         ],
     },
