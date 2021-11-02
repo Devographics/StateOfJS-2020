@@ -3,6 +3,7 @@
 .ToolsArrowsChart {
   position: relative;
   margin: auto;
+  margin-bottom: 2.5rem;
   @media (max-width: 800px) {
     padding-left: 0;
     padding-right: 0;
@@ -167,4 +168,64 @@
   &:hover {
     fill: $white;
   }
+}
+
+.hide_visually {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.legend {
+  max-width: 25rem;
+  margin-top: -6rem;
+  
+  position: absolute;
+  right: 0;
+}
+
+.legend_label {
+  fill: $text-color;
+  text-anchor: start;
+  font-size: 0.8rem;
+  line-height: 1.25rem;
+  max-width: 12rem;
+  margin-top: 0rem;
+  box-sizing: border-box;
+  margin-bottom: 0;
+
+  &.left {
+    border-left: 1px solid $text-color;
+    padding-left: 0.5rem;
+    // padding-right: 4rem;
+    padding-top: 0.25rem;
+  }
+  &.right {
+    border-right: 1px solid $text-color;
+    text-align: right;
+    padding-right: 0.5rem;
+    // padding-left: 4rem;
+    padding-bottom: 0.35rem;
+    padding-top: 0.1rem;
+  }
+}
+
+
+.legend_colors {
+  display: block;
+  width: 12rem;
+  height: 1rem;
+
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  border-left: 1px solid $text-color;
+  border-right: 1px solid $text-color;
+
+  margin-top: 0;
 }
