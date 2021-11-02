@@ -6,6 +6,7 @@ import BlockTitleOriginal from 'core/blocks/block/BlockTitle'
 import BlockNote from 'core/blocks/block/BlockNote'
 import ShareBlockDebug from 'core/share/ShareBlockDebug'
 import BlockLegends from 'core/blocks/block/BlockLegends'
+import BlockData from './BlockData'
 
 const Container = styled.div`
     @media ${mq.small} {
@@ -20,7 +21,6 @@ const Container = styled.div`
         margin-bottom: 0;
     }
 `
-
 const Block = ({
     isShareable,
     className,
@@ -33,6 +33,10 @@ const Block = ({
     legendProps,
     titleProps,
     blockFooter = null,
+    view,
+    setView,
+    headings,
+    tables,
 }) => {
     const {
         id,
@@ -44,7 +48,7 @@ const Block = ({
     } = block
 
     const BlockTitle = overrides.BlockTitle || BlockTitleOriginal
-
+    
     return (
         <Container
             id={id}
@@ -57,32 +61,39 @@ const Block = ({
                     setUnits={setUnits}
                     data={data}
                     block={block}
+                    view={view}
+                    setView={setView}
                     {...titleProps}
                 />
             )}
             {isShareable && <ShareBlockDebug block={block} />}
-            {showLegend && legendPosition === 'top' && (
-                <BlockLegends
-                    block={block}
-                    data={data}
-                    units={units}
-                    position={legendPosition}
-                    {...legendProps}
-                />
-            )}
-            <div className="Block__Contents">
-                {error ? <div className="error">{error}</div> : children}
-            </div>
-            {showLegend && legendPosition === 'bottom' && (
-                <BlockLegends
-                    block={block}
-                    data={data}
-                    units={units}
-                    position={legendPosition}
-                    {...legendProps}
-                />
-            )}
-            {showNote && <BlockNote block={block} />}
+            {view === 'data' 
+              ? <BlockData data={data} id={id} headings={headings} tables={tables} /> 
+              : <>
+                {showLegend && legendPosition === 'top' && (
+                    <BlockLegends
+                        block={block}
+                        data={data}
+                        units={units}
+                        position={legendPosition}
+                        {...legendProps}
+                    />
+                )}
+                <div className="Block__Contents">
+                    {error ? <div className="error">{error}</div> : children}
+                </div>
+                {showLegend && legendPosition === 'bottom' && (
+                    <BlockLegends
+                        block={block}
+                        data={data}
+                        units={units}
+                        position={legendPosition}
+                        {...legendProps}
+                    />
+                )}
+                {showNote && <BlockNote block={block} />}
+              </>
+            }
             {blockFooter}
         </Container>
     )

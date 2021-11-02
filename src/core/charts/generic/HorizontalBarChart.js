@@ -141,14 +141,14 @@ const HorizontalBarChart = ({
                     format: formatTick,
                     tickSize: 0,
                     tickPadding: 10,
-                    renderTick: (tick) => (
-                        <TickItem
+                    renderTick: (tick) => {
+                        return <TickItem
                             i18nNamespace={i18nNamespace}
                             shouldTranslate={translateData}
                             entity={buckets.find((b) => b.id === tick.value).entity}
                             {...tick}
                         />
-                    ),
+                    },
                 }}
                 tooltip={(barProps) => (
                     <BarTooltip

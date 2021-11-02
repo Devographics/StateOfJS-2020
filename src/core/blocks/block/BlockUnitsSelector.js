@@ -11,6 +11,7 @@ const BlockUnitsSelector = ({ units, onChange }) => {
                 size="small"
                 className={`Button--${units === 'percentage' ? 'selected' : 'unselected'}`}
                 onClick={() => onChange('percentage')}
+                aria-pressed={units === 'percentage'}
             >
                 <T k="chart_units.percentage" />
             </Button>
@@ -18,6 +19,7 @@ const BlockUnitsSelector = ({ units, onChange }) => {
                 size="small"
                 className={`Button--${units === 'count' ? 'selected' : 'unselected'}`}
                 onClick={() => onChange('count')}
+                aria-pressed={units === 'count'}
             >
                 <T k="chart_units.count" />
             </Button>

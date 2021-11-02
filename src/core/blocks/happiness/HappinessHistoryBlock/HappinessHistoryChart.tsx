@@ -77,7 +77,7 @@ export const HappinessHistoryChart = ({ data }: HappinessHistoryChartProps) => {
         }),
         [theme]
     )
-
+    
     return (
         <div style={{ height: 240 }}>
             <ResponsiveLine

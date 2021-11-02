@@ -5,10 +5,13 @@ import { keys } from 'core/bucket_keys'
 import Block from 'core/blocks/block/Block'
 import GaugeBarChart from 'core/charts/generic/GaugeBarChart'
 import ChartContainer from 'core/charts/ChartContainer'
+import { useI18n } from 'core/i18n/i18nContext'
+import T from 'core/i18n/T'
 
 const GenderBlock = ({ block, data }) => {
     const { units: defaultUnits = 'percentage' } = block
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
     const theme = useTheme()
 
     const colorMapping = useMemo(
@@ -20,8 +23,30 @@ const GenderBlock = ({ block, data }) => {
         [theme]
     )
 
+    const { translate } = useI18n()
+
     return (
-        <Block units={units} setUnits={setUnits} data={data.buckets} block={block}>
+        <Block 
+          view={view}
+          setView={setView}
+          units={units}
+          setUnits={setUnits}
+          data={data.buckets}
+          block={block}
+          tables={[{
+            headings: [{id: 'label', label: <T k='table.label' />}, {id: 'percentage', label: <T k='table.percentage' />}, {id: 'count', label: <T k='table.count' />}],
+            rows: data.buckets.map((bucket) => ([{
+              id: 'label',
+              label: translate(keys.gender.keys.find((key) => key.id === bucket.id).label),
+            }, {
+              id: 'percentage',
+              label: `${bucket.percentage}%`,
+            }, {
+              id: 'count',
+              label: bucket.count,
+            }]))
+          }]}
+        >
             <ChartContainer height={200} fit={true}>
                 <GaugeBarChart
                     units={units}

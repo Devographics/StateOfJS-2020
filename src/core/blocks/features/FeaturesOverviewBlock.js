@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import get from 'lodash/get'
 import compact from 'lodash/compact'
 import Block from 'core/blocks/block/Block'
@@ -60,6 +60,7 @@ const getChartData = (data, getName, translate) => {
 const FeaturesOverviewBlock = ({ block, data, triggerId }) => {
     const { getName } = useEntities()
     const { translate } = useI18n()
+    const [view, setView] = useState('viz')
 
     const chartData = useMemo(() => getChartData(data, getName, translate), [
         data,
@@ -75,6 +76,42 @@ const FeaturesOverviewBlock = ({ block, data, triggerId }) => {
         ? `FeaturesOverviewChart--${controlledCurrent.join('_')}`
         : ''
         
+    const tables = [];
+
+    const generateRows = (data) => {
+      const rows = [];
+      data.forEach((row) => {
+        rows.push([{
+          id: 'tech',
+          label: row.name,
+        }, {
+          id: 'awareness',
+          label: row.awareness,
+        }, {
+          id: 'usage',
+          label: row.usage,
+        }, {
+          id: 'ratio',
+          label: `${parseInt((row.usage / row.awareness) * 10000) / 100}%`,
+        }])
+      })
+      return rows;
+    };
+
+    chartData.children.forEach((feature) => {
+      tables.push({
+        id: feature.id,
+        title: feature.name,
+        headings: [
+          {id:'tech', label: translate('tools.technology')}, 
+          {id:'awareness', label: translate('options.experience_ranking.awareness')}, 
+          {id:'usage', label: translate('options.experience_ranking.usage')}, 
+          {id:'ratio', label: translate('options.features_simplified.usage_ratio')}
+        ],
+        rows: generateRows(feature.children),
+      })
+    });
+
     return (
         <Block
             block={{
@@ -85,6 +122,9 @@ const FeaturesOverviewBlock = ({ block, data, triggerId }) => {
             data={chartData}
             className="FeaturesOverviewBlock"
             showDescription={true}
+            view={view}
+            setView={setView}
+            tables={tables}
         >
             <ChartContainer vscroll={false} height={height}>
                 <FeaturesOverviewCirclePackingChart

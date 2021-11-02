@@ -9,12 +9,13 @@ import { useI18n } from 'core/i18n/i18nContext'
 import { usePageContext } from 'core/helpers/pageContext'
 import { getBlockMeta } from 'core/helpers/blockHelpers'
 import SharePermalink from 'core/share/SharePermalink'
-import BlockUnitsSelector from 'core/blocks/block/BlockUnitsSelector'
 import BlockCompletionIndicator from 'core/blocks/block/BlockCompletionIndicator'
 import { getBlockTitleKey, getBlockDescriptionKey, getBlockTitle } from 'core/helpers/blockHelpers'
 import T from 'core/i18n/T'
 import Button from 'core/components/Button'
 import Popover from 'core/components/Popover'
+import BlockViewSelector from './BlockViewSelector'
+import BlockUnitsSelector from './BlockUnitsSelector'
 
 const MoreIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" x="0" y="0" viewBox="0 0 24 24">
@@ -90,12 +91,14 @@ const BlockTitle = ({
     isShareable,
     isExportable = true,
     values,
-    units,
-    setUnits,
     data,
     block,
     switcher,
-    closeComponent
+    closeComponent,
+    view,
+    setView,
+    units,
+    setUnits,
 }) => {
     const { id, showDescription = true } = block
     const completion =
@@ -119,6 +122,8 @@ const BlockTitle = ({
         setShowOptions,
         showOptions,
         switcher,
+        view,
+        setView,
         units,
         setUnits,
     }
@@ -190,8 +195,11 @@ const BlockTitleActions = ({
     </>
 )
 
-const BlockTitleSwitcher = ({ switcher, units, setUnits }) => (
-    <>
+const BlockTitleSwitcher = ({ switcher, units, setUnits, view, setView }) => (
+    <ButtonWrapper cols={(view && units) || (view && switcher)}>
+        {view && <BlockChartControls className="BlockChartControls">
+          <BlockViewSelector view={view} setView={(clickedView)=>{setView(clickedView)}} />
+        </BlockChartControls>}
         {switcher ? (
             <BlockChartControls className="BlockChartControls">{switcher}</BlockChartControls>
         ) : (
@@ -202,8 +210,14 @@ const BlockTitleSwitcher = ({ switcher, units, setUnits }) => (
                 </BlockChartControls>
             )
         )}
-    </>
+    </ButtonWrapper>
 )
+
+const ButtonWrapper = styled.div`
+  display: grid;
+  grid-template-columns: ${(props) => props.cols ? '1fr 1fr' : '1fr'};
+  column-gap: 1rem;
+`;
 
 BlockTitle.propTypes = {
     block: PropTypes.shape({

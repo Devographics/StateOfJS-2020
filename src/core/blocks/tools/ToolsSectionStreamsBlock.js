@@ -8,17 +8,47 @@ import { mq, spacing, fontSize } from 'core/theme'
 import sortBy from 'lodash/sortBy'
 import range from 'lodash/range'
 import ToolLabel from 'core/charts/tools/ToolLabel'
+import { useI18n } from 'core/i18n/i18nContext'
 
 const ToolsSectionStreamsBlock = ({ block, data, triggerId, units: defaultUnits = 'percentage' }) => {
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
     const [current, setCurrent] = useState(null)
+    const { translate } = useI18n()
 
     const filteredData = data.filter((toolData) => toolData.experience.all_years.length > 1)
 
     const controlledCurrent = triggerId || current
 
+    let headings = [{id: 'label', label: translate('table.year')}];
+    headings = headings.concat(data[0].experience.all_years[0].buckets.map((bucket) => ({
+      id: bucket.id,
+      label: translate(`options.tools.${bucket.id}.short`),
+    })));
+
+    const generateRows = (data) => {
+      const rows = [];
+      data.forEach(row => {
+        const newRow = [];
+        newRow.push({id: 'label', label: row.year});
+        row.buckets.forEach(bucket => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
+        rows.push(newRow);
+      });
+      return rows;
+    }
+
+    const tables = data.map((table) => ({
+      id: table.id,
+      title: table.entity.name,
+      headings: headings,
+      rows: generateRows(table.experience.all_years),
+    }));
+
     return (
         <Block
+            tables={tables}
+            view={view}
+            setView={setView}
             units={units}
             setUnits={setUnits}
             block={{
@@ -56,7 +86,7 @@ const ToolsSectionStreamsBlock = ({ block, data, triggerId, units: defaultUnits 
 const Stream = ({ toolData, current, units }) => {
     const chartData = toolData.experience.all_years
     const bucketKeys = useBucketKeys('tools')
-
+    
     const colors = useMemo(() => bucketKeys.map((key) => key.color), [bucketKeys])
 
     return (

@@ -11,6 +11,8 @@ import { useBucketKeys } from 'core/helpers/useBucketKeys'
 // @ts-ignore
 import { usePageContext } from 'core/helpers/pageContext'
 import { ExperienceByYearBarChart } from 'core/charts/generic/ExperienceByYearBarChart'
+// @ts-ignore
+import { useI18n } from 'core/i18n/i18nContext'
 
 const BAR_THICKNESS = 28
 const BAR_SPACING = 16
@@ -30,8 +32,10 @@ export const ToolExperienceBlock = ({
 }: ToolExperienceBlockProps) => {
     const context = usePageContext()
     const { locale } = context
+    const { translate } = useI18n()
 
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
 
     const title = data.entity.name
     const titleLink = data.entity.homepage
@@ -75,6 +79,27 @@ export const ToolExperienceBlock = ({
 
     const chartHeight = (allYears.length - 1) * (BAR_THICKNESS + BAR_SPACING) + BAR_THICKNESS * 2
 
+
+    let headings = [{id: 'label', label: translate('table.year')}];
+    headings = headings.concat(bucketKeys);
+
+    const generateRows = (data) => {
+      const rows = [];
+      data.forEach((row) => {
+        const newRow = [];
+        newRow.push({id: 'label', label: row.year});
+        row.buckets.forEach((bucket) => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
+        rows.push(newRow);
+      });
+
+      return rows;
+    }
+
+    const tables = [{
+      headings: headings,
+      rows: generateRows(allYears),
+    }];
+    
     return (
         <Block
             units={units}
@@ -82,6 +107,9 @@ export const ToolExperienceBlock = ({
             block={{ ...block, title, titleLink, description, showDescription: !!description }}
             data={allYears}
             titleProps={{ closeComponent }}
+            view={view}
+            setView={setView}
+            tables={tables}
         >
             <ChartContainer height={chartHeight} fit>
                 <ExperienceByYearBarChart

@@ -8,6 +8,7 @@ import GaugeBarChart from 'core/charts/generic/GaugeBarChart'
 import { usePageContext } from 'core/helpers/pageContext'
 import { useBucketKeys } from 'core/helpers/useBucketKeys'
 import { spacing } from 'core/theme'
+import { useI18n } from 'core/i18n/i18nContext'
 
 // convert relative links into absolute MDN links
 const parseMDNLinks = (content) =>
@@ -15,10 +16,12 @@ const parseMDNLinks = (content) =>
 
 const FeatureExperienceBlock = ({ block, data, units: defaultUnits = 'percentage' }) => {
     const [units, setUnits] = useState(defaultUnits)
+    const [view, setView] = useState('viz')
 
     const context = usePageContext()
     const { locale } = context
     const { name, mdn } = data
+    const { translate } = useI18n()
 
     const allYears = get(data, 'experience.all_years', [])
 
@@ -30,9 +33,33 @@ const FeatureExperienceBlock = ({ block, data, units: defaultUnits = 'percentage
 
     const isLastYear = (year) =>
         allYears.findIndex((y) => y.year === year.year) === allYears.length - 1
+  
+    let headings = [{id: 'label', label: translate('table.year')}];
+    headings = headings.concat(bucketKeys);
+
+    const generateRows = (data) => {
+      const rows = [];
+      data.forEach(row => {
+        const newRow = [];
+        newRow.push({id: 'label', label: row.year});
+        row.buckets.forEach(bucket => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
+        rows.push(newRow);
+      });
+      return rows;
+    }
+
+    const tables = [{
+      headings: headings,
+      rows: generateRows(allYears),
+    }];
+
 
     return (
         <Block
+            tables={tables}
+            headings={headings}
+            view={view}
+            setView={setView}
             title={name}
             units={units}
             setUnits={setUnits}

@@ -1,5 +1,5 @@
 // @ts-ignore
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { keyBy, sortBy } from 'lodash'
 // @ts-ignore
 import { useI18n } from 'core/i18n/i18nContext'
@@ -77,6 +77,34 @@ export const ToolsExperienceMarimekkoBlock = ({
 
     const controlledCurrent = triggerId
 
+    const [view, setView] = useState('viz')
+    const { translate } = useI18n()
+
+    const headings = [{id: 'label', label: translate('tools.technology')}];
+    data[0].experience.year.buckets.forEach((bucket) => {
+      headings.push({id: bucket.id, label: translate(`options.tools.${bucket.id}.short`)});
+    })
+    
+    const getRows = (data) => {
+      const rows = [];
+      data.forEach((row) => {
+        const newRow = [{id: 'label', label: row.entity.name}];
+        row.experience.year.buckets.forEach((bucket) => {
+          newRow.push({
+            id: bucket.id,
+            label: `${bucket.percentage}% (${bucket.count})`,
+          })
+        })
+        rows.push(newRow);
+      });
+      return rows;
+    }
+
+    const tables = [{
+      headings: headings,
+      rows: getRows(data),
+    }];
+
     return (
         <Block
             block={{
@@ -84,6 +112,9 @@ export const ToolsExperienceMarimekkoBlock = ({
                 showLegend: false,
             }}
             data={data}
+            view={view}
+            setView={setView}
+            tables={tables}
         >
             <ChartContainer fit height={height}>
                 <ToolsExperienceMarimekkoChart data={normalizedData} current={controlledCurrent} />
