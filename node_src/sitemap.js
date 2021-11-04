@@ -3,9 +3,17 @@ const { findIndex, findLastIndex, omit, template } = require('lodash')
 const yaml = require('js-yaml')
 const { getAllBlocks } = require('./helpers.js')
 
-const rawPageTemplates = fs.readFileSync(`./surveys/${process.env.SURVEY}/config/page_templates.yml`, 'utf8')
-const rawBlockTemplates = fs.readFileSync(`./surveys/${process.env.SURVEY}/config/block_templates.yml`, 'utf8')
-const globalVariables = yaml.load(fs.readFileSync(`./surveys/${process.env.SURVEY}/config/variables.yml`, 'utf8'))
+const rawPageTemplates = fs.readFileSync(
+    `./surveys/${process.env.SURVEY}/config/page_templates.yml`,
+    'utf8'
+)
+const rawBlockTemplates = fs.readFileSync(
+    `./surveys/${process.env.SURVEY}/config/block_templates.yml`,
+    'utf8'
+)
+const globalVariables = yaml.load(
+    fs.readFileSync(`./surveys/${process.env.SURVEY}/config/variables.yml`, 'utf8')
+)
 
 const injectVariables = (yamlObject, variables, templateName) => {
     try {

@@ -15,10 +15,16 @@ const _ = require('lodash')
 const path = require('path')
 
 const rawSitemap = yaml.load(
-    fs.readFileSync(path.resolve(__dirname, `../surveys/${process.env.SURVEY}/config/raw_sitemap.yml`), 'utf8')
+    fs.readFileSync(
+        path.resolve(__dirname, `../surveys/${process.env.SURVEY}/config/raw_sitemap.yml`),
+        'utf8'
+    )
 )
 const config = yaml.load(
-    fs.readFileSync(path.resolve(__dirname, `../surveys/${process.env.SURVEY}/config/config.yml`), 'utf8')
+    fs.readFileSync(
+        path.resolve(__dirname, `../surveys/${process.env.SURVEY}/config/config.yml`),
+        'utf8'
+    )
 )
 
 const localesQuery = `
