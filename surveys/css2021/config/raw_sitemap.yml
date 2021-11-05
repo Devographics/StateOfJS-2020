@@ -526,7 +526,10 @@
       template: environmentTemplate
 
     - id: what_do_you_use_css_for
-      template: environmentRatingTemplate
+      template: environmentTemplate
+
+    - id: what_do_you_use_css_for_others
+      template: environmentFreeFormTemplate
 
 - id: resources
   path: /resources
@@ -563,40 +566,41 @@
     - id: people_others
       template: resourcesFreeFormTemplate
 
-# - id: opinions
-#   path: /opinions
-#   blocks:
-#     - template: pageIntroductionTemplate
+- id: opinions
+  path: /opinions
+  blocks:
+    - template: pageIntroductionTemplate
 
-#     - id: css_easy_to_learn
-#       template: opinionTemplate
+    - id: css_easy_to_learn
+      template: opinionTemplate
 
-#     - id: css_evolving_slowly
-#       template: opinionTemplate
+    - id: css_evolving_slowly
+      template: opinionTemplate
 
-#     - id: utility_classes_to_be_avoided
-#       template: opinionTemplate
+    - id: utility_classes_to_be_avoided
+      template: opinionTemplate
 
-#     - id: selector_nesting_to_be_avoided
-#       template: opinionTemplate
+    - id: enjoy_writing_css
+      template: opinionTemplate
 
-#     - id: jina
-#       template: picksTemplate
+    - id: jina
+      template: picksTemplate
 
-#     - id: css_is_programming_language
-#       template: opinionTemplate
+    - id: browser_interoperability_features
+      template: opinionsOthersTemplate
 
-#     - id: enjoy_writing_css
-#       template: opinionTemplate
+    - id: css_pain_points
+      template: opinionsOthersTemplate
 
-#     - id: state_of_the_web
-#       template: opinionHappinessTemplate
+    - id: currently_missing_from_css
+      template: opinionsOthersTemplate
 
-#     - id: state_of_css
-#       template: opinionHappinessTemplate
+    - id: state_of_the_web
+      template: opinionHappinessTemplate
 
-#     - id: currently_missing_from_css
-#       template: opinionsOthersTemplate
+    - id: state_of_css
+      template: opinionHappinessTemplate
+
 
 # - id: awards
 #   path: /awards

@@ -1156,6 +1156,44 @@ environmentTemplate:
             }
         }
 
+
+environmentFreeFormTemplate:
+    blockType: HorizontalBarBlock
+    showDescription: true
+    mode: relative
+    units: count
+    dataPath: 'surveyApi.survey.${id}.year'
+    colorVariant: secondary
+    enableExport: true
+    query: >
+        surveyApi {
+            survey(survey: ${surveyType}) {
+                ${id}: environments(id: ${id}) {
+                    id
+                    year(year: ${currentYear}) {
+                        year
+                        total
+                        completion {
+                            count
+                            percentage
+                        }
+                        buckets {
+                            id
+                            count
+                            percentage
+                            entity {
+                                homepage
+                                name
+                                github {
+                                    url
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 environmentRatingTemplate:
     blockType: VerticalBarBlock
     showDescription: true
