@@ -6,17 +6,20 @@ totalCountRounded: 9000
 currentYear: 2021
 
 allFeatures:
+    # layout:
     - grid
     - subgrid
     - flexbox
     - multi_column
     - writing_modes
-    - exclusions
     - position_sticky
     - logical_properties
     - aspect_ratio
     - content_visibility
-
+    - flexbox_gap
+    - break_rules
+    - at_container
+    # shapes_graphics:
     - shapes
     - object_fit
     - clip_path
@@ -24,31 +27,35 @@ allFeatures:
     - blend_modes
     - filter_effects
     - backdrop_filter
-
+    - color_gamut
+    - perspective
+    - intrinsic_sizing
+    - conic_gradient
+    - color_function
+    - accent_color
+    # interactions:
     - scroll_snap
     - overscroll_behavior
     - overflow_anchor
     - touch_action
     - pointer_events
-
-    - web_fonts
-    # - variables_fonts
-    - line_breaking
+    - scroll_timeline
+    # typography:
     - font_variant
     - initial_letter
     - font_variant_numeric
     - font_display
     - line_clamp
-
-    - transitions
-    - transforms
-    - animations
-    - perspective
-
+    - variable_fonts
+    # accessibility:
     - prefers_reduced_motion
     - prefers_color_scheme
-    - color_gamut
-
+    - prefers_reduced_data
+    - color_contrast
+    - color_scheme
+    - tabindex
+    - aria_attributes
+    # other_features:
     - variables
     - feature_support_queries
     - containment
@@ -56,6 +63,8 @@ allFeatures:
     - calc
     - houdini
     - comparison_functions
+    - at_property
+    - marker
 
 featuresCategories:
     layout:
@@ -64,11 +73,13 @@ featuresCategories:
         - flexbox
         - multi_column
         - writing_modes
-        - exclusions
         - position_sticky
         - logical_properties
         - aspect_ratio
         - content_visibility
+        - flexbox_gap
+        - break_rules
+        - at_container
     shapes_graphics:
         - shapes
         - object_fit
@@ -77,30 +88,34 @@ featuresCategories:
         - blend_modes
         - filter_effects
         - backdrop_filter
+        - color_gamut
+        - perspective
+        - intrinsic_sizing
+        - conic_gradient
+        - color_function
+        - accent_color
     interactions:
         - scroll_snap
         - overscroll_behavior
         - overflow_anchor
         - touch_action
         - pointer_events
+        - scroll_timeline
     typography:
-        - web_fonts
-        # - variables_fonts
-        - line_breaking
         - font_variant
         - initial_letter
         - font_variant_numeric
         - font_display
         - line_clamp
-    animations_transforms:
-        - transitions
-        - transforms
-        - animations
-        - perspective
-    media_queries:
+        - variable_fonts
+    accessibility:
         - prefers_reduced_motion
         - prefers_color_scheme
-        - color_gamut
+        - prefers_reduced_data
+        - color_contrast
+        - color_scheme
+        - tabindex
+        - aria_attributes
     other_features:
         - variables
         - feature_support_queries
@@ -109,6 +124,8 @@ featuresCategories:
         - calc
         - houdini
         - comparison_functions
+        - at_property
+        - marker
 
 allTools:
     # pre_post_processors
@@ -116,6 +133,7 @@ allTools:
     - less
     - post_css
     - stylus
+    - assembler_css
 
     # css_frameworks
     - bootstrap
@@ -129,30 +147,23 @@ allTools:
     - primer
     - tailwind_css
     - pure_css
-    - skeleton
-    - spectre_css
-
-    # css_methodologies
-    - bem
-    - atomic_css
-    - oocss
-    - smacss
-    - it_css
-    - cube_css
+    - halfmoon
 
     # css_in_js
     - styled_components
     - jss
     - styled_jsx
-    - radium
     - emotion
     - css_modules
     - styled_system
     - stitches
-    - styletron
     - fela
     - linaria
     - astroturf
+    - twin
+    - theme_ui
+    - vanilla_extract
+    - windi_css
 
 toolsCategories:
     pre_post_processors:
@@ -160,6 +171,7 @@ toolsCategories:
         - less
         - post_css
         - stylus
+        - assembler_css
     css_frameworks:
         - bootstrap
         - materialize_css
@@ -172,37 +184,19 @@ toolsCategories:
         - primer
         - tailwind_css
         - pure_css
-        - skeleton
-        - spectre_css
-    css_frameworks_abridged:
-        - bootstrap
-        - materialize_css
-        - ant_design
-        - semantic_ui
-        - bulma
-        - foundation
-        - ui_kit
-        - tachyons
-        - tailwind_css
-        - pure_css
-        - skeleton
-    css_methodologies:
-        - bem
-        - atomic_css
-        - oocss
-        - smacss
-        - it_css
-        - cube_css
+        - halfmoon
     css_in_js:
         - styled_components
         - jss
         - styled_jsx
-        - radium
         - emotion
         - css_modules
         - styled_system
-        - stitches # disabled because of sub-10% awareness
-        - styletron # disabled because of sub-10% awareness
-        - fela # disabled because of sub-10% awareness
-        - linaria # disabled because of sub-10% awareness
-        - astroturf # disabled because of sub-10% awareness
+        - stitches
+        - fela
+        - linaria
+        - astroturf
+        - twin
+        - theme_ui
+        - vanilla_extract
+        - windi_css

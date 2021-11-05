@@ -147,7 +147,7 @@ const Node = (props) => {
             <circle
                 className="Scatterplot__Node__Point"
                 r={6}
-                fill={style.color}
+                fill={style?.color}
                 opacity={opacity}
             />
 

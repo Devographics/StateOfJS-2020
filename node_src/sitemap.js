@@ -16,14 +16,6 @@ const globalVariables = yaml.load(
 )
 
 const injectVariables = (yamlObject, variables, templateName) => {
-    // convert variable values to strings if needed
-    Object.keys(variables).forEach((v) => {
-        const value = variables[v]
-        if (typeof value === 'object') {
-            variables[v] = JSON.stringify(value)
-        }
-    })
-
     try {
         // convert template object back to string for variables injection
         const templateString = yaml.dump(yamlObject)
@@ -52,6 +44,7 @@ const applyTemplate = (block, templateName, rawTemplates, parent) => {
     // defines all available variables to be injected
     // at build time in the GraphQL queries
     const variables = {
+        filters: '{}', // this wil be injected into the GraphQL query, so it should be a string
         ...(parent ? { parentId: parent.id } : {}),
         ...(templateObject.defaultVariables || {}),
         ...globalVariables,
@@ -60,7 +53,7 @@ const applyTemplate = (block, templateName, rawTemplates, parent) => {
         ...(block.variables || {}),
         ...(block.pageVariables || {}),
     }
-    
+
     const populatedTemplate = injectVariables(templateObject, variables, templateName)
 
     return {
@@ -134,7 +127,9 @@ exports.pageFromConfig = (stack, item, parent, pageIndex) => {
                         blockVariant.blockType = page.defaultBlockType
                     }
 
-                    blockVariant.path = blockVariant.isMainBlock ? blockPath : blockPath + `${blockVariant.id}/`
+                    blockVariant.path = blockVariant.isMainBlock
+                        ? blockPath
+                        : blockPath + `${blockVariant.id}/`
 
                     return blockVariant
                 })

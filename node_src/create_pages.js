@@ -66,7 +66,7 @@ exports.createPagesSingleLoop = async ({ graphql, actions: { createPage, createR
         const context = getPageContext(page)
         const pageQuery = getPageQuery(page)
 
-        logToFile('allQueries.txt', '', { mode: 'overwrite' })
+        logToFile('queries.txt', '', { mode: 'overwrite' })
 
         try {
             if (pageQuery) {
@@ -74,7 +74,7 @@ exports.createPagesSingleLoop = async ({ graphql, actions: { createPage, createR
                     `page${_.upperFirst(cleanIdString(page.id))}Query`,
                     pageQuery
                 )
-                logToFile('allQueries.txt', wrappedPageQuery, { mode: 'append' })
+                logToFile('queries.txt', wrappedPageQuery, { mode: 'append' })
 
                 const queryResults = await graphql(
                     `

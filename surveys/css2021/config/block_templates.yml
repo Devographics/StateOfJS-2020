@@ -42,8 +42,6 @@ demographicsTemplate:
     dataPath: 'surveyApi.survey.demographics.${id}.year'
     showDescription: true
     enableExport: true
-    defaultVariables:
-        filters: {}
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
@@ -161,13 +159,13 @@ sourceTemplate:
 
 scatterplotOverviewTemplate:
     blockType: ToolsScatterplotBlock
-    dataPath: 'surveyApi.survey.tools'
+    dataPath: 'surveyApi.survey.${id}'
     showDescription: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                 tools(ids: [${allTools}]) {
+                 ${id}: tools(ids: [${allTools}]) {
                     id
                     entity {
                         homepage
@@ -759,13 +757,13 @@ heatmapTemplate:
 
 scatterplotTemplate:
     blockType: ToolsScatterplotBlock
-    dataPath: 'surveyApi.survey.tools'
+    dataPath: 'surveyApi.survey.${id}'
     showDescription: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                 tools(ids:[${toolsCategories[parentId]}]) {
+                 ${id}: tools(ids:[${toolsCategories[parentId]}]) {
                     id
                     entity {
                         homepage

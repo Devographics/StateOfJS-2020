@@ -6,7 +6,7 @@ const EmptyWrapper = ({ children }) => <div className="empty-wrapper">{children}
 
 const TabsWrapper = ({ children, variantIndex }) => (
     <div className="tabs-wrapper">
-        <h2>variant {variantIndex}</h2>
+        {/* <h2>variant {variantIndex}</h2> */}
         {children}
     </div>
 )
