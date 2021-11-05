@@ -54,7 +54,7 @@ const VerticalBarBlock = ({ block, data }) => {
               headings: [{id: 'label', label: <T k='table.label' />}, {id: 'percentage', label: <T k='table.percentage' />}, {id: 'count', label: <T k='table.count' />}],
               rows: data.buckets.map((bucket) => ([{
                 id: 'label',
-                label: bucketKeys.find(key => key.id === bucket.id).shortLabel,
+                label: bucketKeys.find(key => key.id === bucket.id)?.shortLabel,
               }, {
                 id: 'percentage',
                 label: `${bucket.percentage}%`,

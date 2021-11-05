@@ -22,7 +22,7 @@ const findEntity = (entities, key) =>
     entities.find(({ id, name }) => {
         const lowerCaseKey = key.toLowerCase()
         const idMatch = id.toLowerCase() === lowerCaseKey
-        const nameMatch = name.toLowerCase() === lowerCaseKey
+        const nameMatch = name && name.toLowerCase() === lowerCaseKey
 
         return idMatch || nameMatch
     })

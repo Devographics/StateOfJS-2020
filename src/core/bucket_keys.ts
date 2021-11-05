@@ -336,4 +336,20 @@ export const keys = {
     },
     css_for_print: generateEnvironmentRatingKeys('css_for_print'),
     css_for_email: generateEnvironmentRatingKeys('css_for_email'),
+    what_do_you_use_css_for: {
+        keys: [
+            'marketing_sites',
+            'design_systems',
+            'blogs',
+            'web_apps',
+            'mobile_apps',
+            'css_art',
+            'emails',
+            'printed_documents',
+        ].map((id) => ({
+            id,
+            label: `options.what_do_you_use_css_for.${id}`,
+            shortLabel: `options.what_do_you_use_css_for.${id}.short`,
+        })),
+    },
 }
