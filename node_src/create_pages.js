@@ -66,12 +66,16 @@ exports.createPagesSingleLoop = async ({ graphql, actions: { createPage, createR
         const context = getPageContext(page)
         const pageQuery = getPageQuery(page)
 
+        logToFile('allQueries.txt', '', { mode: 'overwrite' })
+
         try {
             if (pageQuery) {
                 const wrappedPageQuery = wrapWithQuery(
                     `page${_.upperFirst(cleanIdString(page.id))}Query`,
                     pageQuery
                 )
+                logToFile('allQueries.txt', wrappedPageQuery, { mode: 'append' })
+
                 const queryResults = await graphql(
                     `
                         ${wrappedPageQuery}
@@ -90,6 +94,7 @@ exports.createPagesSingleLoop = async ({ graphql, actions: { createPage, createR
         for (let index = 0; index < locales.length; index++) {
             const locale = locales[index]
             locale.path = `/${locale.id}`
+
 
             const pageObject = {
                 path: getLocalizedPath(page.path, locale),
@@ -146,7 +151,7 @@ exports.createPagesTwoLoops = async ({ graphql, actions: { createPage, createRed
     }
 
     allQueries = wrapWithQuery('megaSurveyQuery', allQueries)
-    logToFile('allQueries.txt', allQueries, { mode: 'overwrite' })
+    logToFile('queries.txt', allQueries, { mode: 'overwrite' })
     const allQueriesResults = await graphql(
         `
             ${allQueries}

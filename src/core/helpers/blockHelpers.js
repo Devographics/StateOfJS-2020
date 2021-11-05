@@ -11,7 +11,7 @@ export const getBlockTitleKey = (block, page) => {
         return `blocks.${blockName}.title`
     } else {
         const pageId = page.i18nNamespace || block.pageId || page.id
-        const blockId = block.id.replace('_others', '.others')
+        const blockId = block?.id?.replace('_others', '.others')
         return `${pageId}.${blockId}`
     }
 }
@@ -24,7 +24,7 @@ export const getBlockDescriptionKey = (block, page) => {
         return `blocks.${blockName}.description`
     } else {
         const pageId = page.i18nNamespace || block.pageId || page.id
-        const blockId = block.id.replace('_others', '.others')
+        const blockId = block?.id?.replace('_others', '.others')
         return `${pageId}.${blockId}.description`
     }
 }

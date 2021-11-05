@@ -173,8 +173,8 @@ export const keys = {
     higher_education_degree: {
         keys: ['no_degree', 'yes_related', 'yes_unrelated'].map((id) => ({
             id,
-            label: `options.age.${id}`,
-            shortLabel: `options.age.${id}.short`,
+            label: `options.higher_education_degree.${id}`,
+            shortLabel: `options.higher_education_degree.${id}.short`,
         })) as BucketKeyWithShortLabel<HigherEducationId>[],
     },
     gender: {

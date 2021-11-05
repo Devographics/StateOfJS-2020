@@ -2,7 +2,7 @@ import React from 'react'
 import PageHeader from 'core/pages/PageHeader'
 import PageFooter from 'core/pages/PageFooter'
 import { usePageContext } from 'core/helpers/pageContext'
-import BlockSwitcher from 'core/blocks/block/BlockSwitcher'
+import BlockWrapper from 'core/blocks/block/BlockWrapper'
 
 const PageTemplate = ({ pageContext = {} }) => {
     const context = usePageContext()
@@ -13,7 +13,7 @@ const PageTemplate = ({ pageContext = {} }) => {
             <div className="Page__Contents">
                 {context.blocks &&
                     context.blocks.map((block, i) => (
-                        <BlockSwitcher key={block.id} block={block} pageData={pageData} index={i} />
+                        <BlockWrapper key={block.id} block={block} pageData={pageData} index={i} />
                     ))}
             </div>
             {!is_hidden && <PageFooter />}

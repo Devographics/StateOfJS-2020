@@ -16,6 +16,14 @@ const globalVariables = yaml.load(
 )
 
 const injectVariables = (yamlObject, variables, templateName) => {
+    // convert variable values to strings if needed
+    Object.keys(variables).forEach((v) => {
+        const value = variables[v]
+        if (typeof value === 'object') {
+            variables[v] = JSON.stringify(value)
+        }
+    })
+
     try {
         // convert template object back to string for variables injection
         const templateString = yaml.dump(yamlObject)
@@ -31,7 +39,7 @@ const injectVariables = (yamlObject, variables, templateName) => {
     }
 }
 
-const applyTemplate = (config, templateName, rawTemplates, parent) => {
+const applyTemplate = (block, templateName, rawTemplates, parent) => {
     // load raw templates
     const templates = yaml.load(rawTemplates)
 
@@ -47,31 +55,32 @@ const applyTemplate = (config, templateName, rawTemplates, parent) => {
         ...(parent ? { parentId: parent.id } : {}),
         ...(templateObject.defaultVariables || {}),
         ...globalVariables,
-        id: config.id,
-        ...(config.variables || {}),
-        ...(config.pageVariables || {}),
+        id: block.id,
+        fieldId: block.id,
+        ...(block.variables || {}),
+        ...(block.pageVariables || {}),
     }
-
+    
     const populatedTemplate = injectVariables(templateObject, variables, templateName)
 
     return {
         ...populatedTemplate,
-        ...config,
+        ...block,
     }
 }
 
-exports.pageFromConfig = (stack, config, parent, pageIndex) => {
+exports.pageFromConfig = (stack, item, parent, pageIndex) => {
     try {
         // if template has been provided, apply it
-        if (config.template) {
-            config = applyTemplate(config, config.template, rawPageTemplates, parent)
+        if (item.template) {
+            item = applyTemplate(item, item.template, rawPageTemplates, parent)
         }
 
-        const pagePath = config.path || `/${config.id}`
+        const pagePath = item.path || `/${item.id}`
         const page = {
-            ...config,
+            ...item,
             path: parent === undefined ? pagePath : `${parent.path.replace(/\/$/, '')}${pagePath}`,
-            is_hidden: !!config.is_hidden,
+            is_hidden: !!item.is_hidden,
             children: [],
             pageIndex,
         }
@@ -86,37 +95,51 @@ exports.pageFromConfig = (stack, config, parent, pageIndex) => {
 
         if (Array.isArray(page.blocks)) {
             page.blocks = page.blocks.map((block) => {
-                // if template has been provided, apply it
+                // everything that's not in block.variants is part of the main block
+                const { variants: variants_ = [], ...mainBlockConfig } = block
+                const blockVariants = [{ ...mainBlockConfig, isMainBlock: true }, ...variants_]
 
-                // if block has variables, inject them based on current page and global variables
-                if (block.variables) {
-                    block.variables = injectVariables(block.variables, {
-                        ...config,
-                        ...globalVariables,
-                    })
-                }
+                const blockPath = `${page.path}${block.id}/`
 
-                // also pass page variables to block so it can inherit them
-                if (page.variables) {
-                    block.pageVariables = injectVariables(page.variables, {
-                        ...config,
-                        ...globalVariables,
-                    })
-                }
+                const variants = blockVariants.map((blockVariant) => {
+                    // if template has been provided, apply it
 
-                if (block.template) {
-                    block = applyTemplate(block, block.template, rawBlockTemplates, page)
-                }
+                    // if block has variables, inject them based on current page and global variables
+                    if (blockVariant.variables) {
+                        blockVariant.variables = injectVariables(blockVariant.variables, {
+                            ...item,
+                            ...globalVariables,
+                        })
+                    }
 
-                // if block type is missing, get it from parent
-                if (!block.blockType) {
-                    block.blockType = page.defaultBlockType
-                }
+                    // also pass page variables to block so it can inherit them
+                    if (page.variables) {
+                        blockVariant.pageVariables = injectVariables(page.variables, {
+                            ...item,
+                            ...globalVariables,
+                        })
+                    }
 
-                return {
-                    ...block,
-                    path: `${page.path}${block.id}/`,
-                }
+                    if (blockVariant.template) {
+                        blockVariant = applyTemplate(
+                            blockVariant,
+                            blockVariant.template,
+                            rawBlockTemplates,
+                            page
+                        )
+                    }
+
+                    // if block type is missing, get it from parent
+                    if (!blockVariant.blockType) {
+                        blockVariant.blockType = page.defaultBlockType
+                    }
+
+                    blockVariant.path = blockVariant.isMainBlock ? blockPath : blockPath + `${blockVariant.id}/`
+
+                    return blockVariant
+                })
+
+                return { id: block.id, variants }
             })
         }
 
@@ -125,8 +148,8 @@ exports.pageFromConfig = (stack, config, parent, pageIndex) => {
         }
         stack.flat.push(page)
 
-        if (Array.isArray(config.children)) {
-            config.children.forEach((child) => {
+        if (Array.isArray(item.children)) {
+            item.children.forEach((child) => {
                 page.children.push(exports.pageFromConfig(stack, child, page, pageIndex))
             })
         }

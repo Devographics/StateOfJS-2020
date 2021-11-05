@@ -60,14 +60,18 @@ Loop over a page's blocks to assemble its page query
 
 */
 exports.getPageQuery = (page) => {
-    const { blocks = [] } = page
-    const blocksWithQueries = blocks.filter((b) => !!b.query)
-    // if there are no blocks or no blocks have queries defind, return undefined
-    if (blocksWithQueries.length === 0) {
-        return
-    }
-    return `### ${page.id}
-${_.compact(blocksWithQueries.map((b) => `# ${b.id}\n` + b.query)).join('\n')}
+    const queries = []
+    page.blocks.forEach((b) => {
+        b.variants.forEach((v) => {
+            if (v.query) {
+                queries.push(`# ${v.id}\n` + v.query)
+            }
+        })
+    })
+    return queries.length === 0
+        ? undefined
+        : `### ${page.id}
+${queries.join('\n')}
 `
 }
 
@@ -114,23 +118,25 @@ exports.createBlockPages = (page, context, createPage, locales) => {
     }
 
     blocks.forEach((block) => {
-        // allow for specifying explicit pageId in block definition
-        if (!block.pageId) {
-            block.pageId = page.id
-        }
-        locales.forEach((locale) => {
-            const blockPage = {
-                path: getLocalizedPath(block.path, locale),
-                component: path.resolve(`./src/core/share/ShareBlockTemplate.js`),
-                context: {
-                    ...context,
-                    redirect: `${getLocalizedPath(page.path, locale)}#${block.id}`,
-                    block,
-                    locales: getCleanLocales(locales),
-                    locale,
-                },
+        block.variants.forEach((blockVariant) => {
+            // allow for specifying explicit pageId in block definition
+            if (!blockVariant.pageId) {
+                blockVariant.pageId = page.id
             }
-            createPage(blockPage)
+            locales.forEach((locale) => {
+                const blockPage = {
+                    path: getLocalizedPath(blockVariant.path, locale),
+                    component: path.resolve(`./src/core/share/ShareBlockTemplate.js`),
+                    context: {
+                        ...context,
+                        redirect: `${getLocalizedPath(page.path, locale)}#${blockVariant.id}`,
+                        block: blockVariant,
+                        locales: getCleanLocales(locales),
+                        locale,
+                    },
+                }
+                createPage(blockPage)
+            })
         })
     })
 }

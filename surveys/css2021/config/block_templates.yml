@@ -42,11 +42,13 @@ demographicsTemplate:
     dataPath: 'surveyApi.survey.demographics.${id}.year'
     showDescription: true
     enableExport: true
+    defaultVariables:
+        filters: {}
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
                 demographics {
-                    ${id} {
+                    ${id}: ${fieldId}(filters: ${filters}) {
                         year(year: ${currentYear}) {
                             year
                             total

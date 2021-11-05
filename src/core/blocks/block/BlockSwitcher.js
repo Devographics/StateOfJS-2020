@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 import Block from 'core/blocks/block/Block'
 import get from 'lodash/get'
 import { usePageContext } from 'core/helpers/pageContext'
+import { BlockError } from 'core/blocks/block/BlockWrapper'
 
 const BlockSwitcher = ({ pageData, block, index, ...props }) => {
     const pageContext = usePageContext()
@@ -32,47 +33,9 @@ const BlockSwitcher = ({ pageData, block, index, ...props }) => {
         }
     }
     return hidden && !pageContext.isCapturing ? null : (
-        <BlockComponent block={block} data={blockData} index={index} {...props}/>
+        <BlockComponent block={block} data={blockData} index={index} {...props} />
     )
 }
-
-class ErrorBoundary extends React.Component {
-    state = {}
-    static getDerivedStateFromError(error) {
-        return { error }
-    }
-    render() {
-        const { block, pageData } = this.props
-        const { error } = this.state
-        if (error) {
-            return (
-                <BlockError
-                    block={block}
-                    message={error.message}
-                    data={get(pageData, block.dataPath)}
-                />
-            )
-        }
-        return this.props.children
-    }
-}
-
-const BlockError = ({ message, data, block }) => (
-    <Block block={block}>
-        <div className="error">{message}</div>
-        {data && !isEmpty(data) && (
-            <pre className="error error-data">
-                <code>{JSON.stringify(data, '', 2)}</code>
-            </pre>
-        )}
-    </Block>
-)
-
-const BlockSwitcherWithBoundary = (props) => (
-    <ErrorBoundary {...props}>
-        <BlockSwitcher {...props} />
-    </ErrorBoundary>
-)
 
 BlockSwitcher.propTypes = {
     block: PropTypes.shape({
@@ -92,4 +55,4 @@ BlockSwitcher.propTypes = {
     pageData: PropTypes.any.isRequired,
 }
 
-export default BlockSwitcherWithBoundary
+export default BlockSwitcher
