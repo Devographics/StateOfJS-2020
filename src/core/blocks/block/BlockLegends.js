@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { mq, spacing, fontSize, color } from 'core/theme'
 import BlockLegendsItem from './BlockLegendsItem'
-import { useBucketKeys } from '../../helpers/useBucketKeys'
+import { useBucketKeys, useLegends } from '../../helpers/useBucketKeys'
+
 
 const BlockLegends = ({
     block,
@@ -24,7 +25,7 @@ const BlockLegends = ({
 }) => {
     const { id: blockId, bucketKeysName = blockId } = block
 
-    const blockLegends = useBucketKeys(bucketKeysName)
+    const blockLegends = useLegends(block, data)
 
     const rootStyle = { ...style }
 

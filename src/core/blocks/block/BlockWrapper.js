@@ -1,34 +1,80 @@
 import React from 'react'
 import BlockSwitcher from 'core/blocks/block/BlockSwitcher'
 import Block from 'core/blocks/block/Block'
+import * as Tabs from '@radix-ui/react-tabs'
+import BlockTitle from 'core/blocks/block/BlockTitle'
+import styled from 'styled-components'
+import { spacing } from 'core/theme'
+import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
 
-const EmptyWrapper = ({ children }) => <div className="empty-wrapper">{children}</div>
+const EmptyWrapper = ({ block, pageData, blockIndex }) => (
+    <div className="empty-wrapper">
+        {block.variants.map((block, variantIndex) => (
+            <BlockSwitcher
+                key={block.id}
+                block={block}
+                pageData={pageData}
+                blockIndex={blockIndex}
+                variantIndex={variantIndex}
+            />
+        ))}
+    </div>
+)
 
-const TabsWrapper = ({ children, variantIndex }) => (
+const BlockHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: ${(props) => props.theme.separationBorder};
+    padding-bottom: ${spacing(0.5)};
+    margin-bottom: ${spacing(1)};
+`
+
+const TabsList = styled(Tabs.List)`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+`
+
+const TabsTrigger = styled(Tabs.Trigger)`
+    border: 1px solid pink;
+`
+
+const TabsWrapper = ({ block, pageData, blockIndex }) => (
     <div className="tabs-wrapper">
-        {/* <h2>variant {variantIndex}</h2> */}
-        {children}
+        <Tabs.Root defaultValue="tab0" orientation="horizontal">
+            <BlockHeader>
+                <BlockTitle block={block} {...block.titleProps} />
+                {block.variants.length > 1 && (
+                    <TabsList aria-label="tabs example">
+                        {block.variants.map((block, variantIndex) => (
+                            <TabsTrigger key={block.id} value={`tab${variantIndex}`}>
+                                {variantIndex === 0 ? 'All Respondents' : block.id}
+                            </TabsTrigger>
+                        ))}
+                    </TabsList>
+                )}
+            </BlockHeader>
+            {block.variants.map((block, variantIndex) => (
+                <Tabs.Content key={block.id} value={`tab${variantIndex}`}>
+                    <BlockSwitcher
+                        block={block}
+                        pageData={pageData}
+                        blockIndex={blockIndex}
+                        variantIndex={variantIndex}
+                    />
+                </Tabs.Content>
+            ))}
+        </Tabs.Root>
     </div>
 )
 
 const BlockWrapper = (props) => {
     const { block, pageData, index: blockIndex } = props
-    const { variants, wrapBlock = true } = block
+    const { wrapBlock = true } = block
     const WrapperComponent = wrapBlock ? TabsWrapper : EmptyWrapper
-    return (
-        <div className="block-wrapper">
-            {variants.map((variant, variantIndex) => (
-                <WrapperComponent key={variant.id} variantIndex={variantIndex}>
-                    <BlockSwitcher
-                        block={variant}
-                        pageData={pageData}
-                        blockIndex={blockIndex}
-                        variantIndex={variantIndex}
-                    />
-                </WrapperComponent>
-            ))}
-        </div>
-    )
+    return <WrapperComponent block={block} pageData={pageData} blockIndex={blockIndex} />
 }
 
 export const BlockError = ({ message, data, block }) => (

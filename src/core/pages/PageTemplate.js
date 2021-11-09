@@ -13,7 +13,7 @@ const PageTemplate = ({ pageContext = {} }) => {
             <div className="Page__Contents">
                 {context.blocks &&
                     context.blocks.map((block, i) => (
-                        <BlockWrapper key={block.id} block={block} pageData={pageData} index={i} />
+                        <BlockWrapper key={`${block.id}_${i}`} block={block} pageData={pageData} index={i} />
                     ))}
             </div>
             {!is_hidden && <PageFooter />}

@@ -6,7 +6,7 @@ import Block from 'core/blocks/block/Block'
 import ChartContainer from 'core/charts/ChartContainer'
 import GaugeBarChart from 'core/charts/generic/GaugeBarChart'
 import { usePageContext } from 'core/helpers/pageContext'
-import { useBucketKeys } from 'core/helpers/useBucketKeys'
+import { useBucketKeys, useLegends } from 'core/helpers/useBucketKeys'
 import { spacing } from 'core/theme'
 import { useI18n } from 'core/i18n/i18nContext'
 
@@ -25,7 +25,7 @@ const FeatureExperienceBlock = ({ block, data, units: defaultUnits = 'percentage
 
     const allYears = get(data, 'experience.all_years', [])
 
-    const bucketKeys = useBucketKeys('features')
+    const bucketKeys = useLegends(block, data)
 
     const mdnLink = mdn && `https://developer.mozilla.org${mdn.url}`
     // only show descriptions for english version

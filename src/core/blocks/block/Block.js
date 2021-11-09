@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { mq, spacing } from 'core/theme'
 import BlockTitleOriginal from 'core/blocks/block/BlockTitle'
-import BlockNote from 'core/blocks/block/BlockNote'
 import ShareBlockDebug from 'core/share/ShareBlockDebug'
-import BlockLegends from 'core/blocks/block/BlockLegends'
 import BlockData from './BlockData'
+import * as Tabs from '@radix-ui/react-tabs'
+import BlockChart from 'core/blocks/block/BlockChart'
+import BlockShare from 'core/blocks/block/BlockShare'
 
 const Container = styled.div`
     @media ${mq.small} {
@@ -21,23 +22,33 @@ const Container = styled.div`
         margin-bottom: 0;
     }
 `
-const Block = ({
-    isShareable,
-    className,
-    children,
-    units,
-    setUnits,
-    error,
-    data,
-    block = {},
-    legendProps,
-    titleProps,
-    blockFooter = null,
-    view,
-    setView,
-    headings,
-    tables,
-}) => {
+
+const TabsList = styled(Tabs.List)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
+
+const TabsTrigger = styled(Tabs.Trigger)`
+    border: 1px solid pink;
+`
+
+const Block = (props) => {
+    const {
+        isShareable,
+        className,
+        children,
+        units,
+        setUnits,
+        error,
+        data,
+        block = {},
+        legendProps,
+        titleProps,
+        headings,
+        tables,
+    } = props
     const {
         id,
         showLegend,
@@ -48,13 +59,13 @@ const Block = ({
     } = block
 
     const BlockTitle = overrides.BlockTitle || BlockTitleOriginal
-    
+
     return (
         <Container
             id={id}
             className={`Block Block--${id}${className !== undefined ? ` ${className}` : ''}`}
         >
-            {showTitle && (
+            {/* {showTitle && (
                 <BlockTitle
                     isShareable={isShareable}
                     units={units}
@@ -65,39 +76,45 @@ const Block = ({
                     setView={setView}
                     {...titleProps}
                 />
-            )}
+            )} */}
             {isShareable && <ShareBlockDebug block={block} />}
-            {view === 'data' 
-              ? <BlockData data={data} id={id} headings={headings} tables={tables} /> 
-              : <>
-                {showLegend && legendPosition === 'top' && (
-                    <BlockLegends
-                        block={block}
-                        data={data}
-                        units={units}
-                        position={legendPosition}
-                        {...legendProps}
-                    />
-                )}
-                <div className="Block__Contents">
-                    {error ? <div className="error">{error}</div> : children}
-                </div>
-                {showLegend && legendPosition === 'bottom' && (
-                    <BlockLegends
-                        block={block}
-                        data={data}
-                        units={units}
-                        position={legendPosition}
-                        {...legendProps}
-                    />
-                )}
-                {showNote && <BlockNote block={block} />}
-              </>
-            }
-            {blockFooter}
+
+            <TabsRoot defaultValue="chart" orientation="vertical">
+                <SideArea>
+                    <TabsList aria-label="tabs example">
+                        <TabsTrigger value="chart">Chart</TabsTrigger>
+                        <TabsTrigger value="data">Data</TabsTrigger>
+                        <TabsTrigger value="share">Share</TabsTrigger>
+                    </TabsList>
+                </SideArea>
+                <MainArea>
+                    <Tabs.Content value="chart">
+                        <BlockChart {...props} />
+                    </Tabs.Content>
+                    <Tabs.Content value="data">
+                        <BlockData {...props} />
+                    </Tabs.Content>
+                    <Tabs.Content value="share">
+                        <BlockShare {...props} />
+                    </Tabs.Content>
+                </MainArea>
+            </TabsRoot>
         </Container>
     )
 }
+
+const MainArea = styled.div`
+    grid-area: main;
+`
+const SideArea = styled.div`
+    grid-area: side;
+`
+
+const TabsRoot = styled(Tabs.Root)`
+    display: grid;
+    grid-template-columns: 1fr 60px;
+    grid-template-areas: 'main side';
+`
 
 Block.propTypes = {
     block: PropTypes.shape({

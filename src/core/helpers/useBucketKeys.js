@@ -30,3 +30,35 @@ export const useBucketKeys = (bucketKeysId) => {
         })
     }, [keysConfig, theme, translate])
 }
+
+export const getBucketKeys = (block, data) => {
+    const keys = data.map(({ id }) => ({
+        id,
+        labelKey: `options.${block.id}.${id}`,
+        shortLabelKey: `options.${block.id}.${id}.short`,
+    }))
+    return keys
+}
+
+export const useLegends = (block, buckets) => {
+    const theme = useTheme()
+    const { translate, getString } = useI18n()
+
+    const colorRange = theme.colors.ranges[block.id]
+    const keys = getBucketKeys(block, buckets)
+    const legends = keys.map(({ id, labelKey, shortLabelKey }) => {
+        const label = translate(labelKey)
+        const shortLabelObject = getString(shortLabelKey)
+        const shortLabel = shortLabelObject.missing ? undefined : shortLabelObject.t
+        const legend = {
+            id,
+            label,
+            shortLabel,
+        }
+        if (colorRange) {
+            legend.color = colorRange[id]
+        }
+        return legend
+    })
+    return legends
+}

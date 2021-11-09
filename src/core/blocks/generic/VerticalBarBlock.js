@@ -5,7 +5,7 @@ import Block from 'core/blocks/block/Block'
 import ChartContainer from 'core/charts/ChartContainer'
 import VerticalBarChart from 'core/charts/generic/VerticalBarChart'
 import { usePageContext } from 'core/helpers/pageContext'
-import { useBucketKeys } from 'core/helpers/useBucketKeys'
+import { useLegends } from 'core/helpers/useBucketKeys'
 import T from 'core/i18n/T'
 
 const VerticalBarBlock = ({ block, data }) => {
@@ -30,7 +30,8 @@ const VerticalBarBlock = ({ block, data }) => {
     const [units, setUnits] = useState(defaultUnits)
     const [view, setView] = useState('viz')
 
-    const bucketKeys = useBucketKeys(bucketKeysName)
+    const bucketKeys = useLegends(block, data.buckets)
+
     const { buckets, total, completion } = data
 
     const sortedBuckets = bucketKeys.map(({ id: bucketKey }) => {

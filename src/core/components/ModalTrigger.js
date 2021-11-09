@@ -6,6 +6,37 @@ import Button from 'core/components/Button'
 import Modal from 'react-modal'
 import { useI18n } from 'core/i18n/i18nContext'
 
+const Close = styled.button`
+    display: block;
+    font-size: 1.2rem;
+    position: absolute;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: ${(props) => props.theme.colors.text};
+
+    &:hover,
+    &:focus {
+        color: ${(props) => props.theme.colors.link};
+        border-bottom: 2px solid ${(props) => props.theme.colors.link};
+        padding-bottom: 0.15rem;
+    }
+
+    &:focus {
+        border: 2px solid ${(props) => props.theme.colors.link};
+    }
+
+    @media ${mq.small} {
+        top: -3px;
+        right: 6px;
+    }
+    @media ${mq.mediumLarge} {
+        top: 0px;
+        right: 10px;
+    }
+`
+
 const ModalTrigger = ({ label, trigger, children }) => {
     const theme = useTheme()
     const [modalIsOpen, setIsOpen] = useState(false)
@@ -34,45 +65,15 @@ const ModalTrigger = ({ label, trigger, children }) => {
             backgroundColor: `${theme.colors.background}99`,
             backdropFilter: 'blur(5px)',
         },
-        content: {
-        },
+        content: {},
     }
 
-    const ModalClose = ({ closeModal }) => <Close onClick={closeModal}>
-      <span aria-hidden="true">x</span>
-      <span className="sr-only">{translate('share.close')}</span>
-    </Close>
-
-    const Close = styled.button`
-        display: block;
-        font-size: 1.2rem;
-        position: absolute;
-        cursor: pointer;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: ${theme.colors.text};
-
-        &:hover,
-        &:focus {
-          color: ${theme.colors.link};
-          border-bottom: 2px solid ${theme.colors.link};
-          padding-bottom: 0.15rem;
-        }
-
-        &:focus {
-          border: 2px solid ${theme.colors.link};
-        }
-
-        @media ${mq.small} {
-            top: -3px;
-            right: 6px;
-        }
-        @media ${mq.mediumLarge} {
-            top: 0px;
-            right: 10px;
-        }
-    `
+    const ModalClose = ({ closeModal }) => (
+        <Close onClick={closeModal} theme={theme}>
+            <span aria-hidden="true">x</span>
+            <span className="sr-only">{translate('share.close')}</span>
+        </Close>
+    )
 
     return (
         <>

@@ -139,7 +139,7 @@ const BlockTitle = ({
                             <BlockCompletionIndicator completion={completion} />
                         )}
                     </BlockTitleText>
-                    <Popover trigger={<More />}>
+                    {/* <Popover trigger={<More />}>
                         <PopoverContents>
                             <BlockTitleActions {...properties} />
                             <BlockTitleSwitcher {...properties} />
@@ -147,14 +147,14 @@ const BlockTitle = ({
                     </Popover>
                     <BlockTitleActionsWrapper>
                         <BlockTitleActions {...properties} />
-                    </BlockTitleActionsWrapper>
+                    </BlockTitleActionsWrapper> */}
                 </LeftPart>
-                <BlockTitleSwitcherWrapper>
+                {/* <BlockTitleSwitcherWrapper>
                     <BlockTitleSwitcher {...properties} />
                     {closeComponent}
-                </BlockTitleSwitcherWrapper>
+                </BlockTitleSwitcherWrapper> */}
             </StyledBlockTitle>
-            {showDescription && <BlockDescriptionContents block={block} context={context} />}
+            {/* {showDescription && <BlockDescriptionContents block={block} context={context} />} */}
         </>
     )
 }
@@ -237,9 +237,9 @@ BlockTitle.defaultProps = {
 }
 
 const StyledBlockTitle = styled.div`
-    border-bottom: ${(props) => props.theme.separationBorder};
+    /* border-bottom: ${(props) => props.theme.separationBorder};
     padding-bottom: ${spacing(0.5)};
-    margin-bottom: ${spacing(1)};
+    margin-bottom: ${spacing(1)}; */
     display: flex;
     align-items: center;
 
