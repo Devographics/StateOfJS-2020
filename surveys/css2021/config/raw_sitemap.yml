@@ -53,7 +53,7 @@
     - template: pageIntroductionTemplate
 
     - id: country
-      template: demographicsTemplate
+      template: singleOptionTemplate
       blockType: ParticipationByCountryBlock
       variants:
         - id: country_gender_fnb
@@ -62,63 +62,63 @@
           variables:
             fieldId: country
             filters: "{gender: {in: [female, non_binary, not_listed]}}"
-          template: demographicsTemplate
+          template: singleOptionTemplate
 
     - id: locale
-      template: demographicsTemplate
+      template: singleOptionTemplate
       blockType: HorizontalBarBlock
       translateData: true
 
     - id: age
-      template: demographicsTemplate
+      template: singleOptionTemplate
 
     - id: years_of_experience
-      template: demographicsTemplate
+      template: singleOptionTemplate
 
     - id: company_size
-      template: demographicsTemplate
+      template: singleOptionTemplate
 
     - id: yearly_salary
-      template: demographicsTemplate
+      template: singleOptionTemplate
       variants:
         - id: yearly_salary_gender_fnb
           bucketKeysName: yearly_salary
           variables:
             fieldId: yearly_salary
             filters: "{gender: {in: [female, non_binary, not_listed]}}"
-          template: demographicsTemplate
+          template: singleOptionTemplate
 
     - id: higher_education_degree
-      template: demographicsTemplate
+      template: singleOptionTemplate
       variants:
         - id: higher_education_degree_gender_fnb
           bucketKeysName: higher_education_degree
           variables:
             fieldId: higher_education_degree
             filters: "{gender: {in: [female, non_binary, not_listed]}}"
-          template: demographicsTemplate
+          template: singleOptionTemplate
 
     - id: source
       template: sourceTemplate
       blockType: HorizontalBarBlock
 
     - id: gender
-      template: demographicsTemplate
+      template: singleOptionTemplate
       showLegend: true
       blockType: GenderBlock
 
     - id: race_ethnicity
-      template: demographicsTemplate
+      template: singleOptionTemplate
       blockType: HorizontalBarBlock
       translateData: true
 
     - id: disability_status
-      template: demographicsTemplate
+      template: singleOptionTemplate
       blockType: HorizontalBarBlock
       translateData: true
 
     - id: disability_status_other
-      template: demographicsTemplate
+      template: singleOptionTemplate
       blockType: HorizontalBarBlock
       translateData: true
 
@@ -148,7 +148,8 @@
 
     - template: featuresOverviewTemplate
 
-    - template: knowledgeScoreTemplate
+    - id: knowledge_score
+      template: singleOptionTemplate
 
     - items: [fm-learncss]
       template: recommendedResourcesTemplate
@@ -346,8 +347,10 @@
     - id: technologiesIntroduction
       template: pageIntroductionTemplate
 
-    - id: scatterplot_overview
-      template: scatterplotOverviewTemplate
+    - template: scatterplotOverviewTemplate
+
+    - template: allSectionsToolsCardinalityByUserTemplate
+
   children:
     - id: pre_post_processors
       path: /pre-post-processors
@@ -376,7 +379,8 @@
 
         - template: sectionOtherToolsTemplate
 
-        - template: happinessTemplate
+        - id: pre_post_processors
+          template: happinessTemplate
 
         - items: [fm-sass]
           template: recommendedResourcesTemplate
@@ -426,7 +430,8 @@
 
         - template: sectionOtherToolsTemplate
 
-        - template: happinessTemplate
+        - id: css_frameworks
+          template: happinessTemplate
 
 
     - id: css_in_js
@@ -481,7 +486,8 @@
 
         - template: sectionOtherToolsTemplate
 
-        - template: happinessTemplate
+        - id: css_in_js
+          template: happinessTemplate
 
         - items: [fm-react]
           template: recommendedResourcesTemplate
@@ -493,19 +499,27 @@
       template: pageIntroductionTemplate
 
     - id: utilities
-      template: otherToolsTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: tools_others
 
     - id: utilities_others
-      template: otherToolsFreeFormTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: tools_others
 
     - id: foolip
       template: picksTemplate
 
     - id: browsers
-      template: otherToolsTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: tools_others
 
     - id: browsers_others
-      template: otherToolsFreeFormTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: tools_others
 
     - items: [fm-storybook]
       template: recommendedResourcesTemplate
@@ -516,20 +530,30 @@
     - template: pageIntroductionTemplate
 
     - id: browsers
-      template: environmentTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: environments
 
     - id: form_factors
       translateData: true
-      template: environmentTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: environments
 
     - id: accessibility_features
-      template: environmentTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: environments
 
     - id: what_do_you_use_css_for
-      template: environmentTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: environments
 
     - id: what_do_you_use_css_for_others
-      template: environmentFreeFormTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: environments
 
 - id: resources
   path: /resources
@@ -537,34 +561,52 @@
     - template: pageIntroductionTemplate
 
     - id: first_steps
-      template: resourcesTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: resources
 
     - id: first_steps_others
-      template: resourcesFreeFormTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: resources
 
     - id: blogs_news_magazines
-      template: resourcesTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: resources
 
     - id: blogs_news_magazines_others
-      template: resourcesFreeFormTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: resources
 
     - id: sites_courses
-      template: resourcesTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: resources
 
     - id: 5t3ph
       template: picksTemplate
 
     - id: sites_courses_others
-      template: resourcesFreeFormTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: resources
 
     - id: podcasts
-      template: resourcesTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: resources
 
     - id: podcasts_others
-      template: resourcesFreeFormTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: resources
 
     - id: people_others
-      template: resourcesFreeFormTemplate
+      template: multipleOptionsTemplate
+      variables:
+        fieldId: resources
 
 - id: opinions
   path: /opinions
@@ -596,10 +638,10 @@
       template: opinionsOthersTemplate
 
     - id: state_of_the_web
-      template: opinionHappinessTemplate
+      template: happinessTemplate
 
     - id: state_of_css
-      template: opinionHappinessTemplate
+      template: happinessTemplate
 
 
 # - id: awards
@@ -722,7 +764,7 @@
 
 #     - id: country
 #       isReport: true
-#       template: demographicsTemplate
+#       template: singleOptionTemplate
 #       blockType: ParticipationByCountryBlock
 #       hidden: true
 #       pageId: user_info
