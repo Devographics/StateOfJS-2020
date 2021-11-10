@@ -8,6 +8,7 @@ import BlockData from './BlockData'
 import * as Tabs from '@radix-ui/react-tabs'
 import BlockChart from 'core/blocks/block/BlockChart'
 import BlockShare from 'core/blocks/block/BlockShare'
+import { ChartIcon, DataIcon, ShareIcon } from 'core/icons'
 
 const Container = styled.div`
     @media ${mq.small} {
@@ -31,7 +32,8 @@ const TabsList = styled(Tabs.List)`
 `
 
 const TabsTrigger = styled(Tabs.Trigger)`
-    border: 1px solid pink;
+    cursor: pointer;
+    margin-bottom: ${spacing()};
 `
 
 const Block = (props) => {
@@ -82,9 +84,15 @@ const Block = (props) => {
             <TabsRoot defaultValue="chart" orientation="vertical">
                 <SideArea>
                     <TabsList aria-label="tabs example">
-                        <TabsTrigger value="chart">Chart</TabsTrigger>
-                        <TabsTrigger value="data">Data</TabsTrigger>
-                        <TabsTrigger value="share">Share</TabsTrigger>
+                        <TabsTrigger value="chart">
+                            <ChartIcon enableTooltip={true} labelId="tabs.chart" />
+                        </TabsTrigger>
+                        <TabsTrigger value="data">
+                            <DataIcon enableTooltip={true} labelId="tabs.data" />
+                        </TabsTrigger>
+                        <TabsTrigger value="share">
+                            <ShareIcon enableTooltip={true} labelId="tabs.share" />
+                        </TabsTrigger>
                     </TabsList>
                 </SideArea>
                 <MainArea>

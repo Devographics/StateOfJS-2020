@@ -9,7 +9,7 @@ import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 
 const EmptyWrapper = ({ block, pageData, blockIndex }) => (
-    <div className="empty-wrapper">
+    <Wrapper className="empty-wrapper">
         {block.variants.map((block, variantIndex) => (
             <BlockSwitcher
                 key={block.id}
@@ -19,8 +19,12 @@ const EmptyWrapper = ({ block, pageData, blockIndex }) => (
                 variantIndex={variantIndex}
             />
         ))}
-    </div>
+    </Wrapper>
 )
+
+const Wrapper = styled.section`
+    margin-bottom: ${spacing(4)};
+`
 
 const BlockHeader = styled.div`
     display: flex;
@@ -42,7 +46,7 @@ const TabsTrigger = styled(Tabs.Trigger)`
 `
 
 const TabsWrapper = ({ block, pageData, blockIndex }) => (
-    <div className="tabs-wrapper">
+    <Wrapper className="tabs-wrapper">
         <Tabs.Root defaultValue="tab0" orientation="horizontal">
             <BlockHeader>
                 <BlockTitle block={block} {...block.titleProps} />
@@ -67,7 +71,7 @@ const TabsWrapper = ({ block, pageData, blockIndex }) => (
                 </Tabs.Content>
             ))}
         </Tabs.Root>
-    </div>
+    </Wrapper>
 )
 
 const BlockWrapper = (props) => {

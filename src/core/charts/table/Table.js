@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import T from 'core/i18n/T'
 import React from 'react'
 import { useTheme } from 'styled-components'
+import { fontSize } from 'core/theme'
 
 const Table = ({ tables }) => {
     const theme = useTheme()
@@ -68,6 +69,7 @@ const DataTable = styled.table`
         padding: 0.75rem 0.45rem;
         border: 1px solid ${({ theme }) => theme.colors.border};
         margin: 0;
+        font-size: ${fontSize('small')};
     }
 `
 
