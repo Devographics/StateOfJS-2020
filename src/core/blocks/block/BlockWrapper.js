@@ -1,78 +1,9 @@
 import React from 'react'
-import BlockSwitcher from 'core/blocks/block/BlockSwitcher'
 import Block from 'core/blocks/block/Block'
-import * as Tabs from '@radix-ui/react-tabs'
-import BlockTitle from 'core/blocks/block/BlockTitle'
-import styled from 'styled-components'
-import { spacing } from 'core/theme'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
+import {EmptyWrapper, TabsWrapper} from 'core/blocks/block/BlockTabs'
 
-const EmptyWrapper = ({ block, pageData, blockIndex }) => (
-    <Wrapper className="empty-wrapper">
-        {block.variants.map((block, variantIndex) => (
-            <BlockSwitcher
-                key={block.id}
-                block={block}
-                pageData={pageData}
-                blockIndex={blockIndex}
-                variantIndex={variantIndex}
-            />
-        ))}
-    </Wrapper>
-)
-
-const Wrapper = styled.section`
-    margin-bottom: ${spacing(4)};
-`
-
-const BlockHeader = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: ${(props) => props.theme.separationBorder};
-    padding-bottom: ${spacing(0.5)};
-    margin-bottom: ${spacing(1)};
-`
-
-const TabsList = styled(Tabs.List)`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-`
-
-const TabsTrigger = styled(Tabs.Trigger)`
-    border: 1px solid pink;
-`
-
-const TabsWrapper = ({ block, pageData, blockIndex }) => (
-    <Wrapper className="tabs-wrapper">
-        <Tabs.Root defaultValue="tab0" orientation="horizontal">
-            <BlockHeader>
-                <BlockTitle block={block} {...block.titleProps} />
-                {block.variants.length > 1 && (
-                    <TabsList aria-label="tabs example">
-                        {block.variants.map((block, variantIndex) => (
-                            <TabsTrigger key={block.id} value={`tab${variantIndex}`}>
-                                {variantIndex === 0 ? 'All Respondents' : block.id}
-                            </TabsTrigger>
-                        ))}
-                    </TabsList>
-                )}
-            </BlockHeader>
-            {block.variants.map((block, variantIndex) => (
-                <Tabs.Content key={block.id} value={`tab${variantIndex}`}>
-                    <BlockSwitcher
-                        block={block}
-                        pageData={pageData}
-                        blockIndex={blockIndex}
-                        variantIndex={variantIndex}
-                    />
-                </Tabs.Content>
-            ))}
-        </Tabs.Root>
-    </Wrapper>
-)
 
 const BlockWrapper = (props) => {
     const { block, pageData, index: blockIndex } = props

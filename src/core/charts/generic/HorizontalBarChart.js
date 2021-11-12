@@ -126,10 +126,10 @@ const HorizontalBarChart = ({
                 colors={[theme.colors.barChart[colorVariant]]}
                 padding={0.4}
                 borderRadius={1}
-                axisTop={{
-                    tickValues: 5,
-                    format: formatValue,
-                }}
+                // axisTop={{
+                //     tickValues: 5,
+                //     format: formatValue,
+                // }}
                 axisBottom={{
                     tickValues: 5,
                     format: formatValue,

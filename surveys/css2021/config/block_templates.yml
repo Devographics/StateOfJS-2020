@@ -5,7 +5,7 @@
 ###############################################################################
 
 # Used for salaries, company size, experience, etc. blocks that only show the current year of data
-singleOptionTemplate:
+demographicsTemplate:
     blockType: VerticalBarBlock
     dataPath: "surveyApi.survey.demographics.${id}.year"
     showDescription: true
@@ -14,7 +14,7 @@ singleOptionTemplate:
         surveyApi {
             survey(survey: ${surveyType}) {
                 demographics {
-                    ${id}: ${fieldId}(filters: ${filters}) {
+                    ${id}: ${fieldId}(filters: ${filters}, options: ${options}, facet: ${facet}) {
                         year(year: ${currentYear}) {
                             year
                             total
@@ -44,7 +44,7 @@ multipleOptionsTemplate:
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                ${id}: ${fieldId}(id: ${id}) {
+                ${id}: ${fieldId}(id: ${id}, filters: ${filters}, options: ${options}) {
                     id
                     year(year: ${currentYear}) {
                         year

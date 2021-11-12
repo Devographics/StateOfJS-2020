@@ -7,6 +7,13 @@ const Icon = styled.span`
     height: 24px;
     width: 24px;
     display: block;
+    ${(props) =>
+        props.enableHover &&
+        `
+        &:hover {
+            
+        }
+    `}
     svg {
         height: 100%;
         width: 100%;
@@ -17,14 +24,25 @@ const Icon = styled.span`
     }
 `
 
-const IconWrapper = ({ enableTooltip, labelId, label, children }) => {
+const IconWithHover = styled(Icon)`
+    &:hover {
+        svg {
+            path {
+                fill: ${(props) => props.theme.colors.link};
+            }
+        }
+    }
+`
+
+const IconWrapper = ({ enableHover = true, enableTooltip = true, labelId, label, children }) => {
     const { translate } = useI18n()
     const label_ = label || translate(labelId)
+    const IconComponent = enableHover ? IconWithHover : Icon
     const icon = (
-        <Icon>
+        <IconComponent>
             {children}
             <span className="sr-only">{label_}</span>
-        </Icon>
+        </IconComponent>
     )
     return enableTooltip ? <Tooltip trigger={icon} contents={<span>{label_}</span>} /> : icon
 }

@@ -53,7 +53,7 @@
     - template: pageIntroductionTemplate
 
     - id: country
-      template: singleOptionTemplate
+      template: demographicsTemplate
       blockType: ParticipationByCountryBlock
       variants:
         - id: country_gender_fnb
@@ -62,84 +62,97 @@
           variables:
             fieldId: country
             filters: "{gender: {in: [female, non_binary, not_listed]}}"
-          template: singleOptionTemplate
+          template: demographicsTemplate
 
     - id: locale
-      template: singleOptionTemplate
+      template: demographicsTemplate
       blockType: HorizontalBarBlock
       translateData: true
+      variables:
+        options: "{cutoff: 20}"
 
     - id: age
-      template: singleOptionTemplate
+      template: demographicsTemplate
 
     - id: years_of_experience
-      template: singleOptionTemplate
+      template: demographicsTemplate
 
     - id: company_size
-      template: singleOptionTemplate
+      template: demographicsTemplate
 
     - id: yearly_salary
-      template: singleOptionTemplate
+      template: demographicsTemplate
       variants:
         - id: yearly_salary_gender_fnb
           bucketKeysName: yearly_salary
           variables:
             fieldId: yearly_salary
             filters: "{gender: {in: [female, non_binary, not_listed]}}"
-          template: singleOptionTemplate
+          template: demographicsTemplate
 
     - id: higher_education_degree
-      template: singleOptionTemplate
+      template: demographicsTemplate
       variants:
         - id: higher_education_degree_gender_fnb
           bucketKeysName: higher_education_degree
           variables:
             fieldId: higher_education_degree
             filters: "{gender: {in: [female, non_binary, not_listed]}}"
-          template: singleOptionTemplate
+          template: demographicsTemplate
 
     - id: source
       template: sourceTemplate
       blockType: HorizontalBarBlock
+      variables:
+        options: "{cutoff: 20}"
 
     - id: gender
-      template: singleOptionTemplate
+      template: demographicsTemplate
       showLegend: true
       blockType: GenderBlock
+      variants:
+        - id: most_gender_minorities_countries
+          template: demographicsTemplate
+          blockType: HorizontalBarBlock
+          transform: foobar # TODO
+          variables:
+            fieldId: country
+            filters: "{gender: {in: [female, non_binary, not_listed, prefer_not_to_say]}}"
+            options: "{cutoff: 20}"
+            facet: "gender"
 
     - id: race_ethnicity
-      template: singleOptionTemplate
+      template: demographicsTemplate
       blockType: HorizontalBarBlock
       translateData: true
 
     - id: disability_status
-      template: singleOptionTemplate
+      template: demographicsTemplate
       blockType: HorizontalBarBlock
       translateData: true
-
-    - id: disability_status_other
-      template: singleOptionTemplate
-      blockType: HorizontalBarBlock
-      translateData: true
+      variants:
+        - id: disability_status_others
+          template: demographicsTemplate
+          blockType: HorizontalBarBlock
+          translateData: true
 
     - items: [fm-homepage]
       template: recommendedResourcesTemplate
-
-# - id: overview
-#   path: /overview
-#   blocks:
-#     - id: overviewIntroduction
-#       template: pageIntroductionTemplate
-#       variables:
-#         pageId: "${id}"
-#     - id: toolsArrow
-#       template: toolsArrowsTemplate
-#     - id: scatterplotOverview
-#       template: scatterplotOverviewTemplate
-#     - id: overview_recommended_resources
-#       template: recommendedResourcesTemplate
-#       sponsors:
-#         - fullstack-d3
+- id: overview
+  path: /overview
+  blocks:
+    - id: overviewIntroduction
+      template: pageIntroductionTemplate
+      variables:
+        pageId: "${id}"
+    - id: toolsArrow
+      template: toolsArrowsTemplate
+    - id: scatterplotOverview
+      template: scatterplotOverviewTemplate
+    - id: overview_recommended_resources
+      template: recommendedResourcesTemplate
+      sponsors:
+        - fullstack-d3
 
 - id: features
   path: /features
@@ -149,7 +162,7 @@
     - template: featuresOverviewTemplate
 
     - id: knowledge_score
-      template: singleOptionTemplate
+      template: demographicsTemplate
 
     - items: [fm-learncss]
       template: recommendedResourcesTemplate
@@ -307,7 +320,7 @@
         - id: aria_attributes
           template: featureExperienceTemplate
           year: 2021
-          
+
     - id: other_features
       path: /other-features
       blocks:
@@ -339,7 +352,6 @@
 
         - items: [fm-layouts]
           template: recommendedResourcesTemplate
-
 
 - id: technologies
   path: /technologies
@@ -432,7 +444,6 @@
 
         - id: css_frameworks
           template: happinessTemplate
-
 
     - id: css_in_js
       path: /css-in-js
@@ -564,44 +575,44 @@
       template: multipleOptionsTemplate
       variables:
         fieldId: resources
-
-    - id: first_steps_others
-      template: multipleOptionsTemplate
-      variables:
-        fieldId: resources
+      variants:
+        - id: first_steps_others
+          template: multipleOptionsTemplate
+          variables:
+            fieldId: resources
 
     - id: blogs_news_magazines
       template: multipleOptionsTemplate
       variables:
         fieldId: resources
-
-    - id: blogs_news_magazines_others
-      template: multipleOptionsTemplate
-      variables:
-        fieldId: resources
+      variants:
+        - id: blogs_news_magazines_others
+          template: multipleOptionsTemplate
+          variables:
+            fieldId: resources
 
     - id: sites_courses
       template: multipleOptionsTemplate
       variables:
         fieldId: resources
+      variants:
+        - id: sites_courses_others
+          template: multipleOptionsTemplate
+          variables:
+            fieldId: resources
 
     - id: 5t3ph
       template: picksTemplate
-
-    - id: sites_courses_others
-      template: multipleOptionsTemplate
-      variables:
-        fieldId: resources
 
     - id: podcasts
       template: multipleOptionsTemplate
       variables:
         fieldId: resources
-
-    - id: podcasts_others
-      template: multipleOptionsTemplate
-      variables:
-        fieldId: resources
+      variants:
+        - id: podcasts_others
+          template: multipleOptionsTemplate
+          variables:
+            fieldId: resources
 
     - id: people_others
       template: multipleOptionsTemplate
@@ -642,7 +653,6 @@
 
     - id: state_of_css
       template: happinessTemplate
-
 
 # - id: awards
 #   path: /awards
@@ -704,26 +714,26 @@
 #         - id: frontendmasters
 #           value: "112"
 
-    # - id: prediction_award
-    #   blockType: AwardBlock
-    #   awards:
-    #       - id: svelte
-    #       - id: nest
-    #       - id: stencil
+# - id: prediction_award
+#   blockType: AwardBlock
+#   awards:
+#       - id: svelte
+#       - id: nest
+#       - id: stencil
 
-    # - id: best_blog_award
-    #   blockType: AwardBlock
-    #   awards:
-    #       - id: svelte
-    #       - id: nest
-    #       - id: stencil
+# - id: best_blog_award
+#   blockType: AwardBlock
+#   awards:
+#       - id: svelte
+#       - id: nest
+#       - id: stencil
 
-    # - id: best_article_award
-    #   blockType: AwardBlock
-    #   awards:
-    #       - id: svelte
-    #       - id: nest
-    #       - id: stencil
+# - id: best_article_award
+#   blockType: AwardBlock
+#   awards:
+#       - id: svelte
+#       - id: nest
+#       - id: stencil
 
 - id: conclusion
   path: /conclusion
@@ -751,7 +761,6 @@
   blocks:
     - id: notfound
       blockType: NotFoundBlock
-
 # - id: report
 #   showTitle: false
 #   path: /report
@@ -764,7 +773,7 @@
 
 #     - id: country
 #       isReport: true
-#       template: singleOptionTemplate
+#       template: demographicsTemplate
 #       blockType: ParticipationByCountryBlock
 #       hidden: true
 #       pageId: user_info

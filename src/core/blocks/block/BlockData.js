@@ -6,6 +6,7 @@ import Button from 'core/components/Button'
 import T from 'core/i18n/T'
 import { mq, spacing, fontSize } from 'core/theme'
 import camelCase from 'lodash/camelCase'
+import BlockFooter from 'core/blocks/block/BlockFooter'
 
 const BlockData = (props) => {
     return (
@@ -32,6 +33,8 @@ const BlockData = (props) => {
                 <GraphQLExport {...props} />
             </ModalTrigger>
             <Table {...props} />
+            <BlockFooter block={props.block}/>
+
         </>
     )
 }

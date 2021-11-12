@@ -10,32 +10,6 @@ import BlockChart from 'core/blocks/block/BlockChart'
 import BlockShare from 'core/blocks/block/BlockShare'
 import { ChartIcon, DataIcon, ShareIcon } from 'core/icons'
 
-const Container = styled.div`
-    @media ${mq.small} {
-        margin-bottom: ${spacing(2)};
-    }
-
-    @media ${mq.mediumLarge} {
-        margin-bottom: ${spacing(4)};
-    }
-
-    &:last-child {
-        margin-bottom: 0;
-    }
-`
-
-const TabsList = styled(Tabs.List)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-`
-
-const TabsTrigger = styled(Tabs.Trigger)`
-    cursor: pointer;
-    margin-bottom: ${spacing()};
-`
-
 const Block = (props) => {
     const {
         isShareable,
@@ -111,17 +85,66 @@ const Block = (props) => {
     )
 }
 
-const MainArea = styled.div`
-    grid-area: main;
+const Container = styled.div`
+    @media ${mq.small} {
+        margin-bottom: ${spacing(2)};
+    }
+
+    @media ${mq.mediumLarge} {
+        margin-bottom: ${spacing(4)};
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 `
-const SideArea = styled.div`
-    grid-area: side;
+
+const TabsList = styled(Tabs.List)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
+
+const TabsTrigger = styled(Tabs.Trigger)`
+    cursor: pointer;
+    margin-bottom: ${spacing()};
+    padding: ${spacing(0.5)};
+    padding-left: ${spacing()};
+    margin-left: -1px;
+    border-radius: 0 3px 3px 0;
+    &[data-state='active'] {
+        /* border: 1px dashed ${(props) => props.theme.colors.border}; */
+        /* border-left: 0; */
+        background: ${(props) => props.theme.colors.background};
+    }
+    &[data-state='inactive'] {
+    }
 `
 
 const TabsRoot = styled(Tabs.Root)`
     display: grid;
-    grid-template-columns: 1fr 60px;
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas: 'main side';
+`
+
+const MainArea = styled.div`
+    grid-area: main;
+    padding-top: ${spacing()};
+`
+
+const SideArea = styled.div`
+    grid-area: side;
+    /* border-bottom: ${(props) => props.theme.border}; */
+    /* border-right: ${(props) => props.theme.border}; */
+    /* border-left: ${(props) => props.theme.separationBorder}; */
+    /* padding-right: ${spacing()}; */
+    padding-top: ${spacing(2)};
+    padding-right: ${spacing(0.5)};
+    margin-left: ${spacing()};
+    /* background: ${(props) => props.theme.colors.backgroundForeground}; */
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAAChJREFUGFdjZEADHv7F/xmRxUACOzb2MsIFYQIgRWBBZAGwILoASBAAUUcSD4UNDbsAAAAASUVORK5CYII=')
+        repeat;
 `
 
 Block.propTypes = {

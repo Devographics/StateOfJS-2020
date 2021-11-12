@@ -7,7 +7,7 @@ import { useI18n } from 'core/i18n/i18nContext'
 import { usePageContext } from 'core/helpers/pageContext'
 import {  getBlockDescriptionKey } from 'core/helpers/blockHelpers'
 import T from 'core/i18n/T'
-import * as AccessibleIcon from '@radix-ui/react-accessible-icon';
+import BlockFooter from 'core/blocks/block/BlockFooter'
 
 const BlockChart = (props) => {
   const { children, units, error, data, block = {}, legendProps } = props
@@ -37,6 +37,7 @@ const BlockChart = (props) => {
                   {...legendProps}
               />
           )}
+          <BlockFooter block={block}/>
           {showNote && <BlockNote block={block} />}
       </div>
   )
