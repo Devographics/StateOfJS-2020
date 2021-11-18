@@ -9,7 +9,7 @@ import { useI18n } from 'core/i18n/i18nContext'
 import T from 'core/i18n/T'
 
 const GenderBlock = ({ block, data }) => {
-    const { units: defaultUnits = 'percentage' } = block
+    const { units: defaultUnits = 'percentage_survey' } = block
     const [units, setUnits] = useState(defaultUnits)
     const [view, setView] = useState('viz')
     const theme = useTheme()

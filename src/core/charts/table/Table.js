@@ -4,7 +4,7 @@ import React from 'react'
 import { useTheme } from 'styled-components'
 import { fontSize } from 'core/theme'
 
-const Table = ({ tables }) => {
+const Table = ({ tables = [] }) => {
     const theme = useTheme()
 
     return (

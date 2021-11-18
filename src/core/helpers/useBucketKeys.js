@@ -40,7 +40,7 @@ export const getBucketKeys = (block, data) => {
     return keys
 }
 
-export const useLegends = (block, buckets) => {
+export const useLegends = (block, buckets = []) => {
     const theme = useTheme()
     const { translate, getString } = useI18n()
 

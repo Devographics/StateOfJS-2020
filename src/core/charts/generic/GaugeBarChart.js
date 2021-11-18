@@ -6,6 +6,7 @@ import { ResponsiveBar } from '@nivo/bar'
 import { useTheme as useNivoTheme } from '@nivo/core'
 import { Chip } from '@nivo/tooltip'
 import ChartLabel from 'core/components/ChartLabel'
+import { isPercentage } from 'core/helpers/units'
 
 // Custom labels using an extra `layer`,
 // this way, we can add an extra outline to bar labels
@@ -19,7 +20,7 @@ const getLabels = (units) => ({ bars }) => {
         // only keep 1 decimal
         let value = Math.round(bar.data.value * 10) / 10
 
-        if (units === 'percentage') value = `${value}%`
+        if (isPercentage(units)) value = `${value}%`
 
         // delta is not shown right now
         // const deltaValue = bar.data.data[`${bar.data.id}_${units}Delta`]
@@ -42,7 +43,7 @@ const getLabels = (units) => ({ bars }) => {
     })
 }
 
-const Tooltip = memo(({ translate, i18nNamespace, bar, units }) => {
+const Tooltip = ({ translate, i18nNamespace, bar, units }) => {
     const theme = useNivoTheme()
 
     return (
@@ -52,12 +53,12 @@ const Tooltip = memo(({ translate, i18nNamespace, bar, units }) => {
                 {translate(`${i18nNamespace}.${bar.id}`)}:{' '}
                 <strong>
                     {bar.data[`${bar.id}_${units}`]}
-                    {units === 'percentage' && '%'}
+                    {isPercentage(units) && '%'}
                 </strong>
             </div>
         </div>
     )
-})
+}
 
 const GaugeBarChart = ({ buckets, colorMapping, units, applyEmptyPatternTo, i18nNamespace }) => {
     const { translate } = useI18n()
@@ -71,7 +72,7 @@ const GaugeBarChart = ({ buckets, colorMapping, units, applyEmptyPatternTo, i18n
                     ...acc,
                     [bucket.id]: bucket[units],
                     [`${bucket.id}_count`]: bucket.count,
-                    [`${bucket.id}_percentage`]: bucket.percentage,
+                    [`${bucket.id}_percentage_survey`]: bucket.percentage_survey,
                     [`${bucket.id}_countDelta`]: bucket.countDelta,
                     [`${bucket.id}_percentageDelta`]: bucket.percentageDelta,
                 }
@@ -140,7 +141,8 @@ GaugeBarChart.propTypes = {
         PropTypes.shape({
             id: PropTypes.string.isRequired,
             count: PropTypes.number.isRequired,
-            percentage: PropTypes.number.isRequired,
+            percentage_survey: PropTypes.number.isRequired,
+            percentage_question: PropTypes.number.isRequired,
         }).isRequired
     ).isRequired,
     colorMapping: PropTypes.arrayOf(
@@ -149,7 +151,7 @@ GaugeBarChart.propTypes = {
             color: PropTypes.string.isRequired,
         })
     ).isRequired,
-    units: PropTypes.oneOf(['count', 'percentage']),
+    units: PropTypes.oneOf(['count', 'percentage_survey', 'percentage_question']),
     applyEmptyPatternTo: PropTypes.string,
     i18nNamespace: PropTypes.string.isRequired,
 }

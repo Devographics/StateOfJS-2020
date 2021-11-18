@@ -10,7 +10,7 @@ const ParticipationByCountryBlock = ({
     block,
     data,
     triggerId,
-    units: defaultUnits = 'percentage',
+    units: defaultUnits = 'percentage_survey',
 }) => {
     const [units, setUnits] = useState(defaultUnits)
     const [view, setView] = useState('viz')
@@ -26,7 +26,7 @@ const ParticipationByCountryBlock = ({
         label: countries.features.find((country) => country.id === bucket.id)?.properties.name,
       }, {
         id: 'percentage',
-        label: `${bucket.percentage}%`,
+        label: `${bucket.percentage_survey}%`,
       }, {
         id: 'count',
         label: bucket.count,
@@ -54,13 +54,14 @@ ParticipationByCountryBlock.propTypes = {
     data: PropTypes.shape({
         completion: PropTypes.shape({
             count: PropTypes.number.isRequired,
-            percentage: PropTypes.number.isRequired,
+            percentage_survey: PropTypes.number.isRequired,
         }).isRequired,
         buckets: PropTypes.arrayOf(
             PropTypes.shape({
                 id: PropTypes.string.isRequired,
                 count: PropTypes.number.isRequired,
-                percentage: PropTypes.number.isRequired,
+                percentage_survey: PropTypes.number.isRequired,
+                percentage_question: PropTypes.number.isRequired,
             })
         ).isRequired,
     }).isRequired,

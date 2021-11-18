@@ -4,42 +4,11 @@
 #
 ###############################################################################
 
-# Used for salaries, company size, experience, etc. blocks that only show the current year of data
-demographicsTemplate:
-    blockType: VerticalBarBlock
-    dataPath: "surveyApi.survey.demographics.${id}.year"
-    showDescription: true
-    enableExport: true
-    query: >
-        surveyApi {
-            survey(survey: ${surveyType}) {
-                demographics {
-                    ${id}: ${fieldId}(filters: ${filters}, options: ${options}, facet: ${facet}) {
-                        year(year: ${currentYear}) {
-                            year
-                            total
-                            completion {
-                                percentage
-                                count
-                            }
-                            buckets {
-                                id
-                                count
-                                percentage
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
 # user for resources, text editors, browsers, etc.
 multipleOptionsTemplate:
     blockType: HorizontalBarBlock
     showDescription: true
-    mode: relative
-    units: count
-    dataPath: "surveyApi.survey.${id}.year"
+    dataPath: "surveyApi.survey.${id}.year.facets.0"
     enableExport: true
     query: >
         surveyApi {
@@ -48,20 +17,31 @@ multipleOptionsTemplate:
                     id
                     year(year: ${currentYear}) {
                         year
-                        total
                         completion {
+                            total
                             count
-                            percentage
+                            percentage_survey
                         }
-                        buckets {
+                        facets {
                             id
-                            count
-                            percentage
-                            entity {
-                                homepage
-                                name
-                                github {
-                                    url
+                            type
+                            completion {
+                                total
+                                percentage_question
+                                percentage_survey
+                                count
+                            }
+                            buckets {
+                                id
+                                count
+                                percentage_question
+                                percentage_survey
+                                entity {
+                                    homepage
+                                    name
+                                    github {
+                                        url
+                                    }
                                 }
                             }
                         }
@@ -76,32 +56,84 @@ multipleOptionsTemplate:
 #
 ###############################################################################
 
+# Used for salaries, company size, experience, etc. blocks that only show the current year of data
+demographicsTemplate:
+    blockType: VerticalBarBlock
+    dataPath: "surveyApi.survey.demographics.${id}.year.facets.0"
+    showDescription: true
+    enableExport: true
+    defaultUnits: percentage_survey
+    query: >
+        surveyApi {
+            survey(survey: ${surveyType}) {
+                demographics {
+                    ${id}: ${fieldId}(filters: ${filters}, options: ${options}, facet: ${facet}) {
+                        year(year: ${currentYear}) {
+                            year
+                            completion {
+                                total
+                                percentage_survey
+                                count
+                            }
+                            facets {
+                                id
+                                type
+                                completion {
+                                    total
+                                    percentage_question
+                                    percentage_survey
+                                    count
+                                }
+                                buckets {
+                                    id
+                                    count
+                                    percentage_question
+                                    percentage_survey
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 sourceTemplate:
     blockType: VerticalBarBlock
-    dataPath: "surveyApi.survey.demographics.${id}.year"
+    dataPath: "surveyApi.survey.demographics.${id}.year.facets.0"
     showDescription: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
                 demographics {
-                    ${id} {
+                    ${id} (filters: ${filters}, options: ${options}, facet: ${facet}){
                         year(year: ${currentYear}) {
                             year
-                            total
                             completion {
-                                percentage
+                                total
+                                percentage_survey
                                 count
                             }
-                            buckets {
+                            facets {
                                 id
-                                count
-                                percentage
-                                entity {
-                                    name
-                                    homepage
-                                    github {
-                                        url
+                                type
+                                completion {
+                                    total
+                                    percentage_question
+                                    percentage_survey
+                                    count
+                                }
+                                buckets {
+                                    id
+                                    count
+                                    percentage_question
+                                    percentage_survey
+                                    entity {
+                                        name
+                                        homepage
+                                        github {
+                                            url
+                                        }
                                     }
                                 }
                             }
@@ -137,11 +169,12 @@ scatterplotOverviewTemplate:
                     }
                     experience {
                         year(year:${currentYear}) {
-                            total
+                            # total
                             buckets{
                                 id
                                 count
-                                percentage
+                                percentage_question
+                                percentage_survey
                             }
                         }
                     }
@@ -167,7 +200,7 @@ toolsArrowsTemplate:
                     experience {
                         all_years {
                             buckets {
-                                percentage
+                                percentage_question
                                 id
                             }
                         }
@@ -198,13 +231,15 @@ featuresOverviewTemplate:
                         year(year: ${currentYear}) {
                             year
                             completion {
+                                total
                                 count
-                                percentage
+                                percentage_survey
                             }
                             buckets {
                                 id
                                 count
-                                percentage
+                                percentage_question
+                                percentage_survey
                             }
                         }
                     }
@@ -236,14 +271,16 @@ featureExperienceTemplate:
                         all_years {
                             year
                             completion {
+                                total
                                 count
-                                percentage
+                                percentage_survey
                             }
                             buckets {
                                 id
                                 count
                                 countDelta
-                                percentage
+                                percentage_question
+                                percentage_survey
                                 percentageDelta
                             }
                         }
@@ -276,11 +313,12 @@ toolsExperienceMarimekkoTemplate:
                     }
                     experience {
                         year(year: ${currentYear}) {
-                            total
+                            # total
                             buckets {
                                 id
                                 count
-                                percentage
+                                percentage_question
+                                percentage_survey
                             }
                         }
                     }
@@ -311,15 +349,16 @@ toolsSectionStreamsTemplate:
                     experience {
                         all_years {
                             year
-                            total
                             completion {
+                                total
                                 count
-                                percentage
+                                percentage_survey
                             }
                             buckets {
                                 id
                                 count
-                                percentage
+                                percentage_question
+                                percentage_survey
                             }
                         }
                     }
@@ -334,6 +373,7 @@ toolExperienceTemplate:
     bucketKeysName: tools
     showLegend: true
     enableExport: true
+    hidden: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
@@ -350,10 +390,10 @@ toolExperienceTemplate:
                     experience {
                         all_years {
                             year
-                            total
                             completion {
+                                total
                                 count
-                                percentage
+                                percentage_survey
                             }
                             awarenessUsageInterestSatisfaction {
                                 awareness
@@ -365,7 +405,8 @@ toolExperienceTemplate:
                                 id
                                 count
                                 countDelta
-                                percentage
+                                percentage_question
+                                percentage_survey
                                 percentageDelta
                             }
                         }
@@ -393,22 +434,22 @@ toolsExperienceRankingTemplate:
                         usage {
                             year
                             rank
-                            percentage
+                            percentage_question
                         }
                         awareness {
                             year
                             rank
-                            percentage
+                            percentage_question
                         }
                         interest {
                             year
                             rank
-                            percentage
+                            percentage_question
                         }
                         satisfaction {
                             year
                             rank
-                            percentage
+                            percentage_question
                         }
                     }
                 }
@@ -476,11 +517,12 @@ scatterplotTemplate:
                     }
                     experience {
                         year(year:${currentYear}) {
-                            total
+                            # total
                             buckets{
                                 id
                                 count
-                                percentage
+                                percentage_question
+                                percentage_survey
                             }
                         }
                     }
@@ -511,15 +553,16 @@ happinessTemplate:
                     year(year: ${currentYear}) {
                         year
                         mean
-                        total
                         completion {
+                            total
                             count
-                            percentage
+                            percentage_survey
                         }
                         buckets {
                             id
                             count
-                            percentage
+                            percentage_question
+                            percentage_survey
                         }
                     }
                 }
@@ -536,7 +579,7 @@ happinessTemplate:
 # {id} refers to the current subject
 opinionTemplate:
     blockType: OpinionBlock
-    dataPath: "surveyApi.survey.${id}.all_years"
+    dataPath: "surveyApi.survey.${id}.all_years.facets.0"
     showDescription: true
     enableExport: true
     query: >
@@ -547,15 +590,26 @@ opinionTemplate:
                     all_years {
                         year
                         mean
-                        total
                         completion {
+                            total
                             count
-                            percentage
+                            percentage_survey
                         }
-                        buckets {
+                        facets {
                             id
-                            count
-                            percentage
+                            type
+                            completion {
+                                total
+                                percentage_question
+                                percentage_survey
+                                count
+                            }
+                            buckets {
+                                id
+                                count
+                                percentage_question
+                                percentage_survey
+                            }
                         }
                     }
                 }
@@ -565,9 +619,8 @@ opinionTemplate:
 opinionsOthersTemplate:
     titleId: "opinions_others.${id}.others"
     blockType: HorizontalBarBlock
-    dataPath: "surveyApi.survey.${id}.year"
+    dataPath: "surveyApi.survey.${id}.year.facets.0"
     showDescription: true
-    units: count
     enableExport: true
     query: >
         surveyApi {
@@ -576,19 +629,30 @@ opinionsOthersTemplate:
                     id
                     year(year: ${currentYear}) {
                         year
-                        total
                         completion {
+                            total
                             count
-                            percentage
+                            percentage_survey
                         }
-                        buckets {
+                        facets {
                             id
-                            count
-                            percentage
-                            entity {
+                            type
+                            completion {
+                                total
+                                percentage_question
+                                percentage_survey
+                                count
+                            }
+                            buckets {
                                 id
-                                homepage
-                                name
+                                count
+                                percentage_question
+                                percentage_survey
+                                entity {
+                                    id
+                                    homepage
+                                    name
+                                }
                             }
                         }
                     }
@@ -607,9 +671,7 @@ sectionOtherToolsTemplate:
     blockName: category_other_tools
     blockType: HorizontalBarBlock
     showDescription: true
-    mode: relative
-    units: count
-    dataPath: "surveyApi.survey.${parentId}_others.year"
+    dataPath: "surveyApi.survey.${parentId}_others.year.facets.0"
     enableExport: true
     query: >
         surveyApi {
@@ -618,21 +680,32 @@ sectionOtherToolsTemplate:
                     id
                     year(year: ${currentYear}) {
                         year
-                        total
                         completion {
+                            total
                             count
-                            percentage
+                            percentage_survey
                         }
-                        buckets{
+                        facets {
                             id
-                            count
-                            percentage
-                            entity {
+                            type
+                            completion {
+                                total
+                                percentage_question
+                                percentage_survey
+                                count
+                            }
+                            buckets{
                                 id
-                                homepage
-                                name
-                                github {
-                                    url
+                                count
+                                percentage_question
+                                percentage_survey
+                                entity {
+                                    id
+                                    homepage
+                                    name
+                                    github {
+                                        url
+                                    }
                                 }
                             }
                         }

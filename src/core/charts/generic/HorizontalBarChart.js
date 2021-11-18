@@ -8,14 +8,15 @@ import { useI18n } from 'core/i18n/i18nContext'
 import { useBarChart } from 'core/charts/hooks'
 import BarTooltip from 'core/charts/generic/BarTooltip'
 import HorizontalBarStripes from './HorizontalBarStripes'
+import { isPercentage } from 'core/helpers/units'
 
-const labelMaxLength = 13
+const labelMaxLength = 20
 
 const margin = {
     top: 40,
     right: 20,
     bottom: 50,
-    left: 140,
+    left: 200,
 }
 
 const Text = ({ hasLink = false, label }) => {
@@ -99,13 +100,9 @@ const HorizontalBarChart = ({
         units,
     })
 
-    const data = useMemo(
-        () =>
-            sortBy(
-                buckets.map((bucket) => ({ ...bucket })),
-                'count'
-            ),
-        [buckets]
+    const data = sortBy(
+        buckets.map((bucket) => ({ ...bucket })),
+        'count'
     )
 
     return (
@@ -120,16 +117,16 @@ const HorizontalBarChart = ({
                 enableGridX={true}
                 enableGridY={false}
                 enableLabel={true}
-                label={(d) => (units === 'percentage' ? `${round(d.value, 1)}%` : d.value)}
+                label={(d) => (isPercentage(units) ? `${round(d.value, 1)}%` : d.value)}
                 labelTextColor={theme.colors.text}
                 labelSkipWidth={40}
                 colors={[theme.colors.barChart[colorVariant]]}
                 padding={0.4}
                 borderRadius={1}
-                // axisTop={{
-                //     tickValues: 5,
-                //     format: formatValue,
-                // }}
+                axisTop={{
+                    tickValues: 5,
+                    format: formatValue,
+                }}
                 axisBottom={{
                     tickValues: 5,
                     format: formatValue,
@@ -142,16 +139,19 @@ const HorizontalBarChart = ({
                     tickSize: 0,
                     tickPadding: 10,
                     renderTick: (tick) => {
-                        return <TickItem
-                            i18nNamespace={i18nNamespace}
-                            shouldTranslate={translateData}
-                            entity={buckets.find((b) => b.id === tick.value).entity}
-                            {...tick}
-                        />
+                        return (
+                            <TickItem
+                                i18nNamespace={i18nNamespace}
+                                shouldTranslate={translateData}
+                                entity={buckets.find((b) => b.id === tick.value)?.entity}
+                                {...tick}
+                            />
+                        )
                     },
                 }}
                 tooltip={(barProps) => (
                     <BarTooltip
+                        units={units}
                         i18nNamespace={i18nNamespace}
                         shouldTranslate={translateData}
                         {...barProps}
@@ -181,7 +181,7 @@ HorizontalBarChart.propTypes = {
     i18nNamespace: PropTypes.string.isRequired,
     translateData: PropTypes.bool,
     mode: PropTypes.oneOf(['absolute', 'relative']).isRequired,
-    units: PropTypes.oneOf(['count', 'percentage']).isRequired,
+    units: PropTypes.oneOf(['count', 'percentage', 'percentage_survey']).isRequired,
     colorVariant: PropTypes.oneOf(['primary', 'secondary']),
 }
 

@@ -2,6 +2,39 @@ import { useMemo } from 'react'
 import ceil from 'lodash/ceil'
 // @ts-ignore
 import { useI18n } from 'core/i18n/i18nContext'
+import { Units, Mode, isPercentage } from 'core/helpers/units'
+import { EntityBucket } from 'core/types'
+
+const getMode = (units: Units, mode: Mode) => {
+    if (mode) {
+        return mode
+    } else {
+        if (units === 'percentage_survey') {
+            return 'absolute'
+        } else {
+            return 'relative'
+        }
+    }
+}
+
+const getMaxValue = (units: Units, mode: Mode, buckets: EntityBucket[], total: number) => {
+    if (isPercentage(units)) {
+        if (getMode(units, mode) === 'absolute') {
+            return 100
+        } else {
+            const maxBucketPercentage = Math.max(...buckets.map((b) => b[units]))
+            return ceil(maxBucketPercentage, -1)
+        }
+    } else {
+        if (getMode(units, mode) === 'absolute') {
+            return ceil(total, -3)
+        } else {
+            const maxBucketCount = Math.max(...buckets.map((b) => b.count))
+            const precision = `${maxBucketCount}`.length - 1
+            return ceil(maxBucketCount, -precision)
+        }
+    }
+}
 
 export const useBarChart = ({
     buckets,
@@ -11,19 +44,16 @@ export const useBarChart = ({
     i18nNamespace,
     shouldTranslate,
 }: {
-    buckets: {
-        count: number
-        percentage: number
-    }[]
+    buckets: EntityBucket[]
     total: number
     mode: 'relative' | 'absolute'
-    units: 'count' | 'percentage'
+    units: 'count' | 'percentage_question' | 'percentage_facet' | 'percentage_survey'
     i18nNamespace: string
     shouldTranslate?: boolean
 }) => {
     const { translate } = useI18n()
 
-    const formatTick = useMemo(() => {
+    const formatTick = () => {
         if (shouldTranslate !== true) {
             return (value: string | number) => `${value}`
         }
@@ -31,41 +61,16 @@ export const useBarChart = ({
         // automatically pick from `options` using
         // the provided namespace.
         return (value: string | number) => translate(`options.${i18nNamespace}.${value}.short`)
-    }, [translate, shouldTranslate, i18nNamespace])
+    }
 
-    const formatValue = useMemo(() => {
-        if (units === 'percentage') {
-            return (value: string | number) => `${value}%`
-        }
+    const formatValue = isPercentage(units) ? (value: string | number) => `${value}%` : '>-.2s'
 
-        return '.2s'
-    }, [units])
-
-    const maxValue = useMemo(() => {
-        if (units === 'percentage') {
-            if (mode === 'absolute') {
-                return 100
-            }
-
-            const maxBucketPercentage = Math.max(...buckets.map((b) => b.percentage))
-
-            return ceil(maxBucketPercentage, -1)
-        }
-
-        if (mode === 'absolute') {
-            return ceil(total, -3)
-        }
-
-        const maxBucketCount = Math.max(...buckets.map((b) => b.count))
-        const precision = `${maxBucketCount}`.length - 1
-
-        return ceil(maxBucketCount, -precision)
-    }, [buckets, total, mode, units])
+    const maxValue = getMaxValue(units, mode, buckets, total)
 
     const tickCount = 6
 
     const ticks = Array.from({ length: tickCount }, (_, i) =>
-        Math.round((i * maxValue) / tickCount)
+        Math.round((i * maxValue) / (tickCount-1))
     )
 
     return { formatTick, formatValue, maxValue, tickCount, ticks }

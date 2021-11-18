@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { useTheme } from 'styled-components'
 import { ResponsiveChoroplethCanvas } from '@nivo/geo'
 import countries from 'data/geo/world_countries'
-import ParticipationByCountryTooltip from './ParticipationByCountryTooltip'
+import { isPercentage } from 'core/helpers/units'
+import { BasicTooltip } from '@nivo/tooltip'
 
 const features = countries.features.map((feature) => {
     return {
@@ -27,6 +28,18 @@ const chartLegends = [
     },
 ]
 
+const ParticipationByCountryTooltip = ({ feature }) => {
+    if (feature.data === undefined) return null
+    return (
+        <BasicTooltip
+            id={feature.properties.name}
+            color={feature.color}
+            enableChip={true}
+            value={`${feature?.data?.percentage_survey?.toFixed(1)}% (${Math.round(feature?.data?.count)})`}
+        />
+    )
+}
+
 const ParticipationByCountryChart = ({ units, data }) => {
     const theme = useTheme()
 
@@ -37,18 +50,15 @@ const ParticipationByCountryChart = ({ units, data }) => {
 
     const colorRange = theme.colors.countries
 
-    const formatValue = useMemo(() => {
-        if (units === 'percentage') return (v) => `${v.toFixed(1)}%`
-        return (v) => Math.round(v)
-    }, [units])
+    const valueFormat = isPercentage(units) ? (v) => `${v.toFixed(1)}%` : (v) => Math.round(v)
 
     return (
         <ResponsiveChoroplethCanvas
             features={features}
             data={data}
             value={units}
-            valueFormat={formatValue}
-            domain={units === 'percentage' ? [0, 8] : [0, 1000]}
+            valueFormat={valueFormat}
+            domain={isPercentage(units) ? [0, 8] : [0, 1000]}
             colors={colorRange}
             unknownColor={theme.colors.backgroundAlt}
             projectionScale={118}
@@ -65,12 +75,12 @@ const ParticipationByCountryChart = ({ units, data }) => {
 }
 
 ParticipationByCountryChart.propTypes = {
-    units: PropTypes.oneOf(['count', 'percentage']).isRequired,
+    units: PropTypes.oneOf(['count', 'percentage_survey', 'percentage_question']).isRequired,
     data: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
             count: PropTypes.number.isRequired,
-            percentage: PropTypes.number.isRequired,
+            percentage_survey: PropTypes.number.isRequired,
         })
     ).isRequired,
 }

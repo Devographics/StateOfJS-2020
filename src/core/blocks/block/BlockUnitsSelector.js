@@ -4,31 +4,29 @@ import ButtonGroup from 'core/components/ButtonGroup'
 import Button from 'core/components/Button'
 import T from 'core/i18n/T'
 
+const UnitButton = ({ units, current, onChange }) => (
+    <Button
+        size="small"
+        className={`Button--${current === units ? 'selected' : 'unselected'}`}
+        onClick={() => onChange(units)}
+        aria-pressed={current === units}
+    >
+        <T k={`chart_units.${units}`} />
+    </Button>
+)
+
 const BlockUnitsSelector = ({ units, onChange }) => {
     return (
         <ButtonGroup>
-            <Button
-                size="small"
-                className={`Button--${units === 'percentage' ? 'selected' : 'unselected'}`}
-                onClick={() => onChange('percentage')}
-                aria-pressed={units === 'percentage'}
-            >
-                <T k="chart_units.percentage" />
-            </Button>
-            <Button
-                size="small"
-                className={`Button--${units === 'count' ? 'selected' : 'unselected'}`}
-                onClick={() => onChange('count')}
-                aria-pressed={units === 'count'}
-            >
-                <T k="chart_units.count" />
-            </Button>
+            <UnitButton units="percentage_survey" current={units} onChange={onChange} />
+            <UnitButton units="percentage_question" current={units} onChange={onChange} />
+            <UnitButton units="count" current={units} onChange={onChange} />
         </ButtonGroup>
     )
 }
 
 BlockUnitsSelector.propTypes = {
-    units: PropTypes.oneOf(['percentage', 'count']).isRequired,
+    units: PropTypes.oneOf(['percentage', 'count', 'percentage_survey']).isRequired,
     onChange: PropTypes.func.isRequired,
 }
 

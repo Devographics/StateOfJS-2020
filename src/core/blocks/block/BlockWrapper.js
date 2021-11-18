@@ -2,8 +2,7 @@ import React from 'react'
 import Block from 'core/blocks/block/Block'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
-import {EmptyWrapper, TabsWrapper} from 'core/blocks/block/BlockTabs'
-
+import { EmptyWrapper, TabsWrapper } from 'core/blocks/block/BlockTabs'
 
 const BlockWrapper = (props) => {
     const { block, pageData, index: blockIndex } = props

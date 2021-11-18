@@ -61,7 +61,7 @@ export const TabsWrapper = ({ block, pageData, blockIndex }) => (
     <Wrapper className="tabs-wrapper">
         <Tabs.Root defaultValue="tab0" orientation="horizontal">
             <BlockHeader>
-                <BlockTitle block={block} {...block.titleProps} />
+                <BlockTitle block={block.variants[0]} {...block.variants[0].titleProps} />
                 {block.variants.length > 1 && (
                     <TabsList aria-label="tabs example">
                         {block.variants.map((block, variantIndex) => (

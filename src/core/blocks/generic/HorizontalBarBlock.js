@@ -10,7 +10,7 @@ const HorizontalBarBlock = ({ block, data }) => {
     const {
         id,
         mode = 'relative',
-        units: defaultUnits = 'percentage',
+        defaultUnits = 'percentage_survey',
         translateData,
         i18nNamespace,
         colorVariant,
@@ -19,31 +19,45 @@ const HorizontalBarBlock = ({ block, data }) => {
     const [units, setUnits] = useState(defaultUnits)
     const [view, setView] = useState('viz')
 
-    const { total, buckets } = data
+    const { completion, buckets } = data
+
+    const { total } = completion
 
     const { translate } = useI18n()
 
     return (
-        <Block 
-          view={view}
-          setView={setView}
-          units={units}
-          setUnits={setUnits}
-          data={data}
-          tables={[{
-            headings: [{id: 'label', label: <T k='table.label' />}, {id: 'percentage', label: <T k='table.percentage' />}, {id: 'count', label: <T k='table.count' />}],
-            rows: data.buckets.map((bucket) => ([{
-              id: 'label',
-              label: bucket.entity ? bucket.entity.name : translate(`options.${i18nNamespace || id}.${bucket.id}`),
-            }, {
-              id: 'percentage',
-              label: `${bucket.percentage}%`,
-            }, {
-              id: 'count',
-              label: bucket.count,
-            }]))
-          }]}
-          block={block}
+        <Block
+            view={view}
+            setView={setView}
+            units={units}
+            setUnits={setUnits}
+            data={data}
+            tables={[
+                {
+                    headings: [
+                        { id: 'label', label: <T k="table.label" /> },
+                        { id: 'percentage_survey', label: <T k="table.percentage" /> },
+                        { id: 'count', label: <T k="table.count" /> },
+                    ],
+                    rows: data.buckets.map((bucket) => [
+                        {
+                            id: 'label',
+                            label: bucket.entity
+                                ? bucket.entity.name
+                                : translate(`options.${i18nNamespace || id}.${bucket.id}`),
+                        },
+                        {
+                            id: 'percentage_survey',
+                            label: `${bucket.percentage_survey}%`,
+                        },
+                        {
+                            id: 'count',
+                            label: bucket.count,
+                        },
+                    ]),
+                },
+            ]}
+            block={block}
         >
             <ChartContainer fit={true}>
                 <HorizontalBarChart
@@ -67,7 +81,7 @@ HorizontalBarBlock.propTypes = {
         showDescription: PropTypes.bool,
         translateData: PropTypes.bool,
         mode: PropTypes.oneOf(['absolute', 'relative']),
-        units: PropTypes.oneOf(['percentage', 'count']),
+        defaultUnits: PropTypes.oneOf(['percentage_survey', 'percentage_question', 'count']),
         colorVariant: PropTypes.oneOf(['primary', 'secondary']),
     }).isRequired,
     data: PropTypes.shape({

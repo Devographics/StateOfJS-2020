@@ -9,7 +9,7 @@ import { useEntities } from 'core/entities/entitiesContext'
  * - HorizontalBarChart
  * - VerticalBarChart
  */
-const BarTooltip = ({ indexValue, data, i18nNamespace, shouldTranslate }) => {
+const BarTooltip = ({ units, indexValue, data, i18nNamespace, shouldTranslate }) => {
     const { getName } = useEntities()
     const { translate } = useI18n()
     const label = shouldTranslate
@@ -20,7 +20,7 @@ const BarTooltip = ({ indexValue, data, i18nNamespace, shouldTranslate }) => {
     return (
         <div style={{ ...nivoTheme.tooltip.container, maxWidth: 300 }}>
             {label}:&nbsp;
-            <strong>{data.percentage}%</strong>
+            <strong>{data[units]}%</strong>
             &nbsp;({data.count})
         </div>
     )
@@ -29,9 +29,11 @@ const BarTooltip = ({ indexValue, data, i18nNamespace, shouldTranslate }) => {
 BarTooltip.propTypes = {
     indexValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     data: PropTypes.shape({
-        percentage: PropTypes.number.isRequired,
+        percentage_survey: PropTypes.number,
+        percentage_question: PropTypes.number,
         count: PropTypes.number.isRequired,
     }).isRequired,
+    units: PropTypes.string.isRequired,
     i18nNamespace: PropTypes.string.isRequired,
     shouldTranslate: PropTypes.bool.isRequired,
 }

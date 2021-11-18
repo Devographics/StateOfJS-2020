@@ -54,7 +54,13 @@ exports.createPagesSingleLoop = async ({ graphql, actions: { createPage, createR
             ${localesQuery}
         `
     )
-    const locales = localesResults.data.surveyApi.locales
+    let locales = localesResults.data.surveyApi.locales
+
+    if (process.env.FAST_BUILD === true) {
+        // if locales are turned off (to make build faster), only keep en-US locale
+        locales = localesResults.data.surveyApi.locales.filter((l) => l.id === 'en-US')
+    }
+
     const cleanLocales = getCleanLocales(locales)
 
     const { flat } = await computeSitemap(rawSitemap, cleanLocales)
@@ -95,7 +101,6 @@ exports.createPagesSingleLoop = async ({ graphql, actions: { createPage, createR
             const locale = locales[index]
             locale.path = `/${locale.id}`
 
-
             const pageObject = {
                 path: getLocalizedPath(page.path, locale),
                 component: path.resolve(`./src/core/pages/PageTemplate.js`),
@@ -122,7 +127,10 @@ exports.createPagesSingleLoop = async ({ graphql, actions: { createPage, createR
             isPermanent: true,
         })
 
-        createBlockPages(page, context, createPage, locales)
+        if (!process.env.FAST_BUILD === true) {
+            // skip this is fast_build option is enabled
+            createBlockPages(page, context, createPage, locales)
+        }
     }
 }
 

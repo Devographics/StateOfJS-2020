@@ -12,6 +12,7 @@ import BlockFooter from 'core/blocks/block/BlockFooter'
 const BlockChart = (props) => {
   const { children, units, error, data, block = {}, legendProps } = props
   const { showLegend, legendPosition = 'bottom', showNote = true, showDescription } = block
+
   return (
       <div>
           {showDescription && <BlockDescriptionContents block={block} />}
@@ -37,7 +38,7 @@ const BlockChart = (props) => {
                   {...legendProps}
               />
           )}
-          <BlockFooter block={block}/>
+          <BlockFooter {...props}/>
           {showNote && <BlockNote block={block} />}
       </div>
   )

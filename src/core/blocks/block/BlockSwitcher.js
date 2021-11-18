@@ -44,7 +44,7 @@ BlockSwitcher.propTypes = {
         // key used to pick the block's data from the page's data
         dataPath: PropTypes.string,
         // key used to pick bucket keys
-        bucketKeysName: PropTypes.oneOf(Object.keys(keys)),
+        bucketKeysName: PropTypes.oneOf([...Object.keys(keys), 'country']),
         // enable/disable block description
         showDescription: PropTypes.bool,
         // which mode to use for generic bar charts

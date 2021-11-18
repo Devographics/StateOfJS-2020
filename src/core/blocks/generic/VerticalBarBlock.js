@@ -17,7 +17,7 @@ const VerticalBarBlock = ({ block, data }) => {
     const {
         id,
         mode = 'relative',
-        units: defaultUnits = 'percentage',
+        units: defaultUnits = 'percentage_survey',
         translateData,
         bucketKeysName = id,
         i18nNamespace,
@@ -32,8 +32,10 @@ const VerticalBarBlock = ({ block, data }) => {
 
     const bucketKeys = useLegends(block, data.buckets)
 
-    const { buckets, total, completion } = data
+    const { buckets, completion } = data
 
+    const { total } = completion
+    
     const sortedBuckets = bucketKeys.map(({ id: bucketKey }) => {
         const bucket = buckets.find((b) => b.id === bucketKey)
         if (bucket === undefined) {

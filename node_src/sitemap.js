@@ -46,7 +46,7 @@ const applyTemplate = (block, templateName, rawTemplates, parent) => {
     const variables = {
         filters: '{}', // this wil be injected into the GraphQL query, so it should be a string
         options: '{}', // this wil be injected into the GraphQL query, so it should be a string
-        facet: 'default',
+        facet: 'null',
         ...(parent ? { parentId: parent.id } : {}),
         ...(templateObject.defaultVariables || {}),
         ...globalVariables,

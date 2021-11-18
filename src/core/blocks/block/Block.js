@@ -113,6 +113,9 @@ const TabsTrigger = styled(Tabs.Trigger)`
     padding-left: ${spacing()};
     margin-left: -1px;
     border-radius: 0 3px 3px 0;
+    button {
+        display: block;
+    }
     &[data-state='active'] {
         /* border: 1px dashed ${(props) => props.theme.colors.border}; */
         /* border-left: 0; */
