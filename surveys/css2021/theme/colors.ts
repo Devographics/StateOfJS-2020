@@ -2,25 +2,25 @@ import { DefaultTheme } from 'styled-components'
 import colors from 'core/theme/colors'
 
 const stateOfCSSThemeColors: DefaultTheme['colors'] = {
-    background: colors.navy,
-    backgroundBackground: colors.navyDark,
+    background: '#272325',
+    backgroundBackground: '#3E3036',
     backgroundForeground: colors.navyLighter,
-    backgroundAlt: colors.navyDark,
-    backgroundAlt2: colors.navyDark,
+    backgroundAlt: '#3E3036',
+    backgroundAlt2: 'green',
     backgroundInverted: colors.greyTeal,
     backgroundInvertedAlt: '#FBFAE1',
-    text: colors.greyTeal,
-    textAlt: colors.greyTealDark,
+    text: '#FFF6E6',
+    textAlt: '#CCC2AF',
     textInverted: colors.navyDark,
     textHighlight: colors.greenDark,
-    link: colors.pink,
-    linkActive: colors.greenDark,
+    link: '#ED2E84',
+    linkActive: '#1734BF',
     contrast: '#0bdf67',
-    border: colors.greyTeal,
+    border: '#FFF6E6',
     heatmap: colors.pinkLight,
     lineChartDefaultColor: '#59DF7F',
     barChart: {
-        primary: colors.blue,
+        primary: '#ED2E84',
         secondary: '#556ad7',
     },
     ranges: {
@@ -94,6 +94,17 @@ const stateOfCSSThemeColors: DefaultTheme['colors'] = {
         colors.pinkLighter,
         colors.pinkLight,
         colors.pink,
+    ],
+    velocity: [
+        colors.tealDarker,
+        colors.tealDark,
+        colors.teal,
+        colors.tealLight,
+        colors.greyMedium,
+        colors.redLighter,
+        colors.redLight,
+        colors.red,
+        colors.redDark,
     ],
 }
 

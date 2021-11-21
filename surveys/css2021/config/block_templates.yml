@@ -60,6 +60,7 @@ multipleOptionsTemplate:
 demographicsTemplate:
     blockType: VerticalBarBlock
     dataPath: "surveyApi.survey.demographics.${id}.year.facets.0"
+    keysPath: "surveyApi.survey.demographics.${id}.keys"
     showDescription: true
     enableExport: true
     defaultUnits: percentage_survey
@@ -68,6 +69,7 @@ demographicsTemplate:
             survey(survey: ${surveyType}) {
                 demographics {
                     ${id}: ${fieldId}(filters: ${filters}, options: ${options}, facet: ${facet}) {
+                        keys
                         year(year: ${currentYear}) {
                             year
                             completion {
@@ -150,15 +152,15 @@ sourceTemplate:
 ###############################################################################
 
 scatterplotOverviewTemplate:
-    id: scatterplot_overview
     blockType: ToolsScatterplotBlock
     dataPath: "surveyApi.survey.${id}"
+    keysPath: "surveyApi.survey.${id}.0.experience.keys"
     showDescription: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                 scatterplot_overview: tools(ids: [${allTools}]) {
+                 ${id}: tools(ids: [${allTools}]) {
                     id
                     entity {
                         homepage
@@ -168,6 +170,7 @@ scatterplotOverviewTemplate:
                         }
                     }
                     experience {
+                        keys
                         year(year:${currentYear}) {
                             # total
                             buckets{
@@ -184,13 +187,14 @@ scatterplotOverviewTemplate:
 
 toolsArrowsTemplate:
     blockType: ToolsArrowsBlock
-    dataPath: "surveyApi.survey.tools"
+    dataPath: "surveyApi.survey.${id}"
+    keysPath: "surveyApi.survey.${id}.0.experience.keys"
     showDescription: true
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                tools {
+                ${id}: tools {
                     id
                     entity {
                         name
@@ -198,6 +202,7 @@ toolsArrowsTemplate:
                         id
                     }
                     experience {
+                        keys
                         all_years {
                             buckets {
                                 percentage_question
@@ -216,18 +221,19 @@ toolsArrowsTemplate:
 ###############################################################################
 
 featuresOverviewTemplate:
-    id: features_overview
     blockName: features_overview
     blockType: FeaturesOverviewBlock
-    dataPath: "surveyApi.survey.features"
+    dataPath: "surveyApi.survey.${id}"
+    keysPath: "surveyApi.survey.${id}.0.experience.keys"
     enableExport: true
     query: >
         surveyApi {
             survey(survey: ${surveyType}) {
-                features(ids: [${allFeatures}]) {
+                ${id}: features(ids: [${allFeatures}]) {
                     id
                     name
                     experience{
+                        keys
                         year(year: ${currentYear}) {
                             year
                             completion {
@@ -235,11 +241,15 @@ featuresOverviewTemplate:
                                 count
                                 percentage_survey
                             }
-                            buckets {
+                            facets{
+                                type
                                 id
-                                count
-                                percentage_question
-                                percentage_survey
+                                buckets {
+                                    id
+                                    count
+                                    percentage_question
+                                    percentage_survey
+                                }
                             }
                         }
                     }
@@ -251,6 +261,7 @@ featuresOverviewTemplate:
 featureExperienceTemplate:
     blockType: FeatureExperienceBlock
     dataPath: "surveyApi.survey.${id}"
+    keysPath: "surveyApi.survey.${id}.experience.keys"
     showDescription: true
     bucketKeysName: features
     showLegend: true
@@ -268,6 +279,7 @@ featureExperienceTemplate:
                         summary
                     }
                     experience {
+                        keys
                         all_years {
                             year
                             completion {
@@ -275,13 +287,17 @@ featureExperienceTemplate:
                                 count
                                 percentage_survey
                             }
-                            buckets {
+                            facets{
+                                type
                                 id
-                                count
-                                countDelta
-                                percentage_question
-                                percentage_survey
-                                percentageDelta
+                                buckets {
+                                    id
+                                    count
+                                    countDelta
+                                    percentage_question
+                                    percentage_survey
+                                    percentageDelta
+                                }
                             }
                         }
                     }
@@ -300,6 +316,7 @@ toolsExperienceMarimekkoTemplate:
     blockType: ToolsExperienceMarimekkoBlock
     blockName: tools_experience_marimekko
     dataPath: "surveyApi.survey.${parentId}_marimekko"
+    keysPath: "surveyApi.survey.${parentId}_marimekko.0.experience.keys"
     bucketKeysName: tools
     showLegend: true
     enableExport: true
@@ -312,6 +329,7 @@ toolsExperienceMarimekkoTemplate:
                         name
                     }
                     experience {
+                        keys
                         year(year: ${currentYear}) {
                             # total
                             buckets {
@@ -331,6 +349,7 @@ toolsSectionStreamsTemplate:
     blockName: tools_section_streams
     blockType: ToolsSectionStreamsBlock
     dataPath: "surveyApi.survey.${parentId}_streams"
+    keysPath: "surveyApi.survey.${parentId}_streams.0.experience.keys"
     bucketKeysName: tools
     showLegend: true
     enableExport: true
@@ -347,6 +366,7 @@ toolsSectionStreamsTemplate:
                         }
                     }
                     experience {
+                        keys
                         all_years {
                             year
                             completion {
@@ -370,6 +390,7 @@ toolExperienceTemplate:
     blockType: ToolExperienceBlock
     blockName: tool_experience
     dataPath: surveyApi.survey.${id}_experience
+    keysPath: surveyApi.survey.${id}_experience.experience.keys
     bucketKeysName: tools
     showLegend: true
     enableExport: true
@@ -388,6 +409,7 @@ toolExperienceTemplate:
                         }
                     }
                     experience {
+                        keys
                         all_years {
                             year
                             completion {
@@ -457,7 +479,6 @@ toolsExperienceRankingTemplate:
         }
 
 allSectionsToolsCardinalityByUserTemplate:
-    id: all_sections_tools_cardinality_by_user
     blockType: AllSectionsToolsCardinalityByUserBlock
     dataPath: surveyApi.survey
     bucketKeysName: tools
@@ -498,38 +519,6 @@ allSectionsToolsCardinalityByUserTemplate:
             }
         }
 
-scatterplotTemplate:
-    blockType: ToolsScatterplotBlock
-    dataPath: "surveyApi.survey.${id}"
-    showDescription: true
-    enableExport: true
-    query: >
-        surveyApi {
-            survey(survey: ${surveyType}) {
-                 ${id}: tools(ids:[${toolsCategories[parentId]}]) {
-                    id
-                    entity {
-                        homepage
-                        name
-                        github {
-                                url
-                              }
-                    }
-                    experience {
-                        year(year:${currentYear}) {
-                            # total
-                            buckets{
-                                id
-                                count
-                                percentage_question
-                                percentage_survey
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
 ###############################################################################
 #
 # Happiness
@@ -541,6 +530,7 @@ happinessTemplate:
     # blockType: HappinessBlock
     blockType: VerticalBarBlock
     dataPath: "surveyApi.survey.${id}_happiness.year"
+    keysPath: "surveyApi.survey.${id}_happiness.keys"
     showDescription: false
     i18nNamespace: happiness
     bucketKeysName: happiness
@@ -550,6 +540,7 @@ happinessTemplate:
         surveyApi {
             survey(survey: ${surveyType}) {
                 ${id}_happiness: happiness(id: ${id}) {
+                    keys
                     year(year: ${currentYear}) {
                         year
                         mean
@@ -580,6 +571,7 @@ happinessTemplate:
 opinionTemplate:
     blockType: OpinionBlock
     dataPath: "surveyApi.survey.${id}.all_years.facets.0"
+    keysPath: "surveyApi.survey.${id}.keys"
     showDescription: true
     enableExport: true
     query: >
@@ -587,6 +579,7 @@ opinionTemplate:
             survey(survey: ${surveyType}) {
                 ${id}: opinion(id: ${id}) {
                     id
+                    keys
                     all_years {
                         year
                         mean

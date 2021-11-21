@@ -419,7 +419,7 @@ export const ToolsArrowsChart = ({ data, activeCategory }) => {
                     />
                 </svg>
             </div>
-            <div class="legend">
+            <div className="legend">
                 <p className="hide_visually">
                     {translate('charts.tools_arrows.legend')}
                 </p>

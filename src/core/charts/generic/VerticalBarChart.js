@@ -45,9 +45,9 @@ const getLabelsLayer = (units) => (props) => {
     })
 }
 
-const getAxixLabels = (v, bucketKeys) => {
+const getAxisLabels = (v, bucketKeys) => {
     const key = bucketKeys.find((key) => key.id === v)
-    return key.shortLabel || key.label
+    return key && (key.shortLabel || key.label)
 }
 
 const VerticalBarChart = ({
@@ -106,7 +106,7 @@ const VerticalBarChart = ({
                     legendOffset: 52,
                 }}
                 axisBottom={{
-                    format: (v) => getAxixLabels(v, bucketKeys),
+                    format: (v) => getAxisLabels(v, bucketKeys),
                     // legend: translate(`charts.axis_legends.${i18nNamespace}`),
                     // legendPosition: 'middle',
                     // legendOffset: viewportWidth < breakpoint ? 90 : 50,

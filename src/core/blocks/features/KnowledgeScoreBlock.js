@@ -17,7 +17,12 @@ const KnowledgeScoreBlock = ({ block, data }) => {
             `KnowledgeScoreBlock: Missing data for block ${block.id}, page data is undefined`
         )
     }
-    const { id, mode = 'relative', units: defaultUnits = 'percentage', i18nNamespace } = block
+    const {
+        id,
+        mode = 'relative',
+        units: defaultUnits = 'percentage_survey',
+        i18nNamespace,
+    } = block
 
     const context = usePageContext()
     const { width } = context
@@ -41,26 +46,46 @@ const KnowledgeScoreBlock = ({ block, data }) => {
         return {
             id: getLabel(n),
             count: sumBy(selectedBuckets, 'count'),
-            percentage: Math.round(100 * sumBy(selectedBuckets, 'percentage')) / 100,
+            percentage_survey: Math.round(100 * sumBy(selectedBuckets, 'percentage_survey')) / 100,
+            percentage_question: Math.round(100 * sumBy(selectedBuckets, 'percentage_question')) / 100,
         }
     })
 
-    const tables = [{
-      headings: [{id: 'label', label: <T k='table.label' />}, {id: 'percentage', label: <T k='table.percentage' />}, {id: 'count', label: <T k='table.count' />}],
-      rows: groupedBuckets.map((bucket) => ([{
-        id: 'label',
-        label: bucket.id,
-      }, {
-        id: 'percentage',
-        label: `${bucket.percentage}%`,
-      }, {
-        id: 'count',
-        label: bucket.count,
-      }]))
-    }];
-    
+    const tables = [
+        {
+            headings: [
+                { id: 'label', label: <T k="table.label" /> },
+                { id: 'percentage', label: <T k="table.percentage" /> },
+                { id: 'count', label: <T k="table.count" /> },
+            ],
+            rows: groupedBuckets.map((bucket) => [
+                {
+                    id: 'label',
+                    label: bucket.id,
+                },
+                {
+                    id: 'percentage',
+                    label: `${bucket.percentage}%`,
+                },
+                {
+                    id: 'count',
+                    label: bucket.count,
+                },
+            ]),
+        },
+    ]
+
     return (
-        <Block tables={tables} view={view} setView={setView} units={units} setUnits={setUnits} completion={completion} data={data} block={block}>
+        <Block
+            tables={tables}
+            view={view}
+            setView={setView}
+            units={units}
+            setUnits={setUnits}
+            completion={completion}
+            data={data}
+            block={block}
+        >
             <ChartContainer fit={true}>
                 <VerticalBarChart
                     bucketKeys={bucketKeys}

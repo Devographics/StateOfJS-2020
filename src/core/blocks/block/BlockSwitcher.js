@@ -6,12 +6,12 @@ import isEmpty from 'lodash/isEmpty'
 import Block from 'core/blocks/block/Block'
 import get from 'lodash/get'
 import { usePageContext } from 'core/helpers/pageContext'
-import { BlockError } from 'core/blocks/block/BlockWrapper'
+import { BlockError } from 'core/blocks/block/BlockError'
 
 const BlockSwitcher = ({ pageData, block, index, ...props }) => {
     const pageContext = usePageContext()
     const { id, blockType, hidden } = block
-    let blockData
+    let blockData, blockKeys
     if (!blockRegistry[blockType]) {
         return (
             <BlockError
@@ -28,12 +28,17 @@ const BlockSwitcher = ({ pageData, block, index, ...props }) => {
                 <BlockError
                     block={block}
                     message={`No available data for block ${id} | path: ${block.dataPath} | type: ${blockType}`}
-                />
+                >
+                    <textarea>{JSON.stringify(pageData, undefined, 2)}</textarea>
+                </BlockError>
             )
         }
     }
+    if (block.keysPath) {
+        blockKeys = get(pageData, block.keysPath)
+    }
     return hidden && !pageContext.isCapturing ? null : (
-        <BlockComponent block={block} data={blockData} index={index} {...props} />
+        <BlockComponent block={block} data={blockData} keys={blockKeys} index={index} {...props} />
     )
 }
 

@@ -9,6 +9,7 @@ import * as Tabs from '@radix-ui/react-tabs'
 import BlockChart from 'core/blocks/block/BlockChart'
 import BlockShare from 'core/blocks/block/BlockShare'
 import { ChartIcon, DataIcon, ShareIcon } from 'core/icons'
+import { ErrorBoundary } from 'core/blocks/block/BlockError'
 
 const Block = (props) => {
     const {
@@ -25,6 +26,7 @@ const Block = (props) => {
         headings,
         tables,
     } = props
+    
     const {
         id,
         showLegend,
@@ -71,19 +73,29 @@ const Block = (props) => {
                 </SideArea>
                 <MainArea>
                     <Tabs.Content value="chart">
-                        <BlockChart {...props} />
+                        <TabWithBoundary {...props}>
+                            <BlockChart {...props}>{children}</BlockChart>
+                        </TabWithBoundary>
                     </Tabs.Content>
                     <Tabs.Content value="data">
-                        <BlockData {...props} />
+                        <TabWithBoundary>
+                            <BlockData {...props} />
+                        </TabWithBoundary>
                     </Tabs.Content>
                     <Tabs.Content value="share">
-                        <BlockShare {...props} />
+                        <TabWithBoundary>
+                            <BlockShare {...props} />
+                        </TabWithBoundary>
                     </Tabs.Content>
                 </MainArea>
             </TabsRoot>
         </Container>
     )
 }
+
+const TabWithBoundary = ({ children, ...props }) => (
+    <ErrorBoundary {...props}>{children}</ErrorBoundary>
+)
 
 const Container = styled.div`
     @media ${mq.small} {
@@ -146,7 +158,7 @@ const SideArea = styled.div`
     padding-right: ${spacing(0.5)};
     margin-left: ${spacing()};
     /* background: ${(props) => props.theme.colors.backgroundForeground}; */
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAAChJREFUGFdjZEADHv7F/xmRxUACOzb2MsIFYQIgRWBBZAGwILoASBAAUUcSD4UNDbsAAAAASUVORK5CYII=')
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAAXNSR0IArs4c6QAAACZJREFUGFdjZEAD////b2BEFgMLMDIiBGECIEVglcgCYEF0AZAgAOgcE4P59g1CAAAAAElFTkSuQmCC')
         repeat;
 `
 

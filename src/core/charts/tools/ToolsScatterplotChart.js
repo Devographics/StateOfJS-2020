@@ -183,7 +183,8 @@ const quadrantLabels = {
     interest: ['mainstream', 'next_big_thing', 'unknown', 'low_interest'],
 }
 
-const Quadrants = ({ width, height, margin, metric = 'satisfaction' }) => {
+const Quadrants = (props) => {
+    const { outerWidth: width, outerHeight: height, margin, metric = 'satisfaction' } = props
     const { translate } = useI18n()
     const theme = useTheme()
 

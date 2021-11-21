@@ -14,7 +14,7 @@ import { useI18n } from 'core/i18n/i18nContext'
 const parseMDNLinks = (content) =>
     content.replace(new RegExp(`href="/`, 'g'), `href="https://developer.mozilla.org/`)
 
-const FeatureExperienceBlock = ({ block, data, units: defaultUnits = 'percentage' }) => {
+const FeatureExperienceBlock = ({ block, keys, data, units: defaultUnits = 'percentage_question' }) => {
     const [units, setUnits] = useState(defaultUnits)
     const [view, setView] = useState('viz')
 
@@ -25,7 +25,7 @@ const FeatureExperienceBlock = ({ block, data, units: defaultUnits = 'percentage
 
     const allYears = get(data, 'experience.all_years', [])
 
-    const bucketKeys = useLegends(block, data)
+    const bucketKeys = useLegends(block, keys)
 
     const mdnLink = mdn && `https://developer.mozilla.org${mdn.url}`
     // only show descriptions for english version
@@ -42,7 +42,7 @@ const FeatureExperienceBlock = ({ block, data, units: defaultUnits = 'percentage
       data.forEach(row => {
         const newRow = [];
         newRow.push({id: 'label', label: row.year});
-        row.buckets.forEach(bucket => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
+        row?.buckets?.forEach(bucket => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
         rows.push(newRow);
       });
       return rows;
@@ -52,7 +52,6 @@ const FeatureExperienceBlock = ({ block, data, units: defaultUnits = 'percentage
       headings: headings,
       rows: generateRows(allYears),
     }];
-
 
     return (
         <Block
@@ -75,7 +74,7 @@ const FeatureExperienceBlock = ({ block, data, units: defaultUnits = 'percentage
                         className="FeatureChart"
                     >
                         <GaugeBarChart
-                            buckets={year.buckets}
+                            buckets={year.facets[0].buckets}
                             colorMapping={bucketKeys}
                             units={units}
                             applyEmptyPatternTo="never_heard"

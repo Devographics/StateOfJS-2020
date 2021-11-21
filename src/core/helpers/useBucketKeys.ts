@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useTheme } from 'styled-components'
 import { keys } from 'core/bucket_keys'
 import { useI18n } from 'core/i18n/i18nContext'
+import { Block } from 'core/types/block'
 
 export const useBucketKeys = (bucketKeysId) => {
     const theme = useTheme()
@@ -31,22 +32,17 @@ export const useBucketKeys = (bucketKeysId) => {
     }, [keysConfig, theme, translate])
 }
 
-export const getBucketKeys = (block, data) => {
-    const keys = data.map(({ id }) => ({
-        id,
-        labelKey: `options.${block.id}.${id}`,
-        shortLabelKey: `options.${block.id}.${id}.short`,
-    }))
-    return keys
-}
-
-export const useLegends = (block, buckets = []) => {
+export const useLegends = (block: Block, keys: string[]) => {
+    if (!keys || keys.length === 0) {
+        return []
+    }
     const theme = useTheme()
     const { translate, getString } = useI18n()
 
     const colorRange = theme.colors.ranges[block.id]
-    const keys = getBucketKeys(block, buckets)
-    const legends = keys.map(({ id, labelKey, shortLabelKey }) => {
+    const legends = keys.map((id) => {
+        const labelKey = `options.${block.id}.${id}`
+        const shortLabelKey = `options.${block.id}.${id}.short`
         const label = translate(labelKey)
         const shortLabelObject = getString(shortLabelKey)
         const shortLabel = shortLabelObject.missing ? undefined : shortLabelObject.t

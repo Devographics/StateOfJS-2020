@@ -9,13 +9,15 @@ import ChartContainer from 'core/charts/ChartContainer'
 import variables from 'Config/variables.yml'
 
 const getChartData = (data, getName, translate) => {
-    const categories = variables.featuresCategories
+  const categories = variables.featuresCategories
     const sectionIds = Object.keys(categories)
     const sections = sectionIds.map((sectionId) => {
         const sectionFeatures = categories[sectionId]
         let features = data.filter((f) => sectionFeatures.includes(f.id))
         features = features.map((feature, index) => {
-            const buckets = get(feature, 'experience.year.buckets')
+
+            const buckets = get(feature, 'experience.year.facets.0.buckets')
+
             if (!buckets) {
                 throw new Error(`Feature “${feature.id}” does not have any data associated.`)
             }

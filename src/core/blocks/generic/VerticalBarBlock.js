@@ -8,7 +8,7 @@ import { usePageContext } from 'core/helpers/pageContext'
 import { useLegends } from 'core/helpers/useBucketKeys'
 import T from 'core/i18n/T'
 
-const VerticalBarBlock = ({ block, data }) => {
+const VerticalBarBlock = ({ block, data, keys }) => {
     if (!data) {
         throw new Error(
             `VerticalBarBlock: Missing data for block ${block.id}, page data is undefined`
@@ -30,24 +30,24 @@ const VerticalBarBlock = ({ block, data }) => {
     const [units, setUnits] = useState(defaultUnits)
     const [view, setView] = useState('viz')
 
-    const bucketKeys = useLegends(block, data.buckets)
+    const bucketKeys = useLegends(block, keys)
 
     const { buckets, completion } = data
 
     const { total } = completion
     
-    const sortedBuckets = bucketKeys.map(({ id: bucketKey }) => {
-        const bucket = buckets.find((b) => b.id === bucketKey)
-        if (bucket === undefined) {
-            return {
-                id: bucketKey,
-                count: 0,
-                percentage: 0,
-            }
-            // throw new Error(`no bucket found for key: '${bucketKey}' in block: ${block.id}`)
-        }
-        return bucket
-    })
+    // const sortedBuckets = bucketKeys.map(({ id: bucketKey }) => {
+    //     const bucket = buckets.find((b) => b.id === bucketKey)
+    //     if (bucket === undefined) {
+    //         return {
+    //             id: bucketKey,
+    //             count: 0,
+    //             percentage: 0,
+    //         }
+    //         // throw new Error(`no bucket found for key: '${bucketKey}' in block: ${block.id}`)
+    //     }
+    //     return bucket
+    // })
 
     return (
         <Block
@@ -77,7 +77,7 @@ const VerticalBarBlock = ({ block, data }) => {
                 <VerticalBarChart
                     bucketKeys={bucketKeys}
                     total={total}
-                    buckets={sortedBuckets}
+                    buckets={buckets}
                     i18nNamespace={i18nNamespace || id}
                     translateData={translateData}
                     mode={mode}

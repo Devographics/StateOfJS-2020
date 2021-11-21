@@ -3,7 +3,9 @@ const indentString = require('indent-string')
 const _ = require('lodash')
 const path = require('path')
 const fs = require('fs')
+const yaml = require('js-yaml')
 
+const fsPromises = fs.promises
 /*
 
 Get the localized version of a page path
@@ -53,6 +55,24 @@ Wrap query contents with query FooQuery {...}
 exports.wrapWithQuery = (queryName, queryContents) => `query ${queryName} {
   ${indentString(queryContents, 4)}
   }`
+
+/*
+
+Load a template yml file
+
+*/
+exports.loadTemplate = async (name) => {
+    const templatePath = `${path.join(__dirname, '../')}src/templates/${name}.yml`
+    try {
+        const data = await fsPromises.readFile(templatePath, 'utf8')
+        const yamlData = yaml.load(data)
+        yamlData.name = name
+        return yamlData
+    } catch (error) {
+        console.log(`// Error loading template ${name}`)
+        console.log(error)
+    }
+}
 
 /*
 

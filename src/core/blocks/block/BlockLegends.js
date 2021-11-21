@@ -25,7 +25,7 @@ const BlockLegends = ({
 }) => {
     const { id: blockId, bucketKeysName = blockId } = block
 
-    const blockLegends = useLegends(block, data.buckets)
+    const blockLegends = useLegends(block, data?.buckets)
 
     const rootStyle = { ...style }
 

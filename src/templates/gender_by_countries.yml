@@ -1,0 +1,46 @@
+blockType: VerticalBarBlock
+dataPath: "surveyApi.survey.demographics.${id}.year.facets.0"
+keysPath: "surveyApi.survey.demographics.${id}.keys"
+showDescription: true
+enableExport: true
+defaultUnits: percentage_survey
+query: >
+  surveyApi {
+    survey(survey: ${survey}) {
+        demographics {
+          all_gender: gender(filters: {}, options: {}, facet: null) {
+            keys
+            year(year: ${year}) {
+              year
+              facets {
+                id
+                type
+                buckets {
+                  id
+                  count
+                  percentage_question
+                  percentage_survey
+                }
+              }
+            }
+          }
+          gender_by_countries: gender(filters: {}, options: {}, facet: country) {
+            keys
+            year(year: ${year}) {
+              year
+              facets {
+                id
+                type
+                buckets {
+                  id
+                  count
+                  percentage_question
+                  percentage_survey
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }

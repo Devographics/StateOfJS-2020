@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { findIndex, findLastIndex, omit, template } = require('lodash')
 const yaml = require('js-yaml')
-const { getAllBlocks } = require('./helpers.js')
+const { getAllBlocks, loadTemplate } = require('./helpers.js')
 
 const rawPageTemplates = fs.readFileSync(
     `./surveys/${process.env.SURVEY}/config/page_templates.yml`,
@@ -31,16 +31,7 @@ const injectVariables = (yamlObject, variables, templateName) => {
     }
 }
 
-const applyTemplate = (block, templateName, rawTemplates, parent) => {
-    // load raw templates
-    const templates = yaml.load(rawTemplates)
-
-    // pick the corresponding template
-    const templateObject = templates[templateName]
-    if (!templateObject) {
-        throw new Error(`No template named "${templateName}" found.`)
-    }
-
+const applyTemplate = (block, templateObject, parent) => {
     // defines all available variables to be injected
     // at build time in the GraphQL queries
     const variables = {
@@ -56,7 +47,7 @@ const applyTemplate = (block, templateName, rawTemplates, parent) => {
         ...(block.pageVariables || {}),
     }
 
-    const populatedTemplate = injectVariables(templateObject, variables, templateName)
+    const populatedTemplate = injectVariables(templateObject, variables, templateObject.name)
 
     return {
         ...populatedTemplate,
@@ -64,11 +55,13 @@ const applyTemplate = (block, templateName, rawTemplates, parent) => {
     }
 }
 
-exports.pageFromConfig = (stack, item, parent, pageIndex) => {
+exports.pageFromConfig = async (stack, item, parent, pageIndex) => {
     try {
         // if template has been provided, apply it
         if (item.template) {
-            item = applyTemplate(item, item.template, rawPageTemplates, parent)
+            const template = await loadTemplate(item.template)
+
+            item = applyTemplate(item, template, parent)
         }
 
         const pagePath = item.path || `/${item.id}`
@@ -89,14 +82,17 @@ exports.pageFromConfig = (stack, item, parent, pageIndex) => {
         }
 
         if (Array.isArray(page.blocks)) {
-            page.blocks = page.blocks.map((block) => {
+            const blocks = []
+            for (const block of page.blocks) {
                 // everything that's not in block.variants is part of the main block
                 const { variants: variants_ = [], ...mainBlockConfig } = block
                 const blockVariants = [{ ...mainBlockConfig, isMainBlock: true }, ...variants_]
 
                 const blockPath = `${page.path}${block.id}/`
 
-                const variants = blockVariants.map((blockVariant) => {
+                const variants = []
+
+                for (let blockVariant of blockVariants) {
                     // if template has been provided, apply it
 
                     // if block has variables, inject them based on current page and global variables
@@ -116,12 +112,8 @@ exports.pageFromConfig = (stack, item, parent, pageIndex) => {
                     }
 
                     if (blockVariant.template) {
-                        blockVariant = applyTemplate(
-                            blockVariant,
-                            blockVariant.template,
-                            rawBlockTemplates,
-                            page
-                        )
+                        const template = await loadTemplate(blockVariant.template)
+                        blockVariant = applyTemplate(blockVariant, template, page)
                     }
 
                     // if block type is missing, get it from parent
@@ -133,11 +125,13 @@ exports.pageFromConfig = (stack, item, parent, pageIndex) => {
                         ? blockPath
                         : blockPath + `${blockVariant.id}/`
 
-                    return blockVariant
-                })
+                    variants.push(blockVariant)
+                }
 
-                return { id: block.id, variants }
-            })
+                blocks.push({ id: block.id, variants })
+            }
+
+            page.blocks = blocks
         }
 
         if (parent === undefined) {
@@ -146,8 +140,9 @@ exports.pageFromConfig = (stack, item, parent, pageIndex) => {
         stack.flat.push(page)
 
         if (Array.isArray(item.children)) {
-            item.children.forEach((child) => {
-                page.children.push(exports.pageFromConfig(stack, child, page, pageIndex))
+            item.children.forEach(async (child) => {
+                const pageChild = await exports.pageFromConfig(stack, child, page, pageIndex)
+                page.children.push(pageChild)
             })
         }
 
@@ -161,67 +156,59 @@ exports.pageFromConfig = (stack, item, parent, pageIndex) => {
 let computedSitemap = null
 
 exports.computeSitemap = async (rawSitemap, locales) => {
-    try {
-        if (computedSitemap !== null) {
-            return computedSitemap
-        }
-
-        const stack = {
-            flat: [],
-            hierarchy: [],
-        }
-
-        rawSitemap.forEach((item, pageIndex) => {
-            exports.pageFromConfig(stack, item, undefined, pageIndex)
-        })
-
-        // assign prev/next page using flat pages
-        stack.flat.forEach((page) => {
-            // if the page is hidden, do not generate pagination for it
-            if (page.is_hidden) return
-
-            const index = findIndex(stack.flat, (p) => p.path === page.path)
-            const previous = stack.flat[index - 1]
-
-            // we exclude hidden pages from pagination
-            if (previous !== undefined && previous.is_hidden !== true) {
-                page.previous = omit(previous, [
-                    'is_hidden',
-                    'previous',
-                    'next',
-                    'children',
-                    'blocks',
-                ])
-            }
-
-            const lastIndex = findLastIndex(stack.flat, (p) => p.path === page.path)
-            const next = stack.flat[lastIndex + 1]
-
-            // we exclude hidden pages from pagination
-            if (next !== undefined && next.is_hidden !== true) {
-                page.next = omit(next, ['is_hidden', 'previous', 'next', 'children', 'blocks'])
-            }
-        })
-
-        const now = new Date()
-        const sitemapContent = [
-            `###################################################################`,
-            `# DO NOT EDIT`,
-            `###################################################################`,
-            `# this file was generated by \`gatsby-node.js\``,
-            `# please edit \`raw_sitemap.yaml\` instead.`,
-            `# generated on: ${now.toISOString()}`,
-            `###################################################################`,
-            yaml.dump({ locales, contents: stack.hierarchy }, { noRefs: true }),
-        ].join('\n')
-        await fs.writeFileSync(`./surveys/${process.env.SURVEY}/config/sitemap.yml`, sitemapContent)
-        await fs.writeFileSync(
-            `./surveys/${process.env.SURVEY}/config/blocks.yml`,
-            yaml.dump(getAllBlocks({ contents: stack.hierarchy }), { noRefs: true })
-        )
-
-        return stack
-    } catch (error) {
-        throw new Error(error)
+    if (computedSitemap !== null) {
+        return computedSitemap
     }
+
+    const stack = {
+        flat: [],
+        hierarchy: [],
+    }
+
+    let pageIndex = 0
+    for (const item of rawSitemap) {
+        await exports.pageFromConfig(stack, item, undefined, pageIndex)
+        pageIndex++
+    }
+
+    // assign prev/next page using flat pages
+    stack.flat.forEach((page) => {
+        // if the page is hidden, do not generate pagination for it
+        if (page.is_hidden) return
+
+        const index = findIndex(stack.flat, (p) => p.path === page.path)
+        const previous = stack.flat[index - 1]
+
+        // we exclude hidden pages from pagination
+        if (previous !== undefined && previous.is_hidden !== true) {
+            page.previous = omit(previous, ['is_hidden', 'previous', 'next', 'children', 'blocks'])
+        }
+
+        const lastIndex = findLastIndex(stack.flat, (p) => p.path === page.path)
+        const next = stack.flat[lastIndex + 1]
+
+        // we exclude hidden pages from pagination
+        if (next !== undefined && next.is_hidden !== true) {
+            page.next = omit(next, ['is_hidden', 'previous', 'next', 'children', 'blocks'])
+        }
+    })
+
+    const now = new Date()
+    const sitemapContent = [
+        `###################################################################`,
+        `# DO NOT EDIT`,
+        `###################################################################`,
+        `# this file was generated by \`gatsby-node.js\``,
+        `# please edit \`raw_sitemap.yaml\` instead.`,
+        `# generated on: ${now.toISOString()}`,
+        `###################################################################`,
+        yaml.dump({ locales, contents: stack.hierarchy }, { noRefs: true }),
+    ].join('\n')
+    await fs.writeFileSync(`./surveys/${process.env.SURVEY}/config/sitemap.yml`, sitemapContent)
+    await fs.writeFileSync(
+        `./surveys/${process.env.SURVEY}/config/blocks.yml`,
+        yaml.dump(getAllBlocks({ contents: stack.hierarchy }), { noRefs: true })
+    )
+
+    return stack
 }
