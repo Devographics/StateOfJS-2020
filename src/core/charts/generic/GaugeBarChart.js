@@ -73,6 +73,7 @@ const GaugeBarChart = ({ buckets, colorMapping, units, applyEmptyPatternTo, i18n
                     [bucket.id]: bucket[units],
                     [`${bucket.id}_count`]: bucket.count,
                     [`${bucket.id}_percentage_survey`]: bucket.percentage_survey,
+                    [`${bucket.id}_percentage_facet`]: bucket.percentage_facet,
                     [`${bucket.id}_countDelta`]: bucket.countDelta,
                     [`${bucket.id}_percentageDelta`]: bucket.percentageDelta,
                 }
@@ -141,8 +142,9 @@ GaugeBarChart.propTypes = {
         PropTypes.shape({
             id: PropTypes.string.isRequired,
             count: PropTypes.number.isRequired,
-            percentage_survey: PropTypes.number.isRequired,
-            percentage_question: PropTypes.number.isRequired,
+            percentage_survey: PropTypes.number,
+            percentage_question: PropTypes.number,
+            percentage_facet: PropTypes.number,
         }).isRequired
     ).isRequired,
     colorMapping: PropTypes.arrayOf(
@@ -151,7 +153,7 @@ GaugeBarChart.propTypes = {
             color: PropTypes.string.isRequired,
         })
     ).isRequired,
-    units: PropTypes.oneOf(['count', 'percentage_survey', 'percentage_question']),
+    units: PropTypes.oneOf(['count', 'percentage_facet', 'percentage_survey', 'percentage_question']),
     applyEmptyPatternTo: PropTypes.string,
     i18nNamespace: PropTypes.string.isRequired,
 }

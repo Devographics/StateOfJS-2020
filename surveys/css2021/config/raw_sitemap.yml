@@ -108,17 +108,9 @@
 
     - id: gender
       template: demographics
-      # showLegend: true
       variants:
-        - id: most_gender_minorities_countries
-          template: demographics
-          blockType: HorizontalBarBlock
-          queryName: gender_by_countries
-          variables:
-            fieldId: country
-            filters: "{gender: {in: [female, non_binary, not_listed, prefer_not_to_say]}}"
-            options: "{cutoff: 20}"
-            facet: "gender"
+        - id: gender_by_countries
+          template: gender_by_countries
 
     - id: race_ethnicity
       template: demographics
@@ -139,22 +131,6 @@
     - id: user_info_resources
       items: [fm-homepage]
       template: recommended_resources
-
-- id: overview
-  path: /overview
-  blocks:
-    - id: overviewIntroduction
-      template: page_introduction
-      variables:
-        pageId: "${id}"
-    - id: toolsArrow
-      template: tools_arrows
-    - id: scatterplotOverview
-      template: scatterplot_overview
-    - id: overview_recommended_resources
-      template: recommended_resources
-      sponsors:
-        - fullstack-d3
 
 - id: features
   path: /features

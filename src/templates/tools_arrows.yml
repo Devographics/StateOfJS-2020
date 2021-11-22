@@ -16,9 +16,11 @@ query: >
                 experience {
                     keys
                     all_years {
-                        buckets {
-                            percentage_question
-                            id
+                        facets {
+                            buckets {
+                                percentage_question
+                                id
+                            }
                         }
                     }
                 }

@@ -18,12 +18,13 @@ query: >
                 experience {
                     keys
                     year(year:${currentYear}) {
-                        # total
-                        buckets{
-                            id
-                            count
-                            percentage_question
-                            percentage_survey
+                        facets {
+                            buckets{
+                                id
+                                count
+                                percentage_question
+                                percentage_survey
+                            }
                         }
                     }
                 }

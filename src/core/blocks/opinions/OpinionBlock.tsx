@@ -8,7 +8,7 @@ import ChartContainer from 'core/charts/ChartContainer'
 // @ts-ignore
 import StreamChart from 'core/charts/generic/StreamChart'
 // @ts-ignore
-import { useBucketKeys } from 'core/helpers/useBucketKeys'
+import { useBucketKeys, useLegends } from 'core/helpers/useBucketKeys'
 // @ts-ignore
 import { useI18n } from 'core/i18n/i18nContext'
 
@@ -17,23 +17,24 @@ const OPINION_BUCKET_KEYS_ID = 'opinions'
 interface OpinionBlockProps {
     block: BlockContext<'opinionTemplate', 'OpinionBlock'>
     data: OpinionAllYearsData
-    units: 'percentage' | 'count'
+    units: 'percentage_survey' | 'percentage_question' |'count'
+    keys: string[]
 }
 
 export const OpinionBlock = ({
     block,
     data,
-    units: defaultUnits = 'percentage',
+    keys,
+    units: defaultUnits = 'percentage_question',
 }: OpinionBlockProps) => {
     const { id } = block
     const [units, setUnits] = useState(defaultUnits)
     const [view, setView] = useState('viz')
     const [current, setCurrent] = useState<OpinionBucket['id'] | null>(null)
-    const bucketKeys: {
-        id: OpinionBucket['id']
-        color: string
-    }[] = useBucketKeys(OPINION_BUCKET_KEYS_ID)
+
     const { translate } = useI18n()
+
+    const bucketKeys = useLegends(block, keys, 'opinions')
 
     // fix potentially undefined buckets
     const normalizedData = useMemo(
@@ -41,7 +42,7 @@ export const OpinionBlock = ({
             data.map((yearData) => ({
                 ...yearData,
                 buckets: bucketKeys.map(({ id }) => {
-                    const matchingBucket = yearData.buckets.find((bucket) => bucket.id === id)
+                    const matchingBucket = yearData.facets[0].buckets.find((bucket) => bucket.id === id)
                     if (matchingBucket) {
                         return matchingBucket
                     }
@@ -64,7 +65,7 @@ export const OpinionBlock = ({
       data.forEach((row) => {
         const newRow = [];
         newRow.push({id: 'label', label: row.year});
-        row.buckets.forEach((bucket) => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
+        row.facets[0].buckets.forEach((bucket) => newRow.push({id: bucket.id, label: `${bucket.percentage_survey}% (${bucket.count})`}));
         rows.push(newRow);
       });
 

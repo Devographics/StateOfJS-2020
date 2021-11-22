@@ -17,10 +17,16 @@ export interface ToolsExperienceToolData {
     }
 }
 
+export interface ToolExperienceFacet {
+    type: string
+    id: string
+    buckets: ToolExperienceBucket[]
+}
+
 export interface ToolYearExperience {
     year: number
     total: number
-    buckets: ToolExperienceBucket[]
+    facets: ToolExperienceFacet[]
 }
 
 export interface ToolAllYearsExperience {

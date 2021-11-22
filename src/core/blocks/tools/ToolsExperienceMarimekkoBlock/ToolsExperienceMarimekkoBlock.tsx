@@ -25,9 +25,9 @@ const useNormalizedData = (
 ): ToolsExperienceMarimekkoToolData[] =>
     useMemo(() => {
         let data: ToolsExperienceMarimekkoToolData[] = rawData.map((tool) => {
-            const keyedBuckets = keyBy(get(tool, 'experience.year.buckets'), 'id')
+            const keyedBuckets = keyBy(get(tool, 'experience.year.facets.0.buckets'), 'id')
 
-            const total = get(tool, 'experience.year.total')
+            const total = get(tool, 'experience.year.completion.total')
             const aware = total - keyedBuckets.never_heard.count
 
             return {
@@ -81,7 +81,7 @@ export const ToolsExperienceMarimekkoBlock = ({
     const { translate } = useI18n()
 
     const headings = [{id: 'label', label: translate('tools.technology')}];
-    data[0].experience.year.buckets.forEach((bucket) => {
+    data[0].experience.year.facets[0].buckets.forEach((bucket) => {
       headings.push({id: bucket.id, label: translate(`options.tools.${bucket.id}.short`)});
     })
     
@@ -89,7 +89,7 @@ export const ToolsExperienceMarimekkoBlock = ({
       const rows = [];
       data.forEach((row) => {
         const newRow = [{id: 'label', label: row.entity.name}];
-        row.experience.year.buckets.forEach((bucket) => {
+        row.experience.year.facets[0].buckets.forEach((bucket) => {
           newRow.push({
             id: bucket.id,
             label: `${bucket.percentage}% (${bucket.count})`,

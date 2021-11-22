@@ -45,7 +45,7 @@ const Switcher = ({ setMetric, metric }: SwitcherProps) => {
 interface MetricBucket {
     year: number
     rank: number
-    percentage: number
+    percentage_question: number
 }
 
 interface ToolData extends Record<MetricId, MetricBucket[]> {
@@ -85,7 +85,7 @@ export const ToolsExperienceRankingBlock = ({
                         return {
                             x: bucket.year,
                             y: bucket.rank,
-                            percentage: bucket.percentage,
+                            percentage_question: bucket.percentage_question,
                         }
                     }),
                 }
@@ -109,7 +109,7 @@ export const ToolsExperienceRankingBlock = ({
         row[section].forEach((cell) => {
           newRow.push({
             id: `y_${cell.year}`,
-            label: cell.percentage ? `${cell.percentage}% (#${cell.rank})` : '-'
+            label: cell.percentage_question ? `${cell.percentage_question}% (#${cell.rank})` : '-'
           })
         });
         rows.push(newRow);

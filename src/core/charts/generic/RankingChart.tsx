@@ -13,7 +13,7 @@ export interface RankingChartDatum {
     y: number
     // percentage attached to a specific year
     // used to compute the rank
-    percentage: number
+    percentage_question: number
 }
 
 export interface RankingChartSerie {
@@ -60,7 +60,7 @@ const CustomPoint = ({
             />
             {!isInactive && (
                 <text textAnchor="middle" y={4} fill={theme.colors.text} fontSize="11px">
-                    {Math.round(data.percentage)}%
+                    {Math.round(data.percentage_question)}%
                 </text>
             )}
         </animated.g>

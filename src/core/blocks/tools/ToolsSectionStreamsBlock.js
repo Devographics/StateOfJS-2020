@@ -10,7 +10,13 @@ import range from 'lodash/range'
 import ToolLabel from 'core/charts/tools/ToolLabel'
 import { useI18n } from 'core/i18n/i18nContext'
 
-const ToolsSectionStreamsBlock = ({ block, data, triggerId, units: defaultUnits = 'percentage' }) => {
+const ToolsSectionStreamsBlock = ({
+    block,
+    data,
+    keys,
+    triggerId,
+    units: defaultUnits = 'percentage_question',
+}) => {
     const [units, setUnits] = useState(defaultUnits)
     const [view, setView] = useState('viz')
     const [current, setCurrent] = useState(null)
@@ -20,29 +26,33 @@ const ToolsSectionStreamsBlock = ({ block, data, triggerId, units: defaultUnits 
 
     const controlledCurrent = triggerId || current
 
-    let headings = [{id: 'label', label: translate('table.year')}];
-    headings = headings.concat(data[0].experience.all_years[0].buckets.map((bucket) => ({
-      id: bucket.id,
-      label: translate(`options.tools.${bucket.id}.short`),
-    })));
+    let headings = [{ id: 'label', label: translate('table.year') }]
+    headings = headings.concat(
+        data[0].experience.all_years[0].facets[0].buckets.map((bucket) => ({
+            id: bucket.id,
+            label: translate(`options.tools.${bucket.id}.short`),
+        }))
+    )
 
     const generateRows = (data) => {
-      const rows = [];
-      data.forEach(row => {
-        const newRow = [];
-        newRow.push({id: 'label', label: row.year});
-        row.buckets.forEach(bucket => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
-        rows.push(newRow);
-      });
-      return rows;
+        const rows = []
+        // data.forEach((row) => {
+        //     const newRow = []
+        //     newRow.push({ id: 'label', label: row.year })
+        //     row.facets[0].buckets.forEach((bucket) =>
+        //         newRow.push({ id: bucket.id, label: `${bucket.percentage}% (${bucket.count})` })
+        //     )
+        //     rows.push(newRow)
+        // })
+        return rows
     }
 
     const tables = data.map((table) => ({
-      id: table.id,
-      title: table.entity.name,
-      headings: headings,
-      rows: generateRows(table.experience.all_years),
-    }));
+        id: table.id,
+        title: table.entity.name,
+        headings: headings,
+        rows: generateRows(table.experience.all_years),
+    }))
 
     return (
         <Block
@@ -84,9 +94,8 @@ const ToolsSectionStreamsBlock = ({ block, data, triggerId, units: defaultUnits 
 }
 
 const Stream = ({ toolData, current, units }) => {
-    const chartData = toolData.experience.all_years
+    const chartData = toolData.experience.all_years.map(year => year.facets[0])
     const bucketKeys = useBucketKeys('tools')
-    
     const colors = useMemo(() => bucketKeys.map((key) => key.color), [bucketKeys])
 
     return (
@@ -107,7 +116,7 @@ const Stream = ({ toolData, current, units }) => {
                 height={160}
             />
             <StreamTitle>
-                <ToolLabel id={toolData.id}/>
+                <ToolLabel id={toolData.id} />
             </StreamTitle>
         </StreamItem>
     )

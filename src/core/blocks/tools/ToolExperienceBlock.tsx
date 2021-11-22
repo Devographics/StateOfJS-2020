@@ -20,16 +20,17 @@ const BAR_SPACING = 16
 interface ToolExperienceBlockProps {
     block: BlockContext<'toolExperienceTemplate', 'ToolExperienceBlock', { toolIds: string }>
     data: ToolAllYearsExperience
-    units?: 'percentage' | 'count'
+    units?: 'percentage_survey' | 'percentage_question' | 'count'
     closeComponent: any
 }
 
 export const ToolExperienceBlock = ({
     block,
     data,
-    units: defaultUnits = 'percentage',
-    closeComponent
+    units: defaultUnits = 'percentage_question',
+    closeComponent,
 }: ToolExperienceBlockProps) => {
+
     const context = usePageContext()
     const { locale } = context
     const { translate } = useI18n()
@@ -50,7 +51,7 @@ export const ToolExperienceBlock = ({
         () =>
             allYears.map((yearExperience, index) => {
                 const yearData: ToolExperienceBucket[] = bucketKeys.map((key: { id: string }) => {
-                    const matchingBucket = yearExperience.buckets.find(
+                    const matchingBucket = yearExperience.facets[0].buckets.find(
                         (bucket) => bucket.id === key.id
                     )
                     return (
@@ -79,27 +80,30 @@ export const ToolExperienceBlock = ({
 
     const chartHeight = (allYears.length - 1) * (BAR_THICKNESS + BAR_SPACING) + BAR_THICKNESS * 2
 
-
-    let headings = [{id: 'label', label: translate('table.year')}];
-    headings = headings.concat(bucketKeys);
+    let headings = [{ id: 'label', label: translate('table.year') }]
+    headings = headings.concat(bucketKeys)
 
     const generateRows = (data) => {
-      const rows = [];
-      data.forEach((row) => {
-        const newRow = [];
-        newRow.push({id: 'label', label: row.year});
-        row.buckets.forEach((bucket) => newRow.push({id: bucket.id, label: `${bucket.percentage}% (${bucket.count})`}));
-        rows.push(newRow);
-      });
+        const rows = []
+        data.forEach((row) => {
+            const newRow = []
+            newRow.push({ id: 'label', label: row.year })
+            row.facets[0].buckets.forEach((bucket) =>
+                newRow.push({ id: bucket.id, label: `${bucket.percentage}% (${bucket.count})` })
+            )
+            rows.push(newRow)
+        })
 
-      return rows;
+        return rows
     }
 
-    const tables = [{
-      headings: headings,
-      rows: generateRows(allYears),
-    }];
-    
+    const tables = [
+        {
+            headings: headings,
+            rows: generateRows(allYears),
+        },
+    ]
+
     return (
         <Block
             units={units}

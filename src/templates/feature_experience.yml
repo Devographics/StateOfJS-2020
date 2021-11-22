@@ -27,8 +27,6 @@ query: >
                             percentage_survey
                         }
                         facets{
-                            type
-                            id
                             buckets {
                                 id
                                 count

@@ -6,7 +6,10 @@ const BlockWrapper = (props) => {
     const { block, pageData, index: blockIndex } = props
     const { wrapBlock = true } = block
     const WrapperComponent = wrapBlock ? TabsWrapper : EmptyWrapper
-    return <WrapperComponent block={block} pageData={pageData} blockIndex={blockIndex} />
+    const isHidden = block.variants.every((v) => v.hidden)
+    return isHidden ? null : (
+        <WrapperComponent block={block} pageData={pageData} blockIndex={blockIndex} />
+    )
 }
 
 const BlockWrapperWithBoundary = (props) => (
@@ -16,4 +19,3 @@ const BlockWrapperWithBoundary = (props) => (
 )
 
 export default BlockWrapperWithBoundary
-

@@ -34,7 +34,7 @@ const TabsList = styled(Tabs.List)`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: ${spacing(2)};
+    padding-right: 52px;
 `
 
 const TabsTrigger = styled(Tabs.Trigger)`

@@ -1,7 +1,7 @@
 titleId: "happiness.${id}"
 # blockType: HappinessBlock
 blockType: VerticalBarBlock
-dataPath: "surveyApi.survey.${id}_happiness.year"
+dataPath: "surveyApi.survey.${id}_happiness.year.facets.0"
 keysPath: "surveyApi.survey.${id}_happiness.keys"
 showDescription: false
 i18nNamespace: happiness
@@ -21,11 +21,21 @@ query: >
                         count
                         percentage_survey
                     }
-                    buckets {
+                    facets {
                         id
-                        count
-                        percentage_question
-                        percentage_survey
+                        type
+                        completion {
+                            total
+                            percentage_question
+                            percentage_survey
+                            count
+                        }
+                        buckets {
+                            id
+                            count
+                            percentage_question
+                            percentage_survey
+                        }
                     }
                 }
             }

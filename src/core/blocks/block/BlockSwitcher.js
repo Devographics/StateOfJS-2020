@@ -24,6 +24,8 @@ const BlockSwitcher = ({ pageData, block, index, ...props }) => {
     if (block.dataPath) {
         blockData = get(pageData, block.dataPath)
         if (!blockData || blockData === null || isEmpty(blockData)) {
+            console.log(pageData)
+            console.log(block.dataPath)
             return (
                 <BlockError
                     block={block}

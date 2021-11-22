@@ -6,7 +6,7 @@ const stateOfCSSThemeColors: DefaultTheme['colors'] = {
     backgroundBackground: '#3E3036',
     backgroundForeground: colors.navyLighter,
     backgroundAlt: '#3E3036',
-    backgroundAlt2: 'green',
+    backgroundAlt2: '#3E3036',
     backgroundInverted: colors.greyTeal,
     backgroundInvertedAlt: '#FBFAE1',
     text: '#FFF6E6',

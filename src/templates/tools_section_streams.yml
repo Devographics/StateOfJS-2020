@@ -27,11 +27,13 @@ query: >
                             count
                             percentage_survey
                         }
-                        buckets {
-                            id
-                            count
-                            percentage_question
-                            percentage_survey
+                        facets {
+                            buckets {
+                                id
+                                count
+                                percentage_question
+                                percentage_survey
+                            }
                         }
                     }
                 }

@@ -6,11 +6,16 @@ export interface OpinionBucket {
     percentage: number
 }
 
+export interface OpinionYearFacet {
+    type: string
+    id: string
+    buckets: OpinionBucket[]
+}
 export interface OpinionYearData {
     year: number
     total: number
     completion: Completion
-    buckets: OpinionBucket[]
+    facets: OpinionYearFacet[]
 }
 
 export type OpinionAllYearsData = OpinionYearData[]
