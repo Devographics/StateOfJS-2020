@@ -18,7 +18,7 @@ const Table = ({ tables = [] }) => {
                                 <tr>
                                     {table.headings.map((heading) => (
                                         <th scope="col" key={heading.id} id={heading.id}>
-                                            <T k={heading.labelId}/>
+                                            <T k={heading.labelId} />
                                         </th>
                                     ))}
                                 </tr>
@@ -27,17 +27,20 @@ const Table = ({ tables = [] }) => {
                                 {table.rows.map((row, i) => {
                                     return (
                                         <tr key={i}>
-                                            {row.map(({label, value}, index) => {
-                                                return index === 0 ? (
-                                                    <th key={index} scope="row">
-                                                        {label}
-                                                    </th>
-                                                ) : (
-                                                    <td key={index}>
-                                                        {value}
-                                                    </td>
-                                                )
-                                            })}
+                                            {row.map(
+                                                (
+                                                    { label, labelId, value },
+                                                    index
+                                                ) => {
+                                                    return index === 0 ? (
+                                                        <th key={index} scope="row">
+                                                            {label ?? <T k={labelId} />}
+                                                        </th>
+                                                    ) : (
+                                                        <td key={index}>{value}</td>
+                                                    )
+                                                }
+                                            )}
                                         </tr>
                                     )
                                 })}

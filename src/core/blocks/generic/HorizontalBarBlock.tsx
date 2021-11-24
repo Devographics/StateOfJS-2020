@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import Block from 'core/blocks/block/BlockVariant'
 import ChartContainer from 'core/charts/ChartContainer'
 import HorizontalBarChart from 'core/charts/generic/HorizontalBarChart'
-import { useI18n } from 'core/i18n/i18nContext'
-import T from 'core/i18n/T'
 import { getTableData } from 'core/helpers/datatables'
 import { FacetItem, BlockComponentProps } from 'core/types'
 
@@ -18,7 +16,7 @@ const HorizontalBarBlock = ({ block, data }: HorizontalBarBlockProps) => {
         mode = 'relative',
         defaultUnits = 'percentage_survey',
         translateData,
-        i18nNamespace,
+        i18nNamespace = block.id,
         colorVariant,
     } = block
 
@@ -37,6 +35,8 @@ const HorizontalBarBlock = ({ block, data }: HorizontalBarBlockProps) => {
                 getTableData({
                     data: data.buckets,
                     valueKeys: ['percentage_survey', 'percentage_question', 'count'],
+                    translateData,
+                    i18nNamespace,
                 }),
             ]}
             block={block}
@@ -45,7 +45,7 @@ const HorizontalBarBlock = ({ block, data }: HorizontalBarBlockProps) => {
                 <HorizontalBarChart
                     total={total}
                     buckets={buckets}
-                    i18nNamespace={i18nNamespace || id}
+                    i18nNamespace={i18nNamespace}
                     translateData={translateData}
                     mode={mode}
                     units={units}

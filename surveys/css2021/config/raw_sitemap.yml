@@ -121,7 +121,7 @@
       blockType: HorizontalBarBlock
       translateData: true
       variants:
-        - id: disability_status_other
+        - id: disability_status_others
           template: demographics
           blockType: HorizontalBarBlock
           units: count

@@ -42,6 +42,7 @@ const VerticalBarBlock = ({ block, data, keys }: VerticalBarBlockProps) => {
                 legends: bucketKeys,
                 data: data.buckets,
                 valueKeys: ['percentage_survey', 'percentage_question', 'count'],
+                translateData
             })]}
             units={units}
             setUnits={setUnits}
