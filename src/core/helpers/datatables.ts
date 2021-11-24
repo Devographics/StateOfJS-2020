@@ -3,7 +3,7 @@ import { isPercentage } from 'core/helpers/units'
 
 interface TableParams {
     data: BucketItem[]
-    legends: BlockLegend[]
+    legends?: BlockLegend[]
     valueKeys: BlockUnits[]
 }
 
@@ -26,8 +26,8 @@ interface TableDataCell {
     isPercentage?: boolean
 }
 
-const getLabel = (legends: BlockLegend[], id: string | number) => {
-    const legend = legends.find((key) => key.id === id)
+const getLabel = (id: string | number, legends?: BlockLegend[]) => {
+    const legend = legends && legends.find((key) => key.id === id)
     return legend ? legend.shortLabel || legend.label : id
 }
 
@@ -44,7 +44,7 @@ export const getTableData = (params: TableParams): TableData => {
     const rows = data.map((row) => {
         const firstColumn: TableDataCell = {
             id: 'label',
-            label: getLabel(legends, row.id),
+            label: getLabel(row.id, legends),
         }
         const columns: TableDataCell[] = []
 

@@ -5,8 +5,14 @@ import ChartContainer from 'core/charts/ChartContainer'
 import HorizontalBarChart from 'core/charts/generic/HorizontalBarChart'
 import { useI18n } from 'core/i18n/i18nContext'
 import T from 'core/i18n/T'
+import { getTableData } from 'core/helpers/datatables'
+import { FacetItem, BlockComponentProps } from 'core/types'
 
-const HorizontalBarBlock = ({ block, data }) => {
+export interface HorizontalBarBlockProps extends BlockComponentProps {
+    data: FacetItem
+}
+
+const HorizontalBarBlock = ({ block, data }: HorizontalBarBlockProps) => {
     const {
         id,
         mode = 'relative',
@@ -17,45 +23,21 @@ const HorizontalBarBlock = ({ block, data }) => {
     } = block
 
     const [units, setUnits] = useState(defaultUnits)
-    
 
     const { completion, buckets } = data
 
     const { total } = completion
 
-    const { translate } = useI18n()
-
     return (
         <Block
-            
-            
             units={units}
             setUnits={setUnits}
             data={data}
             tables={[
-                {
-                    headings: [
-                        { id: 'label', label: <T k="table.label" /> },
-                        { id: 'percentage_survey', label: <T k="table.percentage" /> },
-                        { id: 'count', label: <T k="table.count" /> },
-                    ],
-                    rows: data.buckets.map((bucket) => [
-                        {
-                            id: 'label',
-                            label: bucket.entity
-                                ? bucket.entity.name
-                                : translate(`options.${i18nNamespace || id}.${bucket.id}`),
-                        },
-                        {
-                            id: 'percentage_survey',
-                            label: `${bucket.percentage_survey}%`,
-                        },
-                        {
-                            id: 'count',
-                            label: bucket.count,
-                        },
-                    ]),
-                },
+                getTableData({
+                    data: data.buckets,
+                    valueKeys: ['percentage_survey', 'percentage_question', 'count'],
+                }),
             ]}
             block={block}
         >

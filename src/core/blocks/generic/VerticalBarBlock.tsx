@@ -7,9 +7,8 @@ import VerticalBarChart from 'core/charts/generic/VerticalBarChart'
 import { usePageContext } from 'core/helpers/pageContext'
 import { useLegends } from 'core/helpers/useBucketKeys'
 import T from 'core/i18n/T'
-import { BlockComponentProps } from 'core/types/block'
-import { FacetItem } from 'core/types/data'
-import { getTableData } from 'core/entities/datatables'
+import { FacetItem, BlockComponentProps } from 'core/types'
+import { getTableData } from 'core/helpers/datatables'
 
 export interface VerticalBarBlockProps extends BlockComponentProps {
     data: FacetItem

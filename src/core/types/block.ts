@@ -6,7 +6,7 @@ export type BlockMode = 'absolute' | 'relative'
 
 export interface BlockComponentProps {
   block: BlockDefinition
-  keys: string[]
+  keys?: string[]
   // 'data' property is defined by each specific block
 }
 

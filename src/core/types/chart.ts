@@ -1,9 +1,9 @@
 import { BlockMode, BlockUnits, BlockLegend } from './block'
 
 export interface ChartComponentProps {
-  viewportWidth: number
+  viewportWidth?: number
   className?: string
-  bucketKeys: BlockLegend[]
+  bucketKeys?: BlockLegend[]
   total?: number
   i18nNamespace: string
   translateData?: boolean
