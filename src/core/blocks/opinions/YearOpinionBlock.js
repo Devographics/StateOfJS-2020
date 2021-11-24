@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react'
 import PropTypes from 'prop-types'
-import Block from 'core/blocks/block/Block'
+import Block from 'core/blocks/block/BlockVariant'
 import ChartContainer from 'core/charts/ChartContainer'
 import VerticalBarChart from 'core/charts/generic/VerticalBarChart'
 import { useI18n } from 'core/i18n/i18nContext'

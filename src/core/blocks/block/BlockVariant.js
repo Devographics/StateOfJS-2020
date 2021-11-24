@@ -11,7 +11,8 @@ import BlockShare from 'core/blocks/block/BlockShare'
 import { ChartIcon, DataIcon, ShareIcon } from 'core/icons'
 import { ErrorBoundary } from 'core/blocks/block/BlockError'
 
-const Block = (props) => {
+
+const BlockVariant = (props) => {
     const {
         isShareable,
         className,
@@ -162,7 +163,7 @@ const SideArea = styled.div`
         repeat;
 `
 
-Block.propTypes = {
+BlockVariant.propTypes = {
     block: PropTypes.shape({
         id: PropTypes.string.isRequired,
         title: PropTypes.node,
@@ -172,9 +173,9 @@ Block.propTypes = {
     className: PropTypes.string,
     values: PropTypes.object,
 }
-Block.defaultProps = {
+BlockVariant.defaultProps = {
     showDescription: true,
     isShareable: true,
 }
 
-export default memo(Block)
+export default memo(BlockVariant)

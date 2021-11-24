@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import get from 'lodash/get'
 import compact from 'lodash/compact'
-import Block from 'core/blocks/block/Block'
+import Block from 'core/blocks/block/BlockVariant'
 import FeaturesOverviewCirclePackingChart from 'core/charts/features/FeaturesOverviewCirclePackingChart'
 import { useI18n } from 'core/i18n/i18nContext'
 import { useEntities } from 'core/entities/entitiesContext'

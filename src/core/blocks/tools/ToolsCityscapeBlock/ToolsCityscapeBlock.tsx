@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 // @ts-ignore
-import Block from 'core/blocks/block/Block'
+import Block from 'core/blocks/block/BlockVariant'
 import { BlockContext } from 'core/blocks/types'
 // @ts-ignore
 import variables from 'Config/variables.yml'

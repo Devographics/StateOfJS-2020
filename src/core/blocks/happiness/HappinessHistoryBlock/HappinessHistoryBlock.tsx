@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 // @ts-ignore
-import Block from 'core/blocks/block/Block'
+import Block from 'core/blocks/block/BlockVariant'
 import { BlockContext } from 'core/blocks/types'
 import { HappinessYearMean } from 'core/survey_api/happiness'
 import { HappinessHistoryChart } from './HappinessHistoryChart'

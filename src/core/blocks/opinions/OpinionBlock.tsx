@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import { BlockContext } from 'core/blocks/types'
 import { OpinionBucket, OpinionAllYearsData } from 'core/survey_api/opinions'
 // @ts-ignore
-import Block from 'core/blocks/block/Block'
+import Block from 'core/blocks/block/BlockVariant'
 // @ts-ignore
 import ChartContainer from 'core/charts/ChartContainer'
 // @ts-ignore
