@@ -28,7 +28,7 @@ const KnowledgeScoreBlock = ({ block, data }) => {
     const { width } = context
 
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
 
     const { buckets, total, completion } = data
 
@@ -78,8 +78,8 @@ const KnowledgeScoreBlock = ({ block, data }) => {
     return (
         <Block
             tables={tables}
-            view={view}
-            setView={setView}
+            
+            
             units={units}
             setUnits={setUnits}
             completion={completion}

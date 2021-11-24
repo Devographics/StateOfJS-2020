@@ -198,7 +198,7 @@ const BlockTitleActions = ({
 const BlockTitleSwitcher = ({ switcher, units, setUnits, view, setView }) => (
     <ButtonWrapper cols={(view && units) || (view && switcher)}>
         {view && <BlockChartControls className="BlockChartControls">
-          <BlockViewSelector view={view} setView={(clickedView)=>{setView(clickedView)}} />
+          <BlockViewSelector  setView={(clickedView)=>{setView(clickedView)}} />
         </BlockChartControls>}
         {switcher ? (
             <BlockChartControls className="BlockChartControls">{switcher}</BlockChartControls>

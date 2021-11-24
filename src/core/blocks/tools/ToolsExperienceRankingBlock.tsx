@@ -131,8 +131,8 @@ export const ToolsExperienceRankingBlock = ({
     
     return (
         <Block
-            view={view}
-            setView={setView}
+            
+            
             block={block}
             titleProps={{ switcher: <Switcher setMetric={setMetric} metric={controlledMetric} /> }}
             data={data}

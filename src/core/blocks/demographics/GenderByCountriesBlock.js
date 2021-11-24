@@ -31,7 +31,7 @@ const GenderByCountries = ({ block, data, keys }) => {
     } = block
 
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
 
     const { translate } = useI18n()
 
@@ -62,8 +62,8 @@ const GenderByCountries = ({ block, data, keys }) => {
 
     return (
         <Block
-            view={view}
-            setView={setView}
+            
+            
             units={units}
             setUnits={setUnits}
             data={data}

@@ -16,7 +16,7 @@ const parseMDNLinks = (content) =>
 
 const FeatureExperienceBlock = ({ block, keys, data, units: defaultUnits = 'percentage_question' }) => {
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
 
     const context = usePageContext()
     const { locale } = context
@@ -57,8 +57,8 @@ const FeatureExperienceBlock = ({ block, keys, data, units: defaultUnits = 'perc
         <Block
             tables={tables}
             headings={headings}
-            view={view}
-            setView={setView}
+            
+            
             title={name}
             units={units}
             setUnits={setUnits}

@@ -11,7 +11,7 @@ import T from 'core/i18n/T'
 const GenderBlock = ({ block, data }) => {
     const { units: defaultUnits = 'percentage_survey' } = block
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
     const theme = useTheme()
 
     const colorMapping = useMemo(
@@ -27,8 +27,8 @@ const GenderBlock = ({ block, data }) => {
 
     return (
         <Block 
-          view={view}
-          setView={setView}
+          
+          
           units={units}
           setUnits={setUnits}
           data={data.buckets}

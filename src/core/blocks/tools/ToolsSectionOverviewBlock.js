@@ -7,7 +7,7 @@ import ToolsSectionOverviewChart from 'core/charts/tools/ToolsSectionOverviewCha
 
 const ToolsSectionOverviewBlock = ({ block, data, units: defaultUnits = 'percentage' }) => {
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
     const [current, setCurrent] = useState(null)
     const { id, bucketKeysName = id } = block
 
@@ -29,8 +29,8 @@ const ToolsSectionOverviewBlock = ({ block, data, units: defaultUnits = 'percent
 
     return (
         <Block
-            view={view}
-            setView={setView}
+            
+            
             units={units}
             setUnits={setUnits}
             block={{

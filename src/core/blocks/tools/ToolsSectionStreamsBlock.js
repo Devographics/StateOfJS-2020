@@ -18,7 +18,7 @@ const ToolsSectionStreamsBlock = ({
     units: defaultUnits = 'percentage_question',
 }) => {
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
     const [current, setCurrent] = useState(null)
     const { translate } = useI18n()
 
@@ -57,8 +57,8 @@ const ToolsSectionStreamsBlock = ({
     return (
         <Block
             tables={tables}
-            view={view}
-            setView={setView}
+            
+            
             units={units}
             setUnits={setUnits}
             block={{

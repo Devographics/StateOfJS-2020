@@ -11,10 +11,8 @@ import BlockShare from 'core/blocks/block/BlockShare'
 import { ChartIcon, DataIcon, ShareIcon } from 'core/icons'
 import { ErrorBoundary } from 'core/blocks/block/BlockError'
 
-
 const BlockVariant = (props) => {
     const {
-        isShareable,
         className,
         children,
         units,
@@ -30,14 +28,8 @@ const BlockVariant = (props) => {
     
     const {
         id,
-        showLegend,
-        legendPosition = 'bottom',
-        showTitle = true,
-        showNote = true,
-        overrides = {},
     } = block
 
-    const BlockTitle = overrides.BlockTitle || BlockTitleOriginal
 
     return (
         <Container
@@ -51,12 +43,12 @@ const BlockVariant = (props) => {
                     setUnits={setUnits}
                     data={data}
                     block={block}
-                    view={view}
-                    setView={setView}
+                    
+                    
                     {...titleProps}
                 />
             )} */}
-            {isShareable && <ShareBlockDebug block={block} />}
+            <ShareBlockDebug block={block} />
 
             <TabsRoot defaultValue="chart" orientation="vertical">
                 <SideArea>

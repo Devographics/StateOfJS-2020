@@ -36,7 +36,7 @@ export const ToolExperienceBlock = ({
     const { translate } = useI18n()
 
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
 
     const title = data.entity.name
     const titleLink = data.entity.homepage
@@ -111,8 +111,8 @@ export const ToolExperienceBlock = ({
             block={{ ...block, title, titleLink, description, showDescription: !!description }}
             data={allYears}
             titleProps={{ closeComponent }}
-            view={view}
-            setView={setView}
+            
+            
             tables={tables}
         >
             <ChartContainer height={chartHeight} fit>

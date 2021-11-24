@@ -17,7 +17,7 @@ const HorizontalBarBlock = ({ block, data }) => {
     } = block
 
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
 
     const { completion, buckets } = data
 
@@ -27,8 +27,8 @@ const HorizontalBarBlock = ({ block, data }) => {
 
     return (
         <Block
-            view={view}
-            setView={setView}
+            
+            
             units={units}
             setUnits={setUnits}
             data={data}

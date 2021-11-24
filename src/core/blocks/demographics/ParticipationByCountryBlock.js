@@ -13,7 +13,7 @@ const ParticipationByCountryBlock = ({
     units: defaultUnits = 'percentage_survey',
 }) => {
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
 
     const chartClassName = triggerId ? `ParticipationByCountryChart--${triggerId}` : ''
 
@@ -34,7 +34,7 @@ const ParticipationByCountryBlock = ({
     }];
 
     return (
-        <Block tables={tables} view={view} setView={setView} units={units} setUnits={setUnits} data={data} block={block}>
+        <Block tables={tables}   units={units} setUnits={setUnits} data={data} block={block}>
             <ChartContainer height={600}>
                 <div
                     style={{ height: '100%' }}

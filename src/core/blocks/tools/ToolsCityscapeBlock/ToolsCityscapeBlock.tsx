@@ -148,7 +148,7 @@ export const ToolsCityscapeBlock = ({
     const theme = useTheme()
 
     const [units, setUnits] = useState(defaultUnits)
-    const [view, setView] = useState('viz')
+    
 
     const chartData = getChartData(data, theme)
 
@@ -163,8 +163,8 @@ export const ToolsCityscapeBlock = ({
 
     return (
         <Block
-            view={view}
-            setView={setView}
+            
+            
             units={units}
             setUnits={setUnits}
             block={{
